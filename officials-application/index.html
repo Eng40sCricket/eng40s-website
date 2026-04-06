@@ -31,159 +31,24 @@
             </div>
         </section>
 
-        <!-- Application form -->
+        <!-- Apply Now section — mirrors the player form pattern -->
         <section class="section">
+            <div class="container" style="text-align: center;">
+                <h2 class="section-title">Apply Now</h2>
+                <p>If you are an experienced umpire, scorer, or match official and would like to be considered, please complete our application form. We welcome applications from all suitably qualified officials.</p>
+                <a href="https://form.jotform.com/260956638242060" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 16px;"><i class="fas fa-external-link-alt"></i> Open Officials Application Form</a>
+            </div>
+        </section>
+
+        <!-- Link back to Player Portal -->
+        <section class="section section-light">
             <div class="container">
-                <div class="officials-form-wrapper">
-                    <h2 class="section-title"><i class="fas fa-clipboard-list"></i> Application Form</h2>
-
-                    <form id="officials-application-form" class="officials-form" action="https://formspree.io/f/placeholder" method="POST">
-
-                        <!-- Role selection -->
-                        <fieldset class="form-fieldset">
-                            <legend>Role</legend>
-                            <div class="radio-group">
-                                <label class="radio-label">
-                                    <input type="radio" name="role" value="Umpire" required>
-                                    <span class="radio-custom"></span>
-                                    <span>Umpire</span>
-                                </label>
-                                <label class="radio-label">
-                                    <input type="radio" name="role" value="Scorer">
-                                    <span class="radio-custom"></span>
-                                    <span>Scorer</span>
-                                </label>
-                                <label class="radio-label">
-                                    <input type="radio" name="role" value="Other Official">
-                                    <span class="radio-custom"></span>
-                                    <span>Other Official</span>
-                                </label>
-                            </div>
-                        </fieldset>
-
-                        <!-- Personal details -->
-                        <fieldset class="form-fieldset">
-                            <legend>Personal Details</legend>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="full-name">Full Name <span class="required">*</span></label>
-                                    <input type="text" id="full-name" name="full_name" required placeholder="e.g. John Smith">
-                                </div>
-                            </div>
-
-                            <div class="form-row form-row-2col">
-                                <div class="form-group">
-                                    <label for="email">Email Address <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" required placeholder="e.g. john.smith@email.com">
-                                </div>
-                                <div class="form-group">
-                                    <label for="mobile">Mobile Number <span class="required">*</span></label>
-                                    <input type="tel" id="mobile" name="mobile" required placeholder="e.g. 07700 900000">
-                                </div>
-                            </div>
-
-                            <div class="form-row form-row-2col">
-                                <div class="form-group">
-                                    <label for="club">Club</label>
-                                    <input type="text" id="club" name="club" placeholder="e.g. Anytown CC">
-                                </div>
-                                <div class="form-group">
-                                    <label for="county-region">County / Region <span class="required">*</span></label>
-                                    <input type="text" id="county-region" name="county_region" required placeholder="e.g. Yorkshire">
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <!-- Experience & qualifications -->
-                        <fieldset class="form-fieldset">
-                            <legend>Experience &amp; Qualifications</legend>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="current-level">Current Officiating / Scoring Level <span class="required">*</span></label>
-                                    <input type="text" id="current-level" name="current_level" required placeholder="e.g. ECB Panel Umpire, Premier League Scorer">
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="qualifications">Qualifications / Accreditations</label>
-                                    <textarea id="qualifications" name="qualifications" rows="3" placeholder="e.g. ECB ACO Level 2, ECB Scorer Certification, etc."></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="competitions">Competitions Worked In Recently <span class="required">*</span></label>
-                                    <textarea id="competitions" name="competitions" rows="3" required placeholder="e.g. County Premier League, National Counties Trophy, Minor Counties Championship"></textarea>
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <!-- Technology experience (scorers) -->
-                        <fieldset class="form-fieldset">
-                            <legend>Scoring Technology Experience</legend>
-                            <p class="fieldset-note">Particularly relevant for scorer applicants, but all officials are welcome to complete this section.</p>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="pcs-pro">Experience with PCS Pro</label>
-                                    <select id="pcs-pro" name="pcs_pro_experience">
-                                        <option value="" selected>Please select</option>
-                                        <option value="Extensive - regular use">Extensive &mdash; regular use</option>
-                                        <option value="Moderate - used occasionally">Moderate &mdash; used occasionally</option>
-                                        <option value="Basic - limited experience">Basic &mdash; limited experience</option>
-                                        <option value="None">None</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="nv-play">Experience with NV Play or Live-Stream-Linked Scoring</label>
-                                    <select id="nv-play" name="nv_play_experience">
-                                        <option value="" selected>Please select</option>
-                                        <option value="Extensive - regular use alongside streaming">Extensive &mdash; regular use alongside streaming</option>
-                                        <option value="Moderate - some experience">Moderate &mdash; some experience</option>
-                                        <option value="Basic - aware but limited use">Basic &mdash; aware but limited use</option>
-                                        <option value="None">None</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <!-- Availability & statement -->
-                        <fieldset class="form-fieldset">
-                            <legend>Availability &amp; Supporting Statement</legend>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="availability">Availability <span class="required">*</span></label>
-                                    <textarea id="availability" name="availability" rows="3" required placeholder="e.g. Available for most home fixtures May–September. Also available for the Guyana World Cup in October 2026."></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="supporting-statement">Short Supporting Statement <span class="required">*</span></label>
-                                    <textarea id="supporting-statement" name="supporting_statement" rows="5" required placeholder="Please briefly outline your experience, why you are interested in officiating for England Over 40s, and anything else you feel is relevant."></textarea>
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <!-- Volunteer acknowledgement -->
-                        <div class="volunteer-notice">
-                            <i class="fas fa-info-circle"></i>
-                            <p>England Over 40s Cricket is a volunteer-led, not-for-profit organisation. Reasonable expenses or remuneration may be available broadly in line with usual Premier League rates, depending on the role and appointment. This will be discussed individually with successful applicants.</p>
-                        </div>
-
-                        <!-- Submit -->
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-paper-plane"></i> Submit Application</button>
-                        </div>
-
-                    </form>
+                <div class="officials-cta-panel">
+                    <div class="officials-cta-content">
+                        <h3><i class="fas fa-user-plus"></i> Player Applications</h3>
+                        <p>If you are a player rather than an official, please visit the Player Portal to register your interest in representing England Over 40s.</p>
+                    </div>
+                    <a href="../player-portal/index.html" class="btn btn-secondary"><i class="fas fa-arrow-right"></i> Player Portal</a>
                 </div>
             </div>
         </section>
@@ -192,57 +57,5 @@
     <div id="footer-placeholder"></div>
 
     <script src="../assets/js/main.js"></script>
-    <script>
-        // Form submission handler — sends data via email
-        document.getElementById('officials-application-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => { data[key] = value; });
-
-            // Build mailto body
-            const subject = encodeURIComponent('Officials Application – ' + (data.role || 'Unknown Role') + ' – ' + (data.full_name || 'Unknown'));
-            const bodyLines = [
-                'OFFICIALS APPLICATION – ENGLAND OVER 40s CRICKET',
-                '================================================',
-                '',
-                'Role: ' + (data.role || ''),
-                '',
-                'PERSONAL DETAILS',
-                'Full Name: ' + (data.full_name || ''),
-                'Email: ' + (data.email || ''),
-                'Mobile: ' + (data.mobile || ''),
-                'Club: ' + (data.club || ''),
-                'County / Region: ' + (data.county_region || ''),
-                '',
-                'EXPERIENCE & QUALIFICATIONS',
-                'Current Level: ' + (data.current_level || ''),
-                'Qualifications: ' + (data.qualifications || ''),
-                'Competitions: ' + (data.competitions || ''),
-                '',
-                'SCORING TECHNOLOGY',
-                'PCS Pro Experience: ' + (data.pcs_pro_experience || 'Not specified'),
-                'NV Play Experience: ' + (data.nv_play_experience || 'Not specified'),
-                '',
-                'AVAILABILITY & STATEMENT',
-                'Availability: ' + (data.availability || ''),
-                'Supporting Statement: ' + (data.supporting_statement || '')
-            ];
-            const body = encodeURIComponent(bodyLines.join('\n'));
-
-            window.location.href = 'mailto:Englandover40scricket@outlook.com?subject=' + subject + '&body=' + body;
-
-            // Show confirmation
-            const btn = this.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i> Opening Email Client...';
-            btn.disabled = true;
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }, 4000);
-        });
-    </script>
 </body>
 </html>
