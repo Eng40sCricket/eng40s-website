@@ -611,17 +611,47 @@ body {
 }
 
 /* ============================================
-   HOMEPAGE CARDS SECTION - Warm background with texture
+   HOMEPAGE CARDS SECTION - Photographic background treatment
    ============================================ */
 .homepage-cards-section {
+    padding: 60px 0 80px;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-cream);
+}
+
+/* Photographic backdrop layer */
+.homepage-cards-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        url('../img/photos/scenic-english-ground.jpg') center center / cover no-repeat;
+    opacity: 0.045;
+    filter: saturate(0.3) contrast(1.1);
+    z-index: 0;
+}
+
+/* Gradient overlay: cream top, subtle navy-blue tint bottom */
+.homepage-cards-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
     background:
         linear-gradient(
             180deg,
-            var(--color-cream) 0%,
-            var(--color-warm-grey) 100%
+            rgba(250, 248, 245, 0.92) 0%,
+            rgba(250, 248, 245, 0.80) 30%,
+            rgba(234, 234, 234, 0.75) 60%,
+            rgba(0, 20, 137, 0.06) 100%
         );
-    padding: 60px 0 80px;
+    z-index: 0;
+}
+
+/* Ensure content sits above the backdrop layers */
+.homepage-cards-section > .container {
     position: relative;
+    z-index: 1;
 }
 
 .homepage-preview-grid {
