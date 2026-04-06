@@ -420,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${story.category ? `<span class="category-badge">${story.category}</span>` : ''}
                     <h3>${story.title}</h3>
                     <span class="date">${new Date(story.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                    <p>${story.summary               </div>
+                    <p>${story.summary}</p>               </div>
             `).join('');
         } else if (latestNewsGrid) {
             latestNewsGrid.innerHTML = `<div class="text-center">No other news available.</div>`;
