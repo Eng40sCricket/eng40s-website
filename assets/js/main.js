@@ -1,4 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Determine base path for GitHub Pages
+    const getBasePath = () => {
+        const path = window.location.pathname;
+        const parts = path.split("/");
+        // If hosted at https://<username>.github.io/<repository-name>/, parts[1] will be <repository-name>
+        // If hosted at https://<username>.github.io/, parts[1] will be empty
+        if (parts.length > 1 && parts[1] === "eng40s-website") { // Explicitly check for repository name
+            return "/" + parts[1];
+        }
+        return "";
+    };
+    const basePath = getBasePath();
+
     // Function to load HTML content into a target element
     const loadComponent = async (url, targetId) => {
         try {
@@ -18,19 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Determine base path for GitHub Pages
-    const getBasePath = () => {
-        const path = window.location.pathname;
-        const parts = path.split("/");
-        // If hosted at https://<username>.github.io/<repository-name>/, parts[1] will be <repository-name>
-        // If hosted at https://<username>.github.io/, parts[1] will be empty
-        if (parts.length > 1 && parts[1] !== "") {
-            return "/" + parts[1];
-        }
-        return "";
-    };
-    const basePath = getBasePath();
-
     // Load header and footer with repository-aware paths
     loadComponent(`${basePath}/components/header.html`, "header-placeholder");
     loadComponent(`${basePath}/components/footer.html`, "footer-placeholder");
@@ -42,14 +42,14 @@ document.addEventListener("DOMContentLoaded", () => {
         navLinks.forEach(link => {
             const href = link.getAttribute("href");
             // Adjust href for GitHub Pages subpath
-            const adjustedHref = `${basePath}${href.startsWith('/') ? href : '/' + href}`;
+            const adjustedHref = `${basePath}${href}`.replace(/\/index\.html$/, ""); // Remove /index.html for comparison
 
             const cleanedCurrentPath = currentPath.endsWith("/") ? currentPath.slice(0, -1) : currentPath;
             const cleanedAdjustedHref = adjustedHref.endsWith("/") ? adjustedHref.slice(0, -1) : adjustedHref;
 
-            if (cleanedAdjustedHref === cleanedCurrentPath || (cleanedCurrentPath === basePath && cleanedAdjustedHref === `${basePath}/index.html`)) {
+            if (cleanedAdjustedHref === cleanedCurrentPath || (cleanedCurrentPath === basePath && cleanedAdjustedHref === basePath) || (cleanedCurrentPath === `${basePath}/` && cleanedAdjustedHref === basePath)) { // Match root or base path
                 link.classList.add("active");
-            } else if (cleanedCurrentPath.startsWith(cleanedAdjustedHref) && cleanedAdjustedHref !== `${basePath}/index.html`) {
+            } else if (cleanedCurrentPath.startsWith(cleanedAdjustedHref) && cleanedAdjustedHref !== basePath && cleanedAdjustedHref !== `${basePath}/`) {
                 link.classList.add("active");
             }
         });
