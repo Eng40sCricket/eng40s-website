@@ -1,0 +1,28 @@
+[
+  {
+    "id": "r1",
+    "date": "2025-08-20",
+    "homeTeam": "England Over 40s",
+    "awayTeam": "Scotland Over 40s",
+    "homeScore": "245/6",
+    "awayScore": "180/10",
+    "result": "England won by 65 runs",
+    "venue": "Grange CC, Edinburgh",
+    "matchType": "ODI",
+    "season": "2025",
+    "playCricketUrl": "https://englandover40s.play-cricket.com/website/results/past1"
+  },
+  {
+    "id": "r2",
+    "date": "2024-07-15",
+    "homeTeam": "England Over 40s",
+    "awayTeam": "Ireland Over 40s",
+    "homeScore": "210/8",
+    "awayScore": "211/4",
+    "result": "Ireland won by 6 wickets",
+    "venue": "Stormont, Belfast",
+    "matchType": "ODI",
+    "season": "2024",
+    "playCricketUrl": "https://englandover40s.play-cricket.com/website/results/past2"
+  }
+]

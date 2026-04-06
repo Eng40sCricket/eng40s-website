@@ -1,0 +1,29 @@
+[
+  {
+    "id": "news-1",
+    "title": "England Over 40s Announce 2026 Performance Squad",
+    "date": "2026-03-28",
+    "summary": "The England Over 40s Cricket management has unveiled the 50-man performance squad for the 2026 season, with a strong focus on preparation for the IMC World Cup in Guyana.",
+    "category": "Squad Announcement",
+    "imageUrl": "./assets/img/gallery/news-squad-announcement.jpg",
+    "featured": true
+  },
+  {
+    "id": "news-2",
+    "title": "World Cup Preparations Intensify with Training Camps",
+    "date": "2026-03-20",
+    "summary": "Players from the England Over 40s performance squad are undergoing rigorous training camps across the country as they fine-tune their skills for the upcoming World Cup challenge.",
+    "category": "World Cup",
+    "imageUrl": "./assets/img/gallery/news-training-camp.jpg",
+    "featured": false
+  },
+  {
+    "id": "news-3",
+    "title": "New Partnership with Local Cricket Clubs Announced",
+    "date": "2026-03-10",
+    "summary": "England Over 40s Cricket is proud to announce new partnerships with several local cricket clubs, aimed at fostering grassroots development and engagement within the over 40s community.",
+    "category": "Partnership",
+    "imageUrl": "./assets/img/gallery/news-partnerships.jpg",
+    "featured": false
+  }
+]

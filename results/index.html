@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>England Over 40s Cricket - Results Archive</title>
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1>Results Archive</h1>
+                <p>A historical record of England Over 40s matches and achievements.</p>
+            </div>
+        </section>
+
+        <section class="section section-light">
+            <div class="container">
+                <div class="filter-bar">
+                    <select id="season-filter" class="filter-select">
+                        <option value="all">All Seasons</option>
+                    </select>
+                    <select id="opponent-filter" class="filter-select">
+                        <option value="all">All Opponents</option>
+                    </select>
+                    <select id="competition-filter" class="filter-select">
+                        <option value="all">All Competitions</option>
+                    </select>
+                    <select id="result-filter" class="filter-select">
+                        <option value="all">All Results</option>
+                        <option value="Won">Won</option>
+                        <option value="Lost">Lost</option>
+                        <option value="Drawn">Drawn</option>
+                    </select>
+                    <input type="text" id="search-filter" class="filter-search" placeholder="Search by team or venue...">
+                </div>
+
+                <div id="result-list" class="match-list">
+                    <!-- Results will be dynamically loaded here -->
+                    <div class="text-center">Loading results...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>
