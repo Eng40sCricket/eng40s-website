@@ -612,6 +612,7 @@ body {
 
 /* ============================================
    HOMEPAGE CARDS SECTION - Photographic background treatment
+   Uses cricket-ground-panorama.webp (IMG_8656)
    ============================================ */
 .homepage-cards-section {
     padding: 60px 0 80px;
@@ -620,19 +621,19 @@ body {
     background-color: var(--color-cream);
 }
 
-/* Photographic backdrop layer */
+/* Photographic backdrop layer — wide cricket ground panorama */
 .homepage-cards-section::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-        url('../img/photos/scenic-english-ground.jpg') center center / cover no-repeat;
-    opacity: 0.045;
-    filter: saturate(0.3) contrast(1.1);
+        url('../img/photos/cricket-ground-panorama.webp') center 40% / cover no-repeat;
+    opacity: 0.06;
+    filter: saturate(0.35) contrast(1.05) blur(1px);
     z-index: 0;
 }
 
-/* Gradient overlay: cream top, subtle navy-blue tint bottom */
+/* Gradient overlay: warm cream fade with subtle England navy tint at base */
 .homepage-cards-section::after {
     content: '';
     position: absolute;
@@ -640,10 +641,10 @@ body {
     background:
         linear-gradient(
             180deg,
-            rgba(250, 248, 245, 0.92) 0%,
-            rgba(250, 248, 245, 0.80) 30%,
-            rgba(234, 234, 234, 0.75) 60%,
-            rgba(0, 20, 137, 0.06) 100%
+            rgba(250, 248, 245, 0.88) 0%,
+            rgba(250, 248, 245, 0.75) 35%,
+            rgba(245, 245, 240, 0.70) 65%,
+            rgba(0, 20, 137, 0.05) 100%
         );
     z-index: 0;
 }
