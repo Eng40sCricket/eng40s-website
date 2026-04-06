@@ -1993,10 +1993,13 @@ body {
 
 .story-card.featured-story .story-image {
     width: 40%;
-    min-height: 300px;
-    object-fit: cover;
+    min-height: 340px;
+    object-fit: contain;
+    object-position: center center;
     border-radius: 12px 0 0 12px;
     flex-shrink: 0;
+    background: linear-gradient(135deg, #1a2360 0%, #1a237e 100%);
+    padding: 12px;
 }
 
 .story-card.featured-story .story-content {
@@ -2031,8 +2034,10 @@ body {
     }
     .story-card.featured-story .story-image {
         width: 100%;
-        min-height: 200px;
+        min-height: auto;
+        max-height: 420px;
         border-radius: 12px 12px 0 0;
+        padding: 16px 24px;
     }
     .story-card.featured-story .story-content {
         padding: 24px 20px;
