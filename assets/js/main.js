@@ -1,18 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Determine base path for GitHub Pages
-    const getBasePath = () => {
-        const path = window.location.pathname;
-        const parts = path.split("/");
-        // If hosted at https://<username>.github.io/<repository-name>/, parts[1] will be <repository-name>
-        // If hosted at https://<username>.github.io/, parts[1] will be empty
-        if (parts.length > 1 && parts[1] === "eng40s-website") { // Explicitly check for repository name
-            return "/" + parts[1];
-        }
-        return "";
-    };
-    const basePath = getBasePath();
-    console.log("Base Path:", basePath);
-
     // Function to load HTML content into a target element
     const loadComponent = async (url, targetId) => {
         try {
@@ -29,13 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } catch (error) {
             console.error(`Failed to load component from ${url}:`, error);
-            console.log("Attempted component URL:", url);
         }
     };
 
-    // Load header and footer with repository-aware paths
-    loadComponent(`${basePath}/components/header.html`, "header-placeholder");
-    loadComponent(`${basePath}/components/footer.html`, "footer-placeholder");
+    // Load header and footer
+    loadComponent("/components/header.html", "header-placeholder");
+    loadComponent("/components/footer.html", "footer-placeholder");
 
     // Path highlighting function
     const highlightActiveNav = () => {
@@ -43,15 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const navLinks = document.querySelectorAll(".nav ul li a");
         navLinks.forEach(link => {
             const href = link.getAttribute("href");
-            // Adjust href for GitHub Pages subpath
-            const adjustedHref = `${basePath}${href}`.replace(/\/index\.html$/, ""); // Remove /index.html for comparison
-
             const cleanedCurrentPath = currentPath.endsWith("/") ? currentPath.slice(0, -1) : currentPath;
-            const cleanedAdjustedHref = adjustedHref.endsWith("/") ? adjustedHref.slice(0, -1) : adjustedHref;
+            const cleanedHref = href.endsWith("/") ? href.slice(0, -1) : href;
 
-            if (cleanedAdjustedHref === cleanedCurrentPath || (cleanedCurrentPath === basePath && cleanedAdjustedHref === basePath) || (cleanedCurrentPath === `${basePath}/` && cleanedAdjustedHref === basePath)) { // Match root or base path
-                link.classList.add("active");
-            } else if (cleanedCurrentPath.startsWith(cleanedAdjustedHref) && cleanedAdjustedHref !== basePath && cleanedAdjustedHref !== `${basePath}/`) {
+            if (cleanedHref === cleanedCurrentPath) {
                 link.classList.add("active");
             }
         });
@@ -81,10 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Fetch all data for homepage if relevant elements exist
     if (homepageNextFixture || homepageLatestResult || homepageLatestNews || homepageWorldCupPreview) {
         Promise.all([
-            fetch(`${basePath}/assets/data/fixtures.json`).then(res => res.json()).catch(() => []),
-            fetch(`${basePath}/assets/data/results.json`).then(res => res.json()).catch(() => []),
-            fetch(`${basePath}/assets/data/news.json`).then(res => res.json()).catch(() => []),
-            fetch(`${basePath}/assets/data/worldcup.json`).then(res => res.json()).catch(() => ({})),
+            fetch("/assets/data/fixtures.json").then(res => res.json()).catch(() => []),
+            fetch("/assets/data/results.json").then(res => res.json()).catch(() => []),
+            fetch("/assets/data/news.json").then(res => res.json()).catch(() => []),
+            fetch("/assets/data/worldcup.json").then(res => res.json()).catch(() => ({})),
         ]).then(([fixtures, results, news, worldCupData]) => {
             renderHomepagePreviews(fixtures, results, news, worldCupData);
         }).catch(err => console.error("Error loading homepage data:", err));
@@ -92,14 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Other page specific data loading
     if (fixtureListContainer || nextMatchHighlight) {
-        fetch(`${basePath}/assets/data/fixtures.json`)
+        fetch("/assets/data/fixtures.json")
             .then(res => res.json())
             .then(data => renderFixtures(data))
             .catch(err => console.error("Error loading fixtures:", err));
     }
 
     if (resultList) {
-        fetch(`${basePath}/assets/data/results.json`)
+        fetch("/assets/data/results.json")
             .then(res => res.json())
             .then(data => {
                 window.allResults = data; // Store for filtering
@@ -116,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const worldCupPressReleases = document.getElementById("world-cup-press-releases");
 
     if (worldCupOverview || worldCupSquad || worldCupGroups || worldCupNews || worldCupPressReleases) {
-        fetch(`${basePath}/assets/data/worldcup.json`)
+        fetch("/assets/data/worldcup.json")
             .then(res => res.json())
             .then(data => renderWorldCupPage(data))
             .catch(err => console.error("Error loading World Cup data:", err));
@@ -126,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const latestNewsGrid = document.getElementById("latest-news-grid");
 
     if (featuredStoryContainer || latestNewsGrid) {
-        fetch(`${basePath}/assets/data/news.json`)
+        fetch("/assets/data/news.json")
             .then(res => res.json())
             .then(data => renderNewsPage(data))
             .catch(err => console.error("Error loading news data:", err));
@@ -157,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <div class="match-footer">
                     <a href="${f.playCricketUrl}" target="_blank" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> Play Cricket</a>
-                     ${f.isWorldCup ? `<a href="${basePath}/world-cup/index.html" class="btn btn-orange"><i class="fas fa-trophy"></i> World Cup Info</a>` : ''}
+                     ${f.isWorldCup ? `<a href="/world-cup/index.html" class="btn btn-orange"><i class="fas fa-trophy"></i> World Cup Info</a>` : ''}
                 </div>
             </div>
         `;
@@ -167,10 +147,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const now = new Date();
         const upcomingFixtures = fixtures
             .filter(f => {
-                const fixtureDate = new Date(f.date + ' ' + f.time);
-                return !isNaN(fixtureDate.getTime()) && f.time !== 'TBC' && fixtureDate > now;
+                if (!f.date || !f.time || f.time === 'TBC') return false;
+                const fixtureDate = new Date(`${f.date}T${f.time}`);
+                return !isNaN(fixtureDate.getTime()) && fixtureDate > now;
             })
-            .sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time));
+            .sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
 
         if (nextMatchHighlight && upcomingFixtures.length > 0) {
             const nextMatch = upcomingFixtures[0];
@@ -210,147 +191,68 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <div class="text-center">
                     <div class="result-outcome">${r.result}</div>
-                    <div class="match-details" style="margin-top: 8px;">
-                        <div class="detail-item" style="justify-content: center;"><i class="fas fa-map-marker-alt"></i> ${r.venue}</div>
+                    <div class="match-details" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out;">
+                        <p><strong>Competition:</strong> ${r.competition}</p>
+                        <p><strong>Venue:</strong> <a href="${r.venueLink}" target="_blank">${r.venue}</a></p>
+                        <a href="${r.playCricketUrl}" target="_blank" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> View Scorecard</a>
                     </div>
                 </div>
-                <div class="match-footer" style="justify-content: center; margin-top: 16px;">
-                    <a href="${r.playCricketUrl}" target="_blank" class="btn btn-secondary"><i class="fas fa-file-alt"></i> Full Scorecard</a>
-                </div>
-                ${r.reportUrl || (r.highlights && r.highlights.length > 0) || (r.photos && r.photos.length > 0) ? `
-                <div class="expanded-content">
-                    ${r.reportUrl ? `<h4>Match Report</h4><p><a href="${r.reportUrl}" target="_blank">Read Full Report</a></p>` : ''}
-                    ${r.highlights && r.highlights.length > 0 ? `<h4>Highlights</h4><ul>${r.highlights.map(h => `<li><a href="${h.url}" target="_blank">${h.title}</a></li>`).join('')}</ul>` : ''}
-                    ${r.photos && r.photos.length > 0 ? `<h4>Photos</h4><div class="media-gallery">${r.photos.map(p => `<img src="${p}" alt="Match Photo">`).join('')}</div>` : ''}
-                </div>
-                ` : ''}
             </div>
         `).join('');
 
-        document.querySelectorAll('.result-card.expandable').forEach(card => {
-            card.addEventListener('click', (event) => {
-                // Prevent card click from triggering if a link inside is clicked
-                if (event.target.tagName === 'A' || event.target.closest('a')) {
-                    return; // Do nothing if a link was clicked
+        // Add click event to expand/collapse result details
+        resultList.querySelectorAll('.expandable').forEach(card => {
+            card.addEventListener('click', () => {
+                const details = card.querySelector('.match-details');
+                if (details.style.maxHeight && details.style.maxHeight !== '0px') {
+                    details.style.maxHeight = '0px';
+                } else {
+                    details.style.maxHeight = details.scrollHeight + 'px';
                 }
-                card.classList.toggle('expanded');
             });
         });
     }
 
-    function renderWorldCupPage(data) {
-        const { overview, squad, groups, news, pressReleases } = data;
+    function renderNewsPage(news) {
+        if (!featuredStoryContainer || !latestNewsGrid) return;
 
-        // Render Overview
-        const worldCupOverview = document.getElementById("world-cup-overview");
-        if (worldCupOverview && overview) {
-            worldCupOverview.innerHTML = `
-                <h2>${overview.title}</h2>
-                <p>${overview.description}</p>
-                ${overview.imageUrl ? `<img src="${overview.imageUrl}" alt="${overview.title}" class="img-fluid">` : ''}
-                ${overview.link ? `<a href="${overview.link}" target="_blank" class="btn btn-primary mt-3">Learn More</a>` : ''}
-            `;
-        }
+        const sortedNews = news
+            .filter(n => n.date && !isNaN(new Date(n.date).getTime()))
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        // Render Squad
-        const worldCupSquad = document.getElementById("world-cup-squad");
-        if (worldCupSquad && squad && squad.length > 0) {
-            worldCupSquad.innerHTML = `
-                <h3>Squad</h3>
-                <div class="squad-grid">
-                    ${squad.map(player => `
-                        <div class="player-card">
-                            ${player.imageUrl ? `<img src="${player.imageUrl}" alt="${player.name}">` : ''}
-                            <h4>${player.name}</h4>
-                            <p>${player.role}</p>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }
-
-        // Render Groups
-        const worldCupGroups = document.getElementById("world-cup-groups");
-        if (worldCupGroups && groups && groups.length > 0) {
-            worldCupGroups.innerHTML = `
-                <h3>Groups</h3>
-                <div class="groups-container">
-                    ${groups.map(group => `
-                        <div class="group-card">
-                            <h4>${group.name}</h4>
-                            <ul>
-                                ${group.teams.map(team => `<li>${team}</li>`).join('')}
-                            </ul>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }
-
-        // Render News
-        const worldCupNews = document.getElementById("world-cup-news");
-        if (worldCupNews && news && news.length > 0) {
-            worldCupNews.innerHTML = `
-                <h3>News</h3>
-                <div class="news-list">
-                    ${news.map(item => `
-                        <div class="news-item">
-                            <h4><a href="${item.link}" target="_blank">${item.title}</a></h4>
-                            <span class="date">${new Date(item.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                            <p>${item.summary}</p>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }
-
-        // Render Press Releases
-        const worldCupPressReleases = document.getElementById("world-cup-press-releases");
-        if (worldCupPressReleases && pressReleases && pressReleases.length > 0) {
-            worldCupPressReleases.innerHTML = `
-                <h3>Press Releases</h3>
-                <div class="press-releases-list">
-                    ${pressReleases.map(item => `
-                        <div class="press-release-item">
-                            <h4><a href="${item.link}" target="_blank">${item.title}</a></h4>
-                            <span class="date">${new Date(item.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                            <p>${item.summary}</p>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }
-    }
-
-    function renderNewsPage(data) {
-        const { featured, otherNews } = data;
-
-        const featuredStoryContainer = document.getElementById("featured-story-container");
-        if (featuredStoryContainer && featured) {
+        if (sortedNews.length > 0) {
+            const featuredStory = sortedNews[0];
             featuredStoryContainer.innerHTML = `
-                <div class="featured-card">
-                    ${featured.imageUrl ? `<img src="${featured.imageUrl}" alt="${featured.title}">` : ''}
-                    ${featured.category ? `<span class="category-badge">${featured.category}</span>` : ''}
-                    <h2>${featured.title}</h2>
-                    <span class="date">${new Date(featured.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                    <p>${featured.summary}</p>
-                    <a href="${featured.link}" target="_blank" class="btn btn-primary">Read More</a>
+                <div class="card story-card featured-story">
+                    <img src="${featuredStory.imageUrl}" alt="${featuredStory.title}" class="story-image">
+                    <div class="story-content">
+                        <h2 class="story-title">${featuredStory.title}</h2>
+                        <p class="story-date">${new Date(featuredStory.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                        <p class="story-summary">${featuredStory.summary}</p>
+                        <a href="/news/story.html?id=${story.id}" class="btn btn-primary">Read More</a>
+                    </div>
                 </div>
             `;
-        }
 
-        const latestNewsGrid = document.getElementById("latest-news-grid");
-        if (latestNewsGrid && otherNews.length > 0) {
-            latestNewsGrid.innerHTML = otherNews.map(story => `
-                <div class="news-card">
-                    ${story.imageUrl ? `<img src="${story.imageUrl}" alt="${story.title}">` : ''}
-                    ${story.category ? `<span class="category-badge">${story.category}</span>` : ''}
-                    <h3>${story.title}</h3>
-                    <span class="date">${new Date(story.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                    <p>${story.summary}</p>               </div>
-            `).join('');
-        } else if (latestNewsGrid) {
-            latestNewsGrid.innerHTML = `<div class="text-center">No other news available.</div>`;
+            const latestNews = sortedNews.slice(1, 5); // Display next 4 latest news
+            if (latestNews.length > 0) {
+                latestNewsGrid.innerHTML = latestNews.map(story => `
+                    <div class="card story-card">
+                        <img src="${story.imageUrl}" alt="${story.title}" class="story-image">
+                        <div class="story-content">
+                            <h3 class="story-title">${story.title}</h3>
+                            <p class="story-date">${new Date(story.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                            <p class="story-summary">${story.summary}</p>
+                            <a href="/news/story.html?id=${story.id}" class="btn btn-secondary">Read More</a>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                latestNewsGrid.innerHTML = '<p>No other news available.</p>';
+            }
+        } else {
+            featuredStoryContainer.innerHTML = '<p>No news available.</p>';
+            latestNewsGrid.innerHTML = '';
         }
     }
 
@@ -360,116 +262,107 @@ document.addEventListener("DOMContentLoaded", () => {
         // Next Fixture Preview
         const upcomingFixtures = fixtures
             .filter(f => {
-                const fixtureDate = new Date(f.date + ' ' + f.time);
-                return !isNaN(fixtureDate.getTime()) && f.time !== 'TBC' && fixtureDate > now;
+                if (!f.date || !f.time || f.time === 'TBC') return false;
+                const fixtureDate = new Date(`${f.date}T${f.time}`);
+                return !isNaN(fixtureDate.getTime()) && fixtureDate > now;
             })
-            .sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time));
+            .sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
 
-        const homepageNextFixture = document.getElementById("homepage-next-fixture");
         if (homepageNextFixture) {
-            const nextFixture = upcomingFixtures[0];
-            if (nextFixture) {
+            if (upcomingFixtures.length > 0) {
+                const nextFixture = upcomingFixtures[0];
                 homepageNextFixture.innerHTML = `
-                    <div class="card">
-                        <h4>Next Match</h4>
-                        <p>${new Date(nextFixture.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })} - ${nextFixture.matchType}</p>
-                        <p>${nextFixture.homeTeam} vs ${nextFixture.awayTeam}</p>
-                        <p>${nextFixture.venue}</p>
-                        <a href="${basePath}/fixtures/index.html" class="btn btn-sm btn-primary">View Details</a>
-                    </div>
+                    <h3>Next Match</h3>
+                    <p>${new Date(nextFixture.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })} - ${nextFixture.matchType}</p>
+                    <p>${nextFixture.homeTeam} vs ${nextFixture.awayTeam}</p>
+                    <p>${nextFixture.venue}</p>
+                    <a href="/fixtures/index.html" class="btn btn-primary">View Details</a>
                 `;
             } else {
-                homepageNextFixture.innerHTML = `<div class="card"><h4>Next Match</h4><p>No upcoming fixtures.</p></div>`;
+                homepageNextFixture.innerHTML = `
+                    <h3>Next Match</h3>
+                    <p>No upcoming fixtures.</p>
+                    <a href="/fixtures/index.html" class="btn btn-primary">View All Fixtures</a>
+                `;
             }
         }
 
         // Latest Result Preview
         const latestResult = results
-            .filter(r => !isNaN(new Date(r.date).getTime())) // Filter out invalid dates
-            .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+            .filter(r => r.date && !isNaN(new Date(r.date).getTime()))
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        const homepageLatestResult = document.getElementById("homepage-latest-result");
         if (homepageLatestResult) {
-            const latestResultEntry = latestResult;
-            if (latestResultEntry) {
+            if (latestResult.length > 0) {
+                const lastResult = latestResult[0];
                 homepageLatestResult.innerHTML = `
-                    <div class="card">
-                        <h4>Latest Result</h4>
-                        <p>${new Date(latestResultEntry.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })} - ${latestResultEntry.matchType}</p>
-                        <p>${latestResultEntry.homeTeam} ${latestResultEntry.homeScore} vs ${latestResultEntry.awayTeam} ${latestResultEntry.awayScore}</p>
-                        <p>${latestResultEntry.result}</p>
-                        <a href="${basePath}/results/index.html" class="btn btn-sm btn-primary">View Details</a>
-                    </div>
+                    <h3>Latest Result</h3>
+                    <p>${new Date(lastResult.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })} - ${lastResult.matchType}</p>
+                    <p>${lastResult.homeTeam} ${lastResult.homeScore} vs ${lastResult.awayTeam} ${lastResult.awayScore}</p>
+                    <p>${lastResult.result}</p>
+                    <a href="/results/index.html" class="btn btn-primary">View Details</a>
                 `;
             } else {
-                homepageLatestResult.innerHTML = `<div class="card"><h4>Latest Result</h4><p>No results available.</p></div>`;
+                homepageLatestResult.innerHTML = `
+                    <h3>Latest Result</h3>
+                    <p>No results available.</p>
+                    <a href="/results/index.html" class="btn btn-primary">View All Results</a>
+                `;
             }
         }
 
         // Latest News Preview
         const latestNews = news
-            .filter(n => !isNaN(new Date(n.date).getTime())) // Filter out invalid dates
-            .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+            .filter(n => n.date && !isNaN(new Date(n.date).getTime()))
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        const homepageLatestNews = document.getElementById("homepage-latest-news");
         if (homepageLatestNews) {
-            const latestNewsEntry = latestNews;
-            if (latestNewsEntry) {
+            if (latestNews.length > 0) {
+                const story = latestNews[0];
                 homepageLatestNews.innerHTML = `
-                    <div class="card">
-                        <h4>Latest News</h4>
-                        <h5>${latestNewsEntry.title}</h5>
-                        <p>${new Date(latestNewsEntry.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                        <p>${latestNewsEntry.summary.substring(0, 100)}...</p>
-                        <a href="${basePath}/news/index.html" class="btn btn-sm btn-primary">Read More</a>
-                    </div>
+                    <h3>Latest News</h3>
+                    <h5>${story.title}</h5>
+                    <p>${new Date(story.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                    <p>${story.summary}</p>
+                    <a href="/news/story.html?id=${story.id}" class="btn btn-secondary">Read More</a>
                 `;
             } else {
-                homepageLatestNews.innerHTML = `<div class="card"><h4>Latest News</h4><p>No news available.</p></div>`;
+                homepageLatestNews.innerHTML = `
+                    <h3>Latest News</h3>
+                    <p>No news available.</p>
+                    <a href="/news/index.html" class="btn btn-primary">View All News</a>
+                `;
             }
         }
 
         // World Cup Preview
-        const homepageWorldCupPreview = document.getElementById("homepage-world-cup-preview");
         if (homepageWorldCupPreview && worldCupData && worldCupData.overview) {
             homepageWorldCupPreview.innerHTML = `
-                <div class="card">
-                    <h4>${worldCupData.overview.title}</h4>
-                    <p>${worldCupData.overview.description.substring(0, 150)}...</p>
-                    <a href="${basePath}/world-cup/index.html" class="btn btn-sm btn-primary">Learn More</a>
-                </div>
+                <h3>${worldCupData.overview.title}</h3>
+                <p>${worldCupData.overview.description}</p>
+                <a href="/world-cup/index.html" class="btn btn-orange">Learn More</a>
             `;
-        } else if (homepageWorldCupPreview) {
-            homepageWorldCupPreview.innerHTML = `<div class="card"><h4>World Cup</h4><p>World Cup information not available.</p></div>`;
         }
     }
 
-    // Filter functionality for results page
     function setupResultFilters() {
         const yearFilter = document.getElementById('year-filter');
         const opponentFilter = document.getElementById('opponent-filter');
         const competitionFilter = document.getElementById('competition-filter');
         const resultFilter = document.getElementById('result-filter');
-        const applyFiltersBtn = document.getElementById('apply-filters-btn');
-        const resetFiltersBtn = document.getElementById('reset-filters-btn');
+        const applyFiltersBtn = document.getElementById('apply-filters');
+        const resetFiltersBtn = document.getElementById('reset-filters');
 
-        if (!yearFilter || !opponentFilter || !competitionFilter || !resultFilter || !applyFiltersBtn || !resetFiltersBtn) return;
+        if (!yearFilter) return; // Filters not on this page
 
-        const populateFilters = () => {
-            const years = [...new Set(window.allResults.map(r => new Date(r.date).getFullYear()))].sort((a, b) => b - a);
-            yearFilter.innerHTML = '<option value="all">All Years</option>' + years.map(year => `<option value="${year}">${year}</option>`).join('');
+        const allResults = window.allResults;
+        const opponents = [...new Set(allResults.flatMap(r => [r.homeTeam, r.awayTeam]))].sort();
+        const competitions = [...new Set(allResults.map(r => r.competition))].sort();
+        const years = [...new Set(allResults.map(r => new Date(r.date).getFullYear()))].sort((a, b) => b - a);
 
-            const opponents = [...new Set(window.allResults.flatMap(r => [r.homeTeam, r.awayTeam]))].filter(team => team !== 'England Over 40s').sort();
-            opponentFilter.innerHTML = '<option value="all">All Opponents</option>' + opponents.map(opp => `<option value="${opp}">${opp}</option>`).join('');
-
-            const competitions = [...new Set(window.allResults.map(r => r.competition))].sort();
-            competitionFilter.innerHTML = '<option value="all">All Competitions</option>' + competitions.map(comp => `<option value="${comp}">${comp}</option>`).join('');
-
-            const results = [...new Set(window.allResults.map(r => r.result))].sort();
-            resultFilter.innerHTML = '<option value="all">All Results</option>' + results.map(res => `<option value="${res}">${res}</option>`).join('');
-        };
-
-        populateFilters();
+        opponents.forEach(o => opponentFilter.innerHTML += `<option value="${o}">${o}</option>`);
+        competitions.forEach(c => competitionFilter.innerHTML += `<option value="${c}">${c}</option>`);
+        years.forEach(y => yearFilter.innerHTML += `<option value="${y}">${y}</option>`);
 
         const applyFilters = () => {
             const selectedYear = yearFilter.value;
@@ -477,7 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const selectedCompetition = competitionFilter.value;
             const selectedResult = resultFilter.value;
 
-            let filteredResults = window.allResults;
+            let filteredResults = allResults;
 
             if (selectedYear !== 'all') {
                 filteredResults = filteredResults.filter(r => new Date(r.date).getFullYear().toString() === selectedYear);
