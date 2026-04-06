@@ -1271,6 +1271,65 @@ body {
     color: var(--color-white);
 }
 
+/* Player Portal - Selection Standards Panel */
+.standards-panel {
+    background-color: var(--color-white);
+    border-left: 5px solid var(--color-navy);
+    border-radius: 8px;
+    padding: 28px 32px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.standards-panel h2 {
+    color: var(--color-navy);
+    font-size: 1.5em;
+    margin: 0 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.standards-panel h2 i {
+    color: var(--color-sky-blue);
+    font-size: 0.9em;
+}
+
+.standards-panel p {
+    font-size: 1em;
+    line-height: 1.7;
+    color: var(--color-charcoal);
+    margin: 0 0 14px;
+}
+
+.standards-panel p:last-child {
+    margin-bottom: 0;
+}
+
+.standards-panel .standards-note {
+    color: #666;
+    font-style: italic;
+    font-size: 0.95em;
+    border-top: 1px solid var(--color-border);
+    padding-top: 14px;
+    margin-top: 18px;
+}
+
+@media (max-width: 768px) {
+    .standards-panel {
+        padding: 20px 18px;
+    }
+
+    .standards-panel h2 {
+        font-size: 1.3em;
+    }
+
+    .standards-panel p {
+        font-size: 0.95em;
+    }
+}
+
 /* Sponsors Page Specific Styles */
 .sponsor-showcase {
     display: grid;
