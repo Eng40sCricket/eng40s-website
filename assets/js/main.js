@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (nextMatchHighlight && upcomingFixtures.length > 0) {
             nextMatchHighlight.innerHTML = renderMatchCard(upcomingFixtures[0], true);
         } else if (nextMatchHighlight) {
-            nextMatchHighlight.innerHTML = '<div class="text-center">No upcoming fixtures found.</div>';
+            nextMatchHighlight.innerHTML = '<div class="text-center"><p>Fixtures to be confirmed. Please check back soon for the 2026 season schedule.</p></div>';
         }
 
         if (fixtureListContainer) {
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (remainingFixtures.length > 0) {
                 fixtureListContainer.innerHTML = remainingFixtures.map(function(f) { return renderMatchCard(f); }).join("");
             } else if (!nextMatchHighlight || upcomingFixtures.length === 0) {
-                fixtureListContainer.innerHTML = '<div class="text-center">No further upcoming fixtures.</div>';
+                fixtureListContainer.innerHTML = '<div class="text-center"><p>Further fixtures to be confirmed.</p></div>';
             }
         }
     }
@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 latestNewsGrid.innerHTML = "<p>No other news available.</p>";
             }
         } else {
-            featuredStoryContainer.innerHTML = "<p>No news available.</p>";
+            featuredStoryContainer.innerHTML = '<p>News and updates coming soon. Follow us on social media for the latest from England Over 40s Cricket.</p>';
             latestNewsGrid.innerHTML = "";
         }
     }
@@ -340,8 +340,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     + '<a href="' + basePath + '/fixtures/index.html" class="btn btn-primary">View Details</a>';
             } else {
                 homepageNextFixture.innerHTML = '<h3>Next Match</h3>'
-                    + '<p>No upcoming fixtures.</p>'
-                    + '<a href="' + basePath + '/fixtures/index.html" class="btn btn-primary">View All Fixtures</a>';
+                    + '<p>Fixtures to be confirmed. Please check back soon for the 2026 season schedule.</p>'
+                    + '<a href="' + basePath + '/fixtures/index.html" class="btn btn-primary">View Fixtures</a>';
             }
         }
 
@@ -360,8 +360,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     + '<a href="' + basePath + '/results/index.html" class="btn btn-primary">View Details</a>';
             } else {
                 homepageLatestResult.innerHTML = '<h3>Latest Result</h3>'
-                    + '<p>No results available.</p>'
-                    + '<a href="' + basePath + '/results/index.html" class="btn btn-primary">View All Results</a>';
+                    + '<p>Latest result to be confirmed. Results will be updated as the season progresses.</p>'
+                    + '<a href="' + basePath + '/results/index.html" class="btn btn-primary">View Results Archive</a>';
             }
         }
 
@@ -380,8 +380,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     + '<a href="' + basePath + '/news/story.html?id=' + story.id + '" class="btn btn-secondary">Read More</a>';
             } else {
                 homepageLatestNews.innerHTML = '<h3>Latest News</h3>'
-                    + '<p>No news available.</p>'
-                    + '<a href="' + basePath + '/news/index.html" class="btn btn-primary">View All News</a>';
+                    + '<p>News and updates coming soon. Follow us on social media for the latest.</p>'
+                    + '<a href="' + basePath + '/news/index.html" class="btn btn-primary">View News</a>';
             }
         }
 

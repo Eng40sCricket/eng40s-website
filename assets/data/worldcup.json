@@ -3,67 +3,10 @@
     "title": "IMC Over 40s World Cup 2026",
     "location": "Guyana",
     "dates": "October 2026",
-    "overview": "The inaugural IMC Over 40s World Cup will be held in Guyana in October 2026, bringing together top cricketing nations for a celebration of masters cricket."
+    "overview": "The IMC Over 40s World Cup will be held in Guyana in October 2026. England Over 40s will be among 16 nations travelling to compete. Further details to be confirmed."
   },
-  "squad": [
-    {
-      "name": "Player One",
-      "role": "Captain / All-rounder",
-      "imageUrl": "../../assets/img/gallery/player-placeholder.jpg"
-    },
-    {
-      "name": "Player Two",
-      "role": "Wicketkeeper / Batsman",
-      "imageUrl": "../../assets/img/gallery/player-placeholder.jpg"
-    },
-    {
-      "name": "Player Three",
-      "role": "Bowler",
-      "imageUrl": "../../assets/img/gallery/player-placeholder.jpg"
-    }
-  ],
-  "groups": [
-    {
-      "name": "Group A",
-      "teams": [
-        {"name": "England", "played": 0, "won": 0, "lost": 0, "nrr": 0, "points": 0},
-        {"name": "Australia", "played": 0, "won": 0, "lost": 0, "nrr": 0, "points": 0},
-        {"name": "India", "played": 0, "won": 0, "lost": 0, "nrr": 0, "points": 0}
-      ]
-    },
-    {
-      "name": "Group B",
-      "teams": [
-        {"name": "West Indies", "played": 0, "won": 0, "lost": 0, "nrr": 0, "points": 0},
-        {"name": "South Africa", "played": 0, "won": 0, "lost": 0, "nrr": 0, "points": 0},
-        {"name": "New Zealand", "played": 0, "won": 0, "lost": 0, "nrr": 0, "points": 0}
-      ]
-    }
-  ],
-  "news": [
-    {
-      "id": "wc-news-1",
-      "title": "England Squad Arrives in Guyana",
-      "date": "2026-09-28",
-      "summary": "The England Over 40s squad has landed in Guyana, full of anticipation for the upcoming World Cup. Final preparations are underway."
-    },
-    {
-      "id": "wc-news-2",
-      "title": "Captain's Press Conference Ahead of Tournament",
-      "date": "2026-09-30",
-      "summary": "England Captain addresses the media, expressing confidence in the team's chances and highlighting the team's rigorous training regimen."
-    }
-  ],
-  "pressReleases": [
-    {
-      "id": "pr-1",
-      "title": "Official Statement: England Over 40s World Cup Ambitions",
-      "date": "2026-09-25"
-    },
-    {
-      "id": "pr-2",
-      "title": "ECB Endorses England Over 40s World Cup Campaign",
-      "date": "2026-09-20"
-    }
-  ]
+  "squad": [],
+  "groups": [],
+  "news": [],
+  "pressReleases": []
 }
