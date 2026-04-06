@@ -133,6 +133,31 @@ body {
     filter: brightness(0) invert(1);
 }
 
+.header .logo a {
+    text-decoration: none;
+    color: var(--color-white);
+}
+
+.header .logo a:hover {
+    color: var(--color-white);
+    opacity: 0.9;
+}
+
+.logo-text {
+    font-family: 'Inter', 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.25em;
+    color: var(--color-white);
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.logo-accent {
+    color: var(--color-sky-blue);
+    font-weight: 600;
+}
+
 .nav ul {
     list-style: none;
     margin: 0;
