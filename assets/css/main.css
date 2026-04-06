@@ -1640,14 +1640,18 @@ body {
 }
 
 .portal-card-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background-color: var(--color-navy);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
+}
+
+.portal-card-logo {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(26, 35, 126, 0.18);
 }
 
 .portal-card-icon i {
