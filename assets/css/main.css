@@ -604,6 +604,34 @@ body {
     align-self: flex-start;
 }
 
+/* World Cup Card - logo header */
+.wc-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.wc-card-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.wc-card-header h3 {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .wc-card-logo {
+        width: 60px;
+        height: 60px;
+    }
+}
+
 /* World Cup Card - atmospheric photo backdrop */
 .homepage-preview-card.world-cup-preview {
     background:
@@ -930,6 +958,35 @@ body {
 }
 
 /* ============================================
+   FIXTURES/RESULTS CONTENT - Subtle background treatment
+   ============================================ */
+.fixtures-content-section {
+    background:
+        radial-gradient(ellipse at 10% 90%, rgba(0, 163, 224, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 10%, rgba(0, 20, 137, 0.04) 0%, transparent 50%),
+        linear-gradient(180deg, var(--color-cream) 0%, var(--color-white) 50%, var(--color-cream) 100%);
+    position: relative;
+}
+
+.fixtures-content-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        url("../img/photos/action-bowling.jpg") center/cover no-repeat;
+    opacity: 0.03;
+    pointer-events: none;
+}
+
+.fixtures-content-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================
    NEWS PAGE - Scenic backdrop
    ============================================ */
 .news-hero {
@@ -1190,6 +1247,71 @@ body {
 }
 
 /* Sponsors Page Specific Styles */
+.sponsor-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.sponsor-card {
+    background-color: var(--color-white);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 30px 24px;
+    text-align: center;
+    border: 1px solid var(--color-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sponsor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.14);
+}
+
+.sponsor-card h3 {
+    color: var(--color-navy);
+    margin: 16px 0 6px;
+    font-size: 1.3em;
+}
+
+.sponsor-card .sponsor-role {
+    color: var(--color-imc-orange);
+    font-weight: 700;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 12px;
+}
+
+.sponsor-card .sponsor-desc {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+}
+
+.sponsor-card .sponsor-logo-container {
+    margin: 0 auto;
+    border: none;
+    box-shadow: none;
+}
+
+.sponsor-card .sponsor-logo-container:hover {
+    transform: none;
+}
+
+@media (max-width: 768px) {
+    .sponsor-showcase {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .sponsor-card {
+        padding: 20px 16px;
+    }
+}
+
 .sponsor-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
