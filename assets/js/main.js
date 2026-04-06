@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return "";
     };
     const basePath = getBasePath();
+    console.log("Base Path:", basePath);
 
     // Function to load HTML content into a target element
     const loadComponent = async (url, targetId) => {
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } catch (error) {
             console.error(`Failed to load component from ${url}:`, error);
+            console.log("Attempted component URL:", url);
         }
     };
 
