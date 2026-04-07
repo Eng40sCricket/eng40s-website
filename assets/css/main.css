@@ -1805,6 +1805,59 @@ body {
 }
 
 /* Sponsors Page Specific Styles */
+
+/* Uniform-height sponsor logos strip */
+.sponsor-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 24px 32px;
+    margin-top: 40px;
+    padding: 32px 24px;
+    background-color: var(--color-white);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    border: 1px solid var(--color-border);
+}
+
+.sponsor-logo {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.sponsor-logo:hover {
+    transform: translateY(-2px);
+    opacity: 0.85;
+}
+
+.sponsor-logo img {
+    height: 100%;
+    width: auto;
+    max-width: 180px;
+    object-fit: contain;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .sponsor-logos {
+        gap: 20px 24px;
+        padding: 24px 16px;
+    }
+
+    .sponsor-logo {
+        height: 48px;
+    }
+
+    .sponsor-logo img {
+        max-width: 140px;
+    }
+}
+
+/* Sponsor detail cards grid */
 .sponsor-showcase {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
