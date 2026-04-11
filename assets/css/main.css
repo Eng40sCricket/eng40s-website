@@ -47,10 +47,19 @@ a:hover {
 }
 
 /* 3. Base Layout & Responsiveness */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
     padding: 0;
     background-color: var(--color-cream);
+    overflow-x: hidden;
 }
 
 .container {
@@ -674,8 +683,9 @@ body {
 
 .homepage-preview-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 24px;
+    max-width: 100%;
 }
 
 .homepage-preview-card {
