@@ -13,6 +13,8 @@
     --bpm-navy-light: #0f2252;
     --bpm-orange: #C85A1F;
     --bpm-orange-hover: #A94B18;
+    /* Override main.css orange so all card buttons inherit the darker shade */
+    --color-imc-orange: #C85A1F;
     --bpm-white: #FFFFFF;
     --bpm-off-white: #F0F2F5;
     --bpm-text-muted: rgba(255, 255, 255, 0.7);
