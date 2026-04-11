@@ -23,9 +23,9 @@
     --color-imc-orange: var(--brand-gold);
 }
 
-/* ---- Logo Accent — gold instead of orange ---- */
+/* ---- Logo Accent — brand blue ---- */
 .logo-accent {
-    color: var(--brand-gold) !important;
+    color: var(--brand-blue) !important;
 }
 
 /* ---- Nav underline & hover — gold ---- */
@@ -66,7 +66,17 @@
     box-shadow: 0 6px 20px rgba(0, 128, 219, 0.35) !important;
 }
 
-/* Hero secondary button — white outlined (unchanged, already white) */
+/* Hero World Cup 2026 button — gold */
+.hero-section .btn-orange {
+    background-color: var(--brand-gold) !important;
+    color: #05102B !important;
+    border: none !important;
+}
+
+.hero-section .btn-orange:hover {
+    background-color: var(--brand-gold-hover) !important;
+    box-shadow: 0 6px 20px rgba(207, 167, 92, 0.35) !important;
+}
 
 /* ---- Cards Section — subtle blue/gold radial glow ---- */
 .homepage-cards-section::after {
@@ -140,31 +150,31 @@
     border-left: 4px solid var(--brand-blue) !important;
 }
 
-/* ---- Sponsorship CTA Card — gold accent glow ---- */
+/* ---- Sponsorship CTA Card — blue accent ---- */
 .homepage-preview-card.sponsorship-cta {
-    background: linear-gradient(135deg, rgba(207, 167, 92, 0.1) 0%, rgba(5, 16, 43, 0.4) 100%) !important;
-    border: 1px solid rgba(207, 167, 92, 0.2) !important;
+    background: linear-gradient(135deg, rgba(0, 128, 219, 0.08) 0%, rgba(5, 16, 43, 0.4) 100%) !important;
+    border: 1px solid rgba(0, 128, 219, 0.2) !important;
 }
 
 .homepage-preview-card.sponsorship-cta::before {
-    border-color: rgba(207, 167, 92, 0.12) !important;
+    border-color: rgba(0, 128, 219, 0.12) !important;
 }
 
 .homepage-preview-card.sponsorship-cta::after {
-    border-color: rgba(207, 167, 92, 0.08) !important;
+    border-color: rgba(0, 128, 219, 0.08) !important;
 }
 
 .homepage-preview-card.sponsorship-cta:hover {
-    border-color: rgba(207, 167, 92, 0.4) !important;
+    border-color: rgba(0, 128, 219, 0.4) !important;
 }
 
 .homepage-preview-card.sponsorship-cta .btn {
-    background-color: var(--brand-gold) !important;
-    color: #05102B !important;
+    background-color: var(--brand-blue) !important;
+    color: var(--brand-white) !important;
 }
 
 .homepage-preview-card.sponsorship-cta .btn:hover {
-    background-color: var(--brand-gold-hover) !important;
+    background-color: var(--brand-blue-hover) !important;
 }
 
 /* ---- Player Portal Card — blue button ---- */
