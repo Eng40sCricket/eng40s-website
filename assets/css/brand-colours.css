@@ -58,6 +58,7 @@ a:hover {
 
 .nav ul li a.nav-cta {
     background-color: var(--brand-blue) !important;
+    color: #ffffff !important;
 }
 
 .nav ul li a.nav-cta:hover {
