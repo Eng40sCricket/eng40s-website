@@ -240,7 +240,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .homepage-preview-card .btn-primary:hover {
     background-color: var(--bpm-orange-hover);
-    box-shadow: 0 4px 16px rgba(234, 111, 46, 0.3);
+    box-shadow: 0 4px 16px rgba(200, 90, 31, 0.3);
     transform: none;
 }
 
@@ -265,7 +265,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .homepage-preview-card .btn-orange:hover {
     background-color: var(--bpm-orange-hover);
-    box-shadow: 0 4px 16px rgba(234, 111, 46, 0.3);
+    box-shadow: 0 4px 16px rgba(200, 90, 31, 0.3);
 }
 
 /* ---- World Cup Card — featured accent ---- */
@@ -275,14 +275,14 @@ h1, h2, h3, h4, h5, h6 {
             135deg,
             rgba(5, 16, 43, 0.6) 0%,
             rgba(10, 26, 63, 0.5) 50%,
-            rgba(234, 111, 46, 0.08) 100%
+            rgba(200, 90, 31, 0.08) 100%
         ),
         url("../img/photos/atmosphere-match.jpg") center/cover no-repeat;
-    border: 1px solid rgba(234, 111, 46, 0.2);
+    border: 1px solid rgba(200, 90, 31, 0.2);
 }
 
 .homepage-preview-card.world-cup-preview:hover {
-    border-color: rgba(234, 111, 46, 0.35);
+    border-color: rgba(200, 90, 31, 0.35);
 }
 
 .homepage-preview-card.world-cup-preview h3,
@@ -292,6 +292,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .homepage-preview-card.world-cup-preview p {
     color: var(--bpm-text-muted);
+}
+
+.homepage-preview-card.world-cup-preview .btn,
+.homepage-preview-card.world-cup-preview .btn-orange {
+    background-color: var(--bpm-orange);
+    color: var(--bpm-white);
+}
+
+.homepage-preview-card.world-cup-preview .btn:hover,
+.homepage-preview-card.world-cup-preview .btn-orange:hover {
+    background-color: var(--bpm-orange-hover);
 }
 
 .wc-card-logo {
@@ -353,20 +364,20 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ---- Sponsorship CTA Card — accent glow ---- */
 .homepage-preview-card.sponsorship-cta {
-    background: linear-gradient(135deg, rgba(234, 111, 46, 0.12) 0%, rgba(5, 16, 43, 0.4) 100%);
-    border: 1px solid rgba(234, 111, 46, 0.25);
+    background: linear-gradient(135deg, rgba(200, 90, 31, 0.12) 0%, rgba(5, 16, 43, 0.4) 100%);
+    border: 1px solid rgba(200, 90, 31, 0.25);
 }
 
 .homepage-preview-card.sponsorship-cta::before {
-    border-color: rgba(234, 111, 46, 0.12);
+    border-color: rgba(200, 90, 31, 0.12);
 }
 
 .homepage-preview-card.sponsorship-cta::after {
-    border-color: rgba(234, 111, 46, 0.08);
+    border-color: rgba(200, 90, 31, 0.08);
 }
 
 .homepage-preview-card.sponsorship-cta:hover {
-    border-color: rgba(234, 111, 46, 0.4);
+    border-color: rgba(200, 90, 31, 0.4);
 }
 
 .homepage-preview-card.sponsorship-cta h3,
@@ -376,6 +387,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .homepage-preview-card.sponsorship-cta p {
     color: var(--bpm-text-muted);
+}
+
+.homepage-preview-card.sponsorship-cta .btn {
+    background-color: var(--bpm-orange);
+    color: var(--bpm-white);
+}
+
+.homepage-preview-card.sponsorship-cta .btn:hover {
+    background-color: var(--bpm-orange-hover);
 }
 
 /* ---- Player Portal Card ---- */
@@ -397,6 +417,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .homepage-preview-card.player-portal-preview p {
     color: var(--bpm-text-muted);
+}
+
+.homepage-preview-card.player-portal-preview .btn {
+    background-color: var(--bpm-orange);
+    color: var(--bpm-white);
+}
+
+.homepage-preview-card.player-portal-preview .btn:hover {
+    background-color: var(--bpm-orange-hover);
 }
 
 /* ---- Footer — harmonised ---- */
