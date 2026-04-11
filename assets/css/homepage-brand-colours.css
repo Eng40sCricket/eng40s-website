@@ -1,0 +1,187 @@
+/* ============================================================
+   HOMEPAGE BRAND COLOUR OVERRIDE
+   England Over 40s brand palette: Blue, White, Gold
+   Loaded AFTER homepage-broadcast.css to override orange accents.
+   
+   To revert: remove this <link> from index.html
+   ============================================================ */
+
+/* ---- Brand Colour Tokens ---- */
+:root {
+    --brand-blue: #0080DB;
+    --brand-blue-hover: #006BB8;
+    --brand-blue-deep: #005A9E;
+    --brand-gold: #CFA75C;
+    --brand-gold-hover: #B8923E;
+    --brand-gold-light: rgba(207, 167, 92, 0.15);
+    --brand-gold-glow: rgba(207, 167, 92, 0.08);
+    --brand-white: #FFFFFF;
+
+    /* Override the global orange variables */
+    --bpm-orange: var(--brand-gold);
+    --bpm-orange-hover: var(--brand-gold-hover);
+    --color-imc-orange: var(--brand-gold);
+}
+
+/* ---- Logo Accent — gold instead of orange ---- */
+.logo-accent {
+    color: var(--brand-gold) !important;
+}
+
+/* ---- Nav underline & hover — gold ---- */
+.nav ul li a::after {
+    background: var(--brand-gold) !important;
+}
+
+.nav ul li a:hover::after,
+.nav ul li a.active::after {
+    background: var(--brand-gold) !important;
+}
+
+/* ---- Nav CTA button — brand blue ---- */
+.nav ul li a.nav-cta {
+    background-color: var(--brand-blue) !important;
+}
+
+.nav ul li a.nav-cta:hover {
+    background-color: var(--brand-blue-hover) !important;
+}
+
+/* ---- Hero Section ---- */
+
+/* Subtle blue/gold radial glow instead of orange */
+.hero-section::before {
+    background:
+        radial-gradient(ellipse at 20% 80%, rgba(0, 128, 219, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(207, 167, 92, 0.06) 0%, transparent 50%) !important;
+}
+
+/* Hero primary button — brand blue */
+.hero-section .btn-primary {
+    background-color: var(--brand-blue) !important;
+}
+
+.hero-section .btn-primary:hover {
+    background-color: var(--brand-blue-hover) !important;
+    box-shadow: 0 6px 20px rgba(0, 128, 219, 0.35) !important;
+}
+
+/* Hero secondary button — white outlined (unchanged, already white) */
+
+/* ---- Cards Section — subtle blue/gold radial glow ---- */
+.homepage-cards-section::after {
+    background:
+        radial-gradient(ellipse at 30% 0%, rgba(0, 128, 219, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 100%, rgba(207, 167, 92, 0.04) 0%, transparent 50%) !important;
+}
+
+/* ---- Card Icon Accents — gold ---- */
+.homepage-preview-card h3 i {
+    color: var(--brand-gold) !important;
+}
+
+/* ---- Primary Buttons on Cards — brand blue ---- */
+.homepage-preview-card .btn-primary {
+    background-color: var(--brand-blue) !important;
+    color: var(--brand-white) !important;
+}
+
+.homepage-preview-card .btn-primary:hover {
+    background-color: var(--brand-blue-hover) !important;
+    box-shadow: 0 4px 16px rgba(0, 128, 219, 0.3) !important;
+}
+
+/* ---- Orange Buttons on Cards — gold ---- */
+.homepage-preview-card .btn-orange {
+    background-color: var(--brand-gold) !important;
+    color: #05102B !important;
+}
+
+.homepage-preview-card .btn-orange:hover {
+    background-color: var(--brand-gold-hover) !important;
+    box-shadow: 0 4px 16px rgba(207, 167, 92, 0.3) !important;
+}
+
+/* ---- World Cup Card — gold accent border ---- */
+.homepage-preview-card.world-cup-preview {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(5, 16, 43, 0.6) 0%,
+            rgba(10, 26, 63, 0.5) 50%,
+            rgba(207, 167, 92, 0.08) 100%
+        ),
+        url("../img/photos/atmosphere-match.jpg") center/cover no-repeat !important;
+    border: 1px solid rgba(207, 167, 92, 0.2) !important;
+}
+
+.homepage-preview-card.world-cup-preview:hover {
+    border-color: rgba(207, 167, 92, 0.35) !important;
+}
+
+.homepage-preview-card.world-cup-preview .btn,
+.homepage-preview-card.world-cup-preview .btn-orange {
+    background-color: var(--brand-gold) !important;
+    color: #05102B !important;
+}
+
+.homepage-preview-card.world-cup-preview .btn:hover,
+.homepage-preview-card.world-cup-preview .btn-orange:hover {
+    background-color: var(--brand-gold-hover) !important;
+}
+
+/* ---- Fixtures & Results Card — blue top border ---- */
+.homepage-preview-card.fixtures-results-preview {
+    border-top: 3px solid var(--brand-blue) !important;
+}
+
+/* ---- About Us Card — blue left border ---- */
+.homepage-preview-card.about-us-preview {
+    border-left: 4px solid var(--brand-blue) !important;
+}
+
+/* ---- Sponsorship CTA Card — gold accent glow ---- */
+.homepage-preview-card.sponsorship-cta {
+    background: linear-gradient(135deg, rgba(207, 167, 92, 0.1) 0%, rgba(5, 16, 43, 0.4) 100%) !important;
+    border: 1px solid rgba(207, 167, 92, 0.2) !important;
+}
+
+.homepage-preview-card.sponsorship-cta::before {
+    border-color: rgba(207, 167, 92, 0.12) !important;
+}
+
+.homepage-preview-card.sponsorship-cta::after {
+    border-color: rgba(207, 167, 92, 0.08) !important;
+}
+
+.homepage-preview-card.sponsorship-cta:hover {
+    border-color: rgba(207, 167, 92, 0.4) !important;
+}
+
+.homepage-preview-card.sponsorship-cta .btn {
+    background-color: var(--brand-gold) !important;
+    color: #05102B !important;
+}
+
+.homepage-preview-card.sponsorship-cta .btn:hover {
+    background-color: var(--brand-gold-hover) !important;
+}
+
+/* ---- Player Portal Card — blue button ---- */
+.homepage-preview-card.player-portal-preview .btn {
+    background-color: var(--brand-blue) !important;
+    color: var(--brand-white) !important;
+}
+
+.homepage-preview-card.player-portal-preview .btn:hover {
+    background-color: var(--brand-blue-hover) !important;
+}
+
+/* ---- Footer — gold hover accents ---- */
+.footer .social-links a:hover {
+    color: var(--brand-gold) !important;
+}
+
+.footer .footer-nav a:hover {
+    color: var(--brand-gold) !important;
+}
