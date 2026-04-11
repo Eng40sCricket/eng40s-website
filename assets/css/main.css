@@ -804,9 +804,50 @@ body {
     border-left: 5px solid var(--color-sky-blue);
 }
 
-/* Sponsors Card */
-.homepage-preview-card.sponsors-preview {
-    border-left: 5px solid var(--color-imc-orange);
+/* Sponsorship CTA Card */
+.homepage-preview-card.sponsorship-cta {
+    background: linear-gradient(135deg, var(--color-navy-deep) 0%, var(--color-navy) 100%);
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.homepage-preview-card.sponsorship-cta::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 140px;
+    height: 140px;
+    border: 3px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.homepage-preview-card.sponsorship-cta::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    right: 30px;
+    width: 80px;
+    height: 80px;
+    border: 2px solid rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.homepage-preview-card.sponsorship-cta h3,
+.homepage-preview-card.sponsorship-cta p {
+    color: var(--color-white);
+}
+
+.homepage-preview-card.sponsorship-cta .btn {
+    background-color: var(--color-imc-orange);
+    color: var(--color-white);
+}
+
+.homepage-preview-card.sponsorship-cta .btn:hover {
+    background-color: #e65c00;
 }
 
 /* Player Portal Card - team culture photo backdrop */
