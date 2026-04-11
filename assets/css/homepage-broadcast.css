@@ -1,0 +1,455 @@
+/* ============================================================
+   HOMEPAGE BROADCAST PRESTIGE MODERNISM THEME
+   Override layer — loaded after main.css on homepage only.
+   Matches the design language of the World Cup hub and
+   sponsorship landing page (Bebas Neue + Manrope, dark navy,
+   orange CTAs, large-radius cards, generous spacing).
+   ============================================================ */
+
+/* ---- Design Tokens ---- */
+:root {
+    --bpm-navy: #05102B;
+    --bpm-navy-mid: #0a1a3f;
+    --bpm-navy-light: #0f2252;
+    --bpm-orange: #EA6F2E;
+    --bpm-orange-hover: #d45e22;
+    --bpm-white: #FFFFFF;
+    --bpm-off-white: #F0F2F5;
+    --bpm-text-muted: rgba(255, 255, 255, 0.7);
+    --bpm-border-light: rgba(255, 255, 255, 0.1);
+    --bpm-border-dark: rgba(5, 16, 43, 0.08);
+    --bpm-card-radius: 20px;
+    --bpm-font-heading: 'Bebas Neue', sans-serif;
+    --bpm-font-body: 'Manrope', sans-serif;
+}
+
+/* ---- Page-level overrides ---- */
+body {
+    font-family: var(--bpm-font-body);
+    background-color: var(--bpm-off-white);
+    color: var(--bpm-navy);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--bpm-font-heading);
+    letter-spacing: 0.04em;
+}
+
+/* ---- Header bar — darker navy, Manrope ---- */
+.header {
+    background-color: rgba(5, 16, 43, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 var(--bpm-border-light);
+}
+
+.logo-text {
+    font-family: var(--bpm-font-body);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.logo-accent {
+    color: var(--bpm-orange);
+}
+
+.nav ul li a {
+    font-family: var(--bpm-font-body);
+    font-weight: 600;
+    font-size: 0.9em;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.nav ul li a::after {
+    background: var(--bpm-orange);
+}
+
+.nav ul li a:hover::after,
+.nav ul li a.active::after {
+    background: var(--bpm-orange);
+}
+
+.nav ul li a.nav-cta {
+    background-color: var(--bpm-orange);
+    border-radius: 999px;
+    padding: 8px 20px;
+    font-size: 0.85em;
+}
+
+.nav ul li a.nav-cta:hover {
+    background-color: var(--bpm-orange-hover);
+}
+
+/* ---- Hero Section — broadcast dark navy ---- */
+.hero-section {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(5, 16, 43, 0.92) 0%,
+            rgba(10, 26, 63, 0.88) 50%,
+            rgba(5, 16, 43, 0.95) 100%
+        ),
+        url("../img/photos/hero-table-mountain.jpg") center/cover no-repeat;
+    padding: 120px 0 100px;
+}
+
+.hero-section::before {
+    background:
+        radial-gradient(ellipse at 20% 80%, rgba(234, 111, 46, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(234, 111, 46, 0.05) 0%, transparent 50%);
+}
+
+.hero-section::after {
+    opacity: 0.12;
+}
+
+.hero-section h1 {
+    font-family: var(--bpm-font-heading);
+    font-size: 4em;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-shadow: none;
+    margin: 0 0 16px;
+    line-height: 1.05;
+}
+
+.hero-section p {
+    font-family: var(--bpm-font-body);
+    font-size: 1.15em;
+    font-weight: 400;
+    color: var(--bpm-text-muted);
+    text-shadow: none;
+    max-width: 620px;
+    line-height: 1.7;
+}
+
+.hero-section .btn {
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-family: var(--bpm-font-body);
+    font-weight: 700;
+    font-size: 0.9em;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.hero-section .btn-primary {
+    background-color: var(--bpm-orange);
+    color: var(--bpm-white);
+    border: none;
+}
+
+.hero-section .btn-primary:hover {
+    background-color: var(--bpm-orange-hover);
+    box-shadow: 0 6px 20px rgba(234, 111, 46, 0.35);
+}
+
+.hero-section .btn-orange {
+    background-color: transparent;
+    color: var(--bpm-white);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-section .btn-orange:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: none;
+}
+
+/* ---- Cards Section — dark navy background ---- */
+.homepage-cards-section {
+    background-color: var(--bpm-navy);
+    padding: 80px 0 100px;
+}
+
+/* Remove the old photographic backdrop */
+.homepage-cards-section::before {
+    display: none;
+}
+
+/* Replace warm scrim with subtle radial glow */
+.homepage-cards-section::after {
+    background:
+        radial-gradient(ellipse at 30% 0%, rgba(234, 111, 46, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 100%, rgba(15, 34, 82, 0.4) 0%, transparent 50%);
+}
+
+/* ---- Card Grid ---- */
+.homepage-preview-grid {
+    gap: 28px;
+}
+
+/* ---- Base Card — glass-morphism on dark navy ---- */
+.homepage-preview-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-radius: var(--bpm-card-radius);
+    box-shadow: none;
+    padding: 32px 28px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.homepage-preview-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.homepage-preview-card h3 {
+    font-family: var(--bpm-font-heading);
+    color: var(--bpm-white);
+    font-size: 1.6em;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.homepage-preview-card h3 i {
+    color: var(--bpm-orange);
+    margin-right: 4px;
+}
+
+.homepage-preview-card p {
+    font-family: var(--bpm-font-body);
+    color: var(--bpm-text-muted);
+    font-size: 0.95em;
+    line-height: 1.7;
+}
+
+.homepage-preview-card .btn {
+    border-radius: 999px;
+    font-family: var(--bpm-font-body);
+    font-weight: 700;
+    font-size: 0.85em;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+}
+
+/* Primary button on cards — orange */
+.homepage-preview-card .btn-primary {
+    background-color: var(--bpm-orange);
+    color: var(--bpm-white);
+}
+
+.homepage-preview-card .btn-primary:hover {
+    background-color: var(--bpm-orange-hover);
+    box-shadow: 0 4px 16px rgba(234, 111, 46, 0.3);
+    transform: none;
+}
+
+/* Secondary button — outlined */
+.homepage-preview-card .btn-secondary {
+    background-color: transparent;
+    color: var(--bpm-white);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+}
+
+.homepage-preview-card .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--bpm-white);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Orange button on cards */
+.homepage-preview-card .btn-orange {
+    background-color: var(--bpm-orange);
+    color: var(--bpm-white);
+}
+
+.homepage-preview-card .btn-orange:hover {
+    background-color: var(--bpm-orange-hover);
+    box-shadow: 0 4px 16px rgba(234, 111, 46, 0.3);
+}
+
+/* ---- World Cup Card — featured accent ---- */
+.homepage-preview-card.world-cup-preview {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(5, 16, 43, 0.6) 0%,
+            rgba(10, 26, 63, 0.5) 50%,
+            rgba(234, 111, 46, 0.08) 100%
+        ),
+        url("../img/photos/atmosphere-match.jpg") center/cover no-repeat;
+    border: 1px solid rgba(234, 111, 46, 0.2);
+}
+
+.homepage-preview-card.world-cup-preview:hover {
+    border-color: rgba(234, 111, 46, 0.35);
+}
+
+.homepage-preview-card.world-cup-preview h3,
+.homepage-preview-card.world-cup-preview p {
+    color: var(--bpm-white);
+}
+
+.homepage-preview-card.world-cup-preview p {
+    color: var(--bpm-text-muted);
+}
+
+.wc-card-logo {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ---- Fixtures & Results Card ---- */
+.homepage-preview-card.fixtures-results-preview {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-top: 3px solid var(--bpm-orange);
+}
+
+.homepage-preview-card.fixtures-results-preview::after {
+    display: none;
+}
+
+.homepage-preview-card.fixtures-results-preview h3 {
+    color: var(--bpm-white);
+}
+
+.homepage-preview-card.fixtures-results-preview p {
+    color: var(--bpm-text-muted);
+}
+
+/* ---- News Card ---- */
+.homepage-preview-card.news-preview {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+}
+
+.homepage-preview-card.news-preview::after {
+    display: none;
+}
+
+.homepage-preview-card.news-preview h3 {
+    color: var(--bpm-white);
+}
+
+.homepage-preview-card.news-preview p {
+    color: var(--bpm-text-muted);
+}
+
+/* ---- About Us Card ---- */
+.homepage-preview-card.about-us-preview {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-left: 4px solid var(--bpm-orange);
+}
+
+.homepage-preview-card.about-us-preview h3 {
+    color: var(--bpm-white);
+}
+
+.homepage-preview-card.about-us-preview p {
+    color: var(--bpm-text-muted);
+}
+
+/* ---- Sponsorship CTA Card — accent glow ---- */
+.homepage-preview-card.sponsorship-cta {
+    background: linear-gradient(135deg, rgba(234, 111, 46, 0.12) 0%, rgba(5, 16, 43, 0.4) 100%);
+    border: 1px solid rgba(234, 111, 46, 0.25);
+}
+
+.homepage-preview-card.sponsorship-cta::before {
+    border-color: rgba(234, 111, 46, 0.12);
+}
+
+.homepage-preview-card.sponsorship-cta::after {
+    border-color: rgba(234, 111, 46, 0.08);
+}
+
+.homepage-preview-card.sponsorship-cta:hover {
+    border-color: rgba(234, 111, 46, 0.4);
+}
+
+.homepage-preview-card.sponsorship-cta h3,
+.homepage-preview-card.sponsorship-cta p {
+    color: var(--bpm-white);
+}
+
+.homepage-preview-card.sponsorship-cta p {
+    color: var(--bpm-text-muted);
+}
+
+/* ---- Player Portal Card ---- */
+.homepage-preview-card.player-portal-preview {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(5, 16, 43, 0.6) 0%,
+            rgba(10, 26, 63, 0.5) 100%
+        ),
+        url("../img/photos/team-camaraderie.jpg") center/cover no-repeat;
+    border: 1px solid var(--bpm-border-light);
+}
+
+.homepage-preview-card.player-portal-preview h3,
+.homepage-preview-card.player-portal-preview p {
+    color: var(--bpm-white);
+}
+
+.homepage-preview-card.player-portal-preview p {
+    color: var(--bpm-text-muted);
+}
+
+/* ---- Footer — harmonised ---- */
+.footer {
+    background: var(--bpm-navy);
+    border-top: 1px solid var(--bpm-border-light);
+}
+
+.footer .social-links a:hover {
+    color: var(--bpm-orange);
+}
+
+.footer .footer-nav a:hover {
+    color: var(--bpm-orange);
+}
+
+/* ---- Mobile Responsive Adjustments ---- */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 80px 0 70px;
+    }
+
+    .hero-section h1 {
+        font-size: 2.6em;
+    }
+
+    .hero-section p {
+        font-size: 1em;
+    }
+
+    .homepage-cards-section {
+        padding: 50px 0 60px;
+    }
+
+    .homepage-preview-card {
+        padding: 24px 20px;
+    }
+
+    .homepage-preview-card h3 {
+        font-size: 1.35em;
+    }
+
+    .nav ul {
+        background-color: var(--bpm-navy);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section h1 {
+        font-size: 2.2em;
+    }
+
+    .homepage-preview-grid {
+        gap: 20px;
+    }
+}
