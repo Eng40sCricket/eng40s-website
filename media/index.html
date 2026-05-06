@@ -423,6 +423,8 @@
 
         /* Video card visibility for type filter */
         .video-card.hidden { display: none; }
+        /* Full-width playlist card: always visible regardless of type filter */
+        .video-card[data-type="all"] { display: flex !important; }
 
         /* Empty state */
         .video-empty-state {
@@ -808,7 +810,7 @@
                             <h3>2026 Season — Full Playlist</h3>
                             <p>All live streams and highlights from the 2026 England Over 40s season, including the IMC World Cup in Guyana.</p>
                         </div>
-                        <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="playlist-banner-link">
+                        <a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg" target="_blank" rel="noopener noreferrer" class="playlist-banner-link">
                             <i class="fab fa-youtube"></i> Open Playlist
                         </a>
                     </div>
@@ -822,6 +824,31 @@
                     </div>
 
                     <div class="video-grid" id="grid-2026">
+
+                        <!-- FULL PLAYLIST EMBED — spans full width on desktop -->
+                        <div class="video-card" data-type="all" data-season="2026" style="grid-column: 1 / -1;">
+                            <div class="video-embed-wrapper">
+                                <iframe
+                                    src="https://www.youtube.com/embed/videoseries?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg"
+                                    title="England Over 40s — 2026 Season Full Playlist"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                    loading="lazy">
+                                </iframe>
+                            </div>
+                            <div class="video-card-body">
+                                <div class="video-card-meta">
+                                    <span class="highlights-badge"><i class="fab fa-youtube"></i> Full Playlist</span>
+                                </div>
+                                <div class="video-card-title">2026 Season — Complete Playlist</div>
+                                <div class="video-card-date"><i class="fas fa-layer-group" style="margin-right:5px;opacity:0.5;"></i>All live streams &amp; highlights from the 2026 season · England Over 40s only</div>
+                                <div class="video-card-footer">
+                                    <a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg" target="_blank" rel="noopener noreferrer" class="video-link-btn primary">
+                                        <i class="fab fa-youtube"></i> Open Full Playlist on YouTube
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- UPCOMING: England v India — 27 May 2026 -->
                         <div class="video-card" data-type="upcoming" data-season="2026">
@@ -838,7 +865,7 @@
                                 <div class="video-card-title">England v India — 1st ODI</div>
                                 <div class="video-card-date"><i class="fas fa-calendar" style="margin-right:5px;opacity:0.5;"></i>27 May 2026 · Live on YouTube</div>
                                 <div class="video-card-footer">
-                                    <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary">
+                                    <a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary">
                                         <i class="fas fa-bell"></i> Set Reminder
                                     </a>
                                 </div>
@@ -860,7 +887,7 @@
                                 <div class="video-card-title">England v India — 2nd ODI</div>
                                 <div class="video-card-date"><i class="fas fa-calendar" style="margin-right:5px;opacity:0.5;"></i>29 May 2026 · Live on YouTube</div>
                                 <div class="video-card-footer">
-                                    <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary">
+                                    <a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary">
                                         <i class="fas fa-bell"></i> Set Reminder
                                     </a>
                                 </div>
@@ -882,8 +909,8 @@
                                 <div class="video-card-title">2026 Season — Highlights Reel</div>
                                 <div class="video-card-date"><i class="fas fa-calendar" style="margin-right:5px;opacity:0.5;"></i>Available after each match</div>
                                 <div class="video-card-footer">
-                                    <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary">
-                                        <i class="fab fa-youtube"></i> Subscribe
+                                    <a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary">
+                                        <i class="fab fa-youtube"></i> View Playlist
                                     </a>
                                 </div>
                             </div>
@@ -900,7 +927,7 @@
                             <h3>2025 Season — Full Playlist</h3>
                             <p>All live streams and highlights from the 2025 England Over 40s season.</p>
                         </div>
-                        <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="playlist-banner-link">
+                        <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="playlist-banner-link" title="Add 2025 playlist URL when available">
                             <i class="fab fa-youtube"></i> Open Playlist
                         </a>
                     </div>
@@ -913,12 +940,12 @@
 
                     <div class="video-grid" id="grid-2025">
 
-                        <!-- Example 2025 live stream — replace VIDEO_ID with real YouTube ID -->
+                        <!-- 2025 playlist embed — update href and src with the real 2025 playlist ID when available -->
                         <div class="video-card" data-type="live" data-season="2025">
                             <div class="video-embed-wrapper">
                                 <iframe
-                                    src="https://www.youtube.com/embed?listType=user_uploads&list=EnglandSeniorsOver40sCri-pj3gn&index=1"
-                                    title="England Over 40s — 2025 Live Stream"
+                                    src="https://www.youtube.com/embed/videoseries?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg"
+                                    title="England Over 40s — 2025 Season Playlist (update list= ID)"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen
                                     loading="lazy">
@@ -970,7 +997,7 @@
                             <h3>2024 Season — Full Playlist</h3>
                             <p>All live streams and highlights from the 2024 England Over 40s season.</p>
                         </div>
-                        <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="playlist-banner-link">
+                        <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="playlist-banner-link" title="Add 2024 playlist URL when available">
                             <i class="fab fa-youtube"></i> Open Playlist
                         </a>
                     </div>
@@ -1225,7 +1252,8 @@
                     btn.classList.add('active');
                     const type = btn.dataset.type;
                     grid.querySelectorAll('.video-card').forEach(card => {
-                        if (type === 'all' || card.dataset.type === type) {
+                        // Cards with data-type="all" are always shown (e.g. full playlist embed)
+                        if (card.dataset.type === 'all' || type === 'all' || card.dataset.type === type) {
                             card.classList.remove('hidden');
                         } else {
                             card.classList.add('hidden');
