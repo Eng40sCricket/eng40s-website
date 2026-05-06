@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>England Over 40s — 2026 Season Playlist</title>
+    <meta name="description" content="Watch all England Over 40s 2026 season live streams and highlights on YouTube.">
+
+    <!--
+        This page uses three layered techniques to open the correct YouTube playlist
+        reliably on all devices and in-app browsers:
+
+        1. HTTP-equiv refresh (works even if JS is disabled)
+        2. window.location.replace via JS (fastest path)
+        3. Visible fallback link for users who need to tap manually
+
+        The watch?v=...&list=... format (first video + playlist) is the most
+        reliably handled URL by the YouTube iOS and Android apps, as it opens
+        a specific video and then queues the full playlist — avoiding the
+        playlist-only URL that some WebViews strip.
+    -->
+
+    <!-- Method 1: Meta refresh fallback (no JS) -->
+    <meta http-equiv="refresh" content="0; url=https://www.youtube.com/watch?v=gMT497KBtGc&list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=jdKGZnUdU8WhcdkG">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #05102B;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+        }
+        .card {
+            max-width: 420px;
+            width: 100%;
+        }
+        .logo {
+            width: 64px;
+            height: 64px;
+            background: #C85A1F;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 28px;
+        }
+        h1 {
+            font-size: 1.5em;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        h1 span { color: #C85A1F; }
+        p {
+            font-size: 0.95em;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.15);
+            border-top-color: #C85A1F;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 24px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #ff0000;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1em;
+            padding: 14px 28px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #cc0000; }
+        .btn svg { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
+        .back {
+            display: block;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.45);
+            font-size: 0.85em;
+            text-decoration: none;
+        }
+        .back:hover { color: rgba(255,255,255,0.7); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">
+            <svg viewBox="0 0 24 24" fill="white" width="32" height="32">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+        </div>
+        <h1>England Over <span>40s</span></h1>
+        <p>Opening the <strong>2026 Season Playlist</strong> on YouTube&hellip;<br>
+        All live streams and highlights from the 2026 season.</p>
+        <div class="spinner" id="spinner"></div>
+        <a class="btn" id="playlist-link"
+           href="https://www.youtube.com/watch?v=gMT497KBtGc&list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=jdKGZnUdU8WhcdkG"
+           target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            Open Playlist on YouTube
+        </a>
+        <a class="back" href="../media/index.html">&larr; Back to Media Hub</a>
+    </div>
+
+    <script>
+        // Method 2: Immediate JS redirect using watch?v=...&list=... format
+        // This is the most reliably handled format by the YouTube iOS/Android app
+        // as it opens a specific video and queues the full playlist.
+        (function() {
+            var playlistUrl = 'https://www.youtube.com/watch?v=gMT497KBtGc&list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=jdKGZnUdU8WhcdkG';
+            // Use replace so the back button doesn't loop
+            window.location.replace(playlistUrl);
+        })();
+    </script>
+</body>
+</html>
