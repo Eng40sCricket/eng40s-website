@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>England Over 40s Cricket — Media Hub</title>
+    <meta name="description" content="Watch live streams, highlights, and browse matchday photography from England Over 40s Cricket. Season playlists, team photos, portraits, and action shots.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/broadcast-theme.css">
+    <link rel="stylesheet" href="../assets/css/brand-colours.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ============================================================
+           MEDIA HUB — Page-specific styles
+           ============================================================ */
+
+        /* Hero */
+        .media-hero {
+            background: linear-gradient(135deg, #05102B 0%, #0a1a3f 50%, #0f2252 100%);
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .media-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(200, 90, 31, 0.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 128, 219, 0.08) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .media-hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.8em, 6vw, 5em);
+            letter-spacing: 0.05em;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        .media-hero h1 span {
+            color: #C85A1F;
+        }
+        .media-hero p {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.1em;
+            color: rgba(255,255,255,0.75);
+            max-width: 620px;
+            margin: 0 auto 28px;
+        }
+        .media-hero-badges {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .media-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 999px;
+            padding: 7px 18px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 0.02em;
+        }
+        .media-hero-badge i { color: #C85A1F; }
+
+        /* Section layout */
+        .media-section {
+            padding: 64px 0;
+        }
+        .media-section-dark {
+            background: #05102B;
+        }
+        .media-section-mid {
+            background: #0a1a3f;
+        }
+        .media-section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.8em, 4vw, 2.8em);
+            letter-spacing: 0.05em;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .media-section-title span { color: #C85A1F; }
+        .media-section-subtitle {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.95em;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 40px;
+        }
+        .section-header-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        /* Season selector tabs */
+        .season-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+        .season-tab {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.88em;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 9px 22px;
+            border-radius: 999px;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            background: transparent;
+            color: rgba(255,255,255,0.65);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .season-tab:hover {
+            border-color: rgba(200,90,31,0.5);
+            color: #fff;
+        }
+        .season-tab.active {
+            background: #C85A1F;
+            border-color: #C85A1F;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(200,90,31,0.35);
+        }
+
+        /* Video type filter */
+        .video-type-filter {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+        .vtype-btn {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.82em;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 7px 18px;
+            border-radius: 999px;
+            border: 1.5px solid rgba(255,255,255,0.12);
+            background: transparent;
+            color: rgba(255,255,255,0.55);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .vtype-btn:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+        .vtype-btn.active {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.35);
+            color: #fff;
+        }
+        .vtype-btn.live.active { background: rgba(220,38,38,0.2); border-color: rgba(220,38,38,0.5); color: #fca5a5; }
+        .vtype-btn.highlights.active { background: rgba(200,90,31,0.2); border-color: rgba(200,90,31,0.5); color: #fdba74; }
+        .vtype-btn.playlist.active { background: rgba(0,128,219,0.2); border-color: rgba(0,128,219,0.5); color: #93c5fd; }
+
+        /* Live badge */
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #dc2626;
+            color: #fff;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.72em;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+        .live-badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            animation: pulse-dot 1.2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+        .upcoming-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(0,128,219,0.25);
+            border: 1px solid rgba(0,128,219,0.4);
+            color: #93c5fd;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.72em;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+        .highlights-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(200,90,31,0.25);
+            border: 1px solid rgba(200,90,31,0.4);
+            color: #fdba74;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.72em;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        /* Video grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .video-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+            border-color: rgba(200,90,31,0.3);
+        }
+        .video-card[data-type="live"] { border-top: 3px solid #dc2626; }
+        .video-card[data-type="upcoming"] { border-top: 3px solid #0080db; }
+        .video-card[data-type="highlights"] { border-top: 3px solid #C85A1F; }
+
+        /* Embed wrapper — 16:9 */
+        .video-embed-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #020a1e;
+        }
+        .video-embed-wrapper iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* Placeholder for upcoming streams */
+        .video-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #020a1e 0%, #0a1a3f 100%);
+            gap: 10px;
+        }
+        .video-placeholder i {
+            font-size: 2.5em;
+            color: rgba(255,255,255,0.2);
+        }
+        .video-placeholder span {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .video-card-body {
+            padding: 16px 18px 18px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .video-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .video-card-title {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.95em;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.35;
+            margin-bottom: 6px;
+        }
+        .video-card-date {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 12px;
+        }
+        .video-card-footer {
+            margin-top: auto;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .video-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.8em;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            padding: 7px 16px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .video-link-btn.primary {
+            background: #C85A1F;
+            color: #fff;
+        }
+        .video-link-btn.primary:hover {
+            background: #A94B18;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(200,90,31,0.4);
+        }
+        .video-link-btn.secondary {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.8);
+        }
+        .video-link-btn.secondary:hover {
+            background: rgba(255,255,255,0.14);
+            color: #fff;
+        }
+        .video-link-btn.live-btn {
+            background: #dc2626;
+            color: #fff;
+        }
+        .video-link-btn.live-btn:hover {
+            background: #b91c1c;
+            color: #fff;
+        }
+
+        /* Season playlist banner */
+        .playlist-banner {
+            background: linear-gradient(135deg, rgba(200,90,31,0.12) 0%, rgba(0,128,219,0.08) 100%);
+            border: 1px solid rgba(200,90,31,0.2);
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        .playlist-banner i {
+            font-size: 2em;
+            color: #C85A1F;
+            flex-shrink: 0;
+        }
+        .playlist-banner-text h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3em;
+            letter-spacing: 0.05em;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .playlist-banner-text p {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.6);
+            margin: 0;
+        }
+        .playlist-banner-link {
+            margin-left: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            padding: 9px 22px;
+            border-radius: 999px;
+            background: #C85A1F;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .playlist-banner-link:hover {
+            background: #A94B18;
+            color: #fff;
+        }
+
+        /* Season panel visibility */
+        .season-panel { display: none; }
+        .season-panel.active { display: block; }
+
+        /* Video card visibility for type filter */
+        .video-card.hidden { display: none; }
+
+        /* Empty state */
+        .video-empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255,255,255,0.35);
+            font-family: 'Manrope', sans-serif;
+        }
+        .video-empty-state i {
+            font-size: 3em;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* ============================================================
+           PHOTOGRAPHY SECTION
+           ============================================================ */
+        .photo-category-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+        .photo-cat-btn {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 9px 22px;
+            border-radius: 999px;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            background: transparent;
+            color: rgba(255,255,255,0.65);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .photo-cat-btn:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+        .photo-cat-btn.active {
+            background: #C85A1F;
+            border-color: #C85A1F;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(200,90,31,0.35);
+        }
+
+        /* Photo season selector */
+        .photo-season-select {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.88em;
+            font-weight: 600;
+            padding: 9px 16px;
+            border-radius: 999px;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .photo-season-select:focus { border-color: #C85A1F; }
+        .photo-season-select option { background: #05102B; color: #fff; }
+
+        /* Photo masonry grid */
+        .photo-grid {
+            columns: 3;
+            column-gap: 16px;
+        }
+        @media (max-width: 900px) { .photo-grid { columns: 2; } }
+        @media (max-width: 560px) { .photo-grid { columns: 1; } }
+
+        .photo-item {
+            break-inside: avoid;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            display: block;
+        }
+        .photo-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+        .photo-item:hover img { transform: scale(1.04); }
+        .photo-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(5,16,43,0.85) 0%, transparent 55%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 14px;
+        }
+        .photo-item:hover .photo-item-overlay { opacity: 1; }
+        .photo-item-caption {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.82em;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.3;
+        }
+        .photo-item-sub {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.74em;
+            color: rgba(255,255,255,0.65);
+            margin-top: 2px;
+        }
+        .photo-item-expand {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px; height: 32px;
+            background: rgba(5,16,43,0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.75em;
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+        .photo-item:hover .photo-item-expand { opacity: 1; }
+        .photo-item.hidden { display: none; }
+
+        /* Photo upload/add CTA */
+        .photo-add-cta {
+            background: rgba(255,255,255,0.03);
+            border: 2px dashed rgba(255,255,255,0.12);
+            border-radius: 16px;
+            padding: 40px 24px;
+            text-align: center;
+            margin-top: 32px;
+        }
+        .photo-add-cta i {
+            font-size: 2.5em;
+            color: rgba(255,255,255,0.2);
+            margin-bottom: 12px;
+            display: block;
+        }
+        .photo-add-cta h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4em;
+            letter-spacing: 0.05em;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 6px;
+        }
+        .photo-add-cta p {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.88em;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 18px;
+        }
+        .photo-add-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            padding: 10px 24px;
+            border-radius: 999px;
+            background: rgba(200,90,31,0.2);
+            border: 1.5px solid rgba(200,90,31,0.4);
+            color: #fdba74;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .photo-add-cta a:hover {
+            background: #C85A1F;
+            border-color: #C85A1F;
+            color: #fff;
+        }
+
+        /* ============================================================
+           LIGHTBOX
+           ============================================================ */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(2,10,30,0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .lightbox-overlay.open { display: flex; }
+        .lightbox-inner {
+            position: relative;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+        }
+        .lightbox-caption {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.75);
+            text-align: center;
+            margin-top: 14px;
+            padding: 0 20px;
+        }
+        .lightbox-caption strong { color: #fff; }
+        .lightbox-close {
+            position: absolute;
+            top: -44px;
+            right: 0;
+            width: 36px; height: 36px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-close:hover { background: #C85A1F; }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px; height: 44px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-nav:hover { background: #C85A1F; }
+        .lightbox-prev { left: -56px; }
+        .lightbox-next { right: -56px; }
+        @media (max-width: 768px) {
+            .lightbox-prev { left: 0; }
+            .lightbox-next { right: 0; }
+        }
+
+        /* ============================================================
+           STATS STRIP
+           ============================================================ */
+        .media-stats-strip {
+            background: linear-gradient(90deg, rgba(200,90,31,0.12) 0%, rgba(0,128,219,0.08) 100%);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 28px 0;
+        }
+        .media-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            text-align: center;
+        }
+        @media (max-width: 600px) { .media-stats-grid { grid-template-columns: repeat(2, 1fr); } }
+        .media-stat-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.6em;
+            letter-spacing: 0.04em;
+            color: #C85A1F;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .media-stat-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.78em;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ============================================================
+           RESPONSIVE TWEAKS
+           ============================================================ */
+        @media (max-width: 768px) {
+            .media-hero { padding: 60px 0 40px; }
+            .video-grid { grid-template-columns: 1fr; }
+            .section-header-row { flex-direction: column; align-items: flex-start; }
+            .playlist-banner { flex-direction: column; }
+            .playlist-banner-link { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+
+        <!-- ============================================================
+             HERO
+             ============================================================ -->
+        <section class="media-hero">
+            <div class="container">
+                <h1>Media <span>Hub</span></h1>
+                <p>Live streams, match highlights, and matchday photography — everything from England Over 40s Cricket in one place.</p>
+                <div class="media-hero-badges">
+                    <span class="media-hero-badge"><i class="fas fa-broadcast-tower"></i> Live Streams</span>
+                    <span class="media-hero-badge"><i class="fas fa-film"></i> Highlights</span>
+                    <span class="media-hero-badge"><i class="fas fa-camera"></i> Photography</span>
+                    <span class="media-hero-badge"><i class="fas fa-layer-group"></i> Season Archives</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             STATS STRIP
+             ============================================================ -->
+        <div class="media-stats-strip">
+            <div class="container">
+                <div class="media-stats-grid">
+                    <div>
+                        <div class="media-stat-value" id="stat-videos">—</div>
+                        <div class="media-stat-label">Videos</div>
+                    </div>
+                    <div>
+                        <div class="media-stat-value" id="stat-streams">—</div>
+                        <div class="media-stat-label">Live Streams</div>
+                    </div>
+                    <div>
+                        <div class="media-stat-value" id="stat-photos">—</div>
+                        <div class="media-stat-label">Photos</div>
+                    </div>
+                    <div>
+                        <div class="media-stat-value" id="stat-seasons">—</div>
+                        <div class="media-stat-label">Seasons</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             VIDEO SECTION
+             ============================================================ -->
+        <section class="media-section media-section-dark" id="video-section">
+            <div class="container">
+                <div class="section-header-row">
+                    <div>
+                        <h2 class="media-section-title"><i class="fab fa-youtube" style="color:#C85A1F;font-size:0.85em;margin-right:10px;"></i>Season <span>Playlists</span></h2>
+                        <p class="media-section-subtitle">Live streams and highlights from every England Over 40s match — organised by season.</p>
+                    </div>
+                    <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="white-space:nowrap;">
+                        <i class="fab fa-youtube"></i> View Channel
+                    </a>
+                </div>
+
+                <!-- Season selector -->
+                <div class="season-tabs" id="season-tabs" role="tablist" aria-label="Season selector">
+                    <button class="season-tab active" data-season="2026" role="tab" aria-selected="true">2026 Season</button>
+                    <button class="season-tab" data-season="2025" role="tab" aria-selected="false">2025 Season</button>
+                    <button class="season-tab" data-season="2024" role="tab" aria-selected="false">2024 Season</button>
+                </div>
+
+                <!-- ---- 2026 Season ---- -->
+                <div class="season-panel active" id="season-2026">
+                    <div class="playlist-banner">
+                        <i class="fab fa-youtube"></i>
+                        <div class="playlist-banner-text">
+                            <h3>2026 Season — Full Playlist</h3>
+                            <p>All live streams and highlights from the 2026 England Over 40s season, including the IMC World Cup in Guyana.</p>
+                        </div>
+                        <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="playlist-banner-link">
+                            <i class="fab fa-youtube"></i> Open Playlist
+                        </a>
+                    </div>
+
+                    <!-- Video type filter -->
+                    <div class="video-type-filter" data-season="2026">
+                        <button class="vtype-btn active" data-type="all"><i class="fas fa-th"></i> All</button>
+                        <button class="vtype-btn live" data-type="live"><i class="fas fa-broadcast-tower"></i> Live Streams</button>
+                        <button class="vtype-btn highlights" data-type="highlights"><i class="fas fa-film"></i> Highlights</button>
+                        <button class="vtype-btn playlist" data-type="upcoming"><i class="fas fa-clock"></i> Upcoming</button>
+                    </div>
+
+                    <div class="video-grid" id="grid-2026">
+
+                        <!-- UPCOMING: England v India — 27 May 2026 -->
+                        <div class="video-card" data-type="upcoming" data-season="2026">
+                            <div class="video-embed-wrapper">
+                                <div class="video-placeholder">
+                                    <i class="fas fa-broadcast-tower"></i>
+                                    <span>Stream Scheduled</span>
+                                </div>
+                            </div>
+                            <div class="video-card-body">
+                                <div class="video-card-meta">
+                                    <span class="upcoming-badge"><i class="fas fa-clock"></i> Upcoming</span>
+                                </div>
+                                <div class="video-card-title">England v India — 1st ODI</div>
+                                <div class="video-card-date"><i class="fas fa-calendar" style="margin-right:5px;opacity:0.5;"></i>27 May 2026 · Live on YouTube</div>
+                                <div class="video-card-footer">
+                                    <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary">
+                                        <i class="fas fa-bell"></i> Set Reminder
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UPCOMING: England v India — 29 May 2026 -->
+                        <div class="video-card" data-type="upcoming" data-season="2026">
+                            <div class="video-embed-wrapper">
+                                <div class="video-placeholder">
+                                    <i class="fas fa-broadcast-tower"></i>
+                                    <span>Stream Scheduled</span>
+                                </div>
+                            </div>
+                            <div class="video-card-body">
+                                <div class="video-card-meta">
+                                    <span class="upcoming-badge"><i class="fas fa-clock"></i> Upcoming</span>
+                                </div>
+                                <div class="video-card-title">England v India — 2nd ODI</div>
+                                <div class="video-card-date"><i class="fas fa-calendar" style="margin-right:5px;opacity:0.5;"></i>29 May 2026 · Live on YouTube</div>
+                                <div class="video-card-footer">
+                                    <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary">
+                                        <i class="fas fa-bell"></i> Set Reminder
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HIGHLIGHTS PLACEHOLDER -->
+                        <div class="video-card" data-type="highlights" data-season="2026">
+                            <div class="video-embed-wrapper">
+                                <div class="video-placeholder">
+                                    <i class="fas fa-film"></i>
+                                    <span>Highlights Coming Soon</span>
+                                </div>
+                            </div>
+                            <div class="video-card-body">
+                                <div class="video-card-meta">
+                                    <span class="highlights-badge"><i class="fas fa-film"></i> Highlights</span>
+                                </div>
+                                <div class="video-card-title">2026 Season — Highlights Reel</div>
+                                <div class="video-card-date"><i class="fas fa-calendar" style="margin-right:5px;opacity:0.5;"></i>Available after each match</div>
+                                <div class="video-card-footer">
+                                    <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary">
+                                        <i class="fab fa-youtube"></i> Subscribe
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /video-grid 2026 -->
+                </div><!-- /season-panel 2026 -->
+
+                <!-- ---- 2025 Season ---- -->
+                <div class="season-panel" id="season-2025">
+                    <div class="playlist-banner">
+                        <i class="fab fa-youtube"></i>
+                        <div class="playlist-banner-text">
+                            <h3>2025 Season — Full Playlist</h3>
+                            <p>All live streams and highlights from the 2025 England Over 40s season.</p>
+                        </div>
+                        <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="playlist-banner-link">
+                            <i class="fab fa-youtube"></i> Open Playlist
+                        </a>
+                    </div>
+
+                    <div class="video-type-filter" data-season="2025">
+                        <button class="vtype-btn active" data-type="all"><i class="fas fa-th"></i> All</button>
+                        <button class="vtype-btn live" data-type="live"><i class="fas fa-broadcast-tower"></i> Live Streams</button>
+                        <button class="vtype-btn highlights" data-type="highlights"><i class="fas fa-film"></i> Highlights</button>
+                    </div>
+
+                    <div class="video-grid" id="grid-2025">
+
+                        <!-- Example 2025 live stream — replace VIDEO_ID with real YouTube ID -->
+                        <div class="video-card" data-type="live" data-season="2025">
+                            <div class="video-embed-wrapper">
+                                <iframe
+                                    src="https://www.youtube.com/embed?listType=user_uploads&list=EnglandSeniorsOver40sCri-pj3gn&index=1"
+                                    title="England Over 40s — 2025 Live Stream"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                    loading="lazy">
+                                </iframe>
+                            </div>
+                            <div class="video-card-body">
+                                <div class="video-card-meta">
+                                    <span class="live-badge">Replay</span>
+                                </div>
+                                <div class="video-card-title">England v Wales — 2025 Season</div>
+                                <div class="video-card-date"><i class="fas fa-calendar" style="margin-right:5px;opacity:0.5;"></i>2025 Season</div>
+                                <div class="video-card-footer">
+                                    <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="video-link-btn primary">
+                                        <i class="fab fa-youtube"></i> Watch on YouTube
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="video-card" data-type="highlights" data-season="2025">
+                            <div class="video-embed-wrapper">
+                                <div class="video-placeholder">
+                                    <i class="fas fa-film"></i>
+                                    <span>Add YouTube ID</span>
+                                </div>
+                            </div>
+                            <div class="video-card-body">
+                                <div class="video-card-meta">
+                                    <span class="highlights-badge"><i class="fas fa-film"></i> Highlights</span>
+                                </div>
+                                <div class="video-card-title">2025 Season Highlights</div>
+                                <div class="video-card-date"><i class="fas fa-calendar" style="margin-right:5px;opacity:0.5;"></i>2025 Season</div>
+                                <div class="video-card-footer">
+                                    <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="video-link-btn primary">
+                                        <i class="fab fa-youtube"></i> Watch on YouTube
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /video-grid 2025 -->
+                </div><!-- /season-panel 2025 -->
+
+                <!-- ---- 2024 Season ---- -->
+                <div class="season-panel" id="season-2024">
+                    <div class="playlist-banner">
+                        <i class="fab fa-youtube"></i>
+                        <div class="playlist-banner-text">
+                            <h3>2024 Season — Full Playlist</h3>
+                            <p>All live streams and highlights from the 2024 England Over 40s season.</p>
+                        </div>
+                        <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="playlist-banner-link">
+                            <i class="fab fa-youtube"></i> Open Playlist
+                        </a>
+                    </div>
+
+                    <div class="video-type-filter" data-season="2024">
+                        <button class="vtype-btn active" data-type="all"><i class="fas fa-th"></i> All</button>
+                        <button class="vtype-btn live" data-type="live"><i class="fas fa-broadcast-tower"></i> Live Streams</button>
+                        <button class="vtype-btn highlights" data-type="highlights"><i class="fas fa-film"></i> Highlights</button>
+                    </div>
+
+                    <div class="video-grid" id="grid-2024">
+                        <div class="video-empty-state">
+                            <i class="fab fa-youtube"></i>
+                            <p>2024 season videos will be added here.<br>Visit the YouTube channel to view the archive.</p>
+                            <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="display:inline-flex;margin-top:16px;">
+                                <i class="fab fa-youtube"></i> View YouTube Channel
+                            </a>
+                        </div>
+                    </div>
+                </div><!-- /season-panel 2024 -->
+
+            </div>
+        </section>
+
+        <!-- ============================================================
+             PHOTOGRAPHY SECTION
+             ============================================================ -->
+        <section class="media-section media-section-mid" id="photography-section">
+            <div class="container">
+                <div class="section-header-row">
+                    <div>
+                        <h2 class="media-section-title"><i class="fas fa-camera" style="color:#C85A1F;font-size:0.85em;margin-right:10px;"></i>Matchday <span>Photography</span></h2>
+                        <p class="media-section-subtitle">Team photos, player portraits, and action shots from England Over 40s matches.</p>
+                    </div>
+                    <!-- Season selector for photos -->
+                    <select class="photo-season-select" id="photo-season-select" aria-label="Select photo season">
+                        <option value="all">All Seasons</option>
+                        <option value="2026" selected>2026 Season</option>
+                        <option value="2025">2025 Season</option>
+                        <option value="2024">2024 Season</option>
+                    </select>
+                </div>
+
+                <!-- Category filter -->
+                <div class="photo-category-tabs" id="photo-category-tabs">
+                    <button class="photo-cat-btn active" data-cat="all"><i class="fas fa-th"></i> All Photos</button>
+                    <button class="photo-cat-btn" data-cat="team"><i class="fas fa-users"></i> Team Photos</button>
+                    <button class="photo-cat-btn" data-cat="portrait"><i class="fas fa-user"></i> Portraits</button>
+                    <button class="photo-cat-btn" data-cat="action"><i class="fas fa-running"></i> Action Shots</button>
+                </div>
+
+                <!-- Photo grid -->
+                <div class="photo-grid" id="photo-grid">
+
+                    <!-- ============================================================
+                         SAMPLE PHOTOS — Replace src with real image URLs.
+                         Each photo-item needs:
+                           data-cat  = "team" | "portrait" | "action"
+                           data-season = "2026" | "2025" | "2024"
+                           data-caption = descriptive caption
+                           data-sub = match / date context
+                         ============================================================ -->
+
+                    <!-- Team photo placeholder -->
+                    <div class="photo-item"
+                         data-cat="team" data-season="2026"
+                         data-caption="England Over 40s — 2026 Squad"
+                         data-sub="Pre-season team photo · 2026"
+                         tabindex="0" role="button" aria-label="View photo: England Over 40s 2026 Squad">
+                        <img src="https://placehold.co/600x400/05102B/C85A1F?text=Team+Photo+2026" alt="England Over 40s 2026 Squad" loading="lazy">
+                        <div class="photo-item-overlay">
+                            <div class="photo-item-caption">England Over 40s — 2026 Squad</div>
+                            <div class="photo-item-sub">Pre-season team photo · 2026</div>
+                        </div>
+                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
+                    </div>
+
+                    <!-- Portrait placeholder 1 -->
+                    <div class="photo-item"
+                         data-cat="portrait" data-season="2026"
+                         data-caption="Player Portrait — 2026"
+                         data-sub="England Over 40s · 2026 Season"
+                         tabindex="0" role="button" aria-label="View photo: Player Portrait 2026">
+                        <img src="https://placehold.co/400x500/0a1a3f/C85A1F?text=Portrait+2026" alt="Player Portrait 2026" loading="lazy">
+                        <div class="photo-item-overlay">
+                            <div class="photo-item-caption">Player Portrait — 2026</div>
+                            <div class="photo-item-sub">England Over 40s · 2026 Season</div>
+                        </div>
+                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
+                    </div>
+
+                    <!-- Action shot placeholder 1 -->
+                    <div class="photo-item"
+                         data-cat="action" data-season="2026"
+                         data-caption="Batting — England v India"
+                         data-sub="1st ODI · 27 May 2026"
+                         tabindex="0" role="button" aria-label="View photo: Batting England v India">
+                        <img src="https://placehold.co/600x450/0f2252/C85A1F?text=Action+Shot+2026" alt="Batting — England v India" loading="lazy">
+                        <div class="photo-item-overlay">
+                            <div class="photo-item-caption">Batting — England v India</div>
+                            <div class="photo-item-sub">1st ODI · 27 May 2026</div>
+                        </div>
+                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
+                    </div>
+
+                    <!-- Portrait placeholder 2 -->
+                    <div class="photo-item"
+                         data-cat="portrait" data-season="2026"
+                         data-caption="Player Portrait — 2026"
+                         data-sub="England Over 40s · 2026 Season"
+                         tabindex="0" role="button" aria-label="View photo: Player Portrait 2026 B">
+                        <img src="https://placehold.co/400x520/05102B/C85A1F?text=Portrait+2026+B" alt="Player Portrait 2026" loading="lazy">
+                        <div class="photo-item-overlay">
+                            <div class="photo-item-caption">Player Portrait — 2026</div>
+                            <div class="photo-item-sub">England Over 40s · 2026 Season</div>
+                        </div>
+                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
+                    </div>
+
+                    <!-- Action shot placeholder 2 -->
+                    <div class="photo-item"
+                         data-cat="action" data-season="2026"
+                         data-caption="Bowling — England v India"
+                         data-sub="1st ODI · 27 May 2026"
+                         tabindex="0" role="button" aria-label="View photo: Bowling England v India">
+                        <img src="https://placehold.co/600x400/0a1a3f/C85A1F?text=Action+Shot+2+2026" alt="Bowling — England v India" loading="lazy">
+                        <div class="photo-item-overlay">
+                            <div class="photo-item-caption">Bowling — England v India</div>
+                            <div class="photo-item-sub">1st ODI · 27 May 2026</div>
+                        </div>
+                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
+                    </div>
+
+                    <!-- Team photo 2025 -->
+                    <div class="photo-item"
+                         data-cat="team" data-season="2025"
+                         data-caption="England Over 40s — 2025 Squad"
+                         data-sub="Team photo · 2025 Season"
+                         tabindex="0" role="button" aria-label="View photo: England Over 40s 2025 Squad">
+                        <img src="https://placehold.co/600x400/05102B/0080db?text=Team+Photo+2025" alt="England Over 40s 2025 Squad" loading="lazy">
+                        <div class="photo-item-overlay">
+                            <div class="photo-item-caption">England Over 40s — 2025 Squad</div>
+                            <div class="photo-item-sub">Team photo · 2025 Season</div>
+                        </div>
+                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
+                    </div>
+
+                    <!-- Action 2025 -->
+                    <div class="photo-item"
+                         data-cat="action" data-season="2025"
+                         data-caption="Fielding — 2025 Season"
+                         data-sub="England Over 40s · 2025"
+                         tabindex="0" role="button" aria-label="View photo: Fielding 2025">
+                        <img src="https://placehold.co/600x450/0a1a3f/0080db?text=Action+2025" alt="Fielding 2025" loading="lazy">
+                        <div class="photo-item-overlay">
+                            <div class="photo-item-caption">Fielding — 2025 Season</div>
+                            <div class="photo-item-sub">England Over 40s · 2025</div>
+                        </div>
+                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
+                    </div>
+
+                    <!-- Portrait 2025 -->
+                    <div class="photo-item"
+                         data-cat="portrait" data-season="2025"
+                         data-caption="Player Portrait — 2025"
+                         data-sub="England Over 40s · 2025 Season"
+                         tabindex="0" role="button" aria-label="View photo: Player Portrait 2025">
+                        <img src="https://placehold.co/400x500/0f2252/0080db?text=Portrait+2025" alt="Player Portrait 2025" loading="lazy">
+                        <div class="photo-item-overlay">
+                            <div class="photo-item-caption">Player Portrait — 2025</div>
+                            <div class="photo-item-sub">England Over 40s · 2025 Season</div>
+                        </div>
+                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
+                    </div>
+
+                </div><!-- /photo-grid -->
+
+                <!-- Add photos CTA -->
+                <div class="photo-add-cta">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Got Matchday Photos?</h3>
+                    <p>Send your team photos, portraits, and action shots to the media team to be featured here.</p>
+                    <a href="mailto:media@eng40scricket.co.uk">
+                        <i class="fas fa-envelope"></i> Submit Photos
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============================================================
+             SUBSCRIBE CTA
+             ============================================================ -->
+        <section class="media-section media-section-dark" style="padding:48px 0;text-align:center;">
+            <div class="container">
+                <h2 class="media-section-title" style="margin-bottom:10px;">Never Miss a <span>Live Stream</span></h2>
+                <p style="font-family:'Manrope',sans-serif;font-size:1em;color:rgba(255,255,255,0.65);max-width:540px;margin:0 auto 28px;">Subscribe to the England Over 40s YouTube channel to get notified the moment we go live.</p>
+                <a href="https://www.youtube.com/@EnglandSeniorsOver40sCri-pj3gn" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:1em;padding:14px 36px;">
+                    <i class="fab fa-youtube"></i> Subscribe on YouTube
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================================
+         LIGHTBOX
+         ============================================================ -->
+    <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+        <div class="lightbox-inner">
+            <button class="lightbox-close" id="lightbox-close" aria-label="Close"><i class="fas fa-times"></i></button>
+            <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
+            <img class="lightbox-img" id="lightbox-img" src="" alt="">
+            <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <script src="../assets/js/main.js"></script>
+    <script>
+    /* ============================================================
+       MEDIA HUB — Interactive JavaScript
+       ============================================================ */
+    (function () {
+
+        /* ---- Season tab switching ---- */
+        const seasonTabs = document.querySelectorAll('.season-tab');
+        const seasonPanels = document.querySelectorAll('.season-panel');
+
+        seasonTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.season;
+                seasonTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+                seasonPanels.forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected','true');
+                const panel = document.getElementById('season-' + target);
+                if (panel) panel.classList.add('active');
+            });
+        });
+
+        /* ---- Video type filter ---- */
+        document.querySelectorAll('.video-type-filter').forEach(filterBar => {
+            const season = filterBar.dataset.season;
+            const grid = document.getElementById('grid-' + season);
+            if (!grid) return;
+
+            filterBar.querySelectorAll('.vtype-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBar.querySelectorAll('.vtype-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const type = btn.dataset.type;
+                    grid.querySelectorAll('.video-card').forEach(card => {
+                        if (type === 'all' || card.dataset.type === type) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+
+        /* ---- Photo category & season filter ---- */
+        const photoCatBtns = document.querySelectorAll('.photo-cat-btn');
+        const photoSeasonSelect = document.getElementById('photo-season-select');
+        const photoItems = document.querySelectorAll('.photo-item');
+
+        function filterPhotos() {
+            const activeCat = document.querySelector('.photo-cat-btn.active')?.dataset.cat || 'all';
+            const activeSeason = photoSeasonSelect?.value || 'all';
+            photoItems.forEach(item => {
+                const catMatch = activeCat === 'all' || item.dataset.cat === activeCat;
+                const seasonMatch = activeSeason === 'all' || item.dataset.season === activeSeason;
+                item.classList.toggle('hidden', !(catMatch && seasonMatch));
+            });
+        }
+
+        photoCatBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                photoCatBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterPhotos();
+            });
+        });
+
+        if (photoSeasonSelect) {
+            photoSeasonSelect.addEventListener('change', filterPhotos);
+        }
+
+        /* ---- Stats strip ---- */
+        function updateStats() {
+            const allVideos = document.querySelectorAll('.video-card').length;
+            const liveVideos = document.querySelectorAll('.video-card[data-type="live"]').length;
+            const allPhotos = document.querySelectorAll('.photo-item').length;
+            const seasons = document.querySelectorAll('.season-tab').length;
+            animateCount('stat-videos', allVideos);
+            animateCount('stat-streams', liveVideos);
+            animateCount('stat-photos', allPhotos);
+            animateCount('stat-seasons', seasons);
+        }
+
+        function animateCount(id, target) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            let current = 0;
+            const step = Math.ceil(target / 20);
+            const timer = setInterval(() => {
+                current = Math.min(current + step, target);
+                el.textContent = current;
+                if (current >= target) clearInterval(timer);
+            }, 40);
+        }
+
+        updateStats();
+
+        /* ---- Lightbox ---- */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        let currentPhotoIndex = 0;
+        let visiblePhotos = [];
+
+        function getVisiblePhotos() {
+            return Array.from(document.querySelectorAll('.photo-item:not(.hidden)'));
+        }
+
+        function openLightbox(index) {
+            visiblePhotos = getVisiblePhotos();
+            if (visiblePhotos.length === 0) return;
+            currentPhotoIndex = Math.max(0, Math.min(index, visiblePhotos.length - 1));
+            showPhoto(currentPhotoIndex);
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            lightboxImg.focus();
+        }
+
+        function showPhoto(index) {
+            const item = visiblePhotos[index];
+            if (!item) return;
+            const img = item.querySelector('img');
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            const caption = item.dataset.caption || '';
+            const sub = item.dataset.sub || '';
+            lightboxCaption.innerHTML = caption ? '<strong>' + caption + '</strong>' + (sub ? ' &mdash; ' + sub : '') : '';
+            lightboxPrev.style.display = index === 0 ? 'none' : 'flex';
+            lightboxNext.style.display = index === visiblePhotos.length - 1 ? 'none' : 'flex';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Open on photo click
+        document.getElementById('photo-grid').addEventListener('click', e => {
+            const item = e.target.closest('.photo-item');
+            if (!item) return;
+            visiblePhotos = getVisiblePhotos();
+            const index = visiblePhotos.indexOf(item);
+            openLightbox(index);
+        });
+
+        // Keyboard on photo items
+        document.getElementById('photo-grid').addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const item = e.target.closest('.photo-item');
+                if (!item) return;
+                visiblePhotos = getVisiblePhotos();
+                const index = visiblePhotos.indexOf(item);
+                openLightbox(index);
+            }
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+        lightboxPrev.addEventListener('click', () => {
+            if (currentPhotoIndex > 0) { currentPhotoIndex--; showPhoto(currentPhotoIndex); }
+        });
+        lightboxNext.addEventListener('click', () => {
+            if (currentPhotoIndex < visiblePhotos.length - 1) { currentPhotoIndex++; showPhoto(currentPhotoIndex); }
+        });
+
+        document.addEventListener('keydown', e => {
+            if (!lightbox.classList.contains('open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft' && currentPhotoIndex > 0) { currentPhotoIndex--; showPhoto(currentPhotoIndex); }
+            if (e.key === 'ArrowRight' && currentPhotoIndex < visiblePhotos.length - 1) { currentPhotoIndex++; showPhoto(currentPhotoIndex); }
+        });
+
+    })();
+    </script>
+</body>
+</html>
