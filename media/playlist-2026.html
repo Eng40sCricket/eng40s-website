@@ -7,21 +7,41 @@
     <meta name="description" content="Watch all England Over 40s 2026 season live streams and highlights on YouTube.">
 
     <!--
-        This page uses three layered techniques to open the correct YouTube playlist
-        reliably on all devices and in-app browsers:
-
-        1. HTTP-equiv refresh (works even if JS is disabled)
-        2. window.location.replace via JS (fastest path)
-        3. Visible fallback link for users who need to tap manually
-
-        The watch?v=...&list=... format (first video + playlist) is the most
-        reliably handled URL by the YouTube iOS and Android apps, as it opens
-        a specific video and then queues the full playlist — avoiding the
-        playlist-only URL that some WebViews strip.
+    ╔══════════════════════════════════════════════════════════════════════╗
+    ║          ENGLAND OVER 40s — 2026 SEASON PLAYLIST REDIRECT           ║
+    ╠══════════════════════════════════════════════════════════════════════╣
+    ║                                                                      ║
+    ║  HOW TO UPDATE THIS PAGE WHEN A MATCH STATUS CHANGES                ║
+    ║  ─────────────────────────────────────────────────────              ║
+    ║                                                                      ║
+    ║  There is ONE place to edit: the MATCHES list in the <script>        ║
+    ║  block below. Each match has:                                        ║
+    ║    videoId  — the YouTube video ID (from the video URL)              ║
+    ║    label    — the match name shown on the fallback button            ║
+    ║    status   — "upcoming" | "live" | "replay"                         ║
+    ║                                                                      ║
+    ║  STEP 1 — Before a match (Upcoming):                                 ║
+    ║    Set status: "upcoming"                                            ║
+    ║    The page will open the playlist from the first video.             ║
+    ║                                                                      ║
+    ║  STEP 2 — On matchday (Live stream in progress):                     ║
+    ║    Set status: "live" on that match's entry.                         ║
+    ║    The page will jump directly to that video (currently live).       ║
+    ║                                                                      ║
+    ║  STEP 3 — After the match (Replay available):                        ║
+    ║    Set status: "replay" on that match's entry.                       ║
+    ║    The page will open the replay with the full playlist queued.      ║
+    ║                                                                      ║
+    ║  STEP 4 — When a highlights video is added:                          ║
+    ║    Add a new entry to MATCHES with the highlights video ID           ║
+    ║    and set status: "highlights".                                     ║
+    ║                                                                      ║
+    ║  The redirect ALWAYS opens the most recent "live" match first.       ║
+    ║  If no match is live, it opens the most recent "replay".             ║
+    ║  If no replays exist yet, it opens the first upcoming match.         ║
+    ║                                                                      ║
+    ╚══════════════════════════════════════════════════════════════════════╝
     -->
-
-    <!-- Method 1: Meta refresh fallback (no JS) -->
-    <meta http-equiv="refresh" content="0; url=https://www.youtube.com/watch?v=gMT497KBtGc&list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=jdKGZnUdU8WhcdkG">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,67 +56,53 @@
             text-align: center;
             padding: 24px;
         }
-        .card {
-            max-width: 420px;
-            width: 100%;
-        }
+        .card { max-width: 440px; width: 100%; }
         .logo {
-            width: 64px;
-            height: 64px;
+            width: 64px; height: 64px;
             background: #C85A1F;
             border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             margin: 0 auto 24px;
-            font-size: 28px;
         }
-        h1 {
-            font-size: 1.5em;
-            font-weight: 800;
-            margin-bottom: 8px;
-            letter-spacing: -0.01em;
-        }
+        h1 { font-size: 1.5em; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.01em; }
         h1 span { color: #C85A1F; }
-        p {
-            font-size: 0.95em;
-            color: rgba(255,255,255,0.65);
-            margin-bottom: 32px;
-            line-height: 1.6;
+        .status-pill {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 0.78em; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; padding: 4px 12px; border-radius: 20px;
+            margin-bottom: 16px;
         }
+        .status-pill.live    { background: rgba(220,38,38,0.2); color: #f87171; border: 1px solid rgba(220,38,38,0.4); }
+        .status-pill.replay  { background: rgba(200,90,31,0.2); color: #fb923c; border: 1px solid rgba(200,90,31,0.4); }
+        .status-pill.upcoming{ background: rgba(59,130,246,0.2); color: #93c5fd; border: 1px solid rgba(59,130,246,0.4); }
+        .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+        .dot.pulse { animation: pulse 1.2s ease-in-out infinite; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        p { font-size: 0.95em; color: rgba(255,255,255,0.6); margin-bottom: 28px; line-height: 1.6; }
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255,255,255,0.15);
+            width: 40px; height: 40px;
+            border: 3px solid rgba(255,255,255,0.12);
             border-top-color: #C85A1F;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 24px;
+            margin: 0 auto 28px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #ff0000;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1em;
-            padding: 14px 28px;
-            border-radius: 8px;
+            display: inline-flex; align-items: center; gap: 10px;
+            background: #ff0000; color: #fff; text-decoration: none;
+            font-weight: 700; font-size: 1em;
+            padding: 14px 28px; border-radius: 8px;
             transition: background 0.2s;
         }
         .btn:hover { background: #cc0000; }
         .btn svg { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
+        .match-label { font-size: 0.82em; color: rgba(255,255,255,0.45); margin-top: 12px; }
         .back {
-            display: block;
-            margin-top: 20px;
-            color: rgba(255,255,255,0.45);
-            font-size: 0.85em;
-            text-decoration: none;
+            display: block; margin-top: 20px;
+            color: rgba(255,255,255,0.35); font-size: 0.82em; text-decoration: none;
         }
-        .back:hover { color: rgba(255,255,255,0.7); }
+        .back:hover { color: rgba(255,255,255,0.65); }
     </style>
 </head>
 <body>
@@ -107,27 +113,150 @@
             </svg>
         </div>
         <h1>England Over <span>40s</span></h1>
-        <p>Opening the <strong>2026 Season Playlist</strong> on YouTube&hellip;<br>
-        All live streams and highlights from the 2026 season.</p>
-        <div class="spinner" id="spinner"></div>
-        <a class="btn" id="playlist-link"
-           href="https://www.youtube.com/watch?v=gMT497KBtGc&list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=jdKGZnUdU8WhcdkG"
+        <div id="status-pill" class="status-pill upcoming">
+            <span class="dot" id="status-dot"></span>
+            <span id="status-text">Opening Playlist&hellip;</span>
+        </div>
+        <p id="redirect-desc">Opening the <strong>2026 Season Playlist</strong> on YouTube&hellip;</p>
+        <div class="spinner"></div>
+        <a class="btn" id="playlist-btn"
+           href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=jdKGZnUdU8WhcdkG"
            target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            Open Playlist on YouTube
+            <span id="btn-text">Open on YouTube</span>
         </a>
-        <a class="back" href="../media/index.html">&larr; Back to Media Hub</a>
+        <div class="match-label" id="match-label"></div>
+        <a class="back" href="index.html">&larr; Back to Media Hub</a>
     </div>
 
     <script>
-        // Method 2: Immediate JS redirect using watch?v=...&list=... format
-        // This is the most reliably handled format by the YouTube iOS/Android app
-        // as it opens a specific video and queues the full playlist.
-        (function() {
-            var playlistUrl = 'https://www.youtube.com/watch?v=gMT497KBtGc&list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=jdKGZnUdU8WhcdkG';
-            // Use replace so the back button doesn't loop
-            window.location.replace(playlistUrl);
-        })();
+    // ═══════════════════════════════════════════════════════════════════
+    //  2026 SEASON MATCH LIST — UPDATE THIS SECTION EACH MATCHDAY
+    //
+    //  For each match, set:
+    //    videoId : YouTube video ID  (from youtube.com/watch?v=VIDEO_ID)
+    //    label   : Short match name shown on the fallback button
+    //    status  : "upcoming" | "live" | "replay" | "highlights"
+    //
+    //  MATCHDAY WORKFLOW:
+    //  ─────────────────
+    //  Before match  → status: "upcoming"
+    //  Stream starts → status: "live"      ← change this on the morning
+    //  Match ends    → status: "replay"    ← change this after the stream
+    //  Highlights up → add new entry with  status: "highlights"
+    // ═══════════════════════════════════════════════════════════════════
+
+    var PLAYLIST_ID = 'PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg';
+    var PLAYLIST_SI = 'jdKGZnUdU8WhcdkG';
+
+    var MATCHES = [
+        // ── 27 May 2026 ─────────────────────────────────────────────
+        { videoId: 'gMT497KBtGc', label: 'England v India — 1st ODI (27 May)', status: 'upcoming' },
+
+        // ── 28 May 2026 ─────────────────────────────────────────────
+        { videoId: '',            label: 'England Lions v India — 2nd ODI (28 May)', status: 'upcoming' },
+
+        // ── 4 Jun 2026 ──────────────────────────────────────────────
+        { videoId: '',            label: 'England Lions v India — 3rd ODI (4 Jun)', status: 'upcoming' },
+
+        // ── 15 Jul 2026 ─────────────────────────────────────────────
+        { videoId: '',            label: 'England Lions v XL Club (15 Jul)', status: 'upcoming' },
+
+        // ── 28 Jul 2026 ─────────────────────────────────────────────
+        { videoId: '',            label: 'England v Wales — Triple Crown (28 Jul)', status: 'upcoming' },
+
+        // ── 29 Jul 2026 ─────────────────────────────────────────────
+        { videoId: '',            label: 'England v Scotland — Triple Crown (29 Jul)', status: 'upcoming' },
+
+        // ── 30 Jul 2026 ─────────────────────────────────────────────
+        { videoId: '',            label: 'England v Ireland — Triple Crown (30 Jul)', status: 'upcoming' },
+
+        // ── 5 Aug 2026 ──────────────────────────────────────────────
+        { videoId: '',            label: 'England v Wales — ODI (5 Aug)', status: 'upcoming' },
+
+        // ── 11 Aug 2026 ─────────────────────────────────────────────
+        { videoId: '',            label: 'England Lions v Worcestershire (11 Aug)', status: 'upcoming' },
+
+        // ── 3 Sep 2026 ──────────────────────────────────────────────
+        { videoId: '',            label: 'England v Ireland — ODI (3 Sep)', status: 'upcoming' },
+
+        // ── Interclub (already streamed) ────────────────────────────
+        // To add the Interclub replay: paste the video ID below and set status: "replay"
+        { videoId: '',            label: 'Interclub 2026 — Replay', status: 'upcoming' },
+
+        // ── Highlights (add entries here as they are published) ─────
+        // Example: { videoId: 'XXXXXXXXXX', label: 'Highlights — England v India 1st ODI', status: 'highlights' },
+    ];
+
+    // ═══════════════════════════════════════════════════════════════════
+    //  REDIRECT LOGIC — no need to edit below this line
+    // ═══════════════════════════════════════════════════════════════════
+
+    // Priority order: live first, then most recent replay, then highlights, then first upcoming
+    function pickTarget() {
+        var live     = MATCHES.filter(function(m){ return m.status === 'live'     && m.videoId; });
+        var replays  = MATCHES.filter(function(m){ return m.status === 'replay'   && m.videoId; });
+        var highlights = MATCHES.filter(function(m){ return m.status === 'highlights' && m.videoId; });
+        var upcoming = MATCHES.filter(function(m){ return m.status === 'upcoming' && m.videoId; });
+
+        if (live.length)       return { match: live[0],                    mode: 'live' };
+        if (replays.length)    return { match: replays[replays.length-1],  mode: 'replay' };
+        if (highlights.length) return { match: highlights[highlights.length-1], mode: 'highlights' };
+        if (upcoming.length)   return { match: upcoming[0],                mode: 'upcoming' };
+        return null;
+    }
+
+    var target = pickTarget();
+    var url, statusClass, statusLabel, descText, btnText;
+
+    if (target) {
+        url = 'https://www.youtube.com/watch?v=' + target.match.videoId
+            + '&list=' + PLAYLIST_ID
+            + '&si='   + PLAYLIST_SI;
+
+        if (target.mode === 'live') {
+            statusClass = 'live';
+            statusLabel = 'Live Now';
+            descText    = 'Taking you to the <strong>live stream</strong> — England Over 40s are playing right now.';
+            btnText     = 'Watch Live on YouTube';
+            document.getElementById('status-dot').classList.add('pulse');
+        } else if (target.mode === 'replay') {
+            statusClass = 'replay';
+            statusLabel = 'Watch Replay';
+            descText    = 'Opening the most recent <strong>match replay</strong> from the 2026 season.';
+            btnText     = 'Watch Replay on YouTube';
+        } else if (target.mode === 'highlights') {
+            statusClass = 'replay';
+            statusLabel = 'Highlights';
+            descText    = 'Opening the latest <strong>highlights</strong> from the 2026 season.';
+            btnText     = 'Watch Highlights on YouTube';
+        } else {
+            statusClass = 'upcoming';
+            statusLabel = 'Upcoming';
+            descText    = 'Opening the <strong>2026 Season Playlist</strong> — next match coming soon.';
+            btnText     = 'Open Playlist on YouTube';
+        }
+
+        document.getElementById('status-pill').className  = 'status-pill ' + statusClass;
+        document.getElementById('status-text').textContent = statusLabel;
+        document.getElementById('redirect-desc').innerHTML = descText;
+        document.getElementById('btn-text').textContent    = btnText;
+        document.getElementById('playlist-btn').href       = url;
+        document.getElementById('match-label').textContent = target.match.label;
+
+        // Immediate redirect
+        window.location.replace(url);
+
+    } else {
+        // No video IDs set yet — fall back to the playlist page directly
+        url = 'https://www.youtube.com/playlist?list=' + PLAYLIST_ID + '&si=' + PLAYLIST_SI;
+        document.getElementById('status-pill').className   = 'status-pill upcoming';
+        document.getElementById('status-text').textContent = '2026 Season';
+        document.getElementById('redirect-desc').innerHTML = 'Opening the <strong>2026 Season Playlist</strong> on YouTube.';
+        document.getElementById('btn-text').textContent    = 'Open Playlist on YouTube';
+        document.getElementById('playlist-btn').href       = url;
+        window.location.replace(url);
+    }
     </script>
 </body>
 </html>
