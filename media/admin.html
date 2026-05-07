@@ -431,8 +431,11 @@
         });
         if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
         const data = await res.json();
-        currentSha     = data.sha;
-        currentContent = atob(data.content.replace(/\n/g, ''));
+        currentSha = data.sha;
+        // Decode base64 with proper UTF-8 support (handles em-dashes etc.)
+        const b64 = data.content.replace(/\n/g, '');
+        const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+        currentContent = new TextDecoder('utf-8').decode(bytes);
         return currentContent;
     }
 
@@ -487,8 +490,9 @@
     async function pushFile(newContent, matchTitle, newStatus) {
         const url = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.path}`;
         const body = {
-            message: `Admin panel: set "${matchTitle}" → ${newStatus}`,
-            content: btoa(unescape(encodeURIComponent(newContent))),
+            message: `Admin panel: set "${matchTitle}" -> ${newStatus}`,
+            // Encode back to base64 with UTF-8 support
+            content: btoa(String.fromCharCode(...new TextEncoder().encode(newContent))),
             sha:     currentSha,
             branch:  CONFIG.branch
         };
