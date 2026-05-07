@@ -442,10 +442,197 @@
         .lightbox-next { right: -56px; }
         @media (max-width: 768px) { .lightbox-prev { left: 0; } .lightbox-next { right: 0; } }
 
+        /* ============================================================
+           NEXT MATCH SPOTLIGHT
+           ============================================================ */
+        .next-match-spotlight {
+            background: linear-gradient(135deg, #070f28 0%, #0c1e4a 60%, #0f2252 100%);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 48px;
+            position: relative;
+        }
+        .next-match-spotlight::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 10% 90%, rgba(200,90,31,0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 10%, rgba(0,128,219,0.07) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .next-match-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 18px 24px 14px;
+            position: relative;
+            z-index: 1;
+        }
+        .next-match-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.78em;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+        }
+        .next-match-label i { color: #C85A1F; }
+        /* Status badge */
+        .nm-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.78em;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 999px;
+        }
+        .nm-status-badge.upcoming  { background: rgba(0,128,219,0.18); color: #93c5fd; border: 1px solid rgba(0,128,219,0.3); }
+        .nm-status-badge.live      { background: rgba(220,38,38,0.2);  color: #fca5a5; border: 1px solid rgba(220,38,38,0.4); }
+        .nm-status-badge.live .nm-live-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #ef4444;
+            animation: nm-pulse 1.4s ease-in-out infinite;
+        }
+        @keyframes nm-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: 0.4; transform: scale(0.75); }
+        }
+        .nm-status-badge.replay    { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.12); }
+        /* Match title row */
+        .next-match-title-row {
+            padding: 0 24px 16px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .next-match-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.6em, 4vw, 2.8em);
+            letter-spacing: 0.05em;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+        .next-match-meta {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.88em;
+            color: rgba(255,255,255,0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .next-match-meta span { display: inline-flex; align-items: center; gap: 5px; }
+        .next-match-meta i { color: #C85A1F; }
+        /* Video window */
+        .next-match-video-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 24px 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .next-match-video-inner {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #020a1e;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        }
+        .next-match-video-inner iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* Upcoming placeholder shown when no video ID yet */
+        .next-match-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #020a1e 0%, #0a1a3f 100%);
+        }
+        .next-match-placeholder i { font-size: 3em; color: rgba(255,255,255,0.15); }
+        .next-match-placeholder p {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+        /* Countdown */
+        .next-match-countdown {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 0 24px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .nm-count-unit {
+            text-align: center;
+            min-width: 56px;
+        }
+        .nm-count-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2em;
+            letter-spacing: 0.04em;
+            color: #C85A1F;
+            line-height: 1;
+            display: block;
+        }
+        .nm-count-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.68em;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+        /* Footer CTA */
+        .next-match-footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0 24px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .media-hero { padding: 60px 0 40px; }
             .section-header-row { flex-direction: column; align-items: flex-start; }
+            .next-match-video-wrap { padding: 0 12px 20px; }
+            .next-match-header { padding: 14px 16px 10px; }
+            .next-match-title-row { padding: 0 16px 12px; }
+            .next-match-footer { padding: 0 16px 20px; }
         }
     </style>
 </head>
@@ -505,6 +692,47 @@
                     <a href="https://youtube.com/@englandseniorsover40scri-pj3gn?si=zLJVOX851t-uFs9w" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="white-space:nowrap;">
                         <i class="fab fa-youtube"></i> View Channel
                     </a>
+                </div>
+
+                <!-- ============================================================
+                     NEXT MATCH SPOTLIGHT
+                     Driven by the MATCHES array in the <script> block below.
+                     To update a match status, find it in the array and change:
+                       status: 'upcoming'  — shows countdown + placeholder
+                       status: 'live'      — shows pulsing LIVE badge + live stream embed
+                       status: 'replay'    — shows replay embed (match finished)
+                     Also add the YouTube videoId once the stream is created.
+                     ============================================================ -->
+                <div class="next-match-spotlight" id="next-match-spotlight">
+                    <div class="next-match-header">
+                        <div class="next-match-label"><i class="fas fa-satellite-dish"></i> Next Match</div>
+                        <div id="nm-status-badge" class="nm-status-badge upcoming"><i class="fas fa-clock"></i> Upcoming</div>
+                    </div>
+                    <div class="next-match-title-row">
+                        <div class="next-match-title" id="nm-title">England v India — 1st ODI</div>
+                        <div class="next-match-meta">
+                            <span><i class="fas fa-calendar-alt"></i> <span id="nm-date">27 May 2026</span></span>
+                            <span><i class="fas fa-clock"></i> <span id="nm-time">12:00</span></span>
+                            <span><i class="fas fa-map-marker-alt"></i> <span id="nm-venue">Swindon Cricket Club</span></span>
+                        </div>
+                    </div>
+                    <!-- Video window -->
+                    <div class="next-match-video-wrap">
+                        <div class="next-match-video-inner" id="nm-video-inner">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    <!-- Countdown (shown for upcoming only) -->
+                    <div class="next-match-countdown" id="nm-countdown">
+                        <div class="nm-count-unit"><span class="nm-count-value" id="nm-days">--</span><span class="nm-count-label">Days</span></div>
+                        <div class="nm-count-unit"><span class="nm-count-value" id="nm-hours">--</span><span class="nm-count-label">Hours</span></div>
+                        <div class="nm-count-unit"><span class="nm-count-value" id="nm-mins">--</span><span class="nm-count-label">Mins</span></div>
+                        <div class="nm-count-unit"><span class="nm-count-value" id="nm-secs">--</span><span class="nm-count-label">Secs</span></div>
+                    </div>
+                    <!-- CTA buttons -->
+                    <div class="next-match-footer" id="nm-footer">
+                        <!-- Populated by JS -->
+                    </div>
                 </div>
 
                 <!-- Season selector -->
@@ -940,6 +1168,189 @@
     <script src="../assets/js/main.js"></script>
     <script>
     (function () {
+
+        /* ================================================================
+           NEXT MATCH DATA
+           ================================================================
+           Update this array as the season progresses.
+
+           Each match object:
+             title    : display name shown in the spotlight
+             date     : ISO 8601 date-time string in LOCAL time (UK)
+                        Format: 'YYYY-MM-DDTHH:MM:00'
+             venue    : venue name
+             videoId  : YouTube video ID — leave '' until stream is created
+             status   : 'upcoming' | 'live' | 'replay'
+
+           HOW TO UPDATE:
+           — Morning of matchday: set status → 'live', add videoId
+           — After stream ends:   set status → 'replay'
+           — The spotlight auto-selects the first 'live' match,
+             or the first 'upcoming' match if none are live.
+           ================================================================ */
+        const MATCHES = [
+            {
+                title:   'England v India — 1st ODI',
+                date:    '2026-05-27T12:00:00',
+                venue:   'Swindon Cricket Club',
+                videoId: '',          // add YouTube video ID when stream is created
+                status:  'upcoming'
+            },
+            {
+                title:   'England Lions v India — 2nd ODI',
+                date:    '2026-05-28T11:00:00',
+                venue:   'High Wycombe CC, Buckinghamshire',
+                videoId: '',
+                status:  'upcoming'
+            },
+            {
+                title:   'England Lions v India — 3rd ODI',
+                date:    '2026-06-04T12:00:00',
+                venue:   'Hammerwich CC',
+                videoId: '',
+                status:  'upcoming'
+            },
+            {
+                title:   'England Lions v XL Club (North West)',
+                date:    '2026-07-15T12:00:00',
+                venue:   'To Be Confirmed',
+                videoId: '',
+                status:  'upcoming'
+            },
+            {
+                title:   'England v Wales — Triple Crown',
+                date:    '2026-07-28T12:15:00',
+                venue:   'To Be Confirmed',
+                videoId: '',
+                status:  'upcoming'
+            },
+            {
+                title:   'England v Scotland — Triple Crown',
+                date:    '2026-07-29T10:45:00',
+                venue:   'To Be Confirmed',
+                videoId: '',
+                status:  'upcoming'
+            },
+            {
+                title:   'England v Ireland — Triple Crown',
+                date:    '2026-07-30T10:00:00',
+                venue:   'To Be Confirmed',
+                videoId: '',
+                status:  'upcoming'
+            }
+        ];
+
+        /* ---- Next Match Spotlight logic ---- */
+        (function buildSpotlight() {
+            // Priority: first 'live' → first 'upcoming' → most recent 'replay'
+            let match = MATCHES.find(m => m.status === 'live')
+                     || MATCHES.find(m => m.status === 'upcoming')
+                     || [...MATCHES].reverse().find(m => m.status === 'replay');
+
+            if (!match) {
+                document.getElementById('next-match-spotlight').style.display = 'none';
+                return;
+            }
+
+            // Populate text fields
+            document.getElementById('nm-title').textContent = match.title;
+            document.getElementById('nm-venue').textContent = match.venue;
+
+            // Format date & time
+            const dt = new Date(match.date);
+            const dateStr = dt.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            const timeStr = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('nm-date').textContent = dateStr;
+            document.getElementById('nm-time').textContent = timeStr + ' (UK)';
+
+            // Status badge
+            const badge = document.getElementById('nm-status-badge');
+            if (match.status === 'live') {
+                badge.className = 'nm-status-badge live';
+                badge.innerHTML = '<span class="nm-live-dot"></span> LIVE NOW';
+            } else if (match.status === 'upcoming') {
+                badge.className = 'nm-status-badge upcoming';
+                badge.innerHTML = '<i class="fas fa-clock"></i> Upcoming';
+            } else {
+                badge.className = 'nm-status-badge replay';
+                badge.innerHTML = '<i class="fas fa-play-circle"></i> Replay Available';
+            }
+
+            // Video window
+            const videoInner = document.getElementById('nm-video-inner');
+            if (match.videoId) {
+                // Live or replay — embed the specific video
+                const autoplay = match.status === 'live' ? '?autoplay=1&mute=1' : '';
+                videoInner.innerHTML = `<iframe
+                    src="https://www.youtube.com/embed/${match.videoId}${autoplay}"
+                    title="${match.title}"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>`;
+            } else {
+                // Upcoming — show placeholder
+                videoInner.innerHTML = `
+                    <div class="next-match-placeholder">
+                        <i class="fas fa-broadcast-tower"></i>
+                        <p>The live stream will appear here automatically when the match begins.<br>Subscribe on YouTube to get notified.</p>
+                    </div>`;
+            }
+
+            // Countdown (upcoming only)
+            const countdown = document.getElementById('nm-countdown');
+            if (match.status === 'upcoming') {
+                countdown.style.display = 'flex';
+                function tick() {
+                    const diff = new Date(match.date) - new Date();
+                    if (diff <= 0) {
+                        document.getElementById('nm-days').textContent  = '0';
+                        document.getElementById('nm-hours').textContent = '0';
+                        document.getElementById('nm-mins').textContent  = '0';
+                        document.getElementById('nm-secs').textContent  = '0';
+                        return;
+                    }
+                    const d = Math.floor(diff / 86400000);
+                    const h = Math.floor((diff % 86400000) / 3600000);
+                    const m = Math.floor((diff % 3600000) / 60000);
+                    const s = Math.floor((diff % 60000) / 1000);
+                    document.getElementById('nm-days').textContent  = String(d).padStart(2,'0');
+                    document.getElementById('nm-hours').textContent = String(h).padStart(2,'0');
+                    document.getElementById('nm-mins').textContent  = String(m).padStart(2,'0');
+                    document.getElementById('nm-secs').textContent  = String(s).padStart(2,'0');
+                }
+                tick();
+                setInterval(tick, 1000);
+            } else {
+                countdown.style.display = 'none';
+            }
+
+            // CTA buttons
+            const footer = document.getElementById('nm-footer');
+            if (match.status === 'live' && match.videoId) {
+                footer.innerHTML = `
+                    <a href="https://www.youtube.com/watch?v=${match.videoId}" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;">
+                        <i class="fas fa-broadcast-tower"></i> Watch Live on YouTube
+                    </a>
+                    <a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=G8BmiQfVPa4glE8o" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;">
+                        <i class="fab fa-youtube"></i> 2026 Live Streams Playlist
+                    </a>`;
+            } else if (match.status === 'replay' && match.videoId) {
+                footer.innerHTML = `
+                    <a href="https://www.youtube.com/watch?v=${match.videoId}" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;">
+                        <i class="fas fa-play-circle"></i> Watch Full Replay
+                    </a>
+                    <a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=G8BmiQfVPa4glE8o" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;">
+                        <i class="fab fa-youtube"></i> All 2026 Replays
+                    </a>`;
+            } else {
+                footer.innerHTML = `
+                    <a href="https://youtube.com/@englandseniorsover40scri-pj3gn?si=zLJVOX851t-uFs9w" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;">
+                        <i class="fab fa-youtube"></i> Subscribe for Live Alerts
+                    </a>
+                    <a href="playlist-2026-live.html" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;">
+                        <i class="fas fa-list"></i> View 2026 Playlist
+                    </a>`;
+            }
+        })();
 
         /* ---- Season tab switching ---- */
         document.querySelectorAll('.season-tab').forEach(tab => {
