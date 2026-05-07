@@ -41,7 +41,7 @@
             color: #fff;
             margin-bottom: 12px;
         }
-        .media-hero h1 span { color: #C85A1F; }
+        .media-hero h1 span { color: #3B9EDB; }
         .media-hero p {
             font-family: 'Manrope', sans-serif;
             font-size: 1.1em;
@@ -69,7 +69,7 @@
             color: rgba(255,255,255,0.85);
             letter-spacing: 0.02em;
         }
-        .media-hero-badge i { color: #C85A1F; }
+        .media-hero-badge i { color: #3B9EDB; }
 
         /* Section layout */
         .media-section { padding: 64px 0; }
@@ -82,7 +82,7 @@
             color: #fff;
             margin-bottom: 6px;
         }
-        .media-section-title span { color: #C85A1F; }
+        .media-section-title span { color: #3B9EDB; }
         .media-section-subtitle {
             font-family: 'Manrope', sans-serif;
             font-size: 0.95em;
@@ -121,10 +121,10 @@
         }
         .season-tab:hover { border-color: rgba(200,90,31,0.5); color: #fff; }
         .season-tab.active {
-            background: #C85A1F;
-            border-color: #C85A1F;
+            background: #3B9EDB;
+            border-color: #3B9EDB;
             color: #fff;
-            box-shadow: 0 4px 16px rgba(200,90,31,0.35);
+            box-shadow: 0 4px 16px rgba(59,158,219,0.35);
         }
 
         /* Season panel visibility */
@@ -157,7 +157,7 @@
             box-shadow: 0 16px 40px rgba(0,0,0,0.4);
         }
         .live-streams-card { border-top: 3px solid #dc2626; }
-        .highlights-card   { border-top: 3px solid #C85A1F; }
+        .highlights-card   { border-top: 3px solid #3B9EDB; }
 
         .playlist-card-header {
             display: flex;
@@ -179,8 +179,8 @@
             color: #fca5a5;
         }
         .playlist-card-icon.highlights {
-            background: rgba(200,90,31,0.18);
-            color: #fdba74;
+            background: rgba(59,158,219,0.18);
+            color: #7DC4F0;
         }
         .playlist-card-label {
             font-family: 'Manrope', sans-serif;
@@ -254,8 +254,8 @@
             transition: all 0.2s ease;
             justify-content: center;
         }
-        .video-link-btn.primary { background: #C85A1F; color: #fff; }
-        .video-link-btn.primary:hover { background: #A94B18; color: #fff; box-shadow: 0 4px 12px rgba(200,90,31,0.4); }
+        .video-link-btn.primary { background: #3B9EDB; color: #fff; }
+        .video-link-btn.primary:hover { background: #2E86C1; color: #fff; box-shadow: 0 4px 12px rgba(59,158,219,0.4); }
         .video-link-btn.secondary {
             background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.15);
@@ -267,7 +267,7 @@
            STATS STRIP
            ============================================================ */
         .media-stats-strip {
-            background: linear-gradient(90deg, rgba(200,90,31,0.12) 0%, rgba(0,128,219,0.08) 100%);
+            background: linear-gradient(90deg, rgba(59,158,219,0.12) 0%, rgba(0,128,219,0.08) 100%);
             border-top: 1px solid rgba(255,255,255,0.06);
             border-bottom: 1px solid rgba(255,255,255,0.06);
             padding: 28px 0;
@@ -283,7 +283,7 @@
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.6em;
             letter-spacing: 0.04em;
-            color: #C85A1F;
+            color: #3B9EDB;
             line-height: 1;
             margin-bottom: 4px;
         }
@@ -315,19 +315,19 @@
             border-radius: 999px;
             border: 1.5px solid rgba(255,255,255,0.15);
             background: transparent;
-            color: rgba(255,255,255,0.65);
+            color: #fff;
             cursor: pointer;
             transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             gap: 7px;
         }
-        .photo-cat-btn:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+        .photo-cat-btn:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
         .photo-cat-btn.active {
-            background: #C85A1F;
-            border-color: #C85A1F;
+            background: #3B9EDB;
+            border-color: #3B9EDB;
             color: #fff;
-            box-shadow: 0 4px 16px rgba(200,90,31,0.35);
+            box-shadow: 0 4px 16px rgba(59,158,219,0.35);
         }
         .photo-season-select {
             font-family: 'Manrope', sans-serif;
@@ -342,7 +342,7 @@
             outline: none;
             transition: border-color 0.2s;
         }
-        .photo-season-select:focus { border-color: #C85A1F; }
+        .photo-season-select:focus { border-color: #3B9EDB; }
         .photo-season-select option { background: #05102B; color: #fff; }
 
         /* Photo masonry grid */
@@ -387,26 +387,195 @@
         .photo-item:hover .photo-item-expand { opacity: 1; }
         .photo-item.hidden { display: none; }
 
-        .photo-add-cta {
+        /* CSS placeholder — used until real photos are added */
+        .photo-placeholder {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.35s ease;
+        }
+        .photo-placeholder i {
+            font-size: 2em;
+            color: #fff;
+            opacity: 0.25;
+        }
+        .photo-placeholder span {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.75em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #fff;
+            opacity: 0.35;
+        }
+        .photo-item:hover .photo-placeholder { transform: scale(1.04); }
+
+
+
+        /* ============================================================
+           SEASON GALLERY INDEX — NEW BLOCK
+           ============================================================ */
+        .season-gallery-index {
+            margin-top: 56px;
+            padding-top: 48px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .sgi-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .sgi-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.8em, 3.5vw, 2.6em);
+            letter-spacing: 0.05em;
+            color: #fff;
+            line-height: 1;
+        }
+        .sgi-title span { color: #3B9EDB; }
+        .sgi-subtitle {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.88em;
+            color: rgba(255,255,255,0.5);
+            margin-top: 5px;
+        }
+        .sgi-hosting-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 999px;
+            padding: 7px 16px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.78em;
+            font-weight: 600;
+            color: rgba(255,255,255,0.55);
+            white-space: nowrap;
+        }
+        .sgi-hosting-badge i { color: #3B9EDB; }
+
+        /* Season cards grid */
+        .sgi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+        @media (max-width: 560px) {
+            .sgi-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .sgi-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 14px;
+            padding: 20px 22px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            cursor: pointer;
+        }
+        .sgi-card:hover {
+            background: rgba(200,90,31,0.1);
+            border-color: rgba(59,158,219,0.4);
+            transform: translateX(3px);
+        }
+        .sgi-card.current {
+            background: rgba(59,158,219,0.08);
+            border-color: rgba(59,158,219,0.3);
+        }
+        .sgi-card-left { flex: 1; min-width: 0; }
+        .sgi-current-badge {
+            display: inline-block;
+            background: #3B9EDB;
+            color: #fff;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.65em;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        .sgi-year {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2em;
+            letter-spacing: 0.04em;
+            color: #fff;
+            line-height: 1;
+        }
+        .sgi-card.current .sgi-year { color: #7DC4F0; }
+        .sgi-season-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.75em;
+            color: rgba(255,255,255,0.4);
+            margin-top: 1px;
+        }
+        .sgi-card-right { text-align: right; flex-shrink: 0; }
+        .sgi-count {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8em;
+            letter-spacing: 0.04em;
+            color: #3B9EDB;
+            line-height: 1;
+            display: block;
+        }
+        .sgi-count-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.7em;
+            color: rgba(255,255,255,0.4);
+        }
+        .sgi-arrow {
+            color: rgba(255,255,255,0.3);
+            font-size: 1em;
+            transition: color 0.2s, transform 0.2s;
+            margin-left: 6px;
+            flex-shrink: 0;
+        }
+        .sgi-card:hover .sgi-arrow {
+            color: #3B9EDB;
+            transform: translateX(3px);
+        }
+
+        /* Hosting note */
+        .sgi-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
             background: rgba(255,255,255,0.03);
-            border: 2px dashed rgba(255,255,255,0.12);
-            border-radius: 16px;
-            padding: 40px 24px;
-            text-align: center;
-            margin-top: 32px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 16px 20px;
         }
-        .photo-add-cta i { font-size: 2.5em; color: rgba(255,255,255,0.2); margin-bottom: 12px; display: block; }
-        .photo-add-cta h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4em; letter-spacing: 0.05em; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
-        .photo-add-cta p { font-family: 'Manrope', sans-serif; font-size: 0.88em; color: rgba(255,255,255,0.4); margin-bottom: 18px; }
-        .photo-add-cta a {
-            display: inline-flex; align-items: center; gap: 7px;
-            font-family: 'Manrope', sans-serif; font-size: 0.85em; font-weight: 700;
-            letter-spacing: 0.03em; text-transform: uppercase;
-            padding: 10px 24px; border-radius: 999px;
-            background: rgba(200,90,31,0.2); border: 1.5px solid rgba(200,90,31,0.4);
-            color: #fdba74; text-decoration: none; transition: all 0.2s ease;
+        .sgi-note i {
+            color: rgba(255,255,255,0.25);
+            font-size: 1.1em;
+            margin-top: 2px;
+            flex-shrink: 0;
         }
-        .photo-add-cta a:hover { background: #C85A1F; border-color: #C85A1F; color: #fff; }
+        .sgi-note p {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.82em;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.55;
+        }
+        .sgi-note a {
+            color: rgba(59,158,219,0.9);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .sgi-note a:hover { color: #7DC4F0; }
 
         /* ============================================================
            LIGHTBOX
@@ -430,14 +599,14 @@
             border: none; border-radius: 50%; color: #fff; font-size: 1.1em;
             cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s;
         }
-        .lightbox-close:hover { background: #C85A1F; }
+        .lightbox-close:hover { background: #3B9EDB; }
         .lightbox-nav {
             position: absolute; top: 50%; transform: translateY(-50%);
             width: 44px; height: 44px; background: rgba(255,255,255,0.1);
             border: none; border-radius: 50%; color: #fff; font-size: 1.1em;
             cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s;
         }
-        .lightbox-nav:hover { background: #C85A1F; }
+        .lightbox-nav:hover { background: #3B9EDB; }
         .lightbox-prev { left: -56px; }
         .lightbox-next { right: -56px; }
         @media (max-width: 768px) { .lightbox-prev { left: 0; } .lightbox-next { right: 0; } }
@@ -458,7 +627,7 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(ellipse at 10% 90%, rgba(200,90,31,0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 10% 90%, rgba(59,158,219,0.10) 0%, transparent 50%),
                 radial-gradient(ellipse at 90% 10%, rgba(0,128,219,0.07) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
@@ -484,8 +653,7 @@
             text-transform: uppercase;
             color: rgba(255,255,255,0.55);
         }
-        .next-match-label i { color: #C85A1F; }
-        /* Status badge */
+        .next-match-label i { color: #3B9EDB; }
         .nm-status-badge {
             display: inline-flex;
             align-items: center;
@@ -510,7 +678,6 @@
             50%       { opacity: 0.4; transform: scale(0.75); }
         }
         .nm-status-badge.replay    { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.12); }
-        /* Match title row */
         .next-match-title-row {
             padding: 0 24px 16px;
             position: relative;
@@ -536,8 +703,7 @@
             flex-wrap: wrap;
         }
         .next-match-meta span { display: inline-flex; align-items: center; gap: 5px; }
-        .next-match-meta i { color: #C85A1F; }
-        /* Video window */
+        .next-match-meta i { color: #3B9EDB; }
         .next-match-video-wrap {
             position: relative;
             width: 100%;
@@ -563,7 +729,6 @@
             height: 100%;
             border: none;
         }
-        /* Upcoming placeholder shown when no video ID yet */
         .next-match-placeholder {
             position: absolute;
             inset: 0;
@@ -583,7 +748,6 @@
             max-width: 300px;
             line-height: 1.5;
         }
-        /* Countdown */
         .next-match-countdown {
             display: flex;
             justify-content: center;
@@ -593,15 +757,12 @@
             position: relative;
             z-index: 1;
         }
-        .nm-count-unit {
-            text-align: center;
-            min-width: 56px;
-        }
+        .nm-count-unit { text-align: center; min-width: 56px; }
         .nm-count-value {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.2em;
             letter-spacing: 0.04em;
-            color: #C85A1F;
+            color: #3B9EDB;
             line-height: 1;
             display: block;
         }
@@ -613,7 +774,6 @@
             text-transform: uppercase;
             color: rgba(255,255,255,0.4);
         }
-        /* Footer CTA */
         .next-match-footer {
             display: flex;
             align-items: center;
@@ -625,7 +785,6 @@
             z-index: 1;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .media-hero { padding: 60px 0 40px; }
             .section-header-row { flex-direction: column; align-items: flex-start; }
@@ -686,7 +845,7 @@
             <div class="container">
                 <div class="section-header-row">
                     <div>
-                        <h2 class="media-section-title"><i class="fab fa-youtube" style="color:#C85A1F;font-size:0.85em;margin-right:10px;"></i>Season <span>Playlists</span></h2>
+                        <h2 class="media-section-title"><i class="fab fa-youtube" style="color:#3B9EDB;font-size:0.85em;margin-right:10px;"></i>Season <span>Playlists</span></h2>
                         <p class="media-section-subtitle">Each season has two dedicated playlists — live streams (including upcoming matches &amp; replays) and highlights. Select a season below.</p>
                     </div>
                     <a href="https://youtube.com/@englandseniorsover40scri-pj3gn?si=zLJVOX851t-uFs9w" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="white-space:nowrap;">
@@ -694,15 +853,7 @@
                     </a>
                 </div>
 
-                <!-- ============================================================
-                     NEXT MATCH SPOTLIGHT
-                     Driven by the MATCHES array in the <script> block below.
-                     To update a match status, find it in the array and change:
-                       status: 'upcoming'  — shows countdown + placeholder
-                       status: 'live'      — shows pulsing LIVE badge + live stream embed
-                       status: 'replay'    — shows replay embed (match finished)
-                     Also add the YouTube videoId once the stream is created.
-                     ============================================================ -->
+                <!-- NEXT MATCH SPOTLIGHT -->
                 <div class="next-match-spotlight" id="next-match-spotlight">
                     <div class="next-match-header">
                         <div class="next-match-label"><i class="fas fa-satellite-dish"></i> Next Match</div>
@@ -716,23 +867,16 @@
                             <span><i class="fas fa-map-marker-alt"></i> <span id="nm-venue">Swindon Cricket Club</span></span>
                         </div>
                     </div>
-                    <!-- Video window -->
                     <div class="next-match-video-wrap">
-                        <div class="next-match-video-inner" id="nm-video-inner">
-                            <!-- Populated by JS -->
-                        </div>
+                        <div class="next-match-video-inner" id="nm-video-inner"></div>
                     </div>
-                    <!-- Countdown (shown for upcoming only) -->
                     <div class="next-match-countdown" id="nm-countdown">
                         <div class="nm-count-unit"><span class="nm-count-value" id="nm-days">--</span><span class="nm-count-label">Days</span></div>
                         <div class="nm-count-unit"><span class="nm-count-value" id="nm-hours">--</span><span class="nm-count-label">Hours</span></div>
                         <div class="nm-count-unit"><span class="nm-count-value" id="nm-mins">--</span><span class="nm-count-label">Mins</span></div>
                         <div class="nm-count-unit"><span class="nm-count-value" id="nm-secs">--</span><span class="nm-count-label">Secs</span></div>
                     </div>
-                    <!-- CTA buttons -->
-                    <div class="next-match-footer" id="nm-footer">
-                        <!-- Populated by JS -->
-                    </div>
+                    <div class="next-match-footer" id="nm-footer"></div>
                 </div>
 
                 <!-- Season selector -->
@@ -743,15 +887,9 @@
                     <button class="season-tab" data-season="2023" role="tab" aria-selected="false">2023 Season</button>
                 </div>
 
-                <!-- ====================================================
-                     2026 SEASON
-                     Live Streams : PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg
-                     Highlights   : PLZfNCcuGrHeY5jQPhe2SpdSWedk5yqa8o
-                     ==================================================== -->
+                <!-- 2026 SEASON -->
                 <div class="season-panel active" id="season-2026">
                     <div class="playlist-dual-grid">
-
-                        <!-- LIVE STREAMS -->
                         <div class="playlist-card live-streams-card">
                             <div class="playlist-card-header">
                                 <div class="playlist-card-icon live"><i class="fas fa-broadcast-tower"></i></div>
@@ -769,14 +907,12 @@
                                     allowfullscreen loading="lazy">
                                 </iframe>
                             </div>
-                                <div class="playlist-card-footer">
+                            <div class="playlist-card-footer">
                                 <a href="playlist-2026-live.html" target="_blank" rel="noopener noreferrer" class="video-link-btn primary">
                                     <i class="fab fa-youtube"></i> Open Live Streams Playlist
                                 </a>
                             </div>
                         </div>
-
-                        <!-- HIGHLIGHTS -->
                         <div class="playlist-card highlights-card">
                             <div class="playlist-card-header">
                                 <div class="playlist-card-icon highlights"><i class="fas fa-film"></i></div>
@@ -800,19 +936,12 @@
                                 </a>
                             </div>
                         </div>
-
                     </div>
-                </div><!-- /season-panel 2026 -->
+                </div>
 
-                <!-- ====================================================
-                     2025 SEASON
-                     Live Streams : PLZfNCcuGrHea7mmP5ueloYnmtjGx2_GOp
-                     Highlights   : PLZfNCcuGrHeZV4rjc5Vuc0vD8Y3S2HYo7
-                     ==================================================== -->
+                <!-- 2025 SEASON -->
                 <div class="season-panel" id="season-2025">
                     <div class="playlist-dual-grid">
-
-                        <!-- LIVE STREAMS -->
                         <div class="playlist-card live-streams-card">
                             <div class="playlist-card-header">
                                 <div class="playlist-card-icon live"><i class="fas fa-broadcast-tower"></i></div>
@@ -836,8 +965,6 @@
                                 </a>
                             </div>
                         </div>
-
-                        <!-- HIGHLIGHTS -->
                         <div class="playlist-card highlights-card">
                             <div class="playlist-card-header">
                                 <div class="playlist-card-icon highlights"><i class="fas fa-film"></i></div>
@@ -861,19 +988,12 @@
                                 </a>
                             </div>
                         </div>
-
                     </div>
-                </div><!-- /season-panel 2025 -->
+                </div>
 
-                <!-- ====================================================
-                     2024 SEASON
-                     Live Streams : PLZfNCcuGrHeZ7nvebhjI4aEigE6hGSzsW
-                     Highlights   : PLZfNCcuGrHeZx9U4otP3pEmKGci7RJxen
-                     ==================================================== -->
+                <!-- 2024 SEASON -->
                 <div class="season-panel" id="season-2024">
                     <div class="playlist-dual-grid">
-
-                        <!-- LIVE STREAMS -->
                         <div class="playlist-card live-streams-card">
                             <div class="playlist-card-header">
                                 <div class="playlist-card-icon live"><i class="fas fa-broadcast-tower"></i></div>
@@ -897,8 +1017,6 @@
                                 </a>
                             </div>
                         </div>
-
-                        <!-- HIGHLIGHTS -->
                         <div class="playlist-card highlights-card">
                             <div class="playlist-card-header">
                                 <div class="playlist-card-icon highlights"><i class="fas fa-film"></i></div>
@@ -922,19 +1040,12 @@
                                 </a>
                             </div>
                         </div>
-
                     </div>
-                </div><!-- /season-panel 2024 -->
+                </div>
 
-                <!-- ====================================================
-                     2023 SEASON
-                     Live Streams : PLZfNCcuGrHeaMZpJbJXqvjWzQQNz4TBPl
-                     Highlights   : PLZfNCcuGrHebCvlOKqgzstq7FRrMd0ZNJ
-                     ==================================================== -->
+                <!-- 2023 SEASON -->
                 <div class="season-panel" id="season-2023">
                     <div class="playlist-dual-grid">
-
-                        <!-- LIVE STREAMS -->
                         <div class="playlist-card live-streams-card">
                             <div class="playlist-card-header">
                                 <div class="playlist-card-icon live"><i class="fas fa-broadcast-tower"></i></div>
@@ -958,8 +1069,6 @@
                                 </a>
                             </div>
                         </div>
-
-                        <!-- HIGHLIGHTS -->
                         <div class="playlist-card highlights-card">
                             <div class="playlist-card-header">
                                 <div class="playlist-card-icon highlights"><i class="fas fa-film"></i></div>
@@ -983,9 +1092,8 @@
                                 </a>
                             </div>
                         </div>
-
                     </div>
-                </div><!-- /season-panel 2023 -->
+                </div>
 
             </div>
         </section>
@@ -997,7 +1105,7 @@
             <div class="container">
                 <div class="section-header-row">
                     <div>
-                        <h2 class="media-section-title"><i class="fas fa-camera" style="color:#C85A1F;font-size:0.85em;margin-right:10px;"></i>Matchday <span>Photography</span></h2>
+                        <h2 class="media-section-title"><i class="fas fa-camera" style="color:#3B9EDB;font-size:0.85em;margin-right:10px;"></i>Matchday <span>Photography</span></h2>
                         <p class="media-section-subtitle">Team photos, player portraits, and action shots from England Over 40s matches.</p>
                     </div>
                     <select class="photo-season-select" id="photo-season-select" aria-label="Select photo season">
@@ -1018,22 +1126,22 @@
                 </div>
 
                 <!-- Photo grid -->
+                <!-- ============================================================
+                     TO ADD REAL PHOTOS: replace the .photo-placeholder div
+                     inside each .photo-item with a standard <img> tag, e.g:
+                     <img src="../assets/img/photos/team-2026.jpg" alt="..." loading="lazy">
+                     The overlay, lightbox and filter behaviour all carry over.
+                     ============================================================ -->
                 <div class="photo-grid" id="photo-grid">
-
-                    <!-- ============================================================
-                         SAMPLE PHOTOS — Replace src with real image URLs.
-                         Each photo-item needs:
-                           data-cat    = "team" | "portrait" | "action"
-                           data-season = "2026" | "2025" | "2024" | "2023"
-                           data-caption = descriptive caption
-                           data-sub    = match / date context
-                         ============================================================ -->
 
                     <div class="photo-item" data-cat="team" data-season="2026"
                          data-caption="England Over 40s — 2026 Squad"
                          data-sub="Pre-season team photo · 2026"
                          tabindex="0" role="button" aria-label="View photo: England Over 40s 2026 Squad">
-                        <img src="https://placehold.co/600x400/05102B/C85A1F?text=Team+Photo+2026" alt="England Over 40s 2026 Squad" loading="lazy">
+                        <div class="photo-placeholder" style="height:220px;background:linear-gradient(135deg,#0B1F3A,#1E3D6B);">
+                            <i class="fas fa-users"></i>
+                            <span>Team Photo · 2026</span>
+                        </div>
                         <div class="photo-item-overlay">
                             <div class="photo-item-caption">England Over 40s — 2026 Squad</div>
                             <div class="photo-item-sub">Pre-season team photo · 2026</div>
@@ -1045,7 +1153,10 @@
                          data-caption="Player Portrait — 2026"
                          data-sub="England Over 40s · 2026 Season"
                          tabindex="0" role="button" aria-label="View photo: Player Portrait 2026">
-                        <img src="https://placehold.co/400x500/0a1a3f/C85A1F?text=Portrait+2026" alt="Player Portrait 2026" loading="lazy">
+                        <div class="photo-placeholder" style="height:280px;background:linear-gradient(135deg,#132B50,#0B1F3A);">
+                            <i class="fas fa-user"></i>
+                            <span>Portrait · 2026</span>
+                        </div>
                         <div class="photo-item-overlay">
                             <div class="photo-item-caption">Player Portrait — 2026</div>
                             <div class="photo-item-sub">England Over 40s · 2026 Season</div>
@@ -1057,7 +1168,10 @@
                          data-caption="Batting — England v India"
                          data-sub="1st ODI · 27 May 2026"
                          tabindex="0" role="button" aria-label="View photo: Batting England v India">
-                        <img src="https://placehold.co/600x450/0f2252/C85A1F?text=Action+Shot+2026" alt="Batting — England v India" loading="lazy">
+                        <div class="photo-placeholder" style="height:240px;background:linear-gradient(135deg,#1E3D6B,#0B1F3A);">
+                            <i class="fas fa-cricket-bat-ball"></i>
+                            <span>Action · 2026</span>
+                        </div>
                         <div class="photo-item-overlay">
                             <div class="photo-item-caption">Batting — England v India</div>
                             <div class="photo-item-sub">1st ODI · 27 May 2026</div>
@@ -1069,7 +1183,10 @@
                          data-caption="Player Portrait — 2026"
                          data-sub="England Over 40s · 2026 Season"
                          tabindex="0" role="button" aria-label="View photo: Player Portrait 2026 B">
-                        <img src="https://placehold.co/400x520/05102B/C85A1F?text=Portrait+2026+B" alt="Player Portrait 2026" loading="lazy">
+                        <div class="photo-placeholder" style="height:260px;background:linear-gradient(135deg,#0B1F3A,#132B50);">
+                            <i class="fas fa-user"></i>
+                            <span>Portrait · 2026</span>
+                        </div>
                         <div class="photo-item-overlay">
                             <div class="photo-item-caption">Player Portrait — 2026</div>
                             <div class="photo-item-sub">England Over 40s · 2026 Season</div>
@@ -1081,7 +1198,10 @@
                          data-caption="Bowling — England v India"
                          data-sub="1st ODI · 27 May 2026"
                          tabindex="0" role="button" aria-label="View photo: Bowling England v India">
-                        <img src="https://placehold.co/600x400/0a1a3f/C85A1F?text=Action+Shot+2+2026" alt="Bowling — England v India" loading="lazy">
+                        <div class="photo-placeholder" style="height:220px;background:linear-gradient(135deg,#132B50,#1E3D6B);">
+                            <i class="fas fa-running"></i>
+                            <span>Action · 2026</span>
+                        </div>
                         <div class="photo-item-overlay">
                             <div class="photo-item-caption">Bowling — England v India</div>
                             <div class="photo-item-sub">1st ODI · 27 May 2026</div>
@@ -1093,7 +1213,10 @@
                          data-caption="England Over 40s — 2025 Squad"
                          data-sub="Team photo · 2025 Season"
                          tabindex="0" role="button" aria-label="View photo: England Over 40s 2025 Squad">
-                        <img src="https://placehold.co/600x400/05102B/0080db?text=Team+Photo+2025" alt="England Over 40s 2025 Squad" loading="lazy">
+                        <div class="photo-placeholder" style="height:220px;background:linear-gradient(135deg,#0B1F3A,#1E3D6B);">
+                            <i class="fas fa-users"></i>
+                            <span>Team Photo · 2025</span>
+                        </div>
                         <div class="photo-item-overlay">
                             <div class="photo-item-caption">England Over 40s — 2025 Squad</div>
                             <div class="photo-item-sub">Team photo · 2025 Season</div>
@@ -1105,7 +1228,10 @@
                          data-caption="Fielding — 2025 Season"
                          data-sub="England Over 40s · 2025"
                          tabindex="0" role="button" aria-label="View photo: Fielding 2025">
-                        <img src="https://placehold.co/600x450/0a1a3f/0080db?text=Action+2025" alt="Fielding 2025" loading="lazy">
+                        <div class="photo-placeholder" style="height:240px;background:linear-gradient(135deg,#1E3D6B,#132B50);">
+                            <i class="fas fa-running"></i>
+                            <span>Action · 2025</span>
+                        </div>
                         <div class="photo-item-overlay">
                             <div class="photo-item-caption">Fielding — 2025 Season</div>
                             <div class="photo-item-sub">England Over 40s · 2025</div>
@@ -1117,7 +1243,10 @@
                          data-caption="Player Portrait — 2025"
                          data-sub="England Over 40s · 2025 Season"
                          tabindex="0" role="button" aria-label="View photo: Player Portrait 2025">
-                        <img src="https://placehold.co/400x500/0f2252/0080db?text=Portrait+2025" alt="Player Portrait 2025" loading="lazy">
+                        <div class="photo-placeholder" style="height:280px;background:linear-gradient(135deg,#132B50,#0B1F3A);">
+                            <i class="fas fa-user"></i>
+                            <span>Portrait · 2025</span>
+                        </div>
                         <div class="photo-item-overlay">
                             <div class="photo-item-caption">Player Portrait — 2025</div>
                             <div class="photo-item-sub">England Over 40s · 2025 Season</div>
@@ -1127,14 +1256,37 @@
 
                 </div><!-- /photo-grid -->
 
-                <div class="photo-add-cta">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <h3>Got Matchday Photos?</h3>
-                    <p>Send your team photos, portraits, and action shots to the media team to be featured here.</p>
-                    <a href="mailto:media@eng40scricket.co.uk">
-                        <i class="fas fa-envelope"></i> Submit Photos
-                    </a>
-                </div>
+
+
+                <!-- ============================================================
+                     SEASON GALLERY INDEX — NEW BLOCK
+                     Edit the PHOTO_GALLERIES array in the <script> below to
+                     add/update seasons, gallery counts and external URLs.
+                     ============================================================ -->
+                <div class="season-gallery-index" id="season-gallery-index">
+                    <div class="sgi-header">
+                        <div>
+                            <h3 class="sgi-title">Match Galleries <span>By Season</span></h3>
+                            <p class="sgi-subtitle">Full edited galleries hosted externally — opens in a new tab.</p>
+                        </div>
+                        <div class="sgi-hosting-badge">
+                            <i class="fas fa-images"></i> Hosted on Adobe Lightroom
+                        </div>
+                    </div>
+                    <div class="sgi-grid" id="sgi-grid">
+                        <!-- Rendered by JS — edit PHOTO_GALLERIES below -->
+                    </div>
+                    <div class="sgi-note">
+                        <i class="fas fa-info-circle"></i>
+                        <p>
+                            Galleries are edited and hosted on
+                            <strong style="color:rgba(255,255,255,0.6);">Adobe Lightroom</strong>
+                            (or an equivalent external service). Each season card links directly to the
+                            shared album. To submit matchday photography for inclusion, contact the media team at
+                            <a href="mailto:media@eng40scricket.co.uk">media@eng40scricket.co.uk</a>.
+                        </p>
+                    </div>
+                </div><!-- /season-gallery-index -->
 
             </div>
         </section>
@@ -1169,213 +1321,64 @@
     (function () {
 
         /* ================================================================
-           NEXT MATCH DATA
-           ================================================================
-           Update this array as the season progresses.
-
-           Each match object:
-             title    : display name shown in the spotlight
-             date     : ISO 8601 date-time string in LOCAL time (UK)
-                        Format: 'YYYY-MM-DDTHH:MM:00'
-             venue    : venue name
-             videoId  : YouTube video ID — leave '' until stream is created
-             status   : 'upcoming' | 'live' | 'replay'
-
-           HOW TO UPDATE:
-           — Morning of matchday: set status → 'live', add videoId
-           — After stream ends:   set status → 'replay'
-           — The spotlight auto-selects the first 'live' match,
-             or the first 'upcoming' match if none are live.
+           NEXT MATCH DATA — unchanged from original
            ================================================================ */
         const MATCHES = [
-            {
-                title:   'England v India — 1st ODI',
-                date:    '2026-05-27T12:00:00',
-                venue:   'Swindon Cricket Club',
-                videoId: 'gMT497KBtGc',
-                status:  'upcoming'
-            },
-            {
-                title:   'England Lions v India — 2nd ODI',
-                date:    '2026-05-28T11:00:00',
-                venue:   'High Wycombe CC, Buckinghamshire',
-                videoId: 'om33cd7boCg',
-                status:  'upcoming'
-            },
-            {
-                title:   'England Lions v India — 3rd ODI',
-                date:    '2026-06-04T12:00:00',
-                venue:   'Hammerwich CC',
-                videoId: 'wHCWNvX5CqE',
-                status:  'upcoming'
-            },
-            {
-                title:   'England Lions v XL Club (North West)',
-                date:    '2026-07-15T12:00:00',
-                venue:   'To Be Confirmed',
-                videoId: 'yRanS9SwKFs',
-                status:  'upcoming'
-            },
-            {
-                title:   'England v Wales — Triple Crown',
-                date:    '2026-07-28T12:15:00',
-                venue:   'To Be Confirmed',
-                videoId: 'SRkXD_KjxpA',
-                status:  'upcoming'
-            },
-            {
-                title:   'England v Scotland — Triple Crown',
-                date:    '2026-07-29T10:45:00',
-                venue:   'To Be Confirmed',
-                videoId: 'E1VH7Vn2Iho',
-                status:  'upcoming'
-            },
-            {
-                title:   'England v Ireland — Triple Crown',
-                date:    '2026-07-30T10:00:00',
-                venue:   'To Be Confirmed',
-                videoId: '-wWzAgtbITU',
-                status:  'upcoming'
-            },
-            {
-                title:   'England Lions v Wales',
-                date:    '2026-08-05T12:00:00',
-                venue:   'Panteg CC',
-                videoId: 'aJo0xNpUzIY',
-                status:  'upcoming'
-            },
-            {
-                title:   'England v Worcestershire',
-                date:    '2026-08-11T12:00:00',
-                venue:   'To Be Confirmed',
-                videoId: '-okkcb4v_so',
-                status:  'upcoming'
-            },
-            {
-                title:   'England v MCC',
-                date:    '2026-08-26T12:00:00',
-                venue:   'Hartlepool Cricket Club',
-                videoId: '-NETbbg6jRs',
-                status:  'upcoming'
-            },
-            {
-                title:   'England v Ireland',
-                date:    '2026-09-03T12:00:00',
-                venue:   'Dublin',
-                videoId: '',          // add video ID when stream is scheduled on YouTube
-                status:  'upcoming'
-            }
+            { title: 'England v India — 1st ODI',          date: '2026-05-27T12:00:00', venue: 'Swindon Cricket Club',              videoId: 'gMT497KBtGc', status: 'upcoming' },
+            { title: 'England Lions v India — 2nd ODI',    date: '2026-05-28T11:00:00', venue: 'High Wycombe CC, Buckinghamshire',   videoId: 'om33cd7boCg', status: 'upcoming' },
+            { title: 'England Lions v India — 3rd ODI',    date: '2026-06-04T12:00:00', venue: 'Hammerwich CC',                      videoId: 'wHCWNvX5CqE', status: 'upcoming' },
+            { title: 'England Lions v XL Club (North West)', date: '2026-07-15T12:00:00', venue: 'To Be Confirmed',                  videoId: 'yRanS9SwKFs', status: 'upcoming' },
+            { title: 'England v Wales — Triple Crown',     date: '2026-07-28T12:15:00', venue: 'To Be Confirmed',                    videoId: 'SRkXD_KjxpA', status: 'upcoming' },
+            { title: 'England v Scotland — Triple Crown',  date: '2026-07-29T10:45:00', venue: 'To Be Confirmed',                    videoId: 'E1VH7Vn2Iho', status: 'upcoming' },
+            { title: 'England v Ireland — Triple Crown',   date: '2026-07-30T10:00:00', venue: 'To Be Confirmed',                    videoId: '-wWzAgtbITU', status: 'upcoming' },
+            { title: 'England Lions v Wales',              date: '2026-08-05T12:00:00', venue: 'Panteg CC',                          videoId: 'aJo0xNpUzIY', status: 'upcoming' },
+            { title: 'England v Worcestershire',           date: '2026-08-11T12:00:00', venue: 'To Be Confirmed',                    videoId: '-okkcb4v_so', status: 'upcoming' },
+            { title: 'England v MCC',                      date: '2026-08-26T12:00:00', venue: 'Hartlepool Cricket Club',             videoId: '-NETbbg6jRs', status: 'upcoming' },
+            { title: 'England v Ireland',                  date: '2026-09-03T12:00:00', venue: 'Dublin',                             videoId: '',            status: 'upcoming' }
         ];
 
-        /* ---- Next Match Spotlight logic ---- */
+        /* ---- Next Match Spotlight ---- */
         (function buildSpotlight() {
-            // Priority: first 'live' → first 'upcoming' → most recent 'replay'
             let match = MATCHES.find(m => m.status === 'live')
                      || MATCHES.find(m => m.status === 'upcoming')
                      || [...MATCHES].reverse().find(m => m.status === 'replay');
-
-            if (!match) {
-                document.getElementById('next-match-spotlight').style.display = 'none';
-                return;
-            }
-
-            // Populate text fields
+            if (!match) { document.getElementById('next-match-spotlight').style.display = 'none'; return; }
             document.getElementById('nm-title').textContent = match.title;
             document.getElementById('nm-venue').textContent = match.venue;
-
-            // Format date & time
             const dt = new Date(match.date);
-            const dateStr = dt.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-            const timeStr = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('nm-date').textContent = dateStr;
-            document.getElementById('nm-time').textContent = timeStr + ' (UK)';
-
-            // Status badge
+            document.getElementById('nm-date').textContent = dt.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('nm-time').textContent = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + ' (UK)';
             const badge = document.getElementById('nm-status-badge');
-            if (match.status === 'live') {
-                badge.className = 'nm-status-badge live';
-                badge.innerHTML = '<span class="nm-live-dot"></span> LIVE NOW';
-            } else if (match.status === 'upcoming') {
-                badge.className = 'nm-status-badge upcoming';
-                badge.innerHTML = '<i class="fas fa-clock"></i> Upcoming';
-            } else {
-                badge.className = 'nm-status-badge replay';
-                badge.innerHTML = '<i class="fas fa-play-circle"></i> Replay Available';
-            }
-
-            // Video window
+            if (match.status === 'live') { badge.className = 'nm-status-badge live'; badge.innerHTML = '<span class="nm-live-dot"></span> LIVE NOW'; }
+            else if (match.status === 'upcoming') { badge.className = 'nm-status-badge upcoming'; badge.innerHTML = '<i class="fas fa-clock"></i> Upcoming'; }
+            else { badge.className = 'nm-status-badge replay'; badge.innerHTML = '<i class="fas fa-play-circle"></i> Replay Available'; }
             const videoInner = document.getElementById('nm-video-inner');
             if (match.videoId) {
-                // Live or replay — embed the specific video
                 const autoplay = match.status === 'live' ? '?autoplay=1&mute=1' : '';
-                videoInner.innerHTML = `<iframe
-                    src="https://www.youtube.com/embed/${match.videoId}${autoplay}"
-                    title="${match.title}"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>`;
+                videoInner.innerHTML = `<iframe src="https://www.youtube.com/embed/${match.videoId}${autoplay}" title="${match.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             } else {
-                // Upcoming — show placeholder
-                videoInner.innerHTML = `
-                    <div class="next-match-placeholder">
-                        <i class="fas fa-broadcast-tower"></i>
-                        <p>The live stream will appear here automatically when the match begins.<br>Subscribe on YouTube to get notified.</p>
-                    </div>`;
+                videoInner.innerHTML = `<div class="next-match-placeholder"><i class="fas fa-broadcast-tower"></i><p>The live stream will appear here automatically when the match begins.<br>Subscribe on YouTube to get notified.</p></div>`;
             }
-
-            // Countdown (upcoming only)
             const countdown = document.getElementById('nm-countdown');
             if (match.status === 'upcoming') {
                 countdown.style.display = 'flex';
                 function tick() {
                     const diff = new Date(match.date) - new Date();
-                    if (diff <= 0) {
-                        document.getElementById('nm-days').textContent  = '0';
-                        document.getElementById('nm-hours').textContent = '0';
-                        document.getElementById('nm-mins').textContent  = '0';
-                        document.getElementById('nm-secs').textContent  = '0';
-                        return;
-                    }
-                    const d = Math.floor(diff / 86400000);
-                    const h = Math.floor((diff % 86400000) / 3600000);
-                    const m = Math.floor((diff % 3600000) / 60000);
-                    const s = Math.floor((diff % 60000) / 1000);
-                    document.getElementById('nm-days').textContent  = String(d).padStart(2,'0');
-                    document.getElementById('nm-hours').textContent = String(h).padStart(2,'0');
-                    document.getElementById('nm-mins').textContent  = String(m).padStart(2,'0');
-                    document.getElementById('nm-secs').textContent  = String(s).padStart(2,'0');
+                    if (diff <= 0) { document.getElementById('nm-days').textContent = document.getElementById('nm-hours').textContent = document.getElementById('nm-mins').textContent = document.getElementById('nm-secs').textContent = '0'; return; }
+                    document.getElementById('nm-days').textContent  = String(Math.floor(diff / 86400000)).padStart(2,'0');
+                    document.getElementById('nm-hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+                    document.getElementById('nm-mins').textContent  = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+                    document.getElementById('nm-secs').textContent  = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
                 }
-                tick();
-                setInterval(tick, 1000);
-            } else {
-                countdown.style.display = 'none';
-            }
-
-            // CTA buttons
+                tick(); setInterval(tick, 1000);
+            } else { countdown.style.display = 'none'; }
             const footer = document.getElementById('nm-footer');
             if (match.status === 'live' && match.videoId) {
-                footer.innerHTML = `
-                    <a href="https://www.youtube.com/watch?v=${match.videoId}" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;">
-                        <i class="fas fa-broadcast-tower"></i> Watch Live on YouTube
-                    </a>
-                    <a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=G8BmiQfVPa4glE8o" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;">
-                        <i class="fab fa-youtube"></i> 2026 Live Streams Playlist
-                    </a>`;
+                footer.innerHTML = `<a href="https://www.youtube.com/watch?v=${match.videoId}" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;"><i class="fas fa-broadcast-tower"></i> Watch Live on YouTube</a><a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=G8BmiQfVPa4glE8o" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;"><i class="fab fa-youtube"></i> 2026 Live Streams Playlist</a>`;
             } else if (match.status === 'replay' && match.videoId) {
-                footer.innerHTML = `
-                    <a href="https://www.youtube.com/watch?v=${match.videoId}" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;">
-                        <i class="fas fa-play-circle"></i> Watch Full Replay
-                    </a>
-                    <a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=G8BmiQfVPa4glE8o" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;">
-                        <i class="fab fa-youtube"></i> All 2026 Replays
-                    </a>`;
+                footer.innerHTML = `<a href="https://www.youtube.com/watch?v=${match.videoId}" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;"><i class="fas fa-play-circle"></i> Watch Full Replay</a><a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=G8BmiQfVPa4glE8o" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;"><i class="fab fa-youtube"></i> All 2026 Replays</a>`;
             } else {
-                footer.innerHTML = `
-                    <a href="https://youtube.com/@englandseniorsover40scri-pj3gn?si=zLJVOX851t-uFs9w" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;">
-                        <i class="fab fa-youtube"></i> Subscribe for Live Alerts
-                    </a>
-                    <a href="playlist-2026-live.html" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;">
-                        <i class="fas fa-list"></i> View 2026 Playlist
-                    </a>`;
+                footer.innerHTML = `<a href="https://youtube.com/@englandseniorsover40scri-pj3gn?si=zLJVOX851t-uFs9w" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;"><i class="fab fa-youtube"></i> Subscribe for Live Alerts</a><a href="playlist-2026-live.html" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;"><i class="fas fa-list"></i> View 2026 Playlist</a>`;
             }
         })();
 
@@ -1385,8 +1388,7 @@
                 const target = tab.dataset.season;
                 document.querySelectorAll('.season-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
                 document.querySelectorAll('.season-panel').forEach(p => p.classList.remove('active'));
-                tab.classList.add('active');
-                tab.setAttribute('aria-selected','true');
+                tab.classList.add('active'); tab.setAttribute('aria-selected','true');
                 const panel = document.getElementById('season-' + target);
                 if (panel) panel.classList.add('active');
             });
@@ -1395,20 +1397,12 @@
         /* ---- Photo stats ---- */
         const photoCount = document.querySelectorAll('.photo-item').length;
         const statEl = document.getElementById('stat-photos');
-        if (statEl) {
-            let c = 0;
-            const timer = setInterval(() => {
-                c = Math.min(c + 1, photoCount);
-                statEl.textContent = c;
-                if (c >= photoCount) clearInterval(timer);
-            }, 40);
-        }
+        if (statEl) { let c = 0; const timer = setInterval(() => { c = Math.min(c + 1, photoCount); statEl.textContent = c; if (c >= photoCount) clearInterval(timer); }, 40); }
 
         /* ---- Photo category & season filter ---- */
         const photoCatBtns = document.querySelectorAll('.photo-cat-btn');
         const photoSeasonSelect = document.getElementById('photo-season-select');
         const photoItems = document.querySelectorAll('.photo-item');
-
         function filterPhotos() {
             const activeCat = document.querySelector('.photo-cat-btn.active')?.dataset.cat || 'all';
             const activeSeason = photoSeasonSelect?.value || 'all';
@@ -1418,14 +1412,7 @@
                 item.classList.toggle('hidden', !(catMatch && seasonMatch));
             });
         }
-
-        photoCatBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                photoCatBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                filterPhotos();
-            });
-        });
+        photoCatBtns.forEach(btn => { btn.addEventListener('click', () => { photoCatBtns.forEach(b => b.classList.remove('active')); btn.classList.add('active'); filterPhotos(); }); });
         if (photoSeasonSelect) photoSeasonSelect.addEventListener('change', filterPhotos);
 
         /* ---- Lightbox ---- */
@@ -1435,62 +1422,76 @@
         const lightboxClose = document.getElementById('lightbox-close');
         const lightboxPrev = document.getElementById('lightbox-prev');
         const lightboxNext = document.getElementById('lightbox-next');
-        let currentPhotoIndex = 0;
-        let visiblePhotos = [];
-
+        let currentPhotoIndex = 0, visiblePhotos = [];
         function getVisiblePhotos() { return Array.from(document.querySelectorAll('.photo-item:not(.hidden)')); }
-
         function showPhoto(index) {
-            const item = visiblePhotos[index];
-            if (!item) return;
+            const item = visiblePhotos[index]; if (!item) return;
             const img = item.querySelector('img');
-            lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt;
-            const caption = item.dataset.caption || '';
-            const sub = item.dataset.sub || '';
+            if (img) {
+                lightboxImg.src = img.src; lightboxImg.alt = img.alt;
+                lightboxImg.style.display = '';
+            } else {
+                // CSS placeholder — show caption text only, no image
+                lightboxImg.src = ''; lightboxImg.style.display = 'none';
+            }
+            const caption = item.dataset.caption || '', sub = item.dataset.sub || '';
             lightboxCaption.innerHTML = caption ? '<strong>' + caption + '</strong>' + (sub ? ' &mdash; ' + sub : '') : '';
             lightboxPrev.style.display = index === 0 ? 'none' : 'flex';
             lightboxNext.style.display = index === visiblePhotos.length - 1 ? 'none' : 'flex';
         }
-
-        function openLightbox(index) {
-            visiblePhotos = getVisiblePhotos();
-            if (!visiblePhotos.length) return;
-            currentPhotoIndex = Math.max(0, Math.min(index, visiblePhotos.length - 1));
-            showPhoto(currentPhotoIndex);
-            lightbox.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
+        function openLightbox(index) { visiblePhotos = getVisiblePhotos(); if (!visiblePhotos.length) return; currentPhotoIndex = Math.max(0, Math.min(index, visiblePhotos.length - 1)); showPhoto(currentPhotoIndex); lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }
         function closeLightbox() { lightbox.classList.remove('open'); document.body.style.overflow = ''; }
-
-        document.getElementById('photo-grid').addEventListener('click', e => {
-            const item = e.target.closest('.photo-item');
-            if (!item) return;
-            visiblePhotos = getVisiblePhotos();
-            openLightbox(visiblePhotos.indexOf(item));
-        });
-
-        document.getElementById('photo-grid').addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                const item = e.target.closest('.photo-item');
-                if (!item) return;
-                visiblePhotos = getVisiblePhotos();
-                openLightbox(visiblePhotos.indexOf(item));
-            }
-        });
-
+        document.getElementById('photo-grid').addEventListener('click', e => { const item = e.target.closest('.photo-item'); if (!item) return; visiblePhotos = getVisiblePhotos(); openLightbox(visiblePhotos.indexOf(item)); });
+        document.getElementById('photo-grid').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const item = e.target.closest('.photo-item'); if (!item) return; visiblePhotos = getVisiblePhotos(); openLightbox(visiblePhotos.indexOf(item)); } });
         lightboxClose.addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
         lightboxPrev.addEventListener('click', () => { if (currentPhotoIndex > 0) { currentPhotoIndex--; showPhoto(currentPhotoIndex); } });
         lightboxNext.addEventListener('click', () => { if (currentPhotoIndex < visiblePhotos.length - 1) { currentPhotoIndex++; showPhoto(currentPhotoIndex); } });
+        document.addEventListener('keydown', e => { if (!lightbox.classList.contains('open')) return; if (e.key === 'Escape') closeLightbox(); if (e.key === 'ArrowLeft' && currentPhotoIndex > 0) { currentPhotoIndex--; showPhoto(currentPhotoIndex); } if (e.key === 'ArrowRight' && currentPhotoIndex < visiblePhotos.length - 1) { currentPhotoIndex++; showPhoto(currentPhotoIndex); } });
 
-        document.addEventListener('keydown', e => {
-            if (!lightbox.classList.contains('open')) return;
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowLeft' && currentPhotoIndex > 0) { currentPhotoIndex--; showPhoto(currentPhotoIndex); }
-            if (e.key === 'ArrowRight' && currentPhotoIndex < visiblePhotos.length - 1) { currentPhotoIndex++; showPhoto(currentPhotoIndex); }
-        });
+        /* ================================================================
+           SEASON GALLERY INDEX — NEW DATA
+           ================================================================
+           Edit this array to manage the Season Gallery Index.
+
+           Each object:
+             year       : season year (number)
+             galleries  : number of match galleries (0 = building)
+             url        : external gallery URL (Adobe Lightroom share link, etc.)
+             current    : true for the current season (shows "Current" badge)
+
+           To add a new season: copy an object, update year/galleries/url.
+           To add a gallery URL: replace '#' with the shared album link.
+           ================================================================ */
+        const PHOTO_GALLERIES = [
+            { year: 2026, galleries: 0,  url: '#', current: true  },
+            { year: 2025, galleries: 0,  url: '#', current: false },
+            { year: 2024, galleries: 0,  url: '#', current: false },
+            { year: 2023, galleries: 0,  url: '#', current: false },
+        ];
+
+        const sgiGrid = document.getElementById('sgi-grid');
+        if (sgiGrid) {
+            PHOTO_GALLERIES.forEach(g => {
+                const card = document.createElement('a');
+                card.href = g.url;
+                if (g.url !== '#') { card.target = '_blank'; card.rel = 'noopener noreferrer'; }
+                card.className = 'sgi-card' + (g.current ? ' current' : '');
+                card.setAttribute('aria-label', g.year + ' season photo gallery');
+                card.innerHTML = `
+                    <div class="sgi-card-left">
+                        ${g.current ? '<span class="sgi-current-badge">Current</span>' : ''}
+                        <div class="sgi-year">${g.year}</div>
+                        <div class="sgi-season-label">Season</div>
+                    </div>
+                    <div class="sgi-card-right">
+                        <span class="sgi-count">${g.galleries > 0 ? g.galleries : '—'}</span>
+                        <span class="sgi-count-label">${g.galleries === 1 ? 'gallery' : 'galleries'}</span>
+                    </div>
+                    <i class="fas fa-arrow-right sgi-arrow"></i>`;
+                sgiGrid.appendChild(card);
+            });
+        }
 
     })();
     </script>
