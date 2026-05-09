@@ -1117,8 +1117,6 @@
                         <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
                     </div>
 
-                    
-
                     <div class="photo-item" data-cat="action" data-season="2026"
                          data-caption="Richard Sims"
                          data-sub="Action · Interclub May 2026"
@@ -1128,34 +1126,6 @@
                         <div class="photo-item-overlay">
                             <div class="photo-item-caption">Richard Sims</div>
                             <div class="photo-item-sub">Action · Interclub May 2026</div>
-                        </div>
-                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
-                    </div>
-
-                
-                    <div class="photo-item" data-cat="action" data-season="2026"
-                         data-caption="Iresh Saxena"
-                         data-sub="Left arm spinner"
-                         tabindex="0" role="button" aria-label="View photo: Iresh Saxena">
-                        <img src="../assets/img/photos/action-2026-interclub-20260504-moy0ctnp0.jpg"
-                             alt="Iresh Saxena" loading="lazy">
-                        <div class="photo-item-overlay">
-                            <div class="photo-item-caption">Iresh Saxena</div>
-                            <div class="photo-item-sub">Left arm spinner</div>
-                        </div>
-                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
-                    </div>
-
-                
-                    <div class="photo-item" data-cat="team" data-season="2025"
-                         data-caption="Triple Crown winners 2025"
-                         data-sub="title retained"
-                         tabindex="0" role="button" aria-label="View photo: Triple Crown winners 2025">
-                        <img src="../assets/img/photos/team-2025-triple-crown-2025-20250731-moy0cuxu1.jpg"
-                             alt="Triple Crown winners 2025" loading="lazy">
-                        <div class="photo-item-overlay">
-                            <div class="photo-item-caption">Triple Crown winners 2025</div>
-                            <div class="photo-item-sub">title retained</div>
                         </div>
                         <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
                     </div>
@@ -1359,50 +1329,51 @@
            Use the admin panel at eng40scricket.github.io/eo40s-media-admin to manage these.
            ================================================================ */
         const PHOTO_GALLERIES = [
-            { year: 2026, galleries: [{ name: "Interclub 2026 - Datchet CC", url: "https://adobe.ly/3RbrTbz" }], current: true },
+            { year: 2026, galleries: [], current: true  },
             { year: 2025, galleries: [], current: false },
             { year: 2024, galleries: [], current: false },
-            { year: 2023, galleries: [], current: false }
+            { year: 2023, galleries: [], current: false },
         ];
 
         const sgiGrid = document.getElementById('sgi-grid');
         if (sgiGrid) {
             PHOTO_GALLERIES.forEach(g => {
                 const hasGalleries = g.galleries && g.galleries.length > 0;
-                const card = document.createElement('div');
-                card.className = 'sgi-card' + (g.current ? ' current' : '') + (hasGalleries ? ' has-galleries' : '');
 
-                // Build gallery links list
-                const galLinks = hasGalleries
-                    ? g.galleries.map(gl => `
-                        <a href="${gl.url}" target="_blank" rel="noopener noreferrer"
-                           class="sgi-gallery-link"
-                           onclick="event.stopPropagation();">
-                            <i class="fas fa-images"></i>
-                            ${gl.name || 'View Gallery'}
-                            <i class="fas fa-external-link-alt sgi-ext-icon"></i>
-                        </a>`).join('')
-                    : `<span class="sgi-no-galleries">No galleries yet this season</span>`;
-
-                card.innerHTML = `
-                    <div class="sgi-card-left">
+                // Season header row
+                const header = document.createElement('div');
+                header.className = 'sgi-season-header';
+                header.innerHTML = `
+                    <div class="sgi-season-header-inner">
                         ${g.current ? '<span class="sgi-current-badge">Current</span>' : ''}
-                        <div class="sgi-year">${g.year}</div>
-                        <div class="sgi-season-label">Season</div>
-                    </div>
-                    <div class="sgi-card-right">
-                        <span class="sgi-count">${hasGalleries ? g.galleries.length : '—'}</span>
-                        <span class="sgi-count-label">${g.galleries.length === 1 ? 'gallery' : 'galleries'}</span>
+                        <span class="sgi-year">${g.year}</span>
+                        <span class="sgi-season-label">Season</span>
+                        <span class="sgi-count-inline">${hasGalleries ? g.galleries.length + ' ' + (g.galleries.length === 1 ? 'gallery' : 'galleries') : 'No galleries yet'}</span>
                     </div>`;
+                sgiGrid.appendChild(header);
 
-                sgiGrid.appendChild(card);
-
-                // Render gallery links below each card
-                if (hasGalleries || g.current) {
-                    const linksEl = document.createElement('div');
-                    linksEl.className = 'sgi-gallery-links-list';
-                    linksEl.innerHTML = galLinks;
-                    sgiGrid.appendChild(linksEl);
+                if (hasGalleries) {
+                    // Render each gallery as an image-backed card
+                    const galRow = document.createElement('div');
+                    galRow.className = 'sgi-gallery-cards';
+                    galRow.innerHTML = g.galleries.map(gl => `
+                        <a href="${gl.url}" target="_blank" rel="noopener noreferrer" class="sgi-gallery-card">
+                            <div class="sgi-gallery-card-img" style="${gl.coverUrl ? `background-image:url('${gl.coverUrl}')` : ''}">
+                                ${!gl.coverUrl ? '<i class="fas fa-images"></i>' : ''}
+                                <div class="sgi-gallery-card-overlay">
+                                    <span class="sgi-gallery-card-cta"><i class="fas fa-external-link-alt"></i> View Gallery</span>
+                                </div>
+                            </div>
+                            <div class="sgi-gallery-card-body">
+                                <div class="sgi-gallery-card-name">${gl.name || 'View Gallery'}</div>
+                            </div>
+                        </a>`).join('');
+                    sgiGrid.appendChild(galRow);
+                } else if (g.current) {
+                    const empty = document.createElement('div');
+                    empty.className = 'sgi-no-galleries';
+                    empty.textContent = 'Galleries will appear here as the season progresses.';
+                    sgiGrid.appendChild(empty);
                 }
             });
         }
@@ -1411,49 +1382,111 @@
     </script>
 
     <style>
-        /* Season Gallery Index — gallery link styles */
-        .sgi-card.has-galleries {
-            border-color: rgba(59,158,219,0.35);
-            background: rgba(59,158,219,0.08);
+        /* ============================================================
+           Season Gallery Index — image card styles
+        ============================================================ */
+        .sgi-season-header {
+            padding: 8px 0 4px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            margin-bottom: 16px;
         }
-        .sgi-gallery-links-list {
-            grid-column: 1 / -1;
+        .sgi-season-header:not(:first-child) { margin-top: 28px; }
+        .sgi-season-header-inner {
             display: flex;
+            align-items: center;
+            gap: 12px;
             flex-wrap: wrap;
-            gap: 10px;
-            padding: 0 4px 16px;
-            margin-top: -8px;
         }
-        .sgi-gallery-link {
+        .sgi-count-inline {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.4);
+            margin-left: auto;
+        }
+        .sgi-gallery-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+        @media (max-width: 560px) { .sgi-gallery-cards { grid-template-columns: 1fr 1fr; } }
+
+        /* Individual gallery card */
+        .sgi-gallery-card {
+            display: block;
+            text-decoration: none;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .sgi-gallery-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+            border-color: rgba(59,158,219,0.4);
+        }
+        .sgi-gallery-card-img {
+            position: relative;
+            width: 100%;
+            padding-top: 62%;
+            background: linear-gradient(135deg, #0B1F3A, #1E3D6B);
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+        .sgi-gallery-card-img i {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            color: rgba(255,255,255,0.15);
+        }
+        .sgi-gallery-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(11,31,58,0.9) 0%, transparent 60%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 10px 12px;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .sgi-gallery-card:hover .sgi-gallery-card-overlay { opacity: 1; }
+        .sgi-gallery-card-cta {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.75em;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(59,158,219,0.85);
+            padding: 5px 12px;
+            border-radius: 999px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(59,158,219,0.12);
-            border: 1.5px solid rgba(59,158,219,0.35);
-            border-radius: 999px;
-            padding: 9px 18px;
+            gap: 5px;
+        }
+        .sgi-gallery-card-body {
+            padding: 10px 14px 12px;
+        }
+        .sgi-gallery-card-name {
             font-family: 'Manrope', sans-serif;
             font-size: 0.85em;
             font-weight: 700;
-            color: #7DC4F0;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-        .sgi-gallery-link:hover {
-            background: rgba(59,158,219,0.25);
-            border-color: #3B9EDB;
             color: #fff;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 16px rgba(59,158,219,0.25);
+            line-height: 1.3;
         }
-        .sgi-gallery-link i:first-child { color: #3B9EDB; }
-        .sgi-ext-icon { font-size: 0.75em; opacity: 0.6; }
         .sgi-no-galleries {
             font-family: 'Manrope', sans-serif;
-            font-size: 0.8em;
+            font-size: 0.82em;
             color: rgba(255,255,255,0.3);
-            padding: 4px 0;
             font-style: italic;
+            padding: 4px 0 20px;
+        }
+        /* Override old sgi-grid to be a simple flex column */
+        #sgi-grid {
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </body>
