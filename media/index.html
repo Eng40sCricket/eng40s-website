@@ -1146,7 +1146,18 @@
                         <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
                     </div>
 
-                    
+                    <div class="photo-item" data-cat="portrait" data-season="2026"
+                         data-caption="Player Portrait"
+                         data-sub="Interclub · May 2026"
+                         tabindex="0" role="button" aria-label="View photo: Player Portrait">
+                        <img src="../assets/img/photos/portrait-2026-interclub-20260504.jpg"
+                             alt="Player Portrait" loading="lazy">
+                        <div class="photo-item-overlay">
+                            <div class="photo-item-caption">Player Portrait</div>
+                            <div class="photo-item-sub">Interclub · May 2026</div>
+                        </div>
+                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
+                    </div>
 
                     <div class="photo-item" data-cat="action" data-season="2026"
                          data-caption="Richard Sims"
@@ -1157,57 +1168,6 @@
                         <div class="photo-item-overlay">
                             <div class="photo-item-caption">Richard Sims</div>
                             <div class="photo-item-sub">Action · Interclub May 2026</div>
-                        </div>
-                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
-                    </div>
-
-                
-                    
-
-                
-                    
-
-                
-                    <div class="photo-item" data-cat="action" data-season="2026"
-                         data-caption="Fifty partnership (5 overs)"
-                         data-sub="Thompson/Frazer"
-                         tabindex="0" role="button" aria-label="View photo: Fifty partnership (5 overs)">
-                        <img src="../assets/img/photos/action-2026-interclub-20260504-01-replaced-replaced.jpg"
-                             alt="Fifty partnership (5 overs)" loading="lazy">
-                        <div class="photo-item-overlay">
-                            <div class="photo-item-caption">Fifty partnership (5 overs)</div>
-                            <div class="photo-item-sub">Thompson/Frazer</div>
-                        </div>
-                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
-                    </div>
-
-                
-                    
-
-                
-                    <div class="photo-item" data-cat="action" data-season="2026"
-                         data-caption="100 up"
-                         data-sub="Jackson Thompson"
-                         tabindex="0" role="button" aria-label="View photo: 100 up">
-                        <img src="../assets/img/photos/action-2026-interclub-20260504-01-replaced.jpg"
-                             alt="100 up" loading="lazy">
-                        <div class="photo-item-overlay">
-                            <div class="photo-item-caption">100 up</div>
-                            <div class="photo-item-sub">Jackson Thompson</div>
-                        </div>
-                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
-                    </div>
-
-                
-                    <div class="photo-item" data-cat="action" data-season="2026"
-                         data-caption="Iresh Saxena"
-                         data-sub="Left arm spin"
-                         tabindex="0" role="button" aria-label="View photo: Iresh Saxena">
-                        <img src="../assets/img/photos/action-2026-interclub-20260504-01.jpg"
-                             alt="Iresh Saxena" loading="lazy">
-                        <div class="photo-item-overlay">
-                            <div class="photo-item-caption">Iresh Saxena</div>
-                            <div class="photo-item-sub">Left arm spin</div>
                         </div>
                         <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
                     </div>
@@ -1414,28 +1374,38 @@
 
            Each object:
              year       : season year (number)
-             galleries  : number of match galleries (0 = building)
-             url        : external gallery URL (Adobe Lightroom share link, etc.)
+             galleries  : array of { name, url } objects — one per match/event
              current    : true for the current season (shows "Current" badge)
 
-           To add a new season: copy an object, update year/galleries/url.
-           To add a gallery URL: replace '#' with the shared album link.
+           To add a gallery: add { name: 'Match Name', url: 'https://...' } to galleries array.
+           Use the admin panel at eng40scricket.github.io/eo40s-media-admin to manage these.
            ================================================================ */
         const PHOTO_GALLERIES = [
-    { year: 2026, galleries: [{ name: "Interclub 2026 - Datchet CC", url: "https://adobe.ly/3RbrTbz" }], url: "https://adobe.ly/3RbrTbz", current: true },
-    { year: 2025, galleries: [], url: "#", current: false },
-    { year: 2024, galleries: [], url: "#", current: false },
-    { year: 2023, galleries: [], url: "#", current: false }
+            { year: 2026, galleries: [], current: true  },
+            { year: 2025, galleries: [], current: false },
+            { year: 2024, galleries: [], current: false },
+            { year: 2023, galleries: [], current: false },
         ];
 
         const sgiGrid = document.getElementById('sgi-grid');
         if (sgiGrid) {
             PHOTO_GALLERIES.forEach(g => {
-                const card = document.createElement('a');
-                card.href = g.url;
-                if (g.url !== '#') { card.target = '_blank'; card.rel = 'noopener noreferrer'; }
-                card.className = 'sgi-card' + (g.current ? ' current' : '');
-                card.setAttribute('aria-label', g.year + ' season photo gallery');
+                const hasGalleries = g.galleries && g.galleries.length > 0;
+                const card = document.createElement('div');
+                card.className = 'sgi-card' + (g.current ? ' current' : '') + (hasGalleries ? ' has-galleries' : '');
+
+                // Build gallery links list
+                const galLinks = hasGalleries
+                    ? g.galleries.map(gl => `
+                        <a href="${gl.url}" target="_blank" rel="noopener noreferrer"
+                           class="sgi-gallery-link"
+                           onclick="event.stopPropagation();">
+                            <i class="fas fa-images"></i>
+                            ${gl.name || 'View Gallery'}
+                            <i class="fas fa-external-link-alt sgi-ext-icon"></i>
+                        </a>`).join('')
+                    : `<span class="sgi-no-galleries">No galleries yet this season</span>`;
+
                 card.innerHTML = `
                     <div class="sgi-card-left">
                         ${g.current ? '<span class="sgi-current-badge">Current</span>' : ''}
@@ -1443,15 +1413,70 @@
                         <div class="sgi-season-label">Season</div>
                     </div>
                     <div class="sgi-card-right">
-                        <span class="sgi-count">${g.galleries > 0 ? g.galleries : '—'}</span>
-                        <span class="sgi-count-label">${g.galleries === 1 ? 'gallery' : 'galleries'}</span>
-                    </div>
-                    <i class="fas fa-arrow-right sgi-arrow"></i>`;
+                        <span class="sgi-count">${hasGalleries ? g.galleries.length : '—'}</span>
+                        <span class="sgi-count-label">${g.galleries.length === 1 ? 'gallery' : 'galleries'}</span>
+                    </div>`;
+
                 sgiGrid.appendChild(card);
+
+                // Render gallery links below each card
+                if (hasGalleries || g.current) {
+                    const linksEl = document.createElement('div');
+                    linksEl.className = 'sgi-gallery-links-list';
+                    linksEl.innerHTML = galLinks;
+                    sgiGrid.appendChild(linksEl);
+                }
             });
         }
 
     })();
     </script>
+
+    <style>
+        /* Season Gallery Index — gallery link styles */
+        .sgi-card.has-galleries {
+            border-color: rgba(59,158,219,0.35);
+            background: rgba(59,158,219,0.08);
+        }
+        .sgi-gallery-links-list {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0 4px 16px;
+            margin-top: -8px;
+        }
+        .sgi-gallery-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(59,158,219,0.12);
+            border: 1.5px solid rgba(59,158,219,0.35);
+            border-radius: 999px;
+            padding: 9px 18px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85em;
+            font-weight: 700;
+            color: #7DC4F0;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .sgi-gallery-link:hover {
+            background: rgba(59,158,219,0.25);
+            border-color: #3B9EDB;
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(59,158,219,0.25);
+        }
+        .sgi-gallery-link i:first-child { color: #3B9EDB; }
+        .sgi-ext-icon { font-size: 0.75em; opacity: 0.6; }
+        .sgi-no-galleries {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.3);
+            padding: 4px 0;
+            font-style: italic;
+        }
+    </style>
 </body>
 </html>
