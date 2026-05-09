@@ -548,35 +548,6 @@
             transform: translateX(3px);
         }
 
-        /* Hosting note */
-        .sgi-note {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-            padding: 16px 20px;
-        }
-        .sgi-note i {
-            color: rgba(255,255,255,0.25);
-            font-size: 1.1em;
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-        .sgi-note p {
-            font-family: 'Manrope', sans-serif;
-            font-size: 0.82em;
-            color: rgba(255,255,255,0.45);
-            line-height: 1.55;
-        }
-        .sgi-note a {
-            color: rgba(59,158,219,0.9);
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .sgi-note a:hover { color: #7DC4F0; }
-
         /* ============================================================
            LIGHTBOX
            ============================================================ */
@@ -1146,7 +1117,18 @@
                         <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
                     </div>
 
-                    
+                    <div class="photo-item" data-cat="portrait" data-season="2026"
+                         data-caption="Player Portrait"
+                         data-sub="Interclub · May 2026"
+                         tabindex="0" role="button" aria-label="View photo: Player Portrait">
+                        <img src="../assets/img/photos/portrait-2026-interclub-20260504.jpg"
+                             alt="Player Portrait" loading="lazy">
+                        <div class="photo-item-overlay">
+                            <div class="photo-item-caption">Player Portrait</div>
+                            <div class="photo-item-sub">Interclub · May 2026</div>
+                        </div>
+                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
+                    </div>
 
                     <div class="photo-item" data-cat="action" data-season="2026"
                          data-caption="Richard Sims"
@@ -1182,16 +1164,6 @@
                     </div>
                     <div class="sgi-grid" id="sgi-grid">
                         <!-- Rendered by JS — edit PHOTO_GALLERIES below -->
-                    </div>
-                    <div class="sgi-note">
-                        <i class="fas fa-info-circle"></i>
-                        <p>
-                            Galleries are edited and hosted on
-                            <strong style="color:rgba(255,255,255,0.6);">Adobe Lightroom</strong>
-                            (or an equivalent external service). Each season card links directly to the
-                            shared album. To submit matchday photography for inclusion, contact the media team at
-                            <a href="mailto:media@eng40scricket.co.uk">media@eng40scricket.co.uk</a>.
-                        </p>
                     </div>
                 </div><!-- /season-gallery-index -->
 
@@ -1370,10 +1342,10 @@
            Use the admin panel at eng40scricket.github.io/eo40s-media-admin to manage these.
            ================================================================ */
         const PHOTO_GALLERIES = [
-            { year: 2026, galleries: [{ name: "Interclub 2026 - Datchet CC", url: "https://adobe.ly/3RbrTbz" }], current: true },
+            { year: 2026, galleries: [], current: true  },
             { year: 2025, galleries: [], current: false },
             { year: 2024, galleries: [], current: false },
-            { year: 2023, galleries: [], current: false }
+            { year: 2023, galleries: [], current: false },
         ];
 
         const sgiGrid = document.getElementById('sgi-grid');
