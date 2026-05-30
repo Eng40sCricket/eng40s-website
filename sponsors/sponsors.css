@@ -1,0 +1,1100 @@
+/* ============================================================
+   SPONSORS PAGE — Component styles
+   England Over 40s Cricket
+   Loaded only on sponsors/index.html and sponsors/enquiry/index.html.
+   Depends on: main.css, broadcast-theme.css, brand-colours.css
+   Design language: Broadcast Prestige Modernism
+   ============================================================ */
+
+/* ---- Page-level tokens ---- */
+:root {
+    --sp-navy:       #05102b;
+    --sp-navy-mid:   #091632;
+    --sp-sky:        #8eb9ff;
+    --sp-ice:        #d9e7ff;
+    --sp-cream:      #f6f1e7;
+    --sp-stone:      #ebe3d4;
+    --sp-blue:       #0080DB;
+    --sp-blue-hover: #006bb5;
+    --sp-gold:       #CFA75C;
+    --sp-shadow-soft: 0 22px 70px rgba(5,16,43,0.12);
+    --sp-shadow-deep: 0 28px 80px rgba(5,16,43,0.32);
+    --sp-radius:     1.15rem;
+}
+
+/* ============================================================
+   IN-PAGE ANCHOR NAV
+   ============================================================ */
+.sp-anchor-nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+    background: rgba(5,16,43,0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.sp-anchor-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+}
+
+.sp-anchor-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sp-anchor-nav-links a {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.68) !important;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.sp-anchor-nav-links a:hover {
+    color: #ffffff !important;
+}
+
+.sp-anchor-nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    background: var(--sp-blue);
+    color: #fff !important;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.55rem 1.15rem;
+    text-decoration: none !important;
+    transition: background 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+}
+
+.sp-anchor-nav-cta:hover {
+    background: var(--sp-blue-hover) !important;
+    color: #fff !important;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 860px) {
+    .sp-anchor-nav-links { display: none; }
+}
+
+/* ============================================================
+   SECTION BANDS
+   ============================================================ */
+.section-band {
+    position: relative;
+    padding: 5rem 0;
+}
+
+@media (min-width: 768px) { .section-band { padding: 6rem 0; } }
+@media (min-width: 1024px) { .section-band { padding: 7rem 0; } }
+
+.section-band-light {
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(246,241,231,0.9));
+    color: var(--sp-navy);
+}
+
+.section-band-muted {
+    background:
+        radial-gradient(circle at top right, rgba(142,185,255,0.14), transparent 28%),
+        linear-gradient(180deg, rgba(233,227,212,0.45), rgba(255,255,255,0.96));
+    color: var(--sp-navy);
+}
+
+.section-band-dark {
+    background:
+        radial-gradient(circle at top right, rgba(142,185,255,0.10), transparent 28%),
+        linear-gradient(180deg, rgba(5,16,43,1), rgba(8,24,59,0.98));
+    color: white;
+}
+
+.section-band-dark-accent {
+    background:
+        linear-gradient(135deg, rgba(5,16,43,0.98), rgba(12,35,79,0.94)),
+        radial-gradient(circle at top left, rgba(0,128,219,0.16), transparent 30%);
+    color: white;
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+.sp-kicker {
+    display: block;
+    margin-bottom: 0.9rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sp-blue);
+}
+
+.section-band-dark .sp-kicker,
+.section-band-dark-accent .sp-kicker {
+    color: rgba(142,185,255,0.9);
+}
+
+.sp-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.45rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--sp-navy);
+    max-width: 15ch;
+    text-wrap: balance;
+    margin: 0 0 0.5rem;
+}
+
+.section-band-dark .sp-heading,
+.section-band-dark-accent .sp-heading {
+    color: white;
+}
+
+.sp-intro {
+    margin-top: 1.15rem;
+    max-width: 48rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.04rem;
+    line-height: 1.85;
+    color: rgba(5,16,43,0.76);
+}
+
+.section-band-dark .sp-intro,
+.section-band-dark-accent .sp-intro {
+    color: rgba(255,255,255,0.72);
+}
+
+/* ============================================================
+   EYEBROW CHIP
+   ============================================================ */
+.sp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.08);
+    padding: 0.6rem 0.95rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(217,231,255,0.92);
+    backdrop-filter: blur(10px);
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.sp-hero {
+    position: relative;
+    overflow: hidden;
+    min-height: calc(100vh - 120px);
+    background: var(--sp-navy);
+}
+
+.sp-hero-media {
+    position: absolute;
+    inset: 0;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform: scale(1.03);
+}
+
+.sp-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(5,16,43,0.92) 0%, rgba(5,16,43,0.80) 40%, rgba(5,16,43,0.46) 72%, rgba(5,16,43,0.68) 100%),
+        linear-gradient(180deg, rgba(5,16,43,0.2), rgba(5,16,43,0.74));
+}
+
+.sp-hero-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 2rem;
+    padding-top: 6rem;
+    padding-bottom: 5rem;
+}
+
+@media (min-width: 960px) {
+    .sp-hero-grid {
+        grid-template-columns: minmax(0, 1.08fr) minmax(21rem, 0.92fr);
+        align-items: end;
+    }
+}
+
+.sp-hero-copy {
+    max-width: 52rem;
+    align-self: end;
+    padding-top: 3rem;
+}
+
+.sp-hero-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    margin-top: 1.25rem;
+    max-width: 14ch;
+    font-size: clamp(3.6rem, 8vw, 7.25rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: white;
+    text-wrap: balance;
+}
+
+.sp-hero-body {
+    margin-top: 1.5rem;
+    max-width: 45rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.82);
+}
+
+.sp-hero-actions {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Stats panel */
+.sp-stats-panel {
+    align-self: end;
+    width: 100%;
+    max-width: 28rem;
+    justify-self: end;
+    border-radius: 1.8rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(7,20,52,0.62);
+    box-shadow: var(--sp-shadow-deep);
+    backdrop-filter: blur(16px);
+    padding: 1.5rem;
+}
+
+@media (max-width: 959px) {
+    .sp-stats-panel { max-width: none; justify-self: stretch; }
+    .sp-hero { min-height: auto; }
+    .sp-hero-copy { padding-top: 1rem; }
+    .sp-hero-grid { padding-top: 5rem; padding-bottom: 4rem; }
+}
+
+.sp-stats-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.sp-stats-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(217,231,255,0.82);
+}
+
+.sp-stats-line {
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, rgba(0,128,219,0.4), rgba(255,255,255,0.08));
+}
+
+.sp-stats-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.sp-stat-card {
+    border-radius: 1.4rem;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+    padding: 1rem 1.15rem;
+}
+
+.sp-stat-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1;
+    color: white;
+    margin: 0;
+}
+
+.sp-stat-label {
+    margin-top: 0.35rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.62);
+}
+
+.sp-stats-note {
+    margin-top: 1.25rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.72);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.sp-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background: var(--sp-blue);
+    color: #fff !important;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.85rem 1.6rem;
+    text-decoration: none !important;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 16px 40px rgba(0,128,219,0.30);
+}
+
+.sp-btn-primary:hover {
+    background: var(--sp-blue-hover) !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+
+.sp-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.30);
+    color: #fff !important;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.85rem 1.6rem;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.sp-btn-outline:hover {
+    background: rgba(255,255,255,0.14) !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+
+/* ============================================================
+   CONTENT CARDS (shared base)
+   ============================================================ */
+.sp-card {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(5,16,43,0.08);
+    background: rgba(255,255,255,0.88);
+    padding: 1.7rem;
+    box-shadow: var(--sp-shadow-soft);
+    transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
+}
+
+.sp-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0,128,219,0.18);
+    box-shadow: 0 28px 80px rgba(5,16,43,0.15);
+}
+
+/* ============================================================
+   ICON BADGE
+   ============================================================ */
+.sp-icon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 0.8rem;
+    background: rgba(0,128,219,0.10);
+    color: var(--sp-blue);
+    flex-shrink: 0;
+}
+
+.sp-icon-badge-dark {
+    background: rgba(255,255,255,0.10);
+    color: rgba(142,185,255,0.9);
+}
+
+/* ============================================================
+   LIST ROW (checklist items)
+   ============================================================ */
+.sp-list-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.94rem;
+    line-height: 1.75;
+    color: rgba(5,16,43,0.76);
+}
+
+.sp-list-dot {
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--sp-blue);
+    flex-shrink: 0;
+    margin-top: 0.55rem;
+}
+
+/* ============================================================
+   WHY-PARTNER COLUMNS
+   ============================================================ */
+.sp-why-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+@media (min-width: 1024px) { .sp-why-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ============================================================
+   CURRENT SPONSORS SECTION
+   ============================================================ */
+.sp-sponsors-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.sp-sponsor-card {
+    border-radius: 2rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    padding: 1.5rem;
+    box-shadow: 0 24px 80px rgba(2,6,23,0.24);
+    backdrop-filter: blur(4px);
+    transition: transform 0.3s ease;
+}
+
+.sp-sponsor-card:hover { transform: translateY(-4px); }
+
+.sp-sponsor-logo-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+    border-radius: 1.4rem;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: #ffffff;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
+}
+
+.sp-sponsor-logo-box img {
+    max-height: 3rem;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.sp-sponsor-role {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.sp-sponsor-role-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(142,185,255,0.82);
+}
+
+.sp-sponsor-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 0.5rem;
+}
+
+.sp-sponsor-summary {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.72);
+    margin: 0 0 1.25rem;
+}
+
+.sp-sponsor-link {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: white !important;
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s ease;
+}
+
+.sp-sponsor-link:hover { color: rgba(142,185,255,0.9) !important; }
+
+/* ============================================================
+   OPPORTUNITIES SECTION
+   ============================================================ */
+.sp-opportunities-layout {
+    display: grid;
+    gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+    .sp-opportunities-layout {
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: start;
+    }
+}
+
+.sp-opp-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 1.2rem 1.25rem;
+    border-radius: 1.4rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(8px);
+    margin-bottom: 1rem;
+}
+
+.sp-opp-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    line-height: 1;
+    color: rgba(142,185,255,0.94);
+}
+
+.sp-opp-eyebrow {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(0,128,219,0.85);
+    margin: 0 0 0.25rem;
+}
+
+.sp-opp-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 0.5rem;
+}
+
+.sp-opp-body {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.94rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.72);
+    margin: 0;
+}
+
+/* Visual stack (image + floating card) */
+.sp-visual-stack {
+    position: relative;
+}
+
+.sp-image-panel {
+    overflow: hidden;
+    border-radius: 1.8rem;
+    box-shadow: var(--sp-shadow-deep);
+}
+
+.sp-image-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    min-height: 24rem;
+}
+
+@media (min-width: 1024px) { .sp-image-panel img { min-height: 34rem; } }
+
+.sp-floating-card {
+    position: absolute;
+    right: -1rem;
+    bottom: 1.5rem;
+    max-width: 19rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(8,24,59,0.78);
+    padding: 1.2rem;
+    color: rgba(255,255,255,0.78);
+    box-shadow: var(--sp-shadow-deep);
+    backdrop-filter: blur(14px);
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.94rem;
+    line-height: 1.75;
+}
+
+@media (max-width: 1023px) {
+    .sp-floating-card {
+        position: static;
+        margin-top: 1rem;
+        max-width: none;
+    }
+}
+
+/* ============================================================
+   AUDIENCE SECTION
+   ============================================================ */
+.sp-audience-layout {
+    display: grid;
+    gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+    .sp-audience-layout {
+        grid-template-columns: 0.92fr 1.08fr;
+        align-items: center;
+    }
+}
+
+.sp-audience-visual { order: 2; }
+.sp-audience-content { order: 1; }
+
+@media (min-width: 1024px) {
+    .sp-audience-visual { order: 1; }
+    .sp-audience-content { order: 2; }
+}
+
+.sp-floating-market-card {
+    position: absolute;
+    left: -1rem;
+    bottom: 1.5rem;
+    max-width: 19rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(5,16,43,0.08);
+    background: rgba(255,255,255,0.92);
+    padding: 1.2rem;
+    box-shadow: var(--sp-shadow-deep);
+    backdrop-filter: blur(14px);
+}
+
+@media (max-width: 1023px) {
+    .sp-floating-market-card {
+        position: static;
+        margin-top: 1rem;
+        max-width: none;
+    }
+}
+
+.sp-market-pill {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background: rgba(5,16,43,0.08);
+    padding: 0.5rem 0.8rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--sp-navy);
+    margin: 0.2rem;
+}
+
+.sp-metric-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 600px) { .sp-metric-grid { grid-template-columns: 1fr; } }
+
+.sp-metric-card {
+    min-height: 10rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(5,16,43,0.08);
+    padding: 1.4rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(248,245,238,0.9));
+    transition: transform 0.26s ease, box-shadow 0.26s ease;
+}
+
+.sp-metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 80px rgba(5,16,43,0.15);
+}
+
+.sp-metric-figure {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1;
+    color: var(--sp-navy);
+    margin: 0 0 0.5rem;
+}
+
+.sp-metric-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--sp-navy);
+    margin: 0 0 0.4rem;
+}
+
+.sp-metric-copy {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: rgba(5,16,43,0.72);
+    margin: 0;
+}
+
+.sp-editorial-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 960px) { .sp-editorial-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.sp-editorial-grid p {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.96rem;
+    line-height: 1.85;
+    color: rgba(5,16,43,0.76);
+    margin: 0;
+}
+
+/* ============================================================
+   PARTNERSHIP LEVELS (TIERS)
+   ============================================================ */
+.sp-tiers-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+@media (min-width: 900px) { .sp-tiers-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.sp-tier-card {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(5,16,43,0.08);
+    background: rgba(255,255,255,0.88);
+    padding: 1.7rem;
+    box-shadow: var(--sp-shadow-soft);
+    transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
+}
+
+.sp-tier-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0,128,219,0.18);
+    box-shadow: 0 28px 80px rgba(5,16,43,0.15);
+}
+
+.sp-tier-card-featured {
+    background: linear-gradient(180deg, rgba(5,16,43,0.98), rgba(11,28,65,0.96));
+    border-color: rgba(142,185,255,0.16);
+    color: white;
+}
+
+.sp-tier-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.sp-tier-kicker {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(0,128,219,0.88);
+    margin: 0 0 0.25rem;
+}
+
+.sp-tier-card-featured .sp-tier-kicker { color: rgba(142,185,255,0.9); }
+
+.sp-tier-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--sp-navy);
+    margin: 0;
+}
+
+.sp-tier-card-featured .sp-tier-title { color: white; }
+
+.sp-tier-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background: rgba(5,16,43,0.07);
+    color: var(--sp-navy);
+    flex-shrink: 0;
+    font-size: 1.1rem;
+}
+
+.sp-tier-card-featured .sp-tier-arrow {
+    background: rgba(255,255,255,0.10);
+    color: white;
+}
+
+.sp-tier-strap {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.96rem;
+    line-height: 1.75;
+    color: rgba(5,16,43,0.72);
+    margin: 0.75rem 0 1rem;
+}
+
+.sp-tier-card-featured .sp-tier-strap { color: rgba(255,255,255,0.76); }
+
+.sp-tier-benefits { list-style: none; padding: 0; margin: 0 0 1.25rem; }
+
+.sp-tier-benefits li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: rgba(5,16,43,0.76);
+    padding: 0.35rem 0;
+}
+
+.sp-tier-card-featured .sp-tier-benefits li { color: rgba(255,255,255,0.82); }
+
+.sp-tier-benefits .sp-list-dot { margin-top: 0.6rem; }
+.sp-tier-card-featured .sp-list-dot { background: var(--sp-blue); }
+
+.sp-tier-footer {
+    border-top: 1px solid rgba(5,16,43,0.08);
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+}
+
+.sp-tier-card-featured .sp-tier-footer { border-top-color: rgba(255,255,255,0.12); }
+
+.sp-tier-footer-label {
+    display: block;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(0,128,219,0.88);
+    margin-bottom: 0.35rem;
+}
+
+.sp-tier-card-featured .sp-tier-footer-label { color: rgba(142,185,255,0.9); }
+
+.sp-tier-footer p {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: rgba(5,16,43,0.76);
+    margin: 0;
+}
+
+.sp-tier-card-featured .sp-tier-footer p { color: rgba(255,255,255,0.76); }
+
+/* ============================================================
+   ENQUIRY SECTION
+   ============================================================ */
+.sp-enquiry-layout {
+    display: grid;
+    gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+    .sp-enquiry-layout {
+        grid-template-columns: 0.9fr 1.1fr;
+        align-items: start;
+    }
+}
+
+.sp-step-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 1.1rem;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(5,16,43,0.07);
+    background: rgba(255,255,255,0.6);
+    margin-bottom: 1rem;
+}
+
+.sp-step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: rgba(5,16,43,0.06);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--sp-navy);
+    flex-shrink: 0;
+}
+
+.sp-step-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--sp-navy);
+    margin: 0 0 0.25rem;
+}
+
+.sp-step-copy {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: rgba(5,16,43,0.72);
+    margin: 0;
+}
+
+.sp-enquiry-panel {
+    border-radius: 2rem;
+    border: 1px solid rgba(5,16,43,0.08);
+    background: rgba(255,255,255,0.88);
+    padding: 2rem;
+    box-shadow: var(--sp-shadow-soft);
+}
+
+.sp-enquiry-panel-inner {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(5,16,43,0.08);
+    background: var(--sp-cream);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.sp-check-list { list-style: none; padding: 0; margin: 0; }
+
+.sp-check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: rgba(5,16,43,0.76);
+    padding: 0.4rem 0;
+}
+
+.sp-check-icon {
+    color: var(--sp-blue);
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+}
+
+/* ============================================================
+   CLOSING CTA
+   ============================================================ */
+.sp-closing {
+    position: relative;
+    overflow: hidden;
+    background: var(--sp-navy);
+}
+
+.sp-closing-media {
+    position: absolute;
+    inset: 0;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.sp-closing-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(5,16,43,0.84), rgba(5,16,43,0.48) 52%, rgba(5,16,43,0.86)),
+        linear-gradient(180deg, rgba(5,16,43,0.18), rgba(5,16,43,0.78));
+}
+
+.sp-closing-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 2.5rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+@media (min-width: 1024px) {
+    .sp-closing-grid {
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: end;
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+    }
+}
+
+.sp-closing-action {
+    max-width: 28rem;
+    justify-self: end;
+    border-radius: 1.8rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(7,20,52,0.62);
+    box-shadow: var(--sp-shadow-deep);
+    backdrop-filter: blur(16px);
+    padding: 1.5rem;
+    color: rgba(255,255,255,0.78);
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.96rem;
+    line-height: 1.8;
+}
+
+@media (max-width: 1023px) {
+    .sp-closing-action { max-width: none; justify-self: stretch; }
+}
+
+.sp-closing-action p { margin: 0 0 1.25rem; }
+
+/* ============================================================
+   RESPONSIVE OVERRIDES
+   ============================================================ */
+@media (max-width: 767px) {
+    .section-band { padding: 4rem 0; }
+    .sp-hero-heading { font-size: clamp(3rem, 14vw, 4.5rem); }
+    .sp-hero-body, .sp-intro { font-size: 0.96rem; }
+    .sp-enquiry-panel { padding: 1.25rem; }
+    .sp-tiers-grid { grid-template-columns: 1fr; }
+}
