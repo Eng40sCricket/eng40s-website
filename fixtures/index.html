@@ -1,41 +1,440 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>England Over 40s Cricket - Fixtures</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/broadcast-theme.css">
-    <link rel="stylesheet" href="../assets/css/brand-colours.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>England Over 40s Cricket — Fixtures &amp; Results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/broadcast-theme.css">
+<link rel="stylesheet" href="../assets/css/brand-colours.css">
+<style>
+  .fixtures-bg {
+    position: fixed; inset: 0; z-index: -2;
+    background: url('../assets/img/flags/cricket-bg.jpg') center center / cover no-repeat;
+  }
+  .fixtures-bg-overlay {
+    position: fixed; inset: 0; z-index: -1;
+    background: linear-gradient(180deg,rgba(10,22,40,0.82) 0%,rgba(10,22,40,0.74) 30%,rgba(12,28,50,0.76) 60%,rgba(10,22,40,0.86) 100%);
+  }
+  body { font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#e8eef5; line-height:1.5; min-height:100vh; background:#05102B; }
+  .fx-wrap { max-width:1140px; margin:0 auto; padding:20px 16px 64px; position:relative; z-index:1; }
+  .fx-hero { text-align:center; padding:28px 16px 16px; }
+  .fx-hero h1 { font-family:'Bebas Neue','Arial Narrow',sans-serif; font-size:clamp(1.6rem,4vw,2.6rem); color:#fff; margin-bottom:4px; letter-spacing:2px; text-transform:uppercase; text-shadow:0 2px 12px rgba(0,0,0,0.5); }
+  .fx-hero p { font-size:0.88rem; color:rgba(200,215,235,0.85); letter-spacing:0.4px; }
+  .fx-tabs { display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin:14px 0 18px; }
+  .fx-tab { padding:8px 18px; border-radius:24px; background:rgba(255,255,255,0.07); color:rgba(220,230,245,0.9); font-size:0.82rem; font-weight:600; cursor:pointer; transition:all 0.2s; white-space:nowrap; font-family:'Manrope',sans-serif; letter-spacing:0.3px; border:none; outline:none; }
+  .fx-tab:hover { background:rgba(255,255,255,0.14); color:#fff; }
+  .fx-tab.active { background:#0080DB; color:#fff; box-shadow:0 0 14px rgba(0,128,219,0.45); }
+  .fx-count { font-size:0.68rem; background:rgba(255,255,255,0.2); padding:1px 7px; border-radius:10px; margin-left:5px; }
+  .fx-stats-wrap { display:flex; gap:12px; margin-bottom:18px; flex-wrap:wrap; }
+  .fx-stats-group { flex:1; min-width:260px; background:rgba(12,26,50,0.78); border:1px solid rgba(100,160,220,0.18); border-radius:14px; padding:14px 18px; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); box-shadow:0 4px 24px rgba(0,0,0,0.35); }
+  .fx-stats-label { font-family:'Bebas Neue',sans-serif; font-size:0.88rem; letter-spacing:1px; text-transform:uppercase; color:#fff; background:#0080DB; display:inline-block; padding:3px 14px; border-radius:8px; margin-bottom:10px; }
+  .fx-stats-label.lions { background:rgba(84,110,122,0.9); }
+  .fx-stats-row { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+  .fx-stat { text-align:center; min-width:48px; }
+  .fx-stat-val { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; color:#CFA75C; letter-spacing:1px; }
+  .fx-stat-lbl { font-size:0.6rem; text-transform:uppercase; color:rgba(190,205,225,0.78); letter-spacing:0.5px; }
+  .fx-statz-panel { background:rgba(12,26,50,0.78); border:1px solid rgba(100,160,220,0.18); border-radius:14px; padding:18px 24px; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); box-shadow:0 4px 24px rgba(0,0,0,0.35); text-align:center; margin-bottom:18px; }
+  .fx-statz-panel h2 { font-family:'Bebas Neue',sans-serif; font-size:1.2rem; color:#fff; margin-bottom:6px; letter-spacing:1px; }
+  .fx-statz-panel p { font-size:0.84rem; color:rgba(200,215,235,0.82); margin-bottom:14px; }
+  .fx-statz-btns { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+  .fx-statz-btn { display:inline-flex; align-items:center; gap:7px; padding:10px 26px; background:#0080DB; color:#fff; text-decoration:none; border-radius:24px; font-size:0.84rem; font-weight:600; transition:all 0.2s; font-family:'Manrope',sans-serif; }
+  .fx-statz-btn:hover { background:#0069b8; box-shadow:0 4px 18px rgba(0,128,219,0.5); }
+  .fx-statz-btn.secondary { background:rgba(84,110,122,0.85); }
+  .fx-statz-btn.secondary:hover { background:rgba(100,130,145,0.9); }
+  .fx-section { margin-bottom:22px; }
+  .fx-section-title { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; color:#fff; padding:10px 0 8px; border-bottom:2px solid rgba(0,128,219,0.3); margin-bottom:14px; display:flex; align-items:center; gap:10px; letter-spacing:1px; text-transform:uppercase; }
+  .fx-section-badge { font-size:0.7rem; background:#0080DB; color:#fff; padding:3px 11px; border-radius:10px; font-family:'Manrope',sans-serif; font-weight:700; }
+  .fx-section-badge.archive { background:rgba(84,110,122,0.9); }
+  .fx-archive-toggle { display:inline-flex; align-items:center; gap:5px; padding:4px 14px; border:1.5px solid rgba(200,215,235,0.35); border-radius:14px; background:rgba(255,255,255,0.05); color:rgba(200,215,235,0.85); font-size:0.72rem; font-weight:600; cursor:pointer; transition:all 0.2s; margin-left:auto; font-family:'Manrope',sans-serif; }
+  .fx-archive-toggle:hover,.fx-archive-toggle.expanded { background:rgba(84,110,122,0.65); color:#fff; }
+  .fx-table-wrap { overflow-x:auto; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.35); margin-bottom:16px; border:1px solid rgba(100,160,220,0.13); }
+  .fx-table { width:100%; border-collapse:collapse; font-size:0.82rem; }
+  .fx-table thead th { background:rgba(5,16,43,0.96); color:rgba(210,225,245,0.92); padding:11px 10px; text-align:left; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.5px; white-space:nowrap; border-bottom:2px solid rgba(0,128,219,0.28); font-family:'Manrope',sans-serif; font-weight:700; }
+  .fx-table.archive-table thead th { background:rgba(35,50,65,0.96); }
+  .fx-table tbody td { padding:9px 10px; border-bottom:1px solid rgba(100,160,220,0.09); vertical-align:middle; color:#d8e4f0; }
+  .fx-table tbody tr { background:rgba(15,30,55,0.52); }
+  .fx-table tbody tr.fx-win { background:rgba(20,62,30,0.48); }
+  .fx-table tbody tr.fx-loss { background:rgba(72,18,18,0.42); }
+  .fx-table tbody tr.fx-tie { background:rgba(82,66,8,0.42); }
+  .fx-table tbody tr.fx-noresult { background:rgba(50,50,56,0.42); }
+  .fx-table tbody tr.fx-upcoming { background:rgba(20,42,72,0.52); }
+  .fx-table tbody tr:hover { background:rgba(40,62,95,0.55); }
+  .fx-team-cell { display:flex; align-items:center; gap:8px; }
+  .fx-team-img { width:34px; height:34px; object-fit:contain; border-radius:50%; background:rgba(255,255,255,0.92); border:1px solid rgba(255,255,255,0.25); flex-shrink:0; }
+  .fx-team-img-placeholder { width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:0.6rem; font-weight:700; color:rgba(255,255,255,0.6); letter-spacing:0.05em; }
+  .fx-england { font-weight:700; color:#fff; }
+  .fx-badge { display:inline-block; padding:3px 9px; border-radius:10px; font-size:0.69rem; font-weight:700; white-space:nowrap; }
+  .fx-badge-odi { background:#0080DB; color:#fff; }
+  .fx-badge-wc { background:#CFA75C; color:#1a1a2e; }
+  .fx-badge-tc { background:#7b1fa2; color:#fff; }
+  .fx-badge-t20 { background:#c62828; color:#fff; }
+  .fx-badge-nonodi { background:rgba(84,110,122,0.9); color:#fff; }
+  .fx-result { display:inline-block; padding:3px 11px; border-radius:10px; font-size:0.72rem; font-weight:700; text-transform:uppercase; white-space:nowrap; }
+  .fx-win-badge { background:#2e7d32; color:#fff; }
+  .fx-loss-badge { background:#c62828; color:#fff; }
+  .fx-tie-badge { background:#f9a825; color:#1a1a2e; }
+  .fx-noresult-badge { background:#616161; color:#fff; }
+  .fx-upcoming-badge { background:#0080DB; color:#fff; }
+  .fx-venue { font-size:0.79rem; color:rgba(195,212,232,0.88); }
+  .fx-venue a { color:rgba(195,212,232,0.88); text-decoration:none; }
+  .fx-venue a:hover { color:#0080DB; text-decoration:underline; }
+  .fx-detail { font-size:0.78rem; color:rgba(195,212,232,0.88); }
+  .fx-links { display:flex; gap:5px; align-items:center; flex-wrap:wrap; }
+  .fx-pill { display:inline-flex; align-items:center; gap:4px; padding:4px 11px; border-radius:14px; font-size:0.72rem; font-weight:700; text-decoration:none; white-space:nowrap; transition:all 0.18s; font-family:'Manrope',sans-serif; border:1.5px solid transparent; }
+  .fx-pill-scorecard { color:#0080DB; border-color:rgba(0,128,219,0.45); background:rgba(0,128,219,0.10); }
+  .fx-pill-scorecard:hover { background:#0080DB; color:#fff; }
+  .fx-pill-map { color:rgba(180,200,225,0.9); border-color:rgba(180,200,225,0.3); background:rgba(255,255,255,0.06); }
+  .fx-pill-map:hover { background:rgba(255,255,255,0.14); color:#fff; }
+  .fx-pill-live { color:#ef5350; border-color:rgba(239,83,80,0.4); background:rgba(239,83,80,0.10); }
+  .fx-pill-live:hover { background:#ef5350; color:#fff; }
+  .fx-pill-replay { color:#F57C00; border-color:rgba(245,124,0,0.4); background:rgba(245,124,0,0.10); }
+  .fx-pill-replay:hover { background:#F57C00; color:#fff; }
+  .fx-pill-highlights { color:#CFA75C; border-color:rgba(207,167,92,0.45); background:rgba(207,167,92,0.10); }
+  .fx-pill-highlights:hover { background:#CFA75C; color:#1a1a2e; }
+  .fx-cards { display:none; }
+  .fx-card { background:rgba(15,30,55,0.72); border:1px solid rgba(100,160,220,0.14); border-radius:14px; margin-bottom:10px; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); box-shadow:0 2px 14px rgba(0,0,0,0.32); overflow:hidden; border-left:5px solid rgba(100,160,220,0.3); }
+  .fx-card.fx-win { border-left-color:#2e7d32; }
+  .fx-card.fx-loss { border-left-color:#c62828; }
+  .fx-card.fx-tie { border-left-color:#f9a825; }
+  .fx-card.fx-noresult { border-left-color:#616161; }
+  .fx-card.fx-upcoming { border-left-color:rgba(100,160,220,0.55); }
+  .fx-card-top { display:flex; justify-content:space-between; align-items:center; padding:10px 14px 4px; }
+  .fx-card-date { font-size:0.82rem; color:rgba(195,215,238,0.88); font-weight:600; }
+  .fx-card-badges { display:flex; gap:5px; align-items:center; }
+  .fx-card-teams { display:flex; align-items:center; justify-content:center; padding:12px 14px 8px; gap:16px; }
+  .fx-card-team { display:flex; flex-direction:column; align-items:center; gap:5px; min-width:84px; }
+  .fx-card-team img { width:48px; height:48px; object-fit:contain; border-radius:50%; background:rgba(255,255,255,0.92); border:1px solid rgba(255,255,255,0.22); }
+  .fx-card-team-placeholder { width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; color:rgba(255,255,255,0.65); }
+  .fx-card-team span { font-size:0.74rem; font-weight:600; text-align:center; line-height:1.2; color:#d8e4f0; }
+  .fx-card-vs { font-size:0.9rem; font-weight:700; color:rgba(180,200,225,0.45); }
+  .fx-card-bottom { padding:8px 14px 12px; border-top:1px solid rgba(100,160,220,0.1); }
+  .fx-card-detail { font-size:0.76rem; color:rgba(195,212,232,0.9); font-style:italic; margin-bottom:4px; }
+  .fx-card-venue { font-size:0.73rem; color:rgba(180,200,225,0.8); margin-bottom:8px; }
+  .fx-card-links { display:flex; gap:7px; flex-wrap:wrap; }
+  .fx-empty { text-align:center; padding:36px 16px; color:rgba(185,200,220,0.72); font-size:0.88rem; }
+  .fx-loading { text-align:center; padding:44px; color:rgba(185,200,220,0.75); font-size:0.9rem; }
+  .fx-footer { text-align:center; padding:16px; font-size:0.72rem; color:rgba(165,185,210,0.6); margin-top:14px; }
+  .fx-legend { display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-bottom:8px; }
+  .fx-legend-item { display:flex; align-items:center; gap:5px; font-size:0.72rem; color:rgba(185,205,228,0.78); }
+  .fx-legend-dot { width:12px; height:12px; border-radius:3px; }
+  @media (max-width:768px) {
+    .fx-table-wrap { display:none !important; }
+    .fx-cards { display:block !important; }
+    .fx-hero h1 { font-size:1.3rem; }
+    .fx-stats-wrap { flex-direction:column; gap:8px; }
+    .fx-stats-group { padding:10px; }
+    .fx-stat-val { font-size:1.2rem; }
+    .fx-statz-btns { flex-direction:column; align-items:center; }
+    .fx-tab { padding:7px 13px; font-size:0.78rem; }
+  }
+</style>
 </head>
 <body>
-    <div id="header-placeholder"></div>
 
-    <main>
-        <section class="fixtures-hero">
-            <div class="container">
-                <h1>2026 Season Fixtures</h1>
-                <p>Follow the England Over 40s as they prepare for the IMC World Cup in Guyana.</p>
-            </div>
-        </section>
+<div class="fixtures-bg"></div>
+<div class="fixtures-bg-overlay"></div>
 
-        <section class="section fixtures-content-section">
-            <div class="container text-center">
-                <h2 class="section-title">Fixtures &amp; Results</h2>
-                <p>Our full fixture list and results archive is available on the dedicated fixtures and results page. View upcoming matches, past results, scorecards, and venue details.</p>
-                <p style="margin-top: 1.5rem;">
-                    <a href="https://eng40scricket.github.io/eo40s-fixtures/" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> View Fixtures &amp; Results</a>
-                </p>
-            </div>
-        </section>
-    </main>
+<div id="header-placeholder"></div>
 
-    <div id="footer-placeholder"></div>
+<div class="fx-wrap">
+  <div class="fx-hero">
+    <h1>Fixtures &amp; Results</h1>
+    <p id="fx-subtitle">2026 Season</p>
+  </div>
 
-    <script src="../assets/js/main.js"></script>
+  <div class="fx-tabs" id="fx-tabs"></div>
+  <div id="fx-stats"></div>
+
+  <div class="fx-statz-panel" id="fx-statz-panel" style="display:none;">
+    <h2>Player Statistics</h2>
+    <p>Full batting, bowling and fielding statistics for all England Over 40s players, powered by CricketStatz.</p>
+    <div class="fx-statz-btns">
+      <a href="https://www2.cricketstatz.com/ss/w?&club=97523" target="_blank" rel="noopener noreferrer" class="fx-statz-btn">&#128202; England Over 40s Stats</a>
+      <a href="https://www2.cricketstatz.com/ss/w?&club=97523" target="_blank" rel="noopener noreferrer" class="fx-statz-btn secondary">&#128202; England Lions Stats</a>
+    </div>
+  </div>
+
+  <div class="fx-loading" id="fx-loading">Loading fixtures&#8230;</div>
+  <div id="fx-content"></div>
+
+  <div class="fx-footer">
+    <div class="fx-legend">
+      <span class="fx-legend-item"><span class="fx-legend-dot" style="background:rgba(30,55,100,0.8);border:1px solid rgba(100,160,220,0.4);"></span> Upcoming</span>
+      <span class="fx-legend-item"><span class="fx-legend-dot" style="background:#2e7d32;"></span> Win</span>
+      <span class="fx-legend-item"><span class="fx-legend-dot" style="background:#c62828;"></span> Loss</span>
+      <span class="fx-legend-item"><span class="fx-legend-dot" style="background:#f9a825;"></span> Tie</span>
+      <span class="fx-legend-item"><span class="fx-legend-dot" style="background:#616161;"></span> No Result</span>
+    </div>
+    <p>Source: englandseniors.play-cricket.com &amp; triplecrown.play-cricket.com<br>
+    Scorecard links open full match details on Play-Cricket. Venue links open Google Maps.<br>
+    Replay and Highlights links open YouTube recordings.</p>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script>
+(function() {
+  var CSV_URL = '../assets/data/matches.csv';
+  var FLAGS_PATH = '../assets/img/flags/';
+  var CURRENT_SEASON = '2026';
+
+  function parseCSV(text) {
+    var lines = text.trim().split('\n');
+    var headers = parseCSVLine(lines[0]);
+    var data = [];
+    for (var i = 1; i < lines.length; i++) {
+      var vals = parseCSVLine(lines[i]);
+      if (vals.length < 2) continue;
+      var row = {};
+      headers.forEach(function(h, idx) { row[h.trim()] = (vals[idx] || '').trim(); });
+      data.push(row);
+    }
+    return data;
+  }
+
+  function parseCSVLine(line) {
+    var result = [], cur = '', inQuotes = false;
+    for (var i = 0; i < line.length; i++) {
+      var c = line[i];
+      if (c === '"') { inQuotes = !inQuotes; }
+      else if (c === ',' && !inQuotes) { result.push(cur); cur = ''; }
+      else { cur += c; }
+    }
+    result.push(cur);
+    return result;
+  }
+
+  function classify(result) {
+    var r = (result || '').toLowerCase();
+    if (r === 'win') return 'win';
+    if (r === 'loss') return 'loss';
+    if (r === 'tie') return 'tie';
+    if (r === 'no result') return 'noresult';
+    return 'upcoming';
+  }
+
+  function tournamentBadge(t) {
+    var tl = (t || '').toLowerCase();
+    var cls = 'fx-badge-nonodi', label = t;
+    if (tl === 'odi') { cls = 'fx-badge-odi'; label = 'ODI'; }
+    else if (tl.indexOf('world cup') !== -1) { cls = 'fx-badge-wc'; }
+    else if (tl.indexOf('triple crown') !== -1) { cls = 'fx-badge-tc'; label = 'Triple Crown'; }
+    else if (tl.indexOf('t20') !== -1) { cls = 'fx-badge-t20'; }
+    return '<span class="fx-badge ' + cls + '">' + escHtml(label) + '</span>';
+  }
+
+  function getInitials(name) {
+    var cleaned = name.replace(/over 40s/i,'').replace(/lions/i,'').trim();
+    var words = cleaned.split(/\s+/).filter(function(w){ return w.length > 0; });
+    if (words.length === 0) return '?';
+    if (words.length === 1) return words[0].substring(0,3).toUpperCase();
+    var result = '';
+    words.forEach(function(w) { result += w.length <= 2 ? w : w[0]; });
+    return result.substring(0,4).toUpperCase();
+  }
+
+  function emblemImg(file, teamName, size) {
+    var abbr = getInitials(teamName);
+    var phCls = size === 'lg' ? 'fx-card-team-placeholder' : 'fx-team-img-placeholder';
+    if (!file || file.trim() === '') {
+      return '<div class="' + phCls + '">' + abbr + '</div>';
+    }
+    var imgCls = size === 'lg' ? '' : 'fx-team-img';
+    var imgStyle = size === 'lg' ? ' style="width:48px;height:48px;object-fit:contain;border-radius:50%;background:rgba(255,255,255,0.92);border:1px solid rgba(255,255,255,0.22);"' : '';
+    return '<img src="' + FLAGS_PATH + escHtml(file) + '" alt="' + escHtml(teamName) + '" class="' + imgCls + '"' + imgStyle
+      + ' onerror="this.outerHTML=\'<div class=\\\"' + phCls + '\\\">' + abbr + '</div>\'">';
+  }
+
+  function pillLink(href, cls, icon, label) {
+    if (!href || href.trim() === '') return '';
+    return '<a href="' + escHtml(href) + '" class="fx-pill ' + cls + '" target="_blank" rel="noopener noreferrer">' + icon + ' ' + label + '</a>';
+  }
+
+  function buildLinks(row) {
+    var isUpcoming = classify(row.Result) === 'upcoming';
+    var links = '';
+    if (row.ScorecardURL) links += pillLink(row.ScorecardURL, 'fx-pill-scorecard', '&#127952;', 'Scorecard');
+    if (isUpcoming) {
+      if (row.VenueMapURL) links += pillLink(row.VenueMapURL, 'fx-pill-map', '&#128205;', 'Map');
+      if (row.YouTubeLive) links += pillLink(row.YouTubeLive, 'fx-pill-live', '&#9654;', 'Live');
+    } else {
+      if (row.YouTubeLive) links += pillLink(row.YouTubeLive, 'fx-pill-replay', '&#9654;', 'Replay');
+      if (row.YouTubeHighlights) links += pillLink(row.YouTubeHighlights, 'fx-pill-highlights', '&#9733;', 'Highlights');
+    }
+    return '<div class="fx-links">' + links + '</div>';
+  }
+
+  function escHtml(s) {
+    return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function shortDate(d) {
+    return d.replace(/ \d{4}$/, '');
+  }
+
+  function tableRow(row) {
+    var cls = classify(row.Result);
+    var badges = { win:'<span class="fx-result fx-win-badge">Win</span>', loss:'<span class="fx-result fx-loss-badge">Loss</span>', tie:'<span class="fx-result fx-tie-badge">Tie</span>', noresult:'<span class="fx-result fx-noresult-badge">No Result</span>', upcoming:'<span class="fx-result fx-upcoming-badge">Upcoming</span>' };
+    var homeEng = /england/i.test(row.HomeTeam);
+    var awayEng = /england/i.test(row.AwayTeam);
+    var homeName = row.HomeTeam.replace(/ Over 40s$/i,'').replace(/ Lions Over 40s$/i,' Lions');
+    var awayName = row.AwayTeam.replace(/ Over 40s$/i,'').replace(/ Lions Over 40s$/i,' Lions');
+    return '<tr class="fx-' + cls + '">'
+      + '<td style="white-space:nowrap;font-weight:600;">' + escHtml(shortDate(row.Date)) + '</td>'
+      + '<td>' + tournamentBadge(row.Tournament) + '</td>'
+      + '<td><div class="fx-team-cell">' + emblemImg(row.HomeEmblem, row.HomeTeam, 'sm') + '<span class="' + (homeEng ? 'fx-england' : '') + '">' + escHtml(homeName) + '</span></div></td>'
+      + '<td style="color:rgba(180,200,225,0.4);font-weight:700;font-size:0.75rem;text-align:center;">vs</td>'
+      + '<td><div class="fx-team-cell">' + emblemImg(row.AwayEmblem, row.AwayTeam, 'sm') + '<span class="' + (awayEng ? 'fx-england' : '') + '">' + escHtml(awayName) + '</span></div></td>'
+      + '<td class="fx-venue">' + escHtml(row.Venue) + '</td>'
+      + '<td>' + (badges[cls] || '') + '</td>'
+      + '<td class="fx-detail">' + escHtml(row.Details) + '</td>'
+      + '<td>' + buildLinks(row) + '</td>'
+      + '</tr>';
+  }
+
+  function mobileCard(row) {
+    var cls = classify(row.Result);
+    var badges = { win:'<span class="fx-result fx-win-badge">Win</span>', loss:'<span class="fx-result fx-loss-badge">Loss</span>', tie:'<span class="fx-result fx-tie-badge">Tie</span>', noresult:'<span class="fx-result fx-noresult-badge">No Result</span>', upcoming:'<span class="fx-result fx-upcoming-badge">Upcoming</span>' };
+    var homeName = row.HomeTeam.replace(/ Over 40s$/i,'').replace(/ Lions Over 40s$/i,' Lions');
+    var awayName = row.AwayTeam.replace(/ Over 40s$/i,'').replace(/ Lions Over 40s$/i,' Lions');
+    return '<div class="fx-card fx-' + cls + '">'
+      + '<div class="fx-card-top"><span class="fx-card-date">' + escHtml(shortDate(row.Date)) + '</span>'
+      + '<div class="fx-card-badges">' + tournamentBadge(row.Tournament) + ' ' + (badges[cls] || '') + '</div></div>'
+      + '<div class="fx-card-teams">'
+      + '<div class="fx-card-team">' + emblemImg(row.HomeEmblem, row.HomeTeam, 'lg') + '<span>' + escHtml(homeName) + '</span></div>'
+      + '<span class="fx-card-vs">VS</span>'
+      + '<div class="fx-card-team">' + emblemImg(row.AwayEmblem, row.AwayTeam, 'lg') + '<span>' + escHtml(awayName) + '</span></div>'
+      + '</div>'
+      + '<div class="fx-card-bottom">'
+      + '<div class="fx-card-detail">' + escHtml(row.Details) + '</div>'
+      + '<div class="fx-card-venue">&#128205; ' + escHtml(row.Venue) + '</div>'
+      + buildLinks(row)
+      + '</div></div>';
+  }
+
+  function renderSection(rows, tableClass) {
+    var thead = '<thead><tr><th>Date</th><th>Type</th><th>Home</th><th style="width:28px;"></th><th>Away</th><th>Venue</th><th>Result</th><th>Details</th><th>Links</th></tr></thead>';
+    var tbody = '<tbody>' + rows.map(tableRow).join('') + '</tbody>';
+    return '<div class="fx-table-wrap"><table class="fx-table ' + (tableClass||'') + '">' + thead + tbody + '</table></div>'
+      + '<div class="fx-cards">' + rows.map(mobileCard).join('') + '</div>';
+  }
+
+  function calcStats(rows, team) {
+    var played=0,won=0,lost=0,tied=0,noResult=0,upcoming=0;
+    rows.forEach(function(r) {
+      var isLions = /lions/i.test(r.HomeTeam) || /lions/i.test(r.AwayTeam);
+      if (team === 'lions' && !isLions) return;
+      if (team === 'senior' && isLions) return;
+      var cls = classify(r.Result);
+      if (cls === 'upcoming') { upcoming++; return; }
+      if (cls === 'noresult') { noResult++; return; }
+      played++;
+      if (cls === 'win') won++;
+      else if (cls === 'loss') lost++;
+      else if (cls === 'tie') tied++;
+    });
+    return { played:played, won:won, lost:lost, tied:tied, noResult:noResult, upcoming:upcoming,
+      winPct: played > 0 ? Math.round(won/played*100)+'%' : '&#8212;' };
+  }
+
+  function statItem(val, lbl) {
+    return '<div class="fx-stat"><div class="fx-stat-val">' + val + '</div><div class="fx-stat-lbl">' + lbl + '</div></div>';
+  }
+
+  function statGroup(label, mod, s) {
+    return '<div class="fx-stats-group"><div class="fx-stats-label ' + mod + '">' + label + '</div>'
+      + '<div class="fx-stats-row">'
+      + statItem(s.played,'Played') + statItem(s.won,'Won') + statItem(s.lost,'Lost')
+      + statItem(s.tied,'Tied') + statItem(s.noResult,'No Result') + statItem(s.winPct,'Win %') + statItem(s.upcoming,'Upcoming')
+      + '</div></div>';
+  }
+
+  function showTab(tab, currentData, upcomingData, resultsData, allData, seasons) {
+    var content = document.getElementById('fx-content');
+    var statzPanel = document.getElementById('fx-statz-panel');
+    statzPanel.style.display = 'none';
+    var html = '';
+
+    if (tab === 'current') {
+      if (upcomingData.length > 0)
+        html += '<div class="fx-section"><div class="fx-section-title">Upcoming Fixtures <span class="fx-section-badge">' + upcomingData.length + ' Fixtures</span></div>' + renderSection(upcomingData) + '</div>';
+      if (resultsData.length > 0)
+        html += '<div class="fx-section"><div class="fx-section-title">' + CURRENT_SEASON + ' Results <span class="fx-section-badge">' + resultsData.length + ' Matches</span></div>' + renderSection(resultsData) + '</div>';
+      content.innerHTML = html || '<div class="fx-empty">No fixtures found for ' + CURRENT_SEASON + '.</div>';
+    } else if (tab === 'upcoming') {
+      content.innerHTML = upcomingData.length > 0
+        ? '<div class="fx-section"><div class="fx-section-title">Upcoming Fixtures <span class="fx-section-badge">' + upcomingData.length + ' Fixtures</span></div>' + renderSection(upcomingData) + '</div>'
+        : '<div class="fx-empty">No upcoming fixtures at this time.</div>';
+    } else if (tab === 'results') {
+      content.innerHTML = resultsData.length > 0
+        ? '<div class="fx-section"><div class="fx-section-title">' + CURRENT_SEASON + ' Results <span class="fx-section-badge">' + resultsData.length + ' Matches</span></div>' + renderSection(resultsData) + '</div>'
+        : '<div class="fx-empty">No results yet for ' + CURRENT_SEASON + '.</div>';
+    } else if (tab === 'archive') {
+      seasons.filter(function(s){ return s !== CURRENT_SEASON; }).forEach(function(season) {
+        var rows = allData.filter(function(r){ return r.Season === season; });
+        if (!rows.length) return;
+        html += '<div class="fx-section"><div class="fx-section-title">' + season + ' Season <span class="fx-section-badge archive">' + rows.length + ' Matches</span>'
+          + '<button class="fx-archive-toggle" onclick="var b=this.closest(\'.fx-section\').querySelector(\'.fx-archive-body\');b.style.display=b.style.display===\'none\'?\'block\':\'none\';this.classList.toggle(\'expanded\');">&#9660; Show</button></div>'
+          + '<div class="fx-archive-body" style="display:none;">' + renderSection(rows,'archive-table') + '</div></div>';
+      });
+      content.innerHTML = html || '<div class="fx-empty">No archive data available.</div>';
+    } else if (tab === 'stats') {
+      statzPanel.style.display = 'block';
+      content.innerHTML = '';
+    }
+  }
+
+  function render(data) {
+    var seasons = [];
+    data.forEach(function(r){ if (seasons.indexOf(r.Season)===-1) seasons.push(r.Season); });
+    seasons.sort(function(a,b){ return parseInt(b)-parseInt(a); });
+
+    var currentData  = data.filter(function(r){ return r.Season === CURRENT_SEASON; });
+    var upcomingData = currentData.filter(function(r){ return classify(r.Result) === 'upcoming'; });
+    var resultsData  = currentData.filter(function(r){ return classify(r.Result) !== 'upcoming'; });
+    var archiveData  = data.filter(function(r){ return r.Season !== CURRENT_SEASON; });
+
+    document.getElementById('fx-subtitle').textContent = CURRENT_SEASON + ' Season';
+    document.getElementById('fx-stats').innerHTML = '<div class="fx-stats-wrap">'
+      + statGroup('ENGLAND OVER 40S','',calcStats(currentData,'senior'))
+      + statGroup('ENGLAND LIONS / A','lions',calcStats(currentData,'lions'))
+      + '</div>';
+
+    var tabDefs = [
+      {id:'current',  label:'Current Season', count:currentData.length},
+      {id:'upcoming', label:'Upcoming',        count:upcomingData.length},
+      {id:'results',  label:'Results',         count:resultsData.length},
+      {id:'archive',  label:'Archive',         count:archiveData.length},
+      {id:'stats',    label:'Stats',           count:null}
+    ];
+    var tabsEl = document.getElementById('fx-tabs');
+    tabsEl.innerHTML = tabDefs.map(function(t){
+      return '<button class="fx-tab' + (t.id==='current'?' active':'') + '" data-tab="' + t.id + '">'
+        + t.label + (t.count!==null ? '<span class="fx-count">'+t.count+'</span>' : '') + '</button>';
+    }).join('');
+
+    tabsEl.addEventListener('click', function(e) {
+      var btn = e.target.closest('.fx-tab');
+      if (!btn) return;
+      tabsEl.querySelectorAll('.fx-tab').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      showTab(btn.dataset.tab, currentData, upcomingData, resultsData, data, seasons);
+    });
+
+    showTab('current', currentData, upcomingData, resultsData, data, seasons);
+  }
+
+  fetch(CSV_URL)
+    .then(function(r){ if (!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+    .then(function(text){ document.getElementById('fx-loading').style.display='none'; render(parseCSV(text)); })
+    .catch(function(err){ document.getElementById('fx-loading').textContent='Could not load fixtures data. Please try refreshing the page.'; console.error(err); });
+})();
+</script>
+<script src="../assets/js/main.js"></script>
 </body>
 </html>
