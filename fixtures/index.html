@@ -246,8 +246,7 @@
     }
     var imgCls = size === 'lg' ? '' : 'fx-team-img';
     var imgStyle = size === 'lg' ? ' style="width:48px;height:48px;object-fit:contain;border-radius:50%;background:rgba(255,255,255,0.92);border:1px solid rgba(255,255,255,0.22);"' : '';
-    return '<img src="' + FLAGS_PATH + escHtml(file) + '" alt="' + escHtml(teamName) + '" class="' + imgCls + '"' + imgStyle
-      + ' onerror="this.outerHTML=\'<div class=\\\"' + phCls + '\\\">' + abbr + '</div>\'">';
+    return '<img src="' + FLAGS_PATH + escHtml(file) + '" alt="' + escHtml(teamName) + '" class="' + imgCls + '"' + imgStyle + '>';
   }
 
   function pillLink(href, cls, icon, label) {
