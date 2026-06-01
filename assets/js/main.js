@@ -98,7 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ========== NEWS PAGE RENDERING ==========
-    // News is the only local data-driven section remaining on the hub site.
+    // News is driven from assets/data/news.json.
+    // Items support: pinned (bool), archived (bool), category (string).
 
     const featuredStoryContainer = document.getElementById("featured-story-container");
     const latestNewsGrid = document.getElementById("latest-news-grid");
@@ -106,61 +107,214 @@ document.addEventListener("DOMContentLoaded", () => {
     if (featuredStoryContainer || latestNewsGrid) {
         fetch(basePath + "/assets/data/news.json")
             .then(res => res.json())
-            .then(data => renderNewsPage(data))
+            .then(data => {
+                renderNewsPage(data);
+                // Mark last-visited timestamp so the nav badge clears
+                try { localStorage.setItem("eo40s_news_last_seen", new Date().toISOString()); } catch(e) {}
+            })
             .catch(err => console.error("Error loading news data:", err));
     }
 
+    // --- Helpers ---
+
+    function resolveImgUrl(url) {
+        if (!url) return "";
+        if (url.startsWith("./")) return basePath + "/" + url.substring(2);
+        if (url.startsWith("/")) return basePath + url;
+        return url;
+    }
+
+    function fmtDate(d) {
+        return new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+    }
+
+    var CATEGORY_LABELS = { "team": "Team", "fixture": "Fixture", "world-cup": "World Cup", "general": "General" };
+    var CATEGORY_CLASSES = { "team": "cat-team", "fixture": "cat-fixture", "world-cup": "cat-world-cup", "general": "cat-general" };
+
+    function categoryBadge(cat) {
+        if (!cat) return "";
+        var label = CATEGORY_LABELS[cat] || cat;
+        var cls = CATEGORY_CLASSES[cat] || "";
+        return '<span class="category-badge ' + cls + '">' + label + '</span>';
+    }
+
+    function storyUrl(id) {
+        return basePath + "/news/story.html?id=" + id;
+    }
+
+    // --- Featured card HTML ---
+    function featuredCardHtml(story) {
+        var img = resolveImgUrl(story.imageUrl);
+        var pinHtml = story.pinned ? '<span class="pin-badge"><i class="fas fa-thumbtack"></i> Pinned</span>' : "";
+        return '<div class="card story-card featured-story">'
+            + '<img src="' + img + '" alt="' + story.title + '" class="story-image">'
+            + '<div class="story-content">'
+            + pinHtml
+            + categoryBadge(story.category)
+            + '<h2 class="story-title">' + story.title + '</h2>'
+            + '<p class="story-date">' + fmtDate(story.date) + '</p>'
+            + '<p class="story-summary">' + story.summary + '</p>'
+            + '<a href="' + storyUrl(story.id) + '" class="btn btn-primary">Read More</a>'
+            + '</div>'
+            + '</div>';
+    }
+
+    // --- Grid card HTML ---
+    function gridCardHtml(story) {
+        var img = resolveImgUrl(story.imageUrl);
+        var pinHtml = story.pinned ? '<span class="pin-badge"><i class="fas fa-thumbtack"></i> Pinned</span>' : "";
+        return '<div class="card story-card">'
+            + (img ? '<img src="' + img + '" alt="' + story.title + '" class="story-image">' : "")
+            + '<div class="story-content">'
+            + pinHtml
+            + categoryBadge(story.category)
+            + '<h3 class="story-title">' + story.title + '</h3>'
+            + '<p class="story-date">' + fmtDate(story.date) + '</p>'
+            + '<p class="story-summary">' + story.summary + '</p>'
+            + '<a href="' + storyUrl(story.id) + '" class="btn btn-secondary">Read More</a>'
+            + '</div>'
+            + '</div>';
+    }
+
+    // --- Filter tabs ---
+    function renderFilterTabs(categories, activeFilter, onSelect) {
+        var tabs = [{ key: "all", label: "All" }];
+        categories.forEach(function(c) {
+            if (CATEGORY_LABELS[c]) tabs.push({ key: c, label: CATEGORY_LABELS[c] });
+        });
+        var wrap = document.createElement("div");
+        wrap.className = "news-filter-tabs";
+        tabs.forEach(function(t) {
+            var btn = document.createElement("button");
+            btn.className = "news-filter-tab" + (t.key === activeFilter ? " active" : "");
+            btn.textContent = t.label;
+            btn.addEventListener("click", function() {
+                window.location.hash = t.key === "all" ? "" : t.key;
+                onSelect(t.key);
+            });
+            wrap.appendChild(btn);
+        });
+        return wrap;
+    }
+
+    // --- Main render ---
     function renderNewsPage(news) {
         if (!featuredStoryContainer || !latestNewsGrid) return;
 
-        var sortedNews = news
-            .filter(function(n) { return n.date && !isNaN(new Date(n.date).getTime()); })
-            .sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+        var valid = news.filter(function(n) { return n.date && !isNaN(new Date(n.date).getTime()); });
 
-        if (sortedNews.length > 0) {
-            var featuredStory = sortedNews[0];
-            var imgUrl = featuredStory.imageUrl || "";
-            if (imgUrl.startsWith("./")) {
-                imgUrl = basePath + "/" + imgUrl.substring(2);
-            } else if (imgUrl.startsWith("/")) {
-                imgUrl = basePath + imgUrl;
+        var pinned   = valid.filter(function(n) { return n.pinned && !n.archived; })
+                            .sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+        var active   = valid.filter(function(n) { return !n.pinned && !n.archived; })
+                            .sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+        var archived = valid.filter(function(n) { return n.archived; })
+                            .sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+
+        // Determine available categories across pinned + active
+        var allActive = pinned.concat(active);
+        var seenCats = {};
+        allActive.forEach(function(n) { if (n.category) seenCats[n.category] = true; });
+        var availCats = Object.keys(seenCats);
+
+        // Active filter from URL hash
+        var hashFilter = window.location.hash.replace("#", "") || "all";
+        var currentFilter = (hashFilter === "all" || CATEGORY_LABELS[hashFilter]) ? hashFilter : "all";
+
+        function applyFilter(filter) {
+            currentFilter = filter;
+            redraw();
+        }
+
+        function filterItems(items) {
+            if (currentFilter === "all") return items;
+            return items.filter(function(n) { return n.category === currentFilter; });
+        }
+
+        function redraw() {
+            var filteredPinned = filterItems(pinned);
+            var filteredActive = filterItems(active);
+
+            // --- Pinned section ---
+            featuredStoryContainer.innerHTML = "";
+
+            // Inject filter tabs before pinned section
+            var tabsEl = renderFilterTabs(availCats, currentFilter, applyFilter);
+            featuredStoryContainer.parentNode.insertBefore(tabsEl, featuredStoryContainer);
+
+            if (filteredPinned.length > 0) {
+                var pinnedWrap = document.createElement("div");
+                pinnedWrap.className = "pinned-news-section";
+                var pinnedLabel = document.createElement("div");
+                pinnedLabel.className = "pinned-section-label";
+                pinnedLabel.innerHTML = '<i class="fas fa-thumbtack"></i> Pinned';
+                pinnedWrap.appendChild(pinnedLabel);
+                var pinnedGrid = document.createElement("div");
+                pinnedGrid.className = "news-grid";
+                filteredPinned.forEach(function(s) {
+                    pinnedGrid.innerHTML += gridCardHtml(s);
+                });
+                pinnedWrap.appendChild(pinnedGrid);
+                featuredStoryContainer.appendChild(pinnedWrap);
             }
 
-            featuredStoryContainer.innerHTML = '<div class="card story-card featured-story">'
-                + '<img src="' + imgUrl + '" alt="' + featuredStory.title + '" class="story-image">'
-                + '<div class="story-content">'
-                + '<h2 class="story-title">' + featuredStory.title + '</h2>'
-                + '<p class="story-date">' + new Date(featuredStory.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) + '</p>'
-                + '<p class="story-summary">' + featuredStory.summary + '</p>'
-                + '<a href="' + basePath + '/news/story.html?id=' + featuredStory.id + '" class="btn btn-primary">Read More</a>'
-                + '</div>'
-                + '</div>';
+            // --- Featured + grid ---
+            if (filteredActive.length > 0) {
+                var featured = filteredActive[0];
+                var featuredDiv = document.createElement("div");
+                featuredDiv.innerHTML = featuredCardHtml(featured);
+                featuredStoryContainer.appendChild(featuredDiv);
 
-            var latestNews = sortedNews.slice(1, 5);
-            if (latestNews.length > 0) {
-                latestNewsGrid.innerHTML = latestNews.map(function(story) {
-                    var sImgUrl = story.imageUrl || "";
-                    if (sImgUrl.startsWith("./")) {
-                        sImgUrl = basePath + "/" + sImgUrl.substring(2);
-                    } else if (sImgUrl.startsWith("/")) {
-                        sImgUrl = basePath + sImgUrl;
-                    }
-                    return '<div class="card story-card">'
-                        + '<img src="' + sImgUrl + '" alt="' + story.title + '" class="story-image">'
-                        + '<div class="story-content">'
-                        + '<h3 class="story-title">' + story.title + '</h3>'
-                        + '<p class="story-date">' + new Date(story.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) + '</p>'
-                        + '<p class="story-summary">' + story.summary + '</p>'
-                        + '<a href="' + basePath + '/news/story.html?id=' + story.id + '" class="btn btn-secondary">Read More</a>'
-                        + '</div>'
-                        + '</div>';
-                }).join("");
+                var rest = filteredActive.slice(1, 5);
+                if (rest.length > 0) {
+                    var heading = document.createElement("h2");
+                    heading.className = "section-title";
+                    heading.textContent = "More Updates";
+                    latestNewsGrid.parentNode.insertBefore(heading, latestNewsGrid);
+                    latestNewsGrid.innerHTML = rest.map(gridCardHtml).join("");
+                } else {
+                    latestNewsGrid.innerHTML = "";
+                }
+            } else if (filteredPinned.length === 0) {
+                featuredStoryContainer.innerHTML += "<p>No news in this category yet.</p>";
+                latestNewsGrid.innerHTML = "";
             } else {
-                latestNewsGrid.innerHTML = "<p>No other news available.</p>";
+                latestNewsGrid.innerHTML = "";
             }
-        } else {
-            featuredStoryContainer.innerHTML = '<p>News and updates coming soon. Follow us on social media for the latest from England Over 40s Cricket.</p>';
-            latestNewsGrid.innerHTML = "";
+
+            // Re-attach tabs (remove stale duplicate if redrawing)
+            var existingTabs = document.querySelectorAll(".news-filter-tabs");
+            existingTabs.forEach(function(el, i) { if (i > 0) el.remove(); });
+
+            // Update active tab highlight
+            document.querySelectorAll(".news-filter-tab").forEach(function(btn) {
+                btn.classList.toggle("active", btn.textContent === (CATEGORY_LABELS[currentFilter] || "All"));
+            });
+        }
+
+        redraw();
+
+        // --- Archive section ---
+        if (archived.length > 0) {
+            var archiveSection = document.createElement("details");
+            archiveSection.className = "news-archive-section";
+            var summary = document.createElement("summary");
+            summary.innerHTML = 'Archive <span style="color:#999;font-weight:400;font-size:0.9em;">(' + archived.length + ' item' + (archived.length !== 1 ? 's' : '') + ')</span>';
+            archiveSection.appendChild(summary);
+
+            var archiveList = document.createElement("div");
+            archiveList.className = "news-archive-list";
+            archived.forEach(function(s) {
+                var link = document.createElement("a");
+                link.className = "archive-item";
+                link.href = storyUrl(s.id);
+                link.innerHTML = '<span class="archive-item-date">' + fmtDate(s.date) + '</span>'
+                    + '<span class="archive-item-title">' + s.title + '</span>';
+                archiveList.appendChild(link);
+            });
+            archiveSection.appendChild(archiveList);
+
+            // Append after the latest-news-grid's parent section
+            latestNewsGrid.parentNode.appendChild(archiveSection);
         }
     }
 });

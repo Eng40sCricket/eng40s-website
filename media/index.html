@@ -1186,20 +1186,6 @@
                         <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
                     </div>
 
-                
-                    <div class="photo-item" data-cat="team" data-season="2026"
-                         data-caption="Dates for upcoming India ODI series"
-                         data-sub="1st ODI 27th May - Swindon CC"
-                         tabindex="0" role="button" aria-label="View photo: Dates for upcoming India ODI series">
-                        <img src="../assets/img/photos/team-2026-india-odi-series-20260527-mpmduz9o0.jpeg"
-                             alt="Dates for upcoming India ODI series" loading="lazy">
-                        <div class="photo-item-overlay">
-                            <div class="photo-item-caption">Dates for upcoming India ODI series</div>
-                            <div class="photo-item-sub">1st ODI 27th May - Swindon CC</div>
-                        </div>
-                        <div class="photo-item-expand"><i class="fas fa-expand"></i></div>
-                    </div>
-
                 </div><!-- /photo-grid -->
 
 
@@ -1253,6 +1239,7 @@
 
     <div id="footer-placeholder"></div>
     <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/news-badge.js"></script>
     <script>
     (function () {
 
@@ -1260,8 +1247,8 @@
            NEXT MATCH DATA — unchanged from original
            ================================================================ */
         const MATCHES = [
-            { title: 'England v India — 1st ODI',          date: '2026-05-27T12:00:00', venue: 'Swindon Cricket Club',              videoId: 'gMT497KBtGc', status: 'replay' },
-            { title: 'England v India — 2nd ODI',          date: '2026-05-28T11:00:00', venue: 'High Wycombe CC, Buckinghamshire',   videoId: 'om33cd7boCg', status: 'replay' },
+            { title: 'England v India — 1st ODI',          date: '2026-05-27T12:00:00', venue: 'Swindon Cricket Club',              videoId: 'gMT497KBtGc', status: 'upcoming' },
+            { title: 'England v India — 2nd ODI',          date: '2026-05-28T11:00:00', venue: 'High Wycombe CC, Buckinghamshire',   videoId: 'om33cd7boCg', status: 'upcoming' },
             { title: 'England v India — 3rd ODI',          date: '2026-06-04T12:00:00', venue: 'Hammerwich CC, Staffordshire',        videoId: 'wHCWNvX5CqE', status: 'upcoming' },
             { title: 'England Lions v XL Club (North West)', date: '2026-07-15T12:00:00', venue: 'To Be Confirmed',                  videoId: 'yRanS9SwKFs', status: 'upcoming' },
             { title: 'England v Ireland — Triple Crown',   date: '2026-07-28T12:15:00', venue: "Bishop's Stortford CC, Hertfordshire", videoId: 'SRkXD_KjxpA', status: 'upcoming' },
@@ -1399,7 +1386,7 @@
            Use the admin panel at eng40scricket.github.io/eo40s-media-admin to manage these.
            ================================================================ */
         const PHOTO_GALLERIES = [
-            { year: 2026, galleries: [{ name: "Interclub 2026 - Datchet CC", url: "https://adobe.ly/3RbrTbz", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2026-moy11um4.jpg", coverFile: "gallery-cover-2026-moy11um4.jpg" }, { name: "INDIA 2nd ODI - ETDC Digital Media", url: "https://etdcdigitalmedia.pixieset.com/englandover40s/", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2026-mps764jf.jpg", coverFile: "gallery-cover-2026-mps764jf.jpg" }], current: true },
+            { year: 2026, galleries: [{ name: "Interclub 2026 - Datchet CC", url: "https://adobe.ly/3RbrTbz", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2026-moy11um4.jpg", coverFile: "gallery-cover-2026-moy11um4.jpg" }], current: true },
             { year: 2025, galleries: [{ name: "Wales - St Fagans CC", url: "https://adobe.ly/3ZJ9OTJ", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2025-moy35lzs.jpg", coverFile: "gallery-cover-2025-moy35lzs.jpg" }, { name: "Triple Crown 2025 - Stirling CC", url: "https://adobe.ly/4uXDp9p", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2025-moy41nke.jpg", coverFile: "gallery-cover-2025-moy41nke.jpg" }], current: false },
             { year: 2024, galleries: [{ name: "Wales - T-20s  2024", url: "https://adobe.ly/4qZ2KOd", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2024-mozzwhiz.jpg", coverFile: "gallery-cover-2024-mozzwhiz.jpg" }, { name: "Wales - Arundel Castle", url: "https://adobe.ly/4d0zuzy", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2024-mp00t5l1.jpg", coverFile: "gallery-cover-2024-mp00t5l1.jpg" }, { name: "Zimbabwe - World Cup 2024", url: "https://adobe.ly/4dnx4Nj", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2024-mp1gfbwn.jpg", coverFile: "gallery-cover-2024-mp1gfbwn.jpg" }, { name: "USA - World cup 2024", url: "https://adobe.ly/4dee7MJ", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2024-mp1sbeoq.jpg", coverFile: "gallery-cover-2024-mp1sbeoq.jpg" }, { name: "Canada - World Cup 2024", url: "https://adobe.ly/4nweRSk", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2024-mp2dehut.jpg", coverFile: "gallery-cover-2024-mp2dehut.jpg" }, { name: "Namibia - World Cup 2024", url: "https://adobe.ly/42riFdR", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2024-mp2ymxhy.jpg", coverFile: "gallery-cover-2024-mp2ymxhy.jpg" }, { name: "Australia - World Cup 2024", url: "https://adobe.ly/3UUwXAV", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2024-mp350n8k.jpg", coverFile: "gallery-cover-2024-mp350n8k.jpg" }, { name: "South Africa - World Cup Semi Final", url: "https://adobe.ly/3Rn9U21", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2024-mp3xxcy4.jpg", coverFile: "gallery-cover-2024-mp3xxcy4.jpg" }, { name: "World Cup 2024 ", url: "https://adobe.ly/3PFJ3Of", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2024-mp5dllkp.jpg", coverFile: "gallery-cover-2024-mp5dllkp.jpg" }], current: false },
             { year: 2023, galleries: [{ name: "Ireland 2023 - Uxbridge", url: "https://adobe.ly/4uk2E5T", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2023-moygf6m8.jpg", coverFile: "gallery-cover-2023-moygf6m8.jpg" }, { name: "Wales 2023 - Broxbourne", url: "https://adobe.ly/4f7LaEQ", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2023-mozz7ak5.jpg", coverFile: "gallery-cover-2023-mozz7ak5.jpg" }, { name: "Wales 2023 - Panteg", url: "https://adobe.ly/49zI7ld", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2023-mp4s5axf.jpg", coverFile: "gallery-cover-2023-mp4s5axf.jpg" }, { name: "MCC 2023 - Darlington CC", url: "https://adobe.ly/4eMdlsU", coverUrl: "https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/img/photos/gallery-cover-2023-mp5cqtri.jpg", coverFile: "gallery-cover-2023-mp5cqtri.jpg" }], current: false }

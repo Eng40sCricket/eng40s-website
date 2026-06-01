@@ -2156,3 +2156,193 @@ body {
 .homepage-section-preview .section-title {
     margin-bottom: 30px;
 }
+
+/* ============================================
+   NEWS — PINNED, CATEGORIES, ARCHIVE, NAV BADGE
+   ============================================ */
+
+/* Nav unread dot */
+.nav ul li a.has-new-news {
+    position: relative;
+}
+
+.nav ul li a.has-new-news::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 4px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-imc-orange);
+    border-radius: 50%;
+    border: 2px solid var(--color-navy);
+    z-index: 10;
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.25); opacity: 0.8; }
+}
+
+/* On mobile the nav dot still shows inline */
+@media (max-width: 768px) {
+    .nav ul li a.has-new-news::before {
+        top: 8px;
+        right: 16px;
+    }
+}
+
+/* Category filter tabs */
+.news-filter-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 36px;
+}
+
+.news-filter-tab {
+    padding: 8px 20px;
+    border-radius: 25px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: all 0.25s ease;
+    color: var(--color-charcoal);
+    text-decoration: none;
+}
+
+.news-filter-tab:hover {
+    border-color: var(--color-navy);
+    color: var(--color-navy);
+}
+
+.news-filter-tab.active {
+    background: var(--color-navy);
+    color: var(--color-white);
+    border-color: var(--color-navy);
+}
+
+/* Pinned section */
+.pinned-news-section {
+    margin-bottom: 40px;
+}
+
+.pinned-section-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8em;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-imc-orange);
+    margin-bottom: 16px;
+}
+
+.pin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--color-imc-orange);
+    color: var(--color-white);
+    padding: 3px 9px;
+    border-radius: 4px;
+    font-size: 0.72em;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    align-self: flex-start;
+}
+
+/* Category badge colour variants */
+.category-badge.cat-team       { background-color: var(--color-navy); }
+.category-badge.cat-fixture    { background-color: var(--color-sky-blue); }
+.category-badge.cat-world-cup  { background-color: var(--color-imc-orange); }
+.category-badge.cat-general    { background-color: #6c757d; }
+
+/* Archive section */
+.news-archive-section {
+    margin-top: 60px;
+    border-top: 1px solid var(--color-border);
+    padding-top: 24px;
+}
+
+.news-archive-section summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1em;
+    color: var(--color-navy);
+    padding: 8px 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+}
+
+.news-archive-section summary::-webkit-details-marker { display: none; }
+
+.news-archive-section summary::before {
+    content: '\f054';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.75em;
+    color: #999;
+    transition: transform 0.25s ease;
+}
+
+.news-archive-section[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.news-archive-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.archive-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--color-charcoal);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.archive-item:hover {
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transform: translateY(-1px);
+    color: var(--color-charcoal);
+}
+
+.archive-item-date {
+    font-size: 0.8em;
+    color: #888;
+    white-space: nowrap;
+    margin-top: 2px;
+    min-width: 90px;
+}
+
+.archive-item-title {
+    font-weight: 600;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .archive-item { flex-direction: column; gap: 4px; }
+    .archive-item-date { min-width: auto; }
+    .news-filter-tabs { gap: 6px; }
+    .news-filter-tab { padding: 7px 14px; font-size: 0.85em; }
+}
