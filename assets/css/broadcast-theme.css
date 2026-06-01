@@ -1,0 +1,918 @@
+/* ============================================================
+   BROADCAST PRESTIGE MODERNISM — SITE-WIDE THEME
+   Override layer — loaded after main.css on ALL pages.
+   Matches the design language of the World Cup hub and
+   sponsorship landing page (Bebas Neue + Manrope, dark navy,
+   orange CTAs, large-radius cards, generous spacing).
+   ============================================================ */
+
+/* ---- Design Tokens ---- */
+:root {
+    --bpm-navy: #05102B;
+    --bpm-navy-mid: #0a1a3f;
+    --bpm-navy-light: #0f2252;
+    --bpm-orange: #C85A1F;
+    --bpm-orange-hover: #A94B18;
+    /* Override main.css variables so inherited references pick up the theme */
+    --color-imc-orange: #C85A1F;
+    --color-navy: #05102B;
+    --color-navy-deep: #020a1e;
+    --color-sky-blue: #C85A1F;
+    --color-cream: #05102B;
+    --color-light-grey: rgba(255, 255, 255, 0.06);
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-charcoal: rgba(255, 255, 255, 0.7);
+    --color-warm-grey: rgba(255, 255, 255, 0.08);
+    --bpm-white: #FFFFFF;
+    --bpm-off-white: #F0F2F5;
+    --bpm-text-muted: rgba(255, 255, 255, 0.7);
+    --bpm-border-light: rgba(255, 255, 255, 0.1);
+    --bpm-border-dark: rgba(5, 16, 43, 0.08);
+    --bpm-card-radius: 20px;
+    --bpm-font-heading: 'Bebas Neue', sans-serif;
+    --bpm-font-body: 'Manrope', sans-serif;
+}
+
+/* ============================================================
+   1. GLOBAL TYPOGRAPHY & BODY
+   ============================================================ */
+body {
+    font-family: var(--bpm-font-body);
+    background-color: var(--bpm-navy);
+    color: var(--bpm-text-muted);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--bpm-font-heading);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--bpm-white);
+}
+
+a {
+    color: var(--bpm-orange);
+}
+
+a:hover {
+    color: var(--bpm-white);
+}
+
+/* ============================================================
+   2. HEADER — darker navy, Manrope, orange accents
+   ============================================================ */
+.header {
+    background-color: rgba(5, 16, 43, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 var(--bpm-border-light);
+}
+
+.logo-text {
+    font-family: var(--bpm-font-body);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.logo-accent {
+    color: var(--bpm-orange);
+}
+
+.nav ul li a {
+    font-family: var(--bpm-font-body);
+    font-weight: 600;
+    font-size: 0.9em;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.nav ul li a::after {
+    background: var(--bpm-orange);
+}
+
+.nav ul li a:hover::after,
+.nav ul li a.active::after {
+    background: var(--bpm-orange);
+}
+
+.nav ul li a.nav-cta {
+    background-color: var(--bpm-orange);
+    border-radius: 999px;
+    padding: 8px 20px;
+    font-size: 0.85em;
+}
+
+.nav ul li a.nav-cta:hover {
+    background-color: var(--bpm-orange-hover);
+}
+
+/* ============================================================
+   3. FOOTER — harmonised dark navy
+   ============================================================ */
+.footer {
+    background: var(--bpm-navy);
+    border-top: 1px solid var(--bpm-border-light);
+}
+
+.footer .social-links a:hover {
+    color: var(--bpm-orange);
+}
+
+.footer .footer-nav a:hover {
+    color: var(--bpm-orange);
+}
+
+/* ============================================================
+   4. BUTTONS — pill-shaped, orange primary
+   ============================================================ */
+.btn {
+    border-radius: 999px;
+    font-family: var(--bpm-font-body);
+    font-weight: 700;
+    font-size: 0.9em;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background-color: var(--bpm-orange);
+    color: var(--bpm-white);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--bpm-orange-hover);
+    box-shadow: 0 4px 16px rgba(200, 90, 31, 0.3);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--bpm-white);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--bpm-white);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-orange {
+    background-color: var(--bpm-orange);
+    color: var(--bpm-white);
+}
+
+.btn-orange:hover {
+    background-color: var(--bpm-orange-hover);
+    box-shadow: 0 4px 16px rgba(200, 90, 31, 0.3);
+}
+
+.btn-lg {
+    padding: 14px 36px;
+    font-size: 1.05em;
+}
+
+/* ============================================================
+   5. HERO SECTIONS — all page heroes get broadcast treatment
+   ============================================================ */
+.hero-section,
+.world-cup-hero,
+.about-hero,
+.fixtures-hero,
+.news-hero {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(5, 16, 43, 0.92) 0%,
+            rgba(10, 26, 63, 0.88) 50%,
+            rgba(5, 16, 43, 0.95) 100%
+        ),
+        var(--hero-bg-image, none) center/cover no-repeat;
+    padding: 120px 0 100px;
+}
+
+/* Preserve each hero's unique background image via the gradient overlay */
+.hero-section {
+    background-image:
+        linear-gradient(180deg, rgba(5,16,43,0.92) 0%, rgba(10,26,63,0.88) 50%, rgba(5,16,43,0.95) 100%),
+        url("../img/photos/hero-table-mountain.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.world-cup-hero {
+    background-image:
+        linear-gradient(180deg, rgba(5,16,43,0.92) 0%, rgba(10,26,63,0.88) 50%, rgba(5,16,43,0.95) 100%),
+        url("../img/photos/toss-ceremony.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.about-hero {
+    background-image:
+        linear-gradient(180deg, rgba(5,16,43,0.92) 0%, rgba(10,26,63,0.88) 50%, rgba(5,16,43,0.95) 100%),
+        url("../img/photos/team-champions.jpg");
+    background-size: cover;
+    background-position: center 30%;
+}
+
+.fixtures-hero {
+    background-image:
+        linear-gradient(180deg, rgba(5,16,43,0.92) 0%, rgba(10,26,63,0.88) 50%, rgba(5,16,43,0.95) 100%),
+        url("../img/photos/action-match.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.news-hero {
+    background-image:
+        linear-gradient(180deg, rgba(5,16,43,0.92) 0%, rgba(10,26,63,0.88) 50%, rgba(5,16,43,0.95) 100%),
+        url("../img/photos/scenic-english-ground.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+/* Hero text — Bebas Neue heading, Manrope body */
+.hero-section h1,
+.world-cup-hero h1,
+.about-hero h1,
+.fixtures-hero h1,
+.news-hero h1 {
+    font-family: var(--bpm-font-heading);
+    font-size: 4em;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-shadow: none;
+    color: var(--bpm-white);
+    margin: 0 0 16px;
+    line-height: 1.05;
+}
+
+.hero-section p,
+.world-cup-hero p,
+.about-hero p,
+.fixtures-hero p,
+.news-hero p {
+    font-family: var(--bpm-font-body);
+    font-size: 1.15em;
+    font-weight: 400;
+    color: var(--bpm-text-muted);
+    text-shadow: none;
+    max-width: 620px;
+    line-height: 1.7;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Hero radial glow */
+.hero-section::before,
+.world-cup-hero::before,
+.about-hero::before,
+.fixtures-hero::before,
+.news-hero::before {
+    background:
+        radial-gradient(ellipse at 20% 80%, rgba(200, 90, 31, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(200, 90, 31, 0.05) 0%, transparent 50%);
+}
+
+/* Watermark opacity */
+.hero-section::after {
+    opacity: 0.12;
+}
+
+/* Hero buttons */
+.hero-section .btn,
+.world-cup-hero .btn,
+.about-hero .btn,
+.fixtures-hero .btn,
+.news-hero .btn {
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-family: var(--bpm-font-body);
+    font-weight: 700;
+    font-size: 0.9em;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+/* ============================================================
+   6. CONTENT SECTIONS — dark navy background
+   ============================================================ */
+.section {
+    background-color: var(--bpm-navy);
+}
+
+.section-light {
+    background-color: var(--bpm-navy-mid);
+}
+
+.section-title {
+    color: var(--bpm-white);
+    font-family: var(--bpm-font-heading);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* Fixtures content section */
+.fixtures-content-section {
+    background:
+        radial-gradient(ellipse at 10% 90%, rgba(200, 90, 31, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 10%, rgba(15, 34, 82, 0.3) 0%, transparent 50%),
+        var(--bpm-navy-mid);
+}
+
+.fixtures-content-section::before {
+    opacity: 0.02;
+}
+
+.fixtures-content-section p {
+    color: var(--bpm-text-muted);
+}
+
+/* ============================================================
+   7. CARDS — glass-morphism on dark navy
+   ============================================================ */
+.card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-radius: var(--bpm-card-radius);
+    box-shadow: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--bpm-text-muted);
+}
+
+.card:hover {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.card h3 {
+    color: var(--bpm-white);
+}
+
+/* Match cards */
+.match-card {
+    color: var(--bpm-text-muted);
+}
+
+.match-header {
+    border-bottom-color: var(--bpm-border-light);
+}
+
+.match-date {
+    color: var(--bpm-white);
+}
+
+.match-vs {
+    color: var(--bpm-orange);
+}
+
+.team-name {
+    color: var(--bpm-white);
+}
+
+.team-logo {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--bpm-orange);
+}
+
+.match-details {
+    color: var(--bpm-text-muted);
+}
+
+.detail-item {
+    color: var(--bpm-text-muted);
+}
+
+/* Result cards */
+.result-card {
+    border-left-color: var(--bpm-orange);
+}
+
+.result-score {
+    color: var(--bpm-white);
+}
+
+.result-outcome {
+    color: var(--bpm-orange);
+}
+
+/* Filter bar */
+.filter-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--bpm-border-light);
+    color: var(--bpm-text-muted);
+}
+
+.filter-btn.active {
+    background: var(--bpm-orange);
+    color: var(--bpm-white);
+    border-color: var(--bpm-orange);
+}
+
+.filter-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--bpm-white);
+}
+
+/* ============================================================
+   8. ABOUT PAGE — themed sections
+   ============================================================ */
+.about-section-content {
+    color: var(--bpm-text-muted);
+}
+
+.about-section-content h2 {
+    color: var(--bpm-white);
+}
+
+.about-section-content p {
+    color: var(--bpm-text-muted);
+}
+
+.mission-statement {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-left-color: var(--bpm-orange);
+    color: var(--bpm-white);
+    font-style: italic;
+}
+
+.values-list li {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-radius: 12px;
+    color: var(--bpm-text-muted);
+}
+
+.values-list li:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+.values-list li h3 {
+    color: var(--bpm-orange);
+}
+
+.values-list li p {
+    color: var(--bpm-text-muted);
+}
+
+.contact-details {
+    background: linear-gradient(135deg, rgba(200, 90, 31, 0.12) 0%, rgba(5, 16, 43, 0.4) 100%);
+    border: 1px solid rgba(200, 90, 31, 0.2);
+    color: var(--bpm-white);
+}
+
+.contact-details p {
+    color: var(--bpm-text-muted);
+}
+
+.contact-details a {
+    color: var(--bpm-orange);
+}
+
+.contact-details a:hover {
+    color: var(--bpm-white);
+}
+
+/* ============================================================
+   9. WORLD CUP PAGE — themed sections
+   ============================================================ */
+/* Squad player cards */
+.player-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.player-card:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.player-card img {
+    border-color: var(--bpm-orange);
+}
+
+.player-card h3 {
+    color: var(--bpm-white);
+}
+
+.player-card p {
+    color: var(--bpm-text-muted);
+}
+
+.player-card .role {
+    color: var(--bpm-orange);
+}
+
+/* Group tables */
+.group-table {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+.group-table th {
+    background-color: var(--bpm-orange);
+    color: var(--bpm-white);
+}
+
+.group-table td {
+    border-bottom-color: var(--bpm-border-light);
+    color: var(--bpm-text-muted);
+}
+
+.group-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.group-table .team-name-col {
+    color: var(--bpm-white);
+}
+
+/* World Cup news cards */
+.world-cup-news-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.world-cup-news-card h3 {
+    color: var(--bpm-white);
+}
+
+.world-cup-news-card .date {
+    color: var(--bpm-text-muted);
+}
+
+.world-cup-news-card p {
+    color: var(--bpm-text-muted);
+}
+
+/* ============================================================
+   10. PLAYER PORTAL — themed cards and panels
+   ============================================================ */
+.portal-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-top: 5px solid var(--bpm-orange);
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.portal-card:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.portal-card-logo {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.portal-card h2 {
+    color: var(--bpm-white);
+}
+
+.portal-card > p {
+    color: var(--bpm-text-muted);
+}
+
+.portal-card-details li {
+    color: var(--bpm-text-muted);
+}
+
+.portal-card-details li::before {
+    color: var(--bpm-orange);
+}
+
+.portal-card-note {
+    color: rgba(255, 255, 255, 0.5) !important;
+    border-top-color: var(--bpm-border-light);
+}
+
+.portal-card .btn-primary {
+    background-color: var(--bpm-orange);
+    color: var(--bpm-white);
+}
+
+.portal-card .btn-primary:hover {
+    background-color: var(--bpm-orange-hover);
+}
+
+/* Officials CTA panel */
+.officials-cta-panel {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-left: 5px solid var(--bpm-orange);
+    box-shadow: none;
+}
+
+.officials-cta-content h3 {
+    color: var(--bpm-white);
+}
+
+.officials-cta-content h3 i {
+    color: var(--bpm-orange);
+}
+
+.officials-cta-content p {
+    color: var(--bpm-text-muted);
+}
+
+/* ============================================================
+   11. OFFICIALS APPLICATION — themed form
+   ============================================================ */
+.standards-panel {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-left: 5px solid var(--bpm-orange);
+    box-shadow: none;
+}
+
+.standards-panel h2 {
+    color: var(--bpm-white);
+}
+
+.standards-panel h2 i {
+    color: var(--bpm-orange);
+}
+
+.standards-panel p {
+    color: var(--bpm-text-muted);
+}
+
+.standards-panel .standards-note {
+    color: rgba(255, 255, 255, 0.5);
+    border-top-color: var(--bpm-border-light);
+}
+
+/* Form fieldsets */
+.form-fieldset {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-radius: 12px;
+}
+
+.form-fieldset legend {
+    color: var(--bpm-white);
+    font-family: var(--bpm-font-heading);
+    letter-spacing: 0.03em;
+}
+
+.form-group label {
+    color: var(--bpm-text-muted);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: var(--bpm-border-light);
+    color: var(--bpm-white);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--bpm-orange);
+    box-shadow: 0 0 0 3px rgba(200, 90, 31, 0.15);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.radio-label {
+    color: var(--bpm-text-muted);
+    border-color: var(--bpm-border-light);
+}
+
+.radio-label:hover {
+    border-color: var(--bpm-orange);
+    background-color: rgba(200, 90, 31, 0.06);
+}
+
+.radio-label input[type="radio"] {
+    accent-color: var(--bpm-orange);
+}
+
+.volunteer-notice {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: var(--bpm-border-light);
+    border-left-color: var(--bpm-orange);
+}
+
+.volunteer-notice i {
+    color: var(--bpm-orange);
+}
+
+.volunteer-notice p {
+    color: var(--bpm-text-muted);
+}
+
+/* ============================================================
+   12. NEWS PAGE — themed cards and articles
+   ============================================================ */
+/* Featured story */
+.featured-story,
+.story-card.featured-story {
+    background: linear-gradient(135deg, var(--bpm-navy-mid) 0%, var(--bpm-navy) 100%);
+    border: 1px solid var(--bpm-border-light);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.story-card .story-title {
+    color: var(--bpm-white);
+}
+
+.story-card .story-date {
+    color: var(--bpm-text-muted);
+}
+
+.story-card .story-summary {
+    color: var(--bpm-text-muted);
+}
+
+.featured-story h2 {
+    color: var(--bpm-white);
+}
+
+.featured-story p {
+    color: var(--bpm-text-muted);
+}
+
+.featured-story .btn {
+    background-color: var(--bpm-orange);
+    color: var(--bpm-white);
+}
+
+.featured-story .btn:hover {
+    background-color: var(--bpm-orange-hover);
+}
+
+/* News grid cards */
+.news-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.news-card:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.news-card h3 {
+    color: var(--bpm-white);
+}
+
+.news-card .date {
+    color: var(--bpm-text-muted);
+}
+
+.news-card p {
+    color: var(--bpm-text-muted);
+}
+
+.news-card .category-badge {
+    background-color: var(--bpm-orange);
+}
+
+/* Story card (JS-injected) */
+.story-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bpm-border-light);
+    border-radius: 12px;
+}
+
+.story-card:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+/* Full article page */
+.story-full {
+    color: var(--bpm-text-muted);
+}
+
+.story-body {
+    color: var(--bpm-text-muted);
+}
+
+.story-body h3 {
+    color: var(--bpm-white);
+}
+
+.story-body p {
+    color: var(--bpm-text-muted);
+}
+
+.story-body .story-dateline {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.story-body blockquote {
+    background: rgba(200, 90, 31, 0.06);
+    border-left-color: var(--bpm-orange);
+}
+
+.story-body blockquote p {
+    color: var(--bpm-white);
+}
+
+.story-body blockquote cite {
+    color: var(--bpm-orange);
+}
+
+.story-body .squad-table thead th {
+    background: var(--bpm-orange);
+    color: var(--bpm-white);
+}
+
+.story-body .squad-table tbody td {
+    border-bottom-color: var(--bpm-border-light);
+    color: var(--bpm-text-muted);
+}
+
+.story-body .squad-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.story-body .tournament-details-table td {
+    border-bottom-color: var(--bpm-border-light);
+    color: var(--bpm-text-muted);
+}
+
+.story-body .tournament-details-table td:first-child {
+    color: var(--bpm-white);
+}
+
+.story-body .story-editors-note {
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.story-back-link {
+    border-top-color: var(--bpm-border-light);
+}
+
+.story-featured-image {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================================
+   13. PHOTO BANNER — darker overlay
+   ============================================================ */
+.photo-banner::after {
+    background:
+        linear-gradient(to bottom, rgba(5,16,43,0.5) 0%, transparent 30%),
+        linear-gradient(to top, rgba(5,16,43,0.5) 0%, transparent 30%);
+}
+
+/* ============================================================
+   14. MOBILE RESPONSIVE ADJUSTMENTS
+   ============================================================ */
+@media (max-width: 768px) {
+    .hero-section,
+    .world-cup-hero,
+    .about-hero,
+    .fixtures-hero,
+    .news-hero {
+        padding: 80px 0 70px;
+    }
+
+    .hero-section h1,
+    .world-cup-hero h1,
+    .about-hero h1,
+    .fixtures-hero h1,
+    .news-hero h1 {
+        font-size: 2.6em;
+    }
+
+    .hero-section p,
+    .world-cup-hero p,
+    .about-hero p,
+    .fixtures-hero p,
+    .news-hero p {
+        font-size: 1em;
+    }
+
+    .nav ul {
+        background-color: var(--bpm-navy);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section h1,
+    .world-cup-hero h1,
+    .about-hero h1,
+    .fixtures-hero h1,
+    .news-hero h1 {
+        font-size: 2.2em;
+    }
+}

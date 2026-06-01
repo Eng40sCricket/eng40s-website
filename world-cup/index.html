@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>England Over 40s Cricket - World Cup 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/broadcast-theme.css">
+    <link rel="stylesheet" href="../assets/css/brand-colours.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ── Tokens ── */
+        :root {
+            --wc-navy:      #05102B;
+            --wc-navy-mid:  #0a1a3f;
+            --wc-blue:      #0080DB;
+            --wc-blue-hov:  #006BB8;
+            --wc-gold:      #CFA75C;
+            --wc-gold-lt:   rgba(207,167,92,0.15);
+        }
+
+        /* ── HERO ── */
+        .wc-hero {
+            position: relative;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(160deg, #020a1e 0%, #05102B 55%, #0a1a3f 100%);
+            overflow: hidden;
+            text-align: center;
+            padding: 100px 20px 70px;
+        }
+        .wc-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(0,128,219,0.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 15%, rgba(207,167,92,0.09) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .wc-hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .wc-hero-logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 4px 24px rgba(207,167,92,0.30));
+        }
+        .wc-tagline {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--wc-gold);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .wc-tagline::before,
+        .wc-tagline::after {
+            content: '';
+            display: block;
+            width: 28px;
+            height: 1px;
+            background: var(--wc-gold);
+            opacity: 0.45;
+        }
+        .wc-hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.6rem, 7vw, 4.2rem);
+            color: #fff;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            line-height: 1.05;
+            margin-bottom: 14px;
+        }
+        .wc-hero h1 span { color: var(--wc-gold); }
+        .wc-hero-sub {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.60);
+            margin-bottom: 36px;
+        }
+        .wc-hero-sub strong { color: rgba(255,255,255,0.92); }
+
+        /* ── BUTTONS ── */
+        .btn-wc-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 28px;
+            background: var(--wc-blue);
+            color: #fff !important;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-radius: 100px;
+            text-decoration: none !important;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .btn-wc-primary:hover {
+            background: var(--wc-blue-hov) !important;
+            box-shadow: 0 4px 20px rgba(0,128,219,0.40);
+        }
+        .btn-wc-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 28px;
+            background: transparent;
+            color: rgba(255,255,255,0.65) !important;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.20);
+            text-decoration: none !important;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .btn-wc-secondary:hover {
+            border-color: rgba(255,255,255,0.50);
+            color: #fff !important;
+        }
+        .wc-cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        /* ── FACTS BAR ── */
+        .wc-facts-bar {
+            background: #0a1a3f;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 0 20px;
+        }
+        .wc-facts-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .wc-fact {
+            flex: 1 1 140px;
+            text-align: center;
+            padding: 22px 16px;
+            border-right: 1px solid rgba(255,255,255,0.07);
+        }
+        .wc-fact:last-child { border-right: none; }
+        .wc-fact-icon {
+            font-size: 1rem;
+            color: var(--wc-gold);
+            margin-bottom: 7px;
+        }
+        .wc-fact-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            letter-spacing: 0.04em;
+            line-height: 1.1;
+            margin-bottom: 3px;
+        }
+        .wc-fact-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+        @media (max-width: 640px) {
+            .wc-fact {
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.07);
+                flex: 1 1 45%;
+            }
+        }
+
+        /* ── ENGLAND STRIP ── */
+        .wc-england-strip {
+            background: linear-gradient(135deg, rgba(0,128,219,0.13) 0%, rgba(5,16,43,0.7) 100%);
+            border-top: 1px solid rgba(0,128,219,0.22);
+            border-bottom: 1px solid rgba(0,128,219,0.22);
+            padding: 36px 20px;
+        }
+        .wc-england-strip-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: center;
+        }
+        .wc-england-emblem {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        .wc-england-info h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            letter-spacing: 0.06em;
+            margin-bottom: 5px;
+        }
+        .wc-england-info p {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.55;
+        }
+        .wc-england-info p strong { color: var(--wc-blue); }
+
+        /* ── GROUPS SECTION ── */
+        .wc-groups-section {
+            background: var(--wc-navy);
+            padding: 72px 20px;
+        }
+        .wc-section-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.70rem;
+            font-weight: 700;
+            letter-spacing: 0.20em;
+            text-transform: uppercase;
+            color: var(--wc-blue);
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .wc-section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: #fff;
+            text-align: center;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .wc-section-rule {
+            width: 44px;
+            height: 3px;
+            background: var(--wc-gold);
+            border-radius: 2px;
+            margin: 0 auto 20px;
+        }
+        .wc-draw-confirmed {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(207,167,92,0.10);
+            border: 1px solid rgba(207,167,92,0.22);
+            color: var(--wc-gold);
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.70rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 100px;
+            margin-bottom: 44px;
+        }
+        .wc-groups-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+        @media (max-width: 640px) {
+            .wc-groups-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── GROUP CARD ── */
+        .wc-group-card {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.025);
+        }
+        .wc-group-card.england-group {
+            border-color: rgba(207,167,92,0.32);
+            box-shadow: 0 0 36px rgba(207,167,92,0.06);
+        }
+        .wc-group-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 16px;
+            background: rgba(255,255,255,0.04);
+        }
+        .england-group .wc-group-header {
+            background: linear-gradient(90deg, rgba(207,167,92,0.16) 0%, rgba(207,167,92,0.06) 100%);
+        }
+        .wc-group-header-left {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+        .wc-group-header-icon { color: var(--wc-gold); font-size: 0.85rem; }
+        .wc-group-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            letter-spacing: 0.06em;
+        }
+        .wc-england-badge {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.60rem;
+            font-weight: 700;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--wc-blue);
+            background: rgba(0,128,219,0.15);
+            border: 1px solid rgba(0,128,219,0.25);
+            padding: 2px 8px;
+            border-radius: 100px;
+        }
+        .wc-group-count {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.28);
+        }
+
+        /* ── TEAM ROWS ── */
+        .wc-team-list { padding: 4px 0; }
+        .wc-team-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.15s;
+        }
+        .wc-team-row:last-child { border-bottom: none; }
+        .wc-team-row:hover { background: rgba(255,255,255,0.03); }
+        .wc-team-row.england-row {
+            background: rgba(0,128,219,0.10);
+            border-left: 3px solid var(--wc-blue);
+        }
+        .wc-team-row.england-row:hover { background: rgba(0,128,219,0.15); }
+
+        /* Team logo / placeholder */
+        .wc-team-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+        }
+        .wc-team-logo-placeholder {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.10);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.52rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            color: rgba(255,255,255,0.35);
+            flex-shrink: 0;
+            text-transform: uppercase;
+        }
+
+        .wc-team-name {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.72);
+            flex: 1;
+        }
+        .england-row .wc-team-name {
+            color: #fff;
+            font-weight: 700;
+        }
+        .wc-england-icon { color: var(--wc-blue); font-size: 0.75rem; }
+
+        .wc-group-footer {
+            padding: 9px 16px;
+            background: rgba(255,255,255,0.02);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .wc-group-footer-text {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.22);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ── CTA SECTION ── */
+        .wc-cta-section {
+            background: linear-gradient(160deg, #0a1a3f 0%, #05102B 100%);
+            border-top: 1px solid rgba(255,255,255,0.07);
+            padding: 72px 20px;
+            text-align: center;
+        }
+        .wc-cta-inner { max-width: 600px; margin: 0 auto; }
+        .wc-cta-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            color: #fff;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .wc-cta-section p {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.52);
+            margin-bottom: 32px;
+            line-height: 1.65;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+
+        <!-- HERO -->
+        <section class="wc-hero">
+            <div class="wc-hero-inner">
+                <img src="../assets/img/wc-guyana-2026-logo.png"
+                     alt="IMC O40s World Cup 2026 Guyana"
+                     class="wc-hero-logo">
+                <div class="wc-tagline">IMC Over 40s World Cup</div>
+                <h1>World Cup <span>2026</span></h1>
+                <p class="wc-hero-sub">
+                    <strong>Guyana, West Indies</strong> &nbsp;·&nbsp; 17 October – 1 November 2026
+                </p>
+                <a href="https://eng40swc-guyana2026.manus.space"
+                   target="_blank" rel="noopener noreferrer"
+                   class="btn-wc-primary">
+                    <i class="fas fa-trophy"></i> Open Full World Cup Hub
+                </a>
+            </div>
+        </section>
+
+        <!-- FACTS BAR -->
+        <div class="wc-facts-bar">
+            <div class="wc-facts-grid">
+                <div class="wc-fact">
+                    <div class="wc-fact-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="wc-fact-value">IMC ODI</div>
+                    <div class="wc-fact-label">Tournament</div>
+                </div>
+                <div class="wc-fact">
+                    <div class="wc-fact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="wc-fact-value">Guyana</div>
+                    <div class="wc-fact-label">Host Nation</div>
+                </div>
+                <div class="wc-fact">
+                    <div class="wc-fact-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="wc-fact-value">17 Oct – 1 Nov</div>
+                    <div class="wc-fact-label">Dates 2026</div>
+                </div>
+                <div class="wc-fact">
+                    <div class="wc-fact-icon"><i class="fas fa-circle-dot"></i></div>
+                    <div class="wc-fact-value">45 Overs</div>
+                    <div class="wc-fact-label">Per Side</div>
+                </div>
+                <div class="wc-fact">
+                    <div class="wc-fact-icon"><i class="fas fa-globe"></i></div>
+                    <div class="wc-fact-value">16 Nations</div>
+                    <div class="wc-fact-label">2 Groups</div>
+                </div>
+                <div class="wc-fact">
+                    <div class="wc-fact-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="wc-fact-value">Group B</div>
+                    <div class="wc-fact-label">England's Group</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ENGLAND STRIP -->
+        <div class="wc-england-strip">
+            <div class="wc-england-strip-inner">
+                <img src="../assets/img/flags/england.png"
+                     alt="England Over 40s"
+                     class="wc-england-emblem"
+                     onerror="this.style.display='none'">
+                <div class="wc-england-info">
+                    <h3>England Over 40s — Group B</h3>
+                    <p>
+                        England are in <strong>Group B</strong> alongside New Zealand, Pakistan, UAE, India, Scotland, USA and ROW.
+                        Captain: <strong>Darren Stevens</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- GROUPS -->
+        <section class="wc-groups-section">
+            <div style="text-align:center;">
+                <p class="wc-section-label">Draw Confirmed</p>
+                <h2 class="wc-section-title">Tournament Groups</h2>
+                <div class="wc-section-rule"></div>
+                <span class="wc-draw-confirmed">
+                    <i class="fas fa-check-circle"></i> Approved by the IMC
+                </span>
+            </div>
+
+            <div class="wc-groups-grid">
+
+                <!-- GROUP A -->
+                <div class="wc-group-card">
+                    <div class="wc-group-header">
+                        <div class="wc-group-header-left">
+                            <i class="fas fa-trophy wc-group-header-icon"></i>
+                            <span class="wc-group-name">Group A</span>
+                        </div>
+                        <span class="wc-group-count">8 teams</span>
+                    </div>
+                    <div class="wc-team-list">
+                        <div class="wc-team-row">
+                            <div class="wc-team-logo-placeholder">WI</div>
+                            <span class="wc-team-name">West Indies</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <img src="../assets/img/flags/australia.png" alt="Australia" class="wc-team-logo">
+                            <span class="wc-team-name">Australia</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <img src="../assets/img/flags/wales.png" alt="Wales" class="wc-team-logo">
+                            <span class="wc-team-name">Wales</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <div class="wc-team-logo-placeholder">SL</div>
+                            <span class="wc-team-name">Sri Lanka</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <img src="../assets/img/flags/canada.png" alt="Canada" class="wc-team-logo">
+                            <span class="wc-team-name">Canada</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <img src="../assets/img/flags/southafrica.png" alt="South Africa" class="wc-team-logo">
+                            <span class="wc-team-name">South Africa</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <img src="../assets/img/flags/namibia.png" alt="Namibia" class="wc-team-logo">
+                            <span class="wc-team-name">Namibia</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <div class="wc-team-logo-placeholder">COL</div>
+                            <span class="wc-team-name">Colombia</span>
+                        </div>
+                    </div>
+                    <div class="wc-group-footer">
+                        <span class="wc-group-footer-text">
+                            <i class="fas fa-clock"></i> Standings populate when matches begin
+                        </span>
+                    </div>
+                </div>
+
+                <!-- GROUP B — England's group -->
+                <div class="wc-group-card england-group">
+                    <div class="wc-group-header">
+                        <div class="wc-group-header-left">
+                            <i class="fas fa-trophy wc-group-header-icon"></i>
+                            <span class="wc-group-name">Group B</span>
+                            <span class="wc-england-badge">England</span>
+                        </div>
+                        <span class="wc-group-count">8 teams</span>
+                    </div>
+                    <div class="wc-team-list">
+                        <div class="wc-team-row">
+                            <div class="wc-team-logo-placeholder">NZ</div>
+                            <span class="wc-team-name">New Zealand</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <div class="wc-team-logo-placeholder">PAK</div>
+                            <span class="wc-team-name">Pakistan</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <div class="wc-team-logo-placeholder">UAE</div>
+                            <span class="wc-team-name">UAE</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <img src="../assets/img/flags/india.png" alt="India" class="wc-team-logo">
+                            <span class="wc-team-name">India</span>
+                        </div>
+                        <div class="wc-team-row england-row">
+                            <img src="../assets/img/flags/england.png" alt="England" class="wc-team-logo">
+                            <span class="wc-team-name">England</span>
+                            <i class="fas fa-shield-alt wc-england-icon"></i>
+                        </div>
+                        <div class="wc-team-row">
+                            <img src="../assets/img/flags/scotland.png" alt="Scotland" class="wc-team-logo">
+                            <span class="wc-team-name">Scotland</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <img src="../assets/img/flags/usa.png" alt="USA" class="wc-team-logo">
+                            <span class="wc-team-name">USA</span>
+                        </div>
+                        <div class="wc-team-row">
+                            <div class="wc-team-logo-placeholder">ROW</div>
+                            <span class="wc-team-name">Rest of the World</span>
+                        </div>
+                    </div>
+                    <div class="wc-group-footer">
+                        <span class="wc-group-footer-text">
+                            <i class="fas fa-clock"></i> Standings populate when matches begin
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="wc-cta-section">
+            <div class="wc-cta-inner">
+                <p class="wc-section-label">Full Tournament Hub</p>
+                <h2>Squad, Fixtures &amp; More</h2>
+                <p>
+                    The England Over 40s World Cup hub has the full squad with player profiles, the complete tournament schedule, live group standings, news and press releases — updated throughout the tournament.
+                </p>
+                <div class="wc-cta-buttons">
+                    <a href="https://eng40swc-guyana2026.manus.space"
+                       target="_blank" rel="noopener noreferrer"
+                       class="btn-wc-primary">
+                        <i class="fas fa-trophy"></i> Open World Cup Hub
+                    </a>
+                    <a href="../fixtures/" class="btn-wc-secondary">
+                        <i class="fas fa-calendar-check"></i> England Fixtures
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/news-badge.js"></script>
+</body>
+</html>
