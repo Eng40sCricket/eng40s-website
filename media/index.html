@@ -562,6 +562,55 @@
             max-height: 90vh; display: flex; flex-direction: column; align-items: center;
         }
         .lightbox-img { max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: 12px; box-shadow: 0 24px 80px rgba(0,0,0,0.7); }
+
+        /* White Line Fever */
+        .wlf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+        }
+        .wlf-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .wlf-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+        }
+        .wlf-embed-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        .wlf-embed-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+        .wlf-card-info {
+            padding: 14px 18px 16px;
+        }
+        .wlf-card-title {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .wlf-card-meta {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.55);
+        }
+        .wlf-card-meta i { color: #3B9EDB; margin-right: 3px; }
+        @media (max-width: 600px) {
+            .wlf-grid { grid-template-columns: 1fr; }
+        }
         .lightbox-caption { font-family: 'Manrope', sans-serif; font-size: 0.9em; color: rgba(255,255,255,0.75); text-align: center; margin-top: 14px; padding: 0 20px; }
         .lightbox-caption strong { color: #fff; }
         .lightbox-close {
@@ -1069,10 +1118,40 @@
             </div>
         </section>
 
+        <!-- WHITE LINE FEVER -->
+        <section class="media-section media-section-mid" id="white-line-fever-section">
+            <div class="container">
+                <div style="text-align:center;margin-bottom:36px;">
+                    <h2 class="media-section-title"><i class="fas fa-film" style="color:#3B9EDB;font-size:0.85em;margin-right:10px;"></i>White Line <span>Fever</span></h2>
+                    <p class="media-section-subtitle">Guest coverage, drone footage, short-form edits and viral moments — cricket through a different lens.</p>
+                </div>
+                <!-- ============================================================
+                     TO ADD A VIDEO: add a new .wlf-card div below following the
+                     same pattern. videoId = YouTube video ID (from the URL).
+                     ============================================================ -->
+                <div class="wlf-grid" id="wlf-grid">
+
+                    <div class="wlf-card">
+                        <div class="wlf-embed-wrapper">
+                            <iframe src="https://www.youtube.com/embed/gocSUptNgpY"
+                                title="England v India — 2nd ODI Highlights"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="wlf-card-info">
+                            <div class="wlf-card-title">England v India — 2nd ODI</div>
+                            <div class="wlf-card-meta"><i class="fas fa-video"></i> Filmed &amp; edited by ETDC Digital Media &nbsp;·&nbsp; <i class="fas fa-calendar-alt"></i> May 2026</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
         <!-- ============================================================
              PHOTOGRAPHY SECTION
              ============================================================ -->
-        <section class="media-section media-section-mid" id="photography-section">
+        <section class="media-section media-section-dark" id="photography-section">
             <div class="container">
                 <div class="section-header-row">
                     <div>
@@ -1247,8 +1326,8 @@
            NEXT MATCH DATA — unchanged from original
            ================================================================ */
         const MATCHES = [
-            { title: 'England v India — 1st ODI',          date: '2026-05-27T12:00:00', venue: 'Swindon Cricket Club',              videoId: 'gMT497KBtGc', status: 'upcoming' },
-            { title: 'England v India — 2nd ODI',          date: '2026-05-28T11:00:00', venue: 'High Wycombe CC, Buckinghamshire',   videoId: 'om33cd7boCg', status: 'upcoming' },
+            { title: 'England v India — 1st ODI',          date: '2026-05-27T12:00:00', venue: 'Swindon Cricket Club',              videoId: 'gMT497KBtGc', status: 'replay' },
+            { title: 'England v India — 2nd ODI',          date: '2026-05-28T11:00:00', venue: 'High Wycombe CC, Buckinghamshire',   videoId: 'om33cd7boCg', status: 'replay' },
             { title: 'England v India — 3rd ODI',          date: '2026-06-04T12:00:00', venue: 'Hammerwich CC, Staffordshire',        videoId: 'wHCWNvX5CqE', status: 'upcoming' },
             { title: 'England Lions v XL Club (North West)', date: '2026-07-15T12:00:00', venue: 'To Be Confirmed',                  videoId: 'yRanS9SwKFs', status: 'upcoming' },
             { title: 'England v Ireland — Triple Crown',   date: '2026-07-28T12:15:00', venue: "Bishop's Stortford CC, Hertfordshire", videoId: 'SRkXD_KjxpA', status: 'upcoming' },
