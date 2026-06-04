@@ -214,6 +214,8 @@
     if (r === 'loss') return 'loss';
     if (r === 'tie') return 'tie';
     if (r === 'no result') return 'noresult';
+    if (r === 'cancelled') return 'cancelled';
+    if (r === 'abandoned') return 'abandoned';
     return 'upcoming';
   }
 
@@ -254,13 +256,15 @@
   }
 
   function buildLinks(row) {
-    var isUpcoming = classify(row.Result) === 'upcoming';
+    var cls = classify(row.Result);
+    var isUpcoming   = cls === 'upcoming';
+    var isCancelled  = cls === 'cancelled' || cls === 'abandoned';
     var links = '';
     if (row.ScorecardURL) links += pillLink(row.ScorecardURL, 'fx-pill-scorecard', '&#127952;', 'Scorecard');
     if (isUpcoming) {
       if (row.VenueMapURL) links += pillLink(row.VenueMapURL, 'fx-pill-map', '&#128205;', 'Map');
       if (row.YouTubeLive) links += pillLink(row.YouTubeLive, 'fx-pill-live', '&#9654;', 'Live');
-    } else {
+    } else if (!isCancelled) {
       if (row.YouTubeLive) links += pillLink(row.YouTubeLive, 'fx-pill-replay', '&#9654;', 'Replay');
       if (row.YouTubeHighlights) links += pillLink(row.YouTubeHighlights, 'fx-pill-highlights', '&#9733;', 'Highlights');
     }
@@ -277,12 +281,13 @@
 
   function tableRow(row) {
     var cls = classify(row.Result);
-    var badges = { win:'<span class="fx-result fx-win-badge">Win</span>', loss:'<span class="fx-result fx-loss-badge">Loss</span>', tie:'<span class="fx-result fx-tie-badge">Tie</span>', noresult:'<span class="fx-result fx-noresult-badge">No Result</span>', upcoming:'<span class="fx-result fx-upcoming-badge">Upcoming</span>' };
+    var badges = { win:'<span class="fx-result fx-win-badge">Win</span>', loss:'<span class="fx-result fx-loss-badge">Loss</span>', tie:'<span class="fx-result fx-tie-badge">Tie</span>', noresult:'<span class="fx-result fx-noresult-badge">No Result</span>', cancelled:'<span class="fx-result fx-noresult-badge">Cancelled</span>', abandoned:'<span class="fx-result fx-noresult-badge">Abandoned</span>', upcoming:'<span class="fx-result fx-upcoming-badge">Upcoming</span>' };
     var homeEng = /england/i.test(row.HomeTeam);
     var awayEng = /england/i.test(row.AwayTeam);
     var homeName = row.HomeTeam.replace(/ Over 40s$/i,'').replace(/ Lions Over 40s$/i,' Lions');
     var awayName = row.AwayTeam.replace(/ Over 40s$/i,'').replace(/ Lions Over 40s$/i,' Lions');
-    return '<tr class="fx-' + cls + '">'
+    var rowCls = (cls === 'cancelled' || cls === 'abandoned') ? 'noresult' : cls;
+    return '<tr class="fx-' + rowCls + '">'
       + '<td style="white-space:nowrap;font-weight:600;">' + escHtml(shortDate(row.Date)) + '</td>'
       + '<td>' + tournamentBadge(row.Tournament) + '</td>'
       + '<td><div class="fx-team-cell">' + emblemImg(row.HomeEmblem, row.HomeTeam, 'sm') + '<span class="' + (homeEng ? 'fx-england' : '') + '">' + escHtml(homeName) + '</span></div></td>'
@@ -297,10 +302,11 @@
 
   function mobileCard(row) {
     var cls = classify(row.Result);
-    var badges = { win:'<span class="fx-result fx-win-badge">Win</span>', loss:'<span class="fx-result fx-loss-badge">Loss</span>', tie:'<span class="fx-result fx-tie-badge">Tie</span>', noresult:'<span class="fx-result fx-noresult-badge">No Result</span>', upcoming:'<span class="fx-result fx-upcoming-badge">Upcoming</span>' };
+    var badges = { win:'<span class="fx-result fx-win-badge">Win</span>', loss:'<span class="fx-result fx-loss-badge">Loss</span>', tie:'<span class="fx-result fx-tie-badge">Tie</span>', noresult:'<span class="fx-result fx-noresult-badge">No Result</span>', cancelled:'<span class="fx-result fx-noresult-badge">Cancelled</span>', abandoned:'<span class="fx-result fx-noresult-badge">Abandoned</span>', upcoming:'<span class="fx-result fx-upcoming-badge">Upcoming</span>' };
     var homeName = row.HomeTeam.replace(/ Over 40s$/i,'').replace(/ Lions Over 40s$/i,' Lions');
     var awayName = row.AwayTeam.replace(/ Over 40s$/i,'').replace(/ Lions Over 40s$/i,' Lions');
-    return '<div class="fx-card fx-' + cls + '">'
+    var cardCls = (cls === 'cancelled' || cls === 'abandoned') ? 'noresult' : cls;
+    return '<div class="fx-card fx-' + cardCls + '">'
       + '<div class="fx-card-top"><span class="fx-card-date">' + escHtml(shortDate(row.Date)) + '</span>'
       + '<div class="fx-card-badges">' + tournamentBadge(row.Tournament) + ' ' + (badges[cls] || '') + '</div></div>'
       + '<div class="fx-card-teams">'
