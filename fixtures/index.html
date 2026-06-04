@@ -336,7 +336,7 @@
       if (team === 'senior' && isLions) return;
       var cls = classify(r.Result);
       if (cls === 'upcoming') { upcoming++; return; }
-      if (cls === 'noresult') { noResult++; return; }
+      if (cls === 'noresult' || cls === 'cancelled' || cls === 'abandoned') { noResult++; return; }
       played++;
       if (cls === 'win') won++;
       else if (cls === 'loss') lost++;
