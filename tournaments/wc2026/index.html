@@ -515,17 +515,24 @@
 
    2. WHEN ENTERING A RESULT — add an entry to WC.results:
       WC.results['B_england_scotland'] = {
-        homeScore: '210/6 (45)', awayScore: '145 (38.2)',
-        result: 'home',          // 'home' | 'away' | 'tie' | 'nr'
+        homeScore: '210/6 (45)',           // display string for match card
+        homeRuns: 210, homeOvers: 45.0,    // England scored 210/6 off 45 full overs
+        awayScore: '145 (38.2)',            // display string for match card
+        awayRuns: 145, awayOvers: 38.2,    // Scotland all out 145 off 38 overs 2 balls
+        result: 'home',                    // 'home' | 'away' | 'tie' | 'nr'
         scorecardURL: 'https://englandseniors.play-cricket.com/website/results/...'
       };
+      OVERS FORMAT: 38.2 = 38 overs 2 balls (NOT a decimal — converted internally).
+      ALL OUT: use actual overs faced. FULL INNINGS: use 45.0 (or full allocation).
+      NRR is calculated automatically from homeRuns/homeOvers/awayRuns/awayOvers.
+      For no-result matches (result: 'nr'), overs/runs are ignored in NRR.
 
    3. KNOCKOUT RESULTS — update the relevant knockout entry in WC.knockout:
       WC.knockout.SF1.home = 'england';  WC.knockout.SF1.away = 'pakistan';
       WC.knockout.SF1.result = 'home';   WC.knockout.SF1.homeScore = '198/7 (45)';
       WC.knockout.SF1.date = '28 Oct 2026'; WC.knockout.SF1.venue = 'Providence Stadium';
 
-   4. NRR — if standings are tied on points, add NRR manually:
+   4. NRR OVERRIDE — only needed to correct an error; normally auto-calculated:
       WC.nrr.england = 1.245;
 
    ======================================================================== */
@@ -566,19 +573,23 @@ var WC = {
     */
   },
 
-  /* ── Results ── Add when matches are played ── */
-  /* result: 'home' | 'away' | 'tie' | 'nr'       */
+  /* ── Results ── Add when matches are played ──────────────────────────── */
+  /* result: 'home' | 'away' | 'tie' | 'nr'                                */
+  /* NRR is auto-calculated from homeRuns/homeOvers/awayRuns/awayOvers      */
   results: {
     /* Example (remove comment when adding real data):
     'B_england_newzealand': {
-      homeScore: '215/6 (45)', awayScore: '212/9 (45)',
+      homeScore: '215/6 (45)',           // display only
+      homeRuns: 215, homeOvers: 45.0,    // England batted — 215 off 45 overs
+      awayScore: '212/9 (45)',           // display only
+      awayRuns: 212, awayOvers: 45.0,    // NZ batted — 212 off 45 overs
       result: 'home',
       scorecardURL: ''
     },
     */
   },
 
-  /* ── NRR overrides ── Set when standings are affected ── */
+  /* ── NRR overrides ── Emergency correction only; normally auto-calculated */
   nrr: {
     /* england: 0.451 */
   },
@@ -634,6 +645,50 @@ function generatePairs(teams) {
   return pairs;
 }
 
+/* ── Convert cricket overs notation to decimal (38.4 → 38.667) ── */
+function parseCricketOvers(overs) {
+  if (overs === undefined || overs === null || overs === '') return 0;
+  var s = String(overs);
+  var parts = s.split('.');
+  var full  = parseInt(parts[0], 10) || 0;
+  var balls = parseInt((parts[1] || '0').charAt(0), 10) || 0;
+  return full + balls / 6;
+}
+
+/* ── Auto-calculate NRR for a team across all played group matches ── */
+/* Returns undefined if no matches played yet (shows — in table).     */
+function calcNRR(teamKey, groupKey) {
+  var runsFor = 0, oversFor = 0, runsAgainst = 0, oversAgainst = 0;
+  var hasData = false;
+  Object.keys(WC.results).forEach(function(key) {
+    var parts = key.split('_');
+    if (parts[0] !== groupKey) return;
+    var home = parts[1], away = parts[2];
+    var r = WC.results[key];
+    if (!r || !r.result || r.result === 'nr') return;
+    var isHome = (home === teamKey), isAway = (away === teamKey);
+    if (!isHome && !isAway) return;
+    /* Only accumulate if numeric overs data present */
+    var hO = r.homeOvers, aO = r.awayOvers;
+    if (hO === undefined || aO === undefined) return;
+    hasData = true;
+    if (isHome) {
+      runsFor      += (r.homeRuns || 0);
+      oversFor     += parseCricketOvers(hO);
+      runsAgainst  += (r.awayRuns  || 0);
+      oversAgainst += parseCricketOvers(aO);
+    } else {
+      runsFor      += (r.awayRuns  || 0);
+      oversFor     += parseCricketOvers(aO);
+      runsAgainst  += (r.homeRuns  || 0);
+      oversAgainst += parseCricketOvers(hO);
+    }
+  });
+  if (!hasData) return undefined;
+  if (oversFor === 0 || oversAgainst === 0) return 0;
+  return (runsFor / oversFor) - (runsAgainst / oversAgainst);
+}
+
 function calcStandings(groupKey) {
   var teams = WC.groups[groupKey];
   var s = {};
@@ -654,8 +709,9 @@ function calcStandings(groupKey) {
   });
   return teams.map(function(t) { return s[t]; }).sort(function(a, b) {
     if (b.pts !== a.pts) return b.pts - a.pts;
-    var nrrA = WC.nrr[a.team] || 0;
-    var nrrB = WC.nrr[b.team] || 0;
+    /* Manual override takes precedence; otherwise use auto-calculated NRR */
+    var nrrA = (WC.nrr[a.team] !== undefined) ? WC.nrr[a.team] : (calcNRR(a.team, groupKey) || 0);
+    var nrrB = (WC.nrr[b.team] !== undefined) ? WC.nrr[b.team] : (calcNRR(b.team, groupKey) || 0);
     return nrrB - nrrA;
   });
 }
@@ -674,7 +730,8 @@ function renderStandings(groupKey, standings) {
     var t = WC.teams[row.team];
     if (!t) return;
     var isEng = row.team === 'england';
-    var nrrVal = WC.nrr[row.team];
+    /* Manual override takes precedence; otherwise auto-calculated */
+    var nrrVal = (WC.nrr[row.team] !== undefined) ? WC.nrr[row.team] : calcNRR(row.team, groupKey);
     var nrrStr = (nrrVal !== undefined)
       ? '<span class="' + (nrrVal >= 0 ? 'wc-nrr-pos' : 'wc-nrr-neg') + '">'
           + (nrrVal >= 0 ? '+' : '') + nrrVal.toFixed(3) + '</span>'
