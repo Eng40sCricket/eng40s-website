@@ -597,7 +597,6 @@ function renderStandings(groupKey, standings) {
       + '<td><div class="wc-team-cell">'
       + '<span class="wc-pos">' + (idx + 1) + '</span>'
       + teamImg(row.team, 26)
-      + '<span class="wc-team-flag">' + t.flag + '</span>'
       + '<span class="wc-team-name' + (isEng ? ' england-name' : '') + '">' + t.name + '</span>'
       + '</div></td>'
       + '<td>' + row.p + '</td>'
@@ -671,7 +670,7 @@ function renderMatchCard(groupKey, homeKey, awayKey) {
     + '<div class="wc-match-team">'
     + teamImg(homeKey, 32)
     + '<div class="wc-match-team-info">'
-    + '<div class="wc-match-team-name' + (homeKey === 'england' ? ' england' : '') + '">' + homeT.flag + ' ' + homeT.name + '</div>'
+    + '<div class="wc-match-team-name' + (homeKey === 'england' ? ' england' : '') + '">' + homeT.name + '</div>'
     + (res.homeScore ? '<div class="wc-match-team-score">' + res.homeScore + '</div>' : '')
     + '</div>'
     + '</div>'
@@ -681,7 +680,7 @@ function renderMatchCard(groupKey, homeKey, awayKey) {
     + '<div class="wc-match-team" style="flex-direction:row-reverse;text-align:right">'
     + teamImg(awayKey, 32)
     + '<div class="wc-match-team-info" style="text-align:right">'
-    + '<div class="wc-match-team-name' + (awayKey === 'england' ? ' england' : '') + '">' + awayT.name + ' ' + awayT.flag + '</div>'
+    + '<div class="wc-match-team-name' + (awayKey === 'england' ? ' england' : '') + '">' + awayT.name + '</div>'
     + (res.awayScore ? '<div class="wc-match-team-score">' + res.awayScore + '</div>' : '')
     + '</div>'
     + '</div>'
@@ -740,12 +739,12 @@ function renderKnockoutCard(id, match) {
   var awayT = match.away ? WC.teams[match.away] : null;
 
   var homeBlock = homeT
-    ? (teamImg(match.home, 40) + '<div class="wc-ko-team-name">' + homeT.flag + ' ' + homeT.name + '</div>'
+    ? (teamImg(match.home, 40) + '<div class="wc-ko-team-name">' + homeT.name + '</div>'
        + (match.homeScore ? '<div class="wc-ko-score">' + match.homeScore + '</div>' : ''))
     : ('<div class="wc-ko-team-placeholder">?</div><div class="wc-ko-team-tbc">TBC</div>');
 
   var awayBlock = awayT
-    ? (teamImg(match.away, 40) + '<div class="wc-ko-team-name">' + awayT.flag + ' ' + awayT.name + '</div>'
+    ? (teamImg(match.away, 40) + '<div class="wc-ko-team-name">' + awayT.name + '</div>'
        + (match.awayScore ? '<div class="wc-ko-score">' + match.awayScore + '</div>' : ''))
     : ('<div class="wc-ko-team-placeholder">?</div><div class="wc-ko-team-tbc">TBC</div>');
 
