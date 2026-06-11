@@ -350,12 +350,79 @@
   /* ─── Loading ─────────────────────────────────────────────────────────── */
   .wc-loading { text-align: center; padding: 48px; color: rgba(170,195,230,0.7); font-size: 0.9rem; }
 
+  /* ─── WC Top Nav ──────────────────────────────────────────────────────── */
+  .wc-topnav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(4, 12, 35, 0.97);
+    border-bottom: 1px solid rgba(0,128,219,0.22);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .wc-topnav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; gap: 8px;
+    padding: 0 20px; height: 62px;
+  }
+  .wc-topnav-brand {
+    display: flex; align-items: center; gap: 11px;
+    text-decoration: none; flex-shrink: 0; margin-right: 8px;
+  }
+  .wc-topnav-badge {
+    width: 38px; height: 38px; object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+  .wc-topnav-titles { display: flex; flex-direction: column; gap: 0; }
+  .wc-topnav-title {
+    font-family: 'Bebas Neue', 'Arial Narrow', sans-serif;
+    font-size: 1.3rem; letter-spacing: 0.06em;
+    color: #fff; line-height: 1.1; text-transform: uppercase;
+  }
+  .wc-topnav-sub {
+    font-family: 'Bebas Neue', 'Arial Narrow', sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.14em;
+    color: #0080DB; line-height: 1.2; text-transform: uppercase;
+  }
+  .wc-topnav-nav {
+    display: flex; align-items: center; gap: 2px;
+    margin-left: auto;
+  }
+  .wc-topnav-link {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.09em;
+    color: rgba(210,230,255,0.75);
+    text-decoration: none; text-transform: uppercase;
+    padding: 8px 11px; border-radius: 4px;
+    transition: color 0.18s, background 0.18s;
+    white-space: nowrap;
+  }
+  .wc-topnav-link:hover { color: #fff; background: rgba(255,255,255,0.07); }
+  .wc-topnav-link.active {
+    color: #fff;
+    box-shadow: inset 0 -2px 0 #0080DB;
+  }
+  .wc-topnav-eng-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase;
+    background: #0080DB; color: #fff;
+    padding: 7px 15px; border-radius: 20px;
+    text-decoration: none; margin-left: 8px;
+    transition: background 0.18s;
+    white-space: nowrap; flex-shrink: 0;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .wc-topnav-eng-btn:hover { background: #006bbf; }
+
   /* ─── Responsive tweaks ───────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .wc-topnav-nav { display: none; }
+  }
   @media (max-width: 600px) {
     .wc-hero h1 { font-size: 1.6rem; }
     .wc-hero-logo { width: 90px; height: 90px; }
     .wc-match-top { flex-wrap: wrap; }
     .wc-ko-grid { grid-template-columns: 1fr; }
+    .wc-topnav-eng-btn { display: none; }
   }
 </style>
 </head>
@@ -364,7 +431,28 @@
 <div class="wc-bg"></div>
 <div class="wc-bg-overlay"></div>
 
-<div id="header-placeholder"></div>
+<header class="wc-topnav">
+  <div class="wc-topnav-inner">
+    <a href="https://eng40swc-guyana2026.manus.space" class="wc-topnav-brand" aria-label="World Cup Hub">
+      <img src="../../assets/img/england.png" alt="England Over 40s Cricket" class="wc-topnav-badge">
+      <div class="wc-topnav-titles">
+        <span class="wc-topnav-title">England Over 40s</span>
+        <span class="wc-topnav-sub">World Cup 2026</span>
+      </div>
+    </a>
+    <nav class="wc-topnav-nav" aria-label="Tournament navigation">
+      <a href="https://eng40swc-guyana2026.manus.space" class="wc-topnav-link">Home</a>
+      <a href="https://eng40swc-guyana2026.manus.space" class="wc-topnav-link">Squad</a>
+      <a href="#" class="wc-topnav-link" onclick="activateTab('groups'); return false;">Groups</a>
+      <a href="#" class="wc-topnav-link" onclick="activateTab('knockout'); return false;">Knockout</a>
+      <a href="/" class="wc-topnav-link">Main Site</a>
+    </nav>
+    <a href="https://eng40swc-guyana2026.manus.space" class="wc-topnav-eng-btn" aria-label="England team page">
+      <img src="../../assets/img/england.png" alt="" style="width:16px;height:16px;object-fit:contain;filter:brightness(0) invert(1);">
+      England
+    </a>
+  </div>
+</header>
 
 <div class="wc-wrap">
 
@@ -823,6 +911,15 @@ document.querySelector('.wc-tabs').addEventListener('click', function(e) {
   btn.classList.add('active');
   document.getElementById('pane-' + btn.dataset.tab).classList.add('active');
 });
+
+/* ── Nav tab helper (called from wc-topnav links) ── */
+function activateTab(tabName) {
+  var btn = document.querySelector('.wc-tab[data-tab="' + tabName + '"]');
+  if (btn) {
+    btn.click();
+    setTimeout(function() { btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 50);
+  }
+}
 
 /* ── Group sub-tab switching ── */
 var groupCache = {};
