@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IMC Over 40s World Cup 2026 — England Over 40s Cricket</title>
+<meta name="description" content="England Over 40s Cricket at the IMC Over 40s World Cup 2026 in Guyana. Live group standings, fixtures and knockout results.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<style>
+  /* ─── Page background ─────────────────────────────────────────────────── */
+  .wc-bg {
+    position: fixed; inset: 0; z-index: -2;
+    background: url('../../assets/img/cricket-bg.jpg') center center / cover no-repeat;
+  }
+  .wc-bg-overlay {
+    position: fixed; inset: 0; z-index: -1;
+    background: linear-gradient(180deg,rgba(5,16,43,0.88) 0%,rgba(5,16,43,0.80) 40%,rgba(8,20,50,0.82) 100%);
+  }
+
+  /* ─── Base ────────────────────────────────────────────────────────────── */
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #e8eef5;
+    line-height: 1.5;
+    min-height: 100vh;
+    background: #05102B;
+    margin: 0; padding: 0;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* ─── Wrapper ─────────────────────────────────────────────────────────── */
+  .wc-wrap { max-width: 1200px; margin: 0 auto; padding: 20px 16px 64px; position: relative; z-index: 1; }
+
+  /* ─── Back link ───────────────────────────────────────────────────────── */
+  .wc-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.78rem; font-weight: 600; color: rgba(200,215,235,0.75);
+    text-decoration: none; padding: 6px 0 12px;
+    transition: color 0.2s;
+  }
+  .wc-back:hover { color: #0080DB; }
+
+  /* ─── Hero ────────────────────────────────────────────────────────────── */
+  .wc-hero {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; padding: 20px 16px 24px;
+  }
+  .wc-hero-logo {
+    width: 120px; height: 120px; object-fit: contain;
+    filter: drop-shadow(0 4px 16px rgba(0,128,219,0.35));
+    margin-bottom: 16px;
+  }
+  .wc-hero h1 {
+    font-family: 'Bebas Neue', 'Arial Narrow', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: #fff; margin: 0 0 6px; letter-spacing: 2px; text-transform: uppercase;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  }
+  .wc-hero-meta {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 10px;
+  }
+  .wc-hero-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 20px; padding: 5px 14px; font-size: 0.8rem; font-weight: 600; color: #d0ddf0;
+  }
+  .wc-hero-pill.gold { background: rgba(207,167,92,0.15); border-color: rgba(207,167,92,0.35); color: #CFA75C; }
+  .wc-england-badge {
+    margin-top: 12px;
+    background: linear-gradient(135deg, rgba(207,167,92,0.18) 0%, rgba(0,128,219,0.18) 100%);
+    border: 1.5px solid rgba(207,167,92,0.45);
+    border-radius: 12px; padding: 10px 20px;
+    font-size: 0.84rem; font-weight: 700; color: #CFA75C; letter-spacing: 0.3px;
+  }
+
+  /* ─── Tabs ────────────────────────────────────────────────────────────── */
+  .wc-tabs { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin: 20px 0 22px; }
+  .wc-tab {
+    padding: 9px 22px; border-radius: 24px; background: rgba(255,255,255,0.07);
+    color: rgba(220,230,245,0.9); font-size: 0.84rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    font-family: 'Manrope', sans-serif; border: none; outline: none;
+  }
+  .wc-tab:hover { background: rgba(255,255,255,0.14); color: #fff; }
+  .wc-tab.active { background: #0080DB; color: #fff; box-shadow: 0 0 14px rgba(0,128,219,0.4); }
+
+  /* ─── Tab panes ───────────────────────────────────────────────────────── */
+  .wc-pane { display: none; }
+  .wc-pane.active { display: block; }
+
+  /* ─── Group sub-tabs ─────────────────────────────────────────────────── */
+  .wc-group-tabs { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+  .wc-group-tab {
+    padding: 9px 24px; border-radius: 12px; background: rgba(255,255,255,0.07);
+    color: rgba(210,228,248,0.85); font-size: 0.84rem; font-weight: 600;
+    cursor: pointer; border: 1.5px solid rgba(255,255,255,0.1);
+    font-family: 'Manrope', sans-serif; transition: all 0.2s;
+  }
+  .wc-group-tab:hover { background: rgba(255,255,255,0.13); color: #fff; }
+  .wc-group-tab.active { background: rgba(0,128,219,0.18); color: #fff; border-color: rgba(0,128,219,0.5); }
+  .wc-group-tab.eng-tab.active { background: rgba(207,167,92,0.15); border-color: rgba(207,167,92,0.5); color: #CFA75C; }
+
+  /* ─── Group stage layout ──────────────────────────────────────────────── */
+  .wc-group-panel {
+    background: rgba(12,26,50,0.78); border: 1px solid rgba(100,160,220,0.18);
+    border-radius: 16px; overflow: hidden;
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+  }
+  .wc-group-panel.england-group { border-color: rgba(207,167,92,0.35); }
+
+  .wc-group-header {
+    padding: 14px 18px 12px;
+    background: rgba(5,16,43,0.6);
+    border-bottom: 2px solid rgba(0,128,219,0.28);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .wc-group-panel.england-group .wc-group-header { border-bottom-color: rgba(207,167,92,0.4); }
+  .wc-group-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem;
+    letter-spacing: 2px; text-transform: uppercase; color: #fff; margin: 0;
+  }
+  .wc-group-eng-badge {
+    font-size: 0.68rem; font-weight: 700; background: rgba(207,167,92,0.22);
+    color: #CFA75C; border: 1px solid rgba(207,167,92,0.4); border-radius: 8px; padding: 2px 9px;
+  }
+
+  /* ─── Standings table ─────────────────────────────────────────────────── */
+  .wc-standings { padding: 14px 16px; }
+  .wc-standings-label {
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.82rem; letter-spacing: 1.2px;
+    text-transform: uppercase; color: rgba(180,200,230,0.7); margin-bottom: 8px;
+  }
+  .wc-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid rgba(100,160,220,0.13); }
+  .wc-table {
+    width: 100%; border-collapse: collapse; font-size: 0.79rem;
+  }
+  .wc-table thead th {
+    background: rgba(5,16,43,0.95); color: rgba(200,220,245,0.85);
+    padding: 8px 8px; text-align: center; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;
+    border-bottom: 2px solid rgba(0,128,219,0.25); font-weight: 700;
+  }
+  .wc-table thead th:first-child { text-align: left; padding-left: 12px; }
+  .wc-table tbody td {
+    padding: 8px 8px; border-bottom: 1px solid rgba(100,160,220,0.09);
+    vertical-align: middle; color: #d4e2f0; text-align: center;
+  }
+  .wc-table tbody td:first-child { text-align: left; padding-left: 12px; }
+  .wc-table tbody tr { background: rgba(15,30,55,0.45); }
+  .wc-table tbody tr:last-child td { border-bottom: none; }
+  .wc-table tbody tr:hover { background: rgba(30,55,90,0.55); }
+  .wc-table tbody tr.england-row { background: rgba(207,167,92,0.10); }
+  .wc-table tbody tr.england-row:hover { background: rgba(207,167,92,0.16); }
+  .wc-table tbody tr.england-row td { color: #fff; }
+  .wc-table tbody tr.england-row td:first-child { font-weight: 700; }
+  .wc-pts { font-weight: 700; color: #CFA75C; }
+  .wc-pos { font-weight: 700; color: rgba(180,200,230,0.6); font-size: 0.7rem; min-width: 18px; display: inline-block; }
+  .wc-team-cell { display: flex; align-items: center; gap: 7px; }
+  .wc-team-logo {
+    width: 26px; height: 26px; object-fit: contain; border-radius: 50%;
+    background: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.2);
+    flex-shrink: 0;
+  }
+  .wc-team-placeholder {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.52rem; font-weight: 700; color: rgba(255,255,255,0.6);
+    flex-shrink: 0; letter-spacing: -0.03em;
+  }
+  .wc-team-flag { font-size: 0.9rem; line-height: 1; }
+  .wc-team-name { font-weight: 600; font-size: 0.8rem; white-space: nowrap; }
+  .wc-nrr-pos { color: #4caf50; }
+  .wc-nrr-neg { color: #ef5350; }
+
+  /* Standings qualifier line */
+  .wc-qual-row td { border-top: 2px dashed rgba(0,128,219,0.4) !important; }
+  .wc-qual-label {
+    font-size: 0.62rem; color: rgba(0,128,219,0.8); text-transform: uppercase;
+    letter-spacing: 0.5px; font-weight: 600; padding: 3px 12px 2px;
+  }
+
+  /* ─── Fixtures list ──────────────────────────────────────────────────── */
+  .wc-fixtures-body { padding: 12px 16px 16px; }
+  .wc-fixtures-section-label {
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.82rem; letter-spacing: 1.2px;
+    text-transform: uppercase; color: rgba(180,200,230,0.7); margin: 12px 0 8px;
+    padding-top: 8px; border-top: 1px solid rgba(100,160,220,0.12);
+  }
+  .wc-fixtures-section-label:first-child { border-top: none; margin-top: 0; }
+
+  /* ─── Match card ──────────────────────────────────────────────────────── */
+  .wc-match {
+    background: rgba(10,24,48,0.6); border: 1px solid rgba(100,160,220,0.12);
+    border-radius: 10px; margin-bottom: 8px; overflow: hidden;
+    border-left: 4px solid rgba(100,160,220,0.25);
+    transition: border-color 0.2s;
+  }
+  .wc-match.england-match { border-left-color: #CFA75C; background: rgba(207,167,92,0.06); }
+  .wc-match.result-home { border-left-color: rgba(46,125,50,0.7); }
+  .wc-match.result-away { border-left-color: rgba(198,40,40,0.7); }
+  .wc-match.result-tie  { border-left-color: rgba(245,152,32,0.7); }
+  .wc-match.result-nr   { border-left-color: rgba(97,97,97,0.7);  }
+
+  .wc-match-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 12px 4px; gap: 8px;
+  }
+  .wc-match-meta { font-size: 0.72rem; color: rgba(170,195,225,0.75); font-weight: 500; }
+  .wc-match-meta span { margin-right: 10px; }
+
+  .wc-match-teams {
+    display: flex; align-items: center; padding: 6px 12px 8px; gap: 10px;
+  }
+  .wc-match-team { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; }
+  .wc-match-team.away { flex-direction: row-reverse; }
+  .wc-match-team-logo {
+    width: 32px; height: 32px; object-fit: contain; border-radius: 50%;
+    background: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.2);
+    flex-shrink: 0;
+  }
+  .wc-match-team-placeholder {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.58rem; font-weight: 700; color: rgba(255,255,255,0.6);
+    flex-shrink: 0;
+  }
+  .wc-match-team-info { min-width: 0; }
+  .wc-match-team-name { font-size: 0.8rem; font-weight: 600; color: #d8e4f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .wc-match-team-name.england { font-weight: 700; color: #fff; }
+  .wc-match-team-score { font-size: 0.73rem; color: rgba(180,205,235,0.85); margin-top: 1px; }
+
+  .wc-match-vs {
+    font-size: 0.72rem; font-weight: 700; color: rgba(150,175,210,0.5);
+    padding: 0 4px; white-space: nowrap;
+  }
+  .wc-match-vs.has-result { display: none; }
+
+  .wc-match-result-badge {
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 8px; white-space: nowrap;
+  }
+  .rb-home    { background: rgba(46,125,50,0.25); color: #81c784; border: 1px solid rgba(46,125,50,0.4); }
+  .rb-away    { background: rgba(198,40,40,0.25); color: #ef9a9a; border: 1px solid rgba(198,40,40,0.4); }
+  .rb-tie     { background: rgba(245,152,32,0.2); color: #ffcc80; border: 1px solid rgba(245,152,32,0.4); }
+  .rb-nr      { background: rgba(97,97,97,0.25);  color: #bdbdbd; border: 1px solid rgba(97,97,97,0.4);  }
+  .rb-upcoming{ background: rgba(0,128,219,0.18); color: #90caf9; border: 1px solid rgba(0,128,219,0.35);}
+
+  .wc-match-bottom {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    padding: 4px 12px 9px; border-top: 1px solid rgba(100,160,220,0.08);
+  }
+  .wc-venue-txt { font-size: 0.69rem; color: rgba(160,190,225,0.72); flex: 1; min-width: 0; }
+  .wc-pill {
+    display: inline-flex; align-items: center; gap: 3px;
+    padding: 3px 9px; border-radius: 12px; font-size: 0.68rem; font-weight: 700;
+    text-decoration: none !important; white-space: nowrap; transition: all 0.18s;
+    font-family: 'Manrope', sans-serif; border: 1px solid transparent;
+  }
+  .wc-pill-scorecard {
+    color: #0080DB !important; border-color: rgba(0,128,219,0.4);
+    background: rgba(0,128,219,0.1);
+  }
+  .wc-pill-scorecard:hover { background: #0080DB; color: #fff !important; }
+
+  /* ─── Knockout section ────────────────────────────────────────────────── */
+  .wc-ko-section { margin-bottom: 28px; }
+  .wc-ko-section-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: #fff;
+    letter-spacing: 1.5px; text-transform: uppercase; margin: 0 0 12px;
+    padding-bottom: 8px; border-bottom: 2px solid rgba(0,128,219,0.25);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .wc-ko-section-title .ko-date-badge {
+    font-size: 0.7rem; font-family: 'Manrope', sans-serif; font-weight: 700;
+    background: rgba(207,167,92,0.18); color: #CFA75C;
+    border: 1px solid rgba(207,167,92,0.35); border-radius: 8px; padding: 2px 10px;
+    letter-spacing: 0.3px; text-transform: none;
+  }
+  .wc-ko-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+
+  .wc-ko-card {
+    background: rgba(12,26,50,0.78); border: 1px solid rgba(100,160,220,0.16);
+    border-radius: 12px; overflow: hidden;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 3px 18px rgba(0,0,0,0.3);
+  }
+  .wc-ko-card.final { border-color: rgba(207,167,92,0.45); }
+  .wc-ko-card-header {
+    background: rgba(5,16,43,0.7); padding: 8px 14px;
+    border-bottom: 1px solid rgba(100,160,220,0.14);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .wc-ko-card.final .wc-ko-card-header { border-bottom-color: rgba(207,167,92,0.3); }
+  .wc-ko-match-name {
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem;
+    letter-spacing: 1px; color: #fff; text-transform: uppercase;
+  }
+  .wc-ko-card.final .wc-ko-match-name { color: #CFA75C; }
+  .wc-ko-match-note { font-size: 0.67rem; color: rgba(160,190,230,0.72); font-weight: 500; }
+
+  .wc-ko-teams {
+    display: flex; align-items: center; padding: 12px 14px; gap: 10px;
+  }
+  .wc-ko-team { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; }
+  .wc-ko-team-logo {
+    width: 40px; height: 40px; object-fit: contain; border-radius: 50%;
+    background: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.2);
+  }
+  .wc-ko-team-placeholder {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; font-weight: 700; color: rgba(255,255,255,0.5);
+  }
+  .wc-ko-team-name { font-size: 0.76rem; font-weight: 600; color: #c8d8f0; }
+  .wc-ko-team-tbc { font-size: 0.72rem; font-weight: 600; color: rgba(140,170,210,0.6); font-style: italic; }
+  .wc-ko-vs { font-size: 0.8rem; font-weight: 700; color: rgba(130,160,200,0.45); padding: 0 6px; }
+  .wc-ko-score { font-size: 0.72rem; color: rgba(190,210,235,0.8); margin-top: 2px; }
+
+  .wc-ko-footer { padding: 6px 14px 10px; border-top: 1px solid rgba(100,160,220,0.09); }
+  .wc-ko-venue { font-size: 0.67rem; color: rgba(150,180,220,0.65); }
+
+  /* ─── Format info box ─────────────────────────────────────────────────── */
+  .wc-info-box {
+    background: rgba(0,128,219,0.09); border: 1px solid rgba(0,128,219,0.22);
+    border-radius: 12px; padding: 16px 20px; margin-bottom: 22px;
+    font-size: 0.82rem; color: rgba(190,215,240,0.9); line-height: 1.7;
+  }
+  .wc-info-box strong { color: #fff; font-weight: 700; }
+  .wc-info-box p { margin: 0 0 6px; }
+  .wc-info-box p:last-child { margin-bottom: 0; }
+
+  /* ─── Footer note ─────────────────────────────────────────────────────── */
+  .wc-page-footer {
+    text-align: center; padding: 20px 0 0; margin-top: 24px;
+    border-top: 1px solid rgba(100,160,220,0.12);
+    font-size: 0.72rem; color: rgba(150,175,215,0.58);
+  }
+  .wc-page-footer a { color: rgba(0,128,219,0.85); text-decoration: none; }
+  .wc-page-footer a:hover { color: #0080DB; }
+
+  /* ─── Loading ─────────────────────────────────────────────────────────── */
+  .wc-loading { text-align: center; padding: 48px; color: rgba(170,195,230,0.7); font-size: 0.9rem; }
+
+  /* ─── Responsive tweaks ───────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .wc-hero h1 { font-size: 1.6rem; }
+    .wc-hero-logo { width: 90px; height: 90px; }
+    .wc-match-top { flex-wrap: wrap; }
+    .wc-ko-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wc-bg"></div>
+<div class="wc-bg-overlay"></div>
+
+<div id="header-placeholder"></div>
+
+<div class="wc-wrap">
+
+  <a href="/fixtures/" class="wc-back">&#8592; Fixtures &amp; Results</a>
+
+  <!-- Hero -->
+  <div class="wc-hero">
+    <img src="../../assets/img/wc-guyana-2026-logo.png" alt="IMC Over 40s World Cup 2026" class="wc-hero-logo" onerror="this.style.display='none'">
+    <h1>IMC Over 40s World Cup 2026</h1>
+    <div class="wc-hero-meta">
+      <span class="wc-hero-pill">🏏 Guyana, West Indies</span>
+      <span class="wc-hero-pill">📅 17 Oct – 1 Nov 2026</span>
+      <span class="wc-hero-pill gold">45 Overs · 16 Nations</span>
+    </div>
+    <div class="wc-england-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England are in Group B</div>
+  </div>
+
+  <!-- Main tabs -->
+  <div class="wc-tabs">
+    <button class="wc-tab active" data-tab="groups">Group Stage</button>
+    <button class="wc-tab" data-tab="knockout">Knockout Stage</button>
+  </div>
+
+  <!-- Group Stage pane -->
+  <div class="wc-pane active" id="pane-groups">
+    <div class="wc-group-tabs" id="wc-group-tabs">
+      <button class="wc-group-tab" data-group="A">Group A</button>
+      <button class="wc-group-tab eng-tab active" data-group="B">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Group B — England</button>
+    </div>
+    <div id="wc-groups-container">
+      <div class="wc-loading">Loading groups…</div>
+    </div>
+  </div>
+
+  <!-- Knockout pane -->
+  <div class="wc-pane" id="pane-knockout">
+    <div id="wc-knockout-container">
+      <div class="wc-loading">Loading bracket…</div>
+    </div>
+  </div>
+
+  <div class="wc-page-footer">
+    <p>Schedule subject to confirmation by the IMC. All times local (Guyana, UTC−4).<br>
+    <a href="/fixtures/">← Back to England Fixtures &amp; Results</a></p>
+  </div>
+
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script>
+/* ==========================================================================
+   WC 2026 DATA
+   ──────────────────────────────────────────────────────────────────────────
+   UPDATE INSTRUCTIONS
+   ──────────────────────────────────────────────────────────────────────────
+
+   1. WHEN SCHEDULE IS RELEASED — add entries to WC.schedule:
+      WC.schedule['B_england_scotland'] = { date: '18 Oct 2026', time: '09:30', venue: 'Providence Stadium, Georgetown' };
+
+   2. WHEN ENTERING A RESULT — add an entry to WC.results:
+      WC.results['B_england_scotland'] = {
+        homeScore: '210/6 (45)', awayScore: '145 (38.2)',
+        result: 'home',          // 'home' | 'away' | 'tie' | 'nr'
+        scorecardURL: 'https://englandseniors.play-cricket.com/website/results/...'
+      };
+
+   3. KNOCKOUT RESULTS — update the relevant knockout entry in WC.knockout:
+      WC.knockout.SF1.home = 'england';  WC.knockout.SF1.away = 'pakistan';
+      WC.knockout.SF1.result = 'home';   WC.knockout.SF1.homeScore = '198/7 (45)';
+      WC.knockout.SF1.date = '28 Oct 2026'; WC.knockout.SF1.venue = 'Providence Stadium';
+
+   4. NRR — if standings are tied on points, add NRR manually:
+      WC.nrr.england = 1.245;
+
+   ======================================================================== */
+
+var WC = {
+
+  /* ── Teams ── */
+  teams: {
+    westindies:  { name: 'West Indies',   logo: 'westindies.png',  flag: '🌴', abbr: 'WI'  },
+    australia:   { name: 'Australia',     logo: 'australia.png',   flag: '🇦🇺', abbr: 'AUS' },
+    wales:       { name: 'Wales',         logo: 'wales.png',       flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿', abbr: 'WAL' },
+    srilanka:    { name: 'Sri Lanka',     logo: 'srilanka.png',    flag: '🇱🇰', abbr: 'SL'  },
+    canada:      { name: 'Canada',        logo: 'canada.png',      flag: '🇨🇦', abbr: 'CAN' },
+    southafrica: { name: 'South Africa',  logo: 'southafrica.png', flag: '🇿🇦', abbr: 'RSA' },
+    namibia:     { name: 'Namibia',       logo: 'namibia.png',     flag: '🇳🇦', abbr: 'NAM' },
+    colombia:    { name: 'Colombia',      logo: null,              flag: '🇨🇴', abbr: 'COL' },
+    newzealand:  { name: 'New Zealand',   logo: 'newzealand.png',  flag: '🇳🇿', abbr: 'NZ'  },
+    pakistan:    { name: 'Pakistan',      logo: 'pakistan.png',    flag: '🇵🇰', abbr: 'PAK' },
+    uae:         { name: 'UAE',           logo: 'uae.png',         flag: '🇦🇪', abbr: 'UAE' },
+    india:       { name: 'India',         logo: 'india.png',       flag: '🇮🇳', abbr: 'IND' },
+    england:     { name: 'England',       logo: 'england.png',     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', abbr: 'ENG' },
+    scotland:    { name: 'Scotland',      logo: 'scotland.png',    flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', abbr: 'SCO' },
+    usa:         { name: 'USA',           logo: 'usa.png',         flag: '🇺🇸', abbr: 'USA' },
+    row:         { name: 'Rest of World', logo: null,              flag: '🌍', abbr: 'ROW' }
+  },
+
+  /* ── Groups ── */
+  groups: {
+    A: ['westindies','australia','wales','srilanka','canada','southafrica','namibia','colombia'],
+    B: ['newzealand','pakistan','uae','india','england','scotland','usa','row']
+  },
+
+  /* ── Schedule ── Add when IMC publishes fixture list ── */
+  /* Key format: '{GROUP}_{hometeamkey}_{awayteamkey}'     */
+  schedule: {
+    /* Example (remove comment when adding real data):
+    'B_england_newzealand': { date: '18 Oct 2026', time: '09:30', venue: 'Providence Stadium, Georgetown' },
+    */
+  },
+
+  /* ── Results ── Add when matches are played ── */
+  /* result: 'home' | 'away' | 'tie' | 'nr'       */
+  results: {
+    /* Example (remove comment when adding real data):
+    'B_england_newzealand': {
+      homeScore: '215/6 (45)', awayScore: '212/9 (45)',
+      result: 'home',
+      scorecardURL: ''
+    },
+    */
+  },
+
+  /* ── NRR overrides ── Set when standings are affected ── */
+  nrr: {
+    /* england: 0.451 */
+  },
+
+  /* ── Knockout matches ── */
+  knockout: {
+    /* ── Cross-group position matches (Semi-final day, date TBC) ── */
+    SF1:  { label: 'Semi-Final 1',   date: 'TBC', venue: 'TBC', note: '1st Group A vs 2nd Group B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    SF2:  { label: 'Semi-Final 2',   date: 'TBC', venue: 'TBC', note: '1st Group B vs 2nd Group A', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    M3A:  { label: 'Match 3A',       date: 'TBC', venue: 'TBC', note: '3rd Group A vs 4th Group B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    M3B:  { label: 'Match 3B',       date: 'TBC', venue: 'TBC', note: '3rd Group B vs 4th Group A', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    M5A:  { label: 'Match 5A',       date: 'TBC', venue: 'TBC', note: '5th Group A vs 6th Group B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    M5B:  { label: 'Match 5B',       date: 'TBC', venue: 'TBC', note: '5th Group B vs 6th Group A', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    M7A:  { label: 'Match 7A',       date: 'TBC', venue: 'TBC', note: '7th Group A vs 8th Group B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    M7B:  { label: 'Match 7B',       date: 'TBC', venue: 'TBC', note: '7th Group B vs 8th Group A', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    /* ── 30 October: Position finals ── */
+    FINAL:  { label: 'Grand Final',        date: '31 Oct 2026', venue: 'TBC', note: 'Winner SF1 vs Winner SF2',           home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    BRONZE: { label: '3rd Place Final',    date: '30 Oct 2026', venue: 'TBC', note: 'Winner M3A vs Winner M3B',           home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    P4:     { label: '4th Place Play-off', date: '30 Oct 2026', venue: 'TBC', note: 'Loser M3A vs Loser M3B',            home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    P5:     { label: '5th Place Final',    date: '30 Oct 2026', venue: 'TBC', note: 'Winner M5A vs Winner M5B',           home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    P6:     { label: '6th Place Play-off', date: '30 Oct 2026', venue: 'TBC', note: 'Loser M5A vs Loser M5B',            home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    P7:     { label: '7th Place Final',    date: '30 Oct 2026', venue: 'TBC', note: 'Winner M7A vs Winner M7B',           home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    P8:     { label: '8th Place Play-off', date: '30 Oct 2026', venue: 'TBC', note: 'Loser M7A vs Loser M7B',            home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' }
+  }
+};
+
+/* ==========================================================================
+   RENDER ENGINE — no edits required below this line
+   ======================================================================== */
+
+var IMG_PATH = '../../assets/img/';
+
+function teamImg(teamKey, size) {
+  var t = WC.teams[teamKey];
+  if (!t) return '<span class="wc-team-placeholder" style="width:'+size+'px;height:'+size+'px">?</span>';
+  if (t.logo) {
+    return '<img src="' + IMG_PATH + t.logo + '" alt="' + t.name + '" '
+      + 'style="width:'+size+'px;height:'+size+'px;object-fit:contain;border-radius:50%;background:rgba(255,255,255,0.9);border:1px solid rgba(255,255,255,0.2);flex-shrink:0;" '
+      + 'onerror="this.style.display=\'none\'">';
+  }
+  return '<div class="wc-team-placeholder" style="width:'+size+'px;height:'+size+'px;font-size:'+Math.floor(size*0.25)+'px">' + t.abbr + '</div>';
+}
+
+function generatePairs(teams) {
+  var pairs = [];
+  for (var i = 0; i < teams.length; i++) {
+    for (var j = i + 1; j < teams.length; j++) {
+      pairs.push([teams[i], teams[j]]);
+    }
+  }
+  return pairs;
+}
+
+function calcStandings(groupKey) {
+  var teams = WC.groups[groupKey];
+  var s = {};
+  teams.forEach(function(t) {
+    s[t] = { team: t, p: 0, w: 0, l: 0, tie: 0, nr: 0, pts: 0 };
+  });
+  var pairs = generatePairs(teams);
+  pairs.forEach(function(pair) {
+    var homeKey = pair[0], awayKey = pair[1];
+    var key = groupKey + '_' + homeKey + '_' + awayKey;
+    var r = WC.results[key];
+    if (!r || !r.result) return;
+    s[homeKey].p++; s[awayKey].p++;
+    if (r.result === 'home')  { s[homeKey].w++; s[homeKey].pts += 2; s[awayKey].l++; }
+    else if (r.result === 'away') { s[awayKey].w++; s[awayKey].pts += 2; s[homeKey].l++; }
+    else if (r.result === 'tie')  { s[homeKey].tie++; s[homeKey].pts++; s[awayKey].tie++; s[awayKey].pts++; }
+    else if (r.result === 'nr')   { s[homeKey].nr++;  s[homeKey].pts++; s[awayKey].nr++;  s[awayKey].pts++; }
+  });
+  return teams.map(function(t) { return s[t]; }).sort(function(a, b) {
+    if (b.pts !== a.pts) return b.pts - a.pts;
+    var nrrA = WC.nrr[a.team] || 0;
+    var nrrB = WC.nrr[b.team] || 0;
+    return nrrB - nrrA;
+  });
+}
+
+function renderStandings(groupKey, standings) {
+  var html = '<div class="wc-standings">'
+    + '<div class="wc-standings-label">Group ' + groupKey + ' Standings</div>'
+    + '<div class="wc-table-wrap"><table class="wc-table"><thead><tr>'
+    + '<th style="text-align:left">Team</th>'
+    + '<th title="Played">P</th><th title="Won">W</th><th title="Lost">L</th>'
+    + '<th title="Tie">T</th><th title="No Result">NR</th>'
+    + '<th title="Points">Pts</th><th title="Net Run Rate">NRR</th>'
+    + '</tr></thead><tbody>';
+
+  standings.forEach(function(row, idx) {
+    var t = WC.teams[row.team];
+    if (!t) return;
+    var isEng = row.team === 'england';
+    var nrrVal = WC.nrr[row.team];
+    var nrrStr = (nrrVal !== undefined)
+      ? '<span class="' + (nrrVal >= 0 ? 'wc-nrr-pos' : 'wc-nrr-neg') + '">'
+          + (nrrVal >= 0 ? '+' : '') + nrrVal.toFixed(3) + '</span>'
+      : '<span style="color:rgba(150,180,220,0.45)">—</span>';
+
+    var qualClass = (idx === 2) ? ' wc-qual-row' : '';  /* dashed line after 2nd */
+    html += '<tr class="' + (isEng ? 'england-row' : '') + qualClass + '">'
+      + '<td><div class="wc-team-cell">'
+      + '<span class="wc-pos">' + (idx + 1) + '</span>'
+      + teamImg(row.team, 26)
+      + '<span class="wc-team-flag">' + t.flag + '</span>'
+      + '<span class="wc-team-name' + (isEng ? ' england-name' : '') + '">' + t.name + '</span>'
+      + '</div></td>'
+      + '<td>' + row.p + '</td>'
+      + '<td>' + row.w + '</td>'
+      + '<td>' + row.l + '</td>'
+      + '<td>' + row.tie + '</td>'
+      + '<td>' + row.nr + '</td>'
+      + '<td class="wc-pts">' + row.pts + '</td>'
+      + '<td>' + nrrStr + '</td>'
+      + '</tr>';
+
+    /* Qualification marker after position 2 */
+    if (idx === 1) {
+      html += '<tr><td colspan="8" class="wc-qual-label">⬆ Advance to knockout semi-finals</td></tr>';
+    }
+  });
+
+  html += '</tbody></table></div></div>';
+  return html;
+}
+
+function resultClass(result) {
+  if (!result) return '';
+  var map = { home: 'result-home', away: 'result-away', tie: 'result-tie', nr: 'result-nr' };
+  return map[result] || '';
+}
+
+function resultBadge(result, homeTeam) {
+  if (!result) return '<span class="wc-match-result-badge rb-upcoming">Upcoming</span>';
+  var labels = { home: homeTeam + ' won', away: 'Opponent won', tie: 'Tie', nr: 'No result' };
+  var classes = { home: 'rb-home', away: 'rb-away', tie: 'rb-tie', nr: 'rb-nr' };
+  return '<span class="wc-match-result-badge ' + (classes[result]||'') + '">' + (labels[result]||result) + '</span>';
+}
+
+function renderMatchCard(groupKey, homeKey, awayKey) {
+  var key = groupKey + '_' + homeKey + '_' + awayKey;
+  var sch = WC.schedule[key] || {};
+  var res = WC.results[key] || {};
+  var homeT = WC.teams[homeKey] || { name: homeKey, flag: '', abbr: homeKey.toUpperCase() };
+  var awayT = WC.teams[awayKey] || { name: awayKey, flag: '', abbr: awayKey.toUpperCase() };
+  var isEng = homeKey === 'england' || awayKey === 'england';
+  var date = sch.date || 'TBC';
+  var time = sch.time ? ' · ' + sch.time : '';
+  var venue = sch.venue || 'Venue TBC';
+
+  /* For result badges, label from England's perspective if possible */
+  var resultLabel = '';
+  if (res.result) {
+    if (isEng) {
+      var engIsHome = homeKey === 'england';
+      var engWon = (engIsHome && res.result === 'home') || (!engIsHome && res.result === 'away');
+      var engLost = (engIsHome && res.result === 'away') || (!engIsHome && res.result === 'home');
+      if (engWon) resultLabel = '<span class="wc-match-result-badge rb-home">England won</span>';
+      else if (engLost) resultLabel = '<span class="wc-match-result-badge rb-away">England lost</span>';
+      else if (res.result === 'tie') resultLabel = '<span class="wc-match-result-badge rb-tie">Tie</span>';
+      else resultLabel = '<span class="wc-match-result-badge rb-nr">No result</span>';
+    } else {
+      resultLabel = resultBadge(res.result, homeT.name);
+    }
+  } else {
+    resultLabel = '<span class="wc-match-result-badge rb-upcoming">Upcoming</span>';
+  }
+
+  var html = '<div class="wc-match ' + resultClass(res.result) + (isEng ? ' england-match' : '') + '">'
+    + '<div class="wc-match-top">'
+    + '<div class="wc-match-meta"><span>' + date + time + '</span></div>'
+    + resultLabel
+    + '</div>'
+    + '<div class="wc-match-teams">'
+    /* Home team */
+    + '<div class="wc-match-team">'
+    + teamImg(homeKey, 32)
+    + '<div class="wc-match-team-info">'
+    + '<div class="wc-match-team-name' + (homeKey === 'england' ? ' england' : '') + '">' + homeT.flag + ' ' + homeT.name + '</div>'
+    + (res.homeScore ? '<div class="wc-match-team-score">' + res.homeScore + '</div>' : '')
+    + '</div>'
+    + '</div>'
+    /* VS */
+    + '<div class="wc-match-vs">v</div>'
+    /* Away team */
+    + '<div class="wc-match-team" style="flex-direction:row-reverse;text-align:right">'
+    + teamImg(awayKey, 32)
+    + '<div class="wc-match-team-info" style="text-align:right">'
+    + '<div class="wc-match-team-name' + (awayKey === 'england' ? ' england' : '') + '">' + awayT.name + ' ' + awayT.flag + '</div>'
+    + (res.awayScore ? '<div class="wc-match-team-score">' + res.awayScore + '</div>' : '')
+    + '</div>'
+    + '</div>'
+    + '</div>'
+    /* Bottom bar */
+    + '<div class="wc-match-bottom">'
+    + '<div class="wc-venue-txt">📍 ' + venue + '</div>'
+    + (res.scorecardURL ? '<a href="' + res.scorecardURL + '" class="wc-pill wc-pill-scorecard" target="_blank" rel="noopener">📋 Scorecard</a>' : '')
+    + '</div>'
+    + '</div>';
+  return html;
+}
+
+function renderGroup(groupKey) {
+  var teams = WC.groups[groupKey];
+  var standings = calcStandings(groupKey);
+  var pairs = generatePairs(teams);
+  var isEngGroup = teams.indexOf('england') > -1;
+
+  /* England's matches first in Group B */
+  var engPairs = [], otherPairs = [];
+  pairs.forEach(function(p) {
+    if (isEngGroup && (p[0] === 'england' || p[1] === 'england')) engPairs.push(p);
+    else otherPairs.push(p);
+  });
+
+  var played = pairs.filter(function(p) {
+    return WC.results[groupKey+'_'+p[0]+'_'+p[1]] && WC.results[groupKey+'_'+p[0]+'_'+p[1]].result;
+  }).length;
+
+  var html = '<div class="wc-group-panel' + (isEngGroup ? ' england-group' : '') + '">'
+    + '<div class="wc-group-header">'
+    + '<h2 class="wc-group-title">Group ' + groupKey + '</h2>'
+    + (isEngGroup ? '<span class="wc-group-eng-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England\'s Group</span>' : '')
+    + '</div>'
+    + renderStandings(groupKey, standings)
+    + '<div class="wc-fixtures-body">';
+
+  if (isEngGroup && engPairs.length) {
+    html += '<div class="wc-fixtures-section-label">England\'s Matches (' + engPairs.length + ')</div>';
+    engPairs.forEach(function(p) { html += renderMatchCard(groupKey, p[0], p[1]); });
+    html += '<div class="wc-fixtures-section-label">All Group B Fixtures (' + pairs.length + ' total, ' + played + ' played)</div>';
+    pairs.forEach(function(p) { html += renderMatchCard(groupKey, p[0], p[1]); });
+  } else {
+    html += '<div class="wc-fixtures-section-label">All Group ' + groupKey + ' Fixtures (' + pairs.length + ' total, ' + played + ' played)</div>';
+    pairs.forEach(function(p) { html += renderMatchCard(groupKey, p[0], p[1]); });
+  }
+
+  html += '</div></div>';
+  return html;
+}
+
+function renderKnockoutCard(id, match) {
+  var isFinal = id === 'FINAL';
+  var homeT = match.home ? WC.teams[match.home] : null;
+  var awayT = match.away ? WC.teams[match.away] : null;
+
+  var homeBlock = homeT
+    ? (teamImg(match.home, 40) + '<div class="wc-ko-team-name">' + homeT.flag + ' ' + homeT.name + '</div>'
+       + (match.homeScore ? '<div class="wc-ko-score">' + match.homeScore + '</div>' : ''))
+    : ('<div class="wc-ko-team-placeholder">?</div><div class="wc-ko-team-tbc">TBC</div>');
+
+  var awayBlock = awayT
+    ? (teamImg(match.away, 40) + '<div class="wc-ko-team-name">' + awayT.flag + ' ' + awayT.name + '</div>'
+       + (match.awayScore ? '<div class="wc-ko-score">' + match.awayScore + '</div>' : ''))
+    : ('<div class="wc-ko-team-placeholder">?</div><div class="wc-ko-team-tbc">TBC</div>');
+
+  return '<div class="wc-ko-card' + (isFinal ? ' final' : '') + '">'
+    + '<div class="wc-ko-card-header">'
+    + '<div class="wc-ko-match-name">' + match.label + '</div>'
+    + '<div class="wc-ko-match-note">' + match.note + '</div>'
+    + '</div>'
+    + '<div class="wc-ko-teams">'
+    + '<div class="wc-ko-team">' + homeBlock + '</div>'
+    + '<div class="wc-ko-vs">v</div>'
+    + '<div class="wc-ko-team">' + awayBlock + '</div>'
+    + '</div>'
+    + '<div class="wc-ko-footer">'
+    + '<div class="wc-ko-venue">📍 ' + match.venue + (match.date !== 'TBC' ? ' &nbsp;·&nbsp; 📅 ' + match.date : ' &nbsp;·&nbsp; 📅 TBC') + '</div>'
+    + (match.scorecardURL ? '<a href="' + match.scorecardURL + '" class="wc-pill wc-pill-scorecard" target="_blank" rel="noopener" style="margin-top:6px;display:inline-flex">📋 Scorecard</a>' : '')
+    + '</div>'
+    + '</div>';
+}
+
+function renderKnockout() {
+  var k = WC.knockout;
+  var html = '';
+
+  /* Info box */
+  html += '<div class="wc-info-box">'
+    + '<p><strong>Cross-group knockout format:</strong> Group positions are matched across groups — '
+    + '1st Group A faces 2nd Group B in Semi-Final 1, and 1st Group B faces 2nd Group A in Semi-Final 2. '
+    + 'The same cross-group principle applies to all other position play-offs (3rd/4th, 5th/6th, 7th/8th).</p>'
+    + '<p><strong>31 Oct:</strong> Grand Final &nbsp;|&nbsp; <strong>30 Oct:</strong> All position play-off finals &nbsp;|&nbsp; '
+    + '<strong>Semi-finals + play-off semi-matches:</strong> date TBC, followed by a rest day.</p>'
+    + '</div>';
+
+  /* Cross-group position matches */
+  html += '<div class="wc-ko-section">'
+    + '<h3 class="wc-ko-section-title">Semi-Finals &amp; Play-off Openers <span class="ko-date-badge">Date TBC</span></h3>'
+    + '<div class="wc-ko-grid">'
+    + renderKnockoutCard('SF1', k.SF1)
+    + renderKnockoutCard('SF2', k.SF2)
+    + renderKnockoutCard('M3A', k.M3A)
+    + renderKnockoutCard('M3B', k.M3B)
+    + renderKnockoutCard('M5A', k.M5A)
+    + renderKnockoutCard('M5B', k.M5B)
+    + renderKnockoutCard('M7A', k.M7A)
+    + renderKnockoutCard('M7B', k.M7B)
+    + '</div></div>';
+
+  /* 30 October */
+  html += '<div class="wc-ko-section">'
+    + '<h3 class="wc-ko-section-title">Position Play-off Finals <span class="ko-date-badge">30 October 2026</span></h3>'
+    + '<div class="wc-ko-grid">'
+    + renderKnockoutCard('BRONZE', k.BRONZE)
+    + renderKnockoutCard('P4', k.P4)
+    + renderKnockoutCard('P5', k.P5)
+    + renderKnockoutCard('P6', k.P6)
+    + renderKnockoutCard('P7', k.P7)
+    + renderKnockoutCard('P8', k.P8)
+    + '</div></div>';
+
+  /* Grand Final */
+  html += '<div class="wc-ko-section">'
+    + '<h3 class="wc-ko-section-title">Grand Final <span class="ko-date-badge">31 October 2026</span></h3>'
+    + '<div class="wc-ko-grid" style="max-width:380px">'
+    + renderKnockoutCard('FINAL', k.FINAL)
+    + '</div></div>';
+
+  return html;
+}
+
+/* ── Main tab switching ── */
+document.querySelector('.wc-tabs').addEventListener('click', function(e) {
+  var btn = e.target.closest('.wc-tab');
+  if (!btn) return;
+  document.querySelectorAll('.wc-tab').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.wc-pane').forEach(function(p) { p.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('pane-' + btn.dataset.tab).classList.add('active');
+});
+
+/* ── Group sub-tab switching ── */
+var groupCache = {};
+function showGroup(groupKey) {
+  if (!groupCache[groupKey]) groupCache[groupKey] = renderGroup(groupKey);
+  document.getElementById('wc-groups-container').innerHTML = groupCache[groupKey];
+}
+
+document.getElementById('wc-group-tabs').addEventListener('click', function(e) {
+  var btn = e.target.closest('.wc-group-tab');
+  if (!btn) return;
+  document.querySelectorAll('.wc-group-tab').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  showGroup(btn.dataset.group);
+});
+
+/* ── Initialise ── */
+(function() {
+  /* Show Group B (England) by default */
+  showGroup('B');
+  /* Pre-render Group A in background */
+  groupCache['A'] = renderGroup('A');
+  /* Knockout */
+  document.getElementById('wc-knockout-container').innerHTML = renderKnockout();
+})();
+</script>
+
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
