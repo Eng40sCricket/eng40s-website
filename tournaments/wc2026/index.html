@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/broadcast-theme.css">
+<link rel="stylesheet" href="../../assets/css/brand-colours.css">
 <style>
   /* ─── Page background ─────────────────────────────────────────────────── */
   .wc-bg {
@@ -451,7 +453,7 @@ var WC = {
     canada:      { name: 'Canada',        logo: 'canada.png',      flag: '🇨🇦', abbr: 'CAN' },
     southafrica: { name: 'South Africa',  logo: 'southafrica.png', flag: '🇿🇦', abbr: 'RSA' },
     namibia:     { name: 'Namibia',       logo: 'namibia.png',     flag: '🇳🇦', abbr: 'NAM' },
-    colombia:    { name: 'Colombia',      logo: null,              flag: '🇨🇴', abbr: 'COL' },
+    colombia:    { name: 'Colombia',      logo: 'colombia.png',    flag: '🇨🇴', abbr: 'COL' },
     newzealand:  { name: 'New Zealand',   logo: 'newzealand.png',  flag: '🇳🇿', abbr: 'NZ'  },
     pakistan:    { name: 'Pakistan',      logo: 'pakistan.png',    flag: '🇵🇰', abbr: 'PAK' },
     uae:         { name: 'UAE',           logo: 'uae.png',         flag: '🇦🇪', abbr: 'UAE' },
@@ -459,7 +461,7 @@ var WC = {
     england:     { name: 'England',       logo: 'england.png',     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', abbr: 'ENG' },
     scotland:    { name: 'Scotland',      logo: 'scotland.png',    flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', abbr: 'SCO' },
     usa:         { name: 'USA',           logo: 'usa.png',         flag: '🇺🇸', abbr: 'USA' },
-    row:         { name: 'Rest of World', logo: null,              flag: '🌍', abbr: 'ROW' }
+    row:         { name: 'Rest of World', logo: 'row.png',         flag: '🌍', abbr: 'ROW' }
   },
 
   /* ── Groups ── */
@@ -529,7 +531,9 @@ function teamImg(teamKey, size) {
       + 'style="width:'+size+'px;height:'+size+'px;object-fit:contain;border-radius:50%;background:rgba(255,255,255,0.9);border:1px solid rgba(255,255,255,0.2);flex-shrink:0;" '
       + 'onerror="this.style.display=\'none\'">';
   }
-  return '<div class="wc-team-placeholder" style="width:'+size+'px;height:'+size+'px;font-size:'+Math.floor(size*0.25)+'px">' + t.abbr + '</div>';
+  /* No logo — show flag emoji in a circle */
+  var emojiSize = Math.round(size * 0.55) + 'px';
+  return '<div class="wc-team-placeholder" style="width:'+size+'px;height:'+size+'px;font-size:'+emojiSize+'">' + (t.flag || t.abbr) + '</div>';
 }
 
 function generatePairs(teams) {
