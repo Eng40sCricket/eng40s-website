@@ -347,6 +347,31 @@
   .wc-page-footer a { color: rgba(0,128,219,0.85); text-decoration: none; }
   .wc-page-footer a:hover { color: #0080DB; }
 
+  /* ─── Warm-up section ────────────────────────────────────────────────── */
+  .wc-warmup-section {
+    margin: 0 0 22px;
+  }
+  .wc-warmup-label {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(180,205,235,0.45);
+    margin-bottom: 8px; padding-left: 2px;
+  }
+  .wc-warmup-label span {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px; padding: 2px 7px; margin-left: 6px;
+    font-size: 0.6rem; letter-spacing: 0.08em; color: rgba(180,205,235,0.5);
+  }
+  /* Warm-up match cards are visually muted vs. real fixtures */
+  .wc-warmup-section .wc-match {
+    opacity: 0.75;
+    border-color: rgba(255,255,255,0.07);
+  }
+  .rb-warmup {
+    background: rgba(150,170,210,0.12);
+    border: 1px solid rgba(150,170,210,0.25);
+    color: rgba(170,190,230,0.8);
+  }
+
   /* ─── Loading ─────────────────────────────────────────────────────────── */
   .wc-loading { text-align: center; padding: 48px; color: rgba(170,195,230,0.7); font-size: 0.9rem; }
 
@@ -522,6 +547,9 @@
     <div class="wc-england-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England are in Group B</div>
   </div>
 
+  <!-- Warm-up matches (auto-renders when WU_ entries exist) -->
+  <div id="wc-warmup-container"></div>
+
   <!-- England summary strip (auto-renders once results exist) -->
   <div id="wc-eng-strip-container"></div>
 
@@ -568,7 +596,16 @@
    1. WHEN SCHEDULE IS RELEASED — add entries to WC.schedule:
       WC.schedule['B_england_scotland'] = { date: '18 Oct 2026', time: '09:30', venue: 'Providence Stadium, Georgetown' };
 
-   2. WHEN ENTERING A RESULT — add an entry to WC.results:
+   2. WARM-UP MATCHES — use 'WU' as the group prefix. These appear in a
+      separate section and are EXCLUDED from all standings, NRR, and stats:
+      WC.results['WU_england_westindies'] = {
+        homeScore: '198/7 (45)', homeRuns: 198, homeOvers: 45.0,
+        awayScore: '176 (42.3)', awayRuns: 176, awayOvers: 42.3,
+        result: 'home', scorecardURL: ''
+      };
+      WC.schedule['WU_england_westindies'] = { date: '16 Oct 2026', time: '10:00', venue: 'Providence Stadium' };
+
+   3. WHEN ENTERING A GROUP RESULT — add an entry to WC.results:
       WC.results['B_england_scotland'] = {
         homeScore: '210/6 (45)',           // display string for match card
         homeRuns: 210, homeOvers: 45.0,    // England scored 210/6 off 45 full overs
@@ -582,12 +619,12 @@
       NRR is calculated automatically from homeRuns/homeOvers/awayRuns/awayOvers.
       For no-result matches (result: 'nr'), overs/runs are ignored in NRR.
 
-   3. KNOCKOUT RESULTS — update the relevant knockout entry in WC.knockout:
+   4. KNOCKOUT RESULTS — update the relevant knockout entry in WC.knockout:
       WC.knockout.SF1.home = 'england';  WC.knockout.SF1.away = 'pakistan';
       WC.knockout.SF1.result = 'home';   WC.knockout.SF1.homeScore = '198/7 (45)';
       WC.knockout.SF1.date = '28 Oct 2026'; WC.knockout.SF1.venue = 'Providence Stadium';
 
-   4. NRR OVERRIDE — only needed to correct an error; normally auto-calculated:
+   5. NRR OVERRIDE — only needed to correct an error; normally auto-calculated:
       WC.nrr.england = 1.245;
 
    ======================================================================== */
@@ -1042,6 +1079,75 @@ document.querySelector('.wc-tabs').addEventListener('click', function(e) {
   document.getElementById('pane-' + btn.dataset.tab).classList.add('active');
 });
 
+/* ── Warm-up matches (WU_ prefix — excluded from all stats) ── */
+function renderWarmups() {
+  var container = document.getElementById('wc-warmup-container');
+  if (!container) return;
+
+  /* Collect all WU keys that involve England */
+  var wuKeys = Object.keys(WC.schedule).concat(Object.keys(WC.results)).filter(function(k) {
+    return k.indexOf('WU_') === 0 && (k.indexOf('england') > -1);
+  });
+  /* Deduplicate */
+  wuKeys = wuKeys.filter(function(v, i, a) { return a.indexOf(v) === i; });
+
+  if (wuKeys.length === 0) { container.innerHTML = ''; return; }
+
+  var html = '<div class="wc-warmup-section">'
+    + '<div class="wc-warmup-label">Warm-up Matches <span>Not counted in standings or NRR</span></div>';
+
+  wuKeys.forEach(function(key) {
+    var parts = key.split('_');  /* WU, home, away */
+    var homeKey = parts[1], awayKey = parts[2];
+    var sch = WC.schedule[key] || {};
+    var res = WC.results[key] || {};
+    var homeT = WC.teams[homeKey] || { name: homeKey, abbr: homeKey.toUpperCase(), flag: '' };
+    var awayT = WC.teams[awayKey] || { name: awayKey, abbr: awayKey.toUpperCase(), flag: '' };
+    var date = sch.date || 'TBC';
+    var time = sch.time ? ' · ' + sch.time : '';
+    var venue = sch.venue || 'Venue TBC';
+
+    var badge = res.result
+      ? (res.result === 'home'
+          ? '<span class="wc-match-result-badge rb-home">England won</span>'
+          : res.result === 'away'
+            ? '<span class="wc-match-result-badge rb-away">England lost</span>'
+            : res.result === 'tie'
+              ? '<span class="wc-match-result-badge rb-tie">Tie</span>'
+              : '<span class="wc-match-result-badge rb-nr">No result</span>')
+      : '<span class="wc-match-result-badge rb-upcoming">Upcoming</span>';
+
+    html += '<div class="wc-match' + (res.result ? ' ' + resultClass(res.result) : '') + ' england-match">'
+      + '<div class="wc-match-top">'
+      + '<div class="wc-match-meta"><span>' + date + time + '</span></div>'
+      + badge
+      + '<span class="wc-match-result-badge rb-warmup" style="margin-left:4px">Warm-up</span>'
+      + '</div>'
+      + '<div class="wc-match-teams">'
+      + '<div class="wc-match-team">'
+      + teamImg(homeKey, 32)
+      + '<div class="wc-match-team-info">'
+      + '<div class="wc-match-team-name england">' + homeT.name + '</div>'
+      + (res.homeScore ? '<div class="wc-match-team-score">' + res.homeScore + '</div>' : '')
+      + '</div></div>'
+      + '<div class="wc-match-vs">v</div>'
+      + '<div class="wc-match-team" style="flex-direction:row-reverse;text-align:right">'
+      + teamImg(awayKey, 32)
+      + '<div class="wc-match-team-info" style="text-align:right">'
+      + '<div class="wc-match-team-name">' + awayT.name + '</div>'
+      + (res.awayScore ? '<div class="wc-match-team-score">' + res.awayScore + '</div>' : '')
+      + '</div></div>'
+      + '</div>'
+      + '<div class="wc-match-bottom">'
+      + '<div class="wc-venue-txt">📍 ' + venue + '</div>'
+      + (res.scorecardURL ? '<a href="' + res.scorecardURL + '" class="wc-pill wc-pill-scorecard" target="_blank" rel="noopener">📋 Scorecard</a>' : '')
+      + '</div></div>';
+  });
+
+  html += '</div>';
+  container.innerHTML = html;
+}
+
 /* ── England summary strip ── */
 function calcEnglandGroupStats() {
   var standings = calcStandings('B');
@@ -1158,6 +1264,8 @@ document.getElementById('wc-group-tabs').addEventListener('click', function(e) {
 
 /* ── Initialise ── */
 (function() {
+  /* Warm-up matches */
+  renderWarmups();
   /* England summary strip */
   renderEnglandStrip();
   /* Show Group B (England) by default */
