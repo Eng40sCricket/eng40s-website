@@ -350,6 +350,58 @@
   /* ─── Loading ─────────────────────────────────────────────────────────── */
   .wc-loading { text-align: center; padding: 48px; color: rgba(170,195,230,0.7); font-size: 0.9rem; }
 
+  /* ─── England Summary Strip ──────────────────────────────────────────── */
+  .wc-eng-strip {
+    background: linear-gradient(135deg, rgba(5,16,43,0.96) 0%, rgba(15,30,65,0.92) 100%);
+    border: 1px solid rgba(207,167,92,0.28);
+    border-left: 3px solid #CFA75C;
+    border-radius: 10px;
+    padding: 14px 18px 14px 16px;
+    margin: 0 0 22px;
+  }
+  .wc-eng-strip-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+  }
+  .wc-eng-strip-badge {
+    width: 36px; height: 36px; object-fit: contain; flex-shrink: 0;
+  }
+  .wc-eng-strip-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: 0.07em; color: #fff;
+  }
+  .wc-eng-strip-title span {
+    color: #CFA75C; margin-left: 6px;
+  }
+  .wc-eng-strip-pos {
+    margin-left: auto; flex-shrink: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem; letter-spacing: 0.1em;
+    background: rgba(207,167,92,0.15); border: 1px solid rgba(207,167,92,0.35);
+    color: #CFA75C; padding: 4px 12px; border-radius: 20px;
+  }
+  .wc-eng-strip-record {
+    display: flex; flex-wrap: wrap; gap: 8px 18px;
+    font-size: 0.8rem; color: rgba(200,220,245,0.8);
+  }
+  .wc-eng-strip-record strong { color: #fff; }
+  .wc-eng-strip-record .nrr-pos { color: #4fc97a; }
+  .wc-eng-strip-record .nrr-neg { color: #f06b6b; }
+  .wc-eng-strip-divider {
+    border: none; border-top: 1px solid rgba(207,167,92,0.15);
+    margin: 12px 0 10px;
+  }
+  .wc-eng-strip-perf {
+    display: flex; flex-wrap: wrap; gap: 6px 24px;
+    font-size: 0.78rem;
+  }
+  .wc-eng-strip-perf-group { display: flex; flex-direction: column; gap: 3px; min-width: 140px; }
+  .wc-eng-strip-perf-label {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(180,205,235,0.5); margin-bottom: 2px;
+  }
+  .wc-eng-strip-perf-row { color: rgba(210,230,255,0.85); }
+  .wc-eng-strip-perf-row strong { color: #fff; }
+
   /* ─── WC Top Nav ──────────────────────────────────────────────────────── */
   .wc-topnav {
     position: sticky; top: 0; z-index: 100;
@@ -469,6 +521,9 @@
     </div>
     <div class="wc-england-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England are in Group B</div>
   </div>
+
+  <!-- England summary strip (auto-renders once results exist) -->
+  <div id="wc-eng-strip-container"></div>
 
   <!-- Main tabs -->
   <div class="wc-tabs">
@@ -592,6 +647,24 @@ var WC = {
   /* ── NRR overrides ── Emergency correction only; normally auto-calculated */
   nrr: {
     /* england: 0.451 */
+  },
+
+  /* ── England cumulative tournament stats ─────────────────────────────── */
+  /* Update after each England match — running tournament totals only.      */
+  /* Tell Claude: "Stevens now 187 runs, Abbas now 8 wickets" and these     */
+  /* will be updated. Arrays are shown in order — put top performers first. */
+  /* Leave arrays empty before the tournament starts.                       */
+  englandStats: {
+    batting: [
+      /* { name: 'D. Stevens', runs: 187 },  */
+      /* { name: 'S. Park',    runs: 134 },  */
+      /* { name: 'M. Hamblin', runs:  98 },  */
+    ],
+    bowling: [
+      /* { name: 'T. Abbas',    wickets: 8 }, */
+      /* { name: 'J. Wightman', wickets: 5 }, */
+      /* { name: 'G. Sims',     wickets: 4 }, */
+    ]
   },
 
   /* ── Knockout matches ── */
@@ -969,6 +1042,96 @@ document.querySelector('.wc-tabs').addEventListener('click', function(e) {
   document.getElementById('pane-' + btn.dataset.tab).classList.add('active');
 });
 
+/* ── England summary strip ── */
+function calcEnglandGroupStats() {
+  var standings = calcStandings('B');
+  var engRow = null, engPos = 0;
+  for (var i = 0; i < standings.length; i++) {
+    if (standings[i].team === 'england') { engRow = standings[i]; engPos = i + 1; break; }
+  }
+  var runsFor = 0, runsAgainst = 0;
+  Object.keys(WC.results).forEach(function(key) {
+    var parts = key.split('_');
+    if (parts[0] !== 'B') return;
+    var home = parts[1], away = parts[2];
+    var r = WC.results[key];
+    if (!r || !r.result || r.result === 'nr') return;
+    if (r.homeRuns === undefined || r.awayRuns === undefined) return;
+    if (home === 'england') { runsFor += r.homeRuns; runsAgainst += r.awayRuns; }
+    else if (away === 'england') { runsFor += r.awayRuns; runsAgainst += r.homeRuns; }
+  });
+  return { pos: engPos, row: engRow, runsFor: runsFor, runsAgainst: runsAgainst };
+}
+
+function ordinal(n) {
+  var s = ['th','st','nd','rd'], v = n % 100;
+  return n + (s[(v-20)%10] || s[v] || s[0]);
+}
+
+function renderEnglandStrip() {
+  var container = document.getElementById('wc-eng-strip-container');
+  if (!container) return;
+
+  var gs = calcEnglandGroupStats();
+  var row = gs.row;
+
+  /* Only render once at least one England match has a result */
+  if (!row || row.p === 0) { container.innerHTML = ''; return; }
+
+  var nrrVal = (WC.nrr['england'] !== undefined) ? WC.nrr['england'] : calcNRR('england', 'B');
+  var nrrDisp = (nrrVal !== undefined)
+    ? '<strong class="' + (nrrVal >= 0 ? 'nrr-pos' : 'nrr-neg') + '">'
+        + (nrrVal >= 0 ? '+' : '') + nrrVal.toFixed(3) + '</strong>'
+    : '—';
+
+  var posLabel = ordinal(gs.pos) + ' in Group B';
+
+  var html = '<div class="wc-eng-strip">'
+    + '<div class="wc-eng-strip-header">'
+    + '<img src="../../assets/img/england.png" class="wc-eng-strip-badge" alt="England">'
+    + '<div class="wc-eng-strip-title">England <span>· Group B</span></div>'
+    + '<div class="wc-eng-strip-pos">' + posLabel + '</div>'
+    + '</div>'
+    + '<div class="wc-eng-strip-record">'
+    + '<span>Played <strong>' + row.p + '</strong></span>'
+    + '<span>Won <strong>' + row.w + '</strong></span>'
+    + '<span>Lost <strong>' + row.l + '</strong></span>'
+    + (row.tie ? '<span>Tied <strong>' + row.tie + '</strong></span>' : '')
+    + (row.nr  ? '<span>NR <strong>'   + row.nr  + '</strong></span>' : '')
+    + '<span>Points <strong>' + row.pts + '</strong></span>'
+    + '<span>NRR ' + nrrDisp + '</span>'
+    + (gs.runsFor ? '<span>Scored <strong>' + gs.runsFor + '</strong> · Conceded <strong>' + gs.runsAgainst + '</strong></span>' : '')
+    + '</div>';
+
+  /* Player stats — only show if data present */
+  var stats = WC.englandStats || {};
+  var hasBat = stats.batting && stats.batting.length;
+  var hasBowl = stats.bowling && stats.bowling.length;
+  if (hasBat || hasBowl) {
+    html += '<hr class="wc-eng-strip-divider"><div class="wc-eng-strip-perf">';
+    if (hasBat) {
+      html += '<div class="wc-eng-strip-perf-group">'
+        + '<div class="wc-eng-strip-perf-label">🏏 Batting</div>';
+      stats.batting.forEach(function(b) {
+        html += '<div class="wc-eng-strip-perf-row"><strong>' + b.name + '</strong> ' + b.runs + ' runs</div>';
+      });
+      html += '</div>';
+    }
+    if (hasBowl) {
+      html += '<div class="wc-eng-strip-perf-group">'
+        + '<div class="wc-eng-strip-perf-label">🎯 Bowling</div>';
+      stats.bowling.forEach(function(b) {
+        html += '<div class="wc-eng-strip-perf-row"><strong>' + b.name + '</strong> ' + b.wickets + ' wkt' + (b.wickets !== 1 ? 's' : '') + '</div>';
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+
+  html += '</div>';
+  container.innerHTML = html;
+}
+
 /* ── Nav tab helper (called from wc-topnav links) ── */
 function activateTab(tabName) {
   var btn = document.querySelector('.wc-tab[data-tab="' + tabName + '"]');
@@ -995,6 +1158,8 @@ document.getElementById('wc-group-tabs').addEventListener('click', function(e) {
 
 /* ── Initialise ── */
 (function() {
+  /* England summary strip */
+  renderEnglandStrip();
   /* Show Group B (England) by default */
   showGroup('B');
   /* Pre-render Group A in background */
