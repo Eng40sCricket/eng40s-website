@@ -196,6 +196,10 @@
     .standings-table tbody tr:hover td { background: rgba(0,128,219,0.04); }
     .standings-table .col-pos { color: var(--muted); font-size: 0.8rem; width: 36px; }
     .standings-table .col-pts { font-size: 1.1rem; font-weight: 800; color: var(--sky); }
+    .standings-table .col-nrr { font-size: 0.88rem; font-weight: 700; }
+    .nrr-pos { color: #16a34a; }
+    .nrr-neg { color: #dc2626; }
+    .nrr-zero { color: var(--muted); }
     .team-cell { display: flex; align-items: center; gap: 12px; }
     .team-cell img { width: 34px; height: 34px; object-fit: cover; border-radius: 50%; border: 1px solid var(--mid); }
     .team-cell .t-name { font-weight: 700; }
@@ -471,6 +475,7 @@
           <th>W</th>
           <th>L</th>
           <th>T&nbsp;/&nbsp;NR</th>
+          <th class="col-nrr">NRR</th>
           <th class="col-pts">Pts</th>
         </tr>
       </thead>
@@ -541,10 +546,12 @@
 ══════════════════════════════════════════════════════════ */
 
 const NATIONS = [
-  { name: 'England',  emblem: 'img/england.png',  initials: 'ENG' },
-  { name: 'Ireland',  emblem: 'img/ireland.png',  initials: 'IRE' },
-  { name: 'Scotland', emblem: 'img/scotland.png', initials: 'SCO' },
-  { name: 'Wales',    emblem: 'img/wales.png',    initials: 'WAL' },
+  // emblem      = dark/hero version (navy background)
+  // emblemLight = light version (white/card backgrounds, table, squads)
+  { name: 'England',  emblem: 'img/england.png',  emblemLight: 'img/england1.png', initials: 'ENG' },
+  { name: 'Ireland',  emblem: 'img/ireland.png',  emblemLight: 'img/ireland.png',  initials: 'IRE' },
+  { name: 'Scotland', emblem: 'img/scotland.png', emblemLight: 'img/scotland.png', initials: 'SCO' },
+  { name: 'Wales',    emblem: 'img/wales.png',    emblemLight: 'img/wales.png',    initials: 'WAL' },
 ];
 
 // Matches.csv is fetched from the live site.
@@ -560,46 +567,52 @@ const FIXTURES = [
   {
     day: 1, dayLabel: 'Tuesday 28 July 2026', start: '12:00', overs: 45,
     pitch: 1, home: 'England', away: 'Ireland',
-    homeEmblem: 'img/england.png', awayEmblem: 'img/ireland.png',
+    homeEmblem: 'img/england1.png', awayEmblem: 'img/ireland.png',
     fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616872',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
+    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
   },
   {
     day: 1, dayLabel: 'Tuesday 28 July 2026', start: '12:00', overs: 45,
     pitch: 2, home: 'Wales', away: 'Scotland',
     homeEmblem: 'img/wales.png', awayEmblem: 'img/scotland.png',
     fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616873',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
+    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
   },
   /* ── Day 2: Wednesday 29 July · 11:00 start ── */
   {
     day: 2, dayLabel: 'Wednesday 29 July 2026', start: '11:00', overs: 45,
     pitch: 1, home: 'England', away: 'Scotland',
-    homeEmblem: 'img/england.png', awayEmblem: 'img/scotland.png',
+    homeEmblem: 'img/england1.png', awayEmblem: 'img/scotland.png',
     fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616869',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
+    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
   },
   {
     day: 2, dayLabel: 'Wednesday 29 July 2026', start: '11:00', overs: 45,
     pitch: 2, home: 'Wales', away: 'Ireland',
     homeEmblem: 'img/wales.png', awayEmblem: 'img/ireland.png',
     fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616871',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
+    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
   },
   /* ── Day 3: Thursday 30 July · 11:00 start ── */
   {
     day: 3, dayLabel: 'Thursday 30 July 2026', start: '11:00', overs: 45,
     pitch: 1, home: 'England', away: 'Wales',
-    homeEmblem: 'img/england.png', awayEmblem: 'img/wales.png',
+    homeEmblem: 'img/england1.png', awayEmblem: 'img/wales.png',
     fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616870',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
+    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
   },
   {
     day: 3, dayLabel: 'Thursday 30 July 2026', start: '11:00', overs: 45,
     pitch: 2, home: 'Ireland', away: 'Scotland',
     homeEmblem: 'img/ireland.png', awayEmblem: 'img/scotland.png',
     fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616874',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
+    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
   },
 ];
 
@@ -640,18 +653,34 @@ function parseLine(line) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   POINTS CALCULATION
+   POINTS & NRR CALCULATION
    Result field is from the HomeTeam's perspective:
      Win  → HomeTeam wins (+2), AwayTeam loses (+0)
      Loss → AwayTeam wins (+2), HomeTeam loses (+0)
      Tie / No Result / Abandoned → both +1
      Cancelled / upcoming → no points awarded
+
+   NRR = (Total runs scored / Total overs faced) − (Total runs conceded / Total overs bowled)
+   Score data is stored on each FIXTURE entry (homeRuns, homeOvers, awayRuns, awayOvers).
+   When a team is bowled out, use the full allocation (45) as their overs figure.
 ══════════════════════════════════════════════════════════ */
+
+// Convert cricket overs notation to decimal (e.g. 42.3 → 42.5)
+function parseOvers(ov) {
+  if (ov == null || ov === '') return 0;
+  const parts = String(ov).split('.');
+  const full  = parseInt(parts[0]) || 0;
+  const balls = parseInt(parts[1]) || 0;
+  return full + balls / 6;
+}
+
 function computeStandings(fixtures) {
   const teams = {};
   NATIONS.forEach(n => {
-    teams[n.name] = { name: n.name, emblem: n.emblem, initials: n.initials,
-                      P: 0, W: 0, L: 0, TNR: 0, Pts: 0 };
+    teams[n.name] = { name: n.name, emblem: n.emblem, emblemLight: n.emblemLight, initials: n.initials,
+                      P: 0, W: 0, L: 0, TNR: 0, Pts: 0,
+                      runsFor: 0, oversFor: 0, runsAgainst: 0, oversAgainst: 0,
+                      NRR: null };
   });
 
   fixtures.forEach(f => {
@@ -663,11 +692,29 @@ function computeStandings(fixtures) {
     H.P++; A.P++;
     if (r === 'win')       { H.W++; H.Pts += 2; A.L++; }
     else if (r === 'loss') { A.W++; A.Pts += 2; H.L++; }
-    else                   { H.TNR++; H.Pts++; A.TNR++; A.Pts++; } // tie / NR / abandoned
+    else                   { H.TNR++; H.Pts++; A.TNR++; A.Pts++; }
+
+    // NRR accumulation — only when score data is present
+    if (f.homeRuns != null && f.homeOvers != null && f.awayRuns != null && f.awayOvers != null) {
+      const hOv = parseOvers(f.homeOvers), aOv = parseOvers(f.awayOvers);
+      H.runsFor     += f.homeRuns;  H.oversFor     += hOv;
+      H.runsAgainst += f.awayRuns;  H.oversAgainst += aOv;
+      A.runsFor     += f.awayRuns;  A.oversFor     += aOv;
+      A.runsAgainst += f.homeRuns;  A.oversAgainst += hOv;
+    }
+  });
+
+  // Compute NRR for each team
+  Object.values(teams).forEach(t => {
+    if (t.oversFor > 0 && t.oversAgainst > 0) {
+      t.NRR = (t.runsFor / t.oversFor) - (t.runsAgainst / t.oversAgainst);
+    }
   });
 
   return Object.values(teams).sort((a, b) => {
     if (b.Pts !== a.Pts) return b.Pts - a.Pts;
+    // NRR tiebreaker — teams with no NRR data fall back to W count
+    if (a.NRR !== null && b.NRR !== null && Math.abs(a.NRR - b.NRR) > 0.0001) return b.NRR - a.NRR;
     if (b.W   !== a.W)   return b.W   - a.W;
     return a.name.localeCompare(b.name);
   });
@@ -719,6 +766,13 @@ function renderHero() {
   `).join('');
 }
 
+function nrrCell(nrr) {
+  if (nrr === null) return `<td class="col-nrr nrr-zero">—</td>`;
+  const sign = nrr >= 0 ? '+' : '';
+  const cls  = nrr > 0.001 ? 'nrr-pos' : nrr < -0.001 ? 'nrr-neg' : 'nrr-zero';
+  return `<td class="col-nrr ${cls}">${sign}${nrr.toFixed(3)}</td>`;
+}
+
 function renderStandings(fixtures) {
   const rows = computeStandings(fixtures);
   const anyPlayed = rows.some(r => r.P > 0);
@@ -727,7 +781,7 @@ function renderStandings(fixtures) {
       <td class="col-pos">${i + 1}</td>
       <td class="col-team">
         <div class="team-cell">
-          ${imgEl(t.emblem, t.name, 34)}
+          ${imgEl(t.emblemLight || t.emblem, t.name, 34)}
           <span class="t-name">${t.name}</span>
         </div>
       </td>
@@ -735,6 +789,7 @@ function renderStandings(fixtures) {
       <td>${t.W}</td>
       <td>${t.L}</td>
       <td>${t.TNR}</td>
+      ${nrrCell(t.NRR)}
       <td class="col-pts">${t.Pts}</td>
     </tr>
   `).join('');
@@ -794,7 +849,7 @@ function renderSquads() {
     return `
       <div class="squad-card">
         <div class="squad-card-header">
-          ${imgEl(n.emblem, n.name, 46)}
+          ${imgEl(n.emblemLight || n.emblem, n.name, 46)}
           <span class="sq-nation">${n.name.toUpperCase()}</span>
         </div>
         <div class="squad-card-body">${body}</div>
