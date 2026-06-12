@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Triple Crown 2026 | Over 40s Cricket</title>
+  <meta name="description" content="England, Ireland, Scotland and Wales compete in the Over 40s Triple Crown 2026 at Bishop's Stortford Cricket Club, 28–30 July 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ── VARIABLES & RESET ── */
+    :root {
+      --navy:      #05102B;
+      --navy-mid:  #0a1f5c;
+      --sky:       #0080DB;
+      --gold:      #CFA75C;
+      --white:     #ffffff;
+      --light:     #f4f7fb;
+      --mid:       #e2e8f0;
+      --muted:     #64748b;
+      --text:      #1e293b;
+      --shadow:    0 2px 14px rgba(5,16,43,0.10);
+      --radius:    10px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Manrope', sans-serif; background: var(--light); color: var(--text); line-height: 1.6; }
+
+    /* ── SITE HEADER ── */
+    .site-header {
+      background: var(--navy);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-header .brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 1.5px; color: var(--sky); }
+    .site-header a.back { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .site-header a.back:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(150deg, var(--navy) 0%, var(--navy-mid) 60%, #0d2a6e 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 56px 24px 52px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(0,128,219,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tournament-badge {
+      display: inline-block;
+      background: rgba(207,167,92,0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 2.5px;
+      padding: 4px 18px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .hero-logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .hero-logo-wrap img {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+    }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.6rem, 7vw, 4.8rem);
+      letter-spacing: 4px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-tagline {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 40px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Nation badges in hero */
+    .hero-nations {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .hero-nation {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-nation img {
+      width: 76px;
+      height: 76px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.15);
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
+    }
+    .hero-nation .nation-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+    }
+
+    /* Hero meta strip */
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding: 16px 0;
+    }
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 4px 28px;
+      border-right: 1px solid rgba(255,255,255,0.12);
+    }
+    .hero-meta-item:last-child { border-right: none; }
+    .hero-meta-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
+    .hero-meta-value { font-weight: 700; font-size: 0.9rem; color: var(--white); }
+
+    /* ── SECTION WRAPPER ── */
+    .section { max-width: 1020px; margin: 0 auto; padding: 48px 24px; }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.75rem;
+      letter-spacing: 2px;
+      color: var(--navy);
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 3px;
+      background: linear-gradient(to right, var(--sky), transparent);
+      border-radius: 2px;
+    }
+
+    /* ── POINTS TABLE ── */
+    .standings-wrap {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .standings-table { width: 100%; border-collapse: collapse; }
+    .standings-table thead tr { background: var(--navy); }
+    .standings-table th {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.85);
+      padding: 13px 16px;
+      text-align: center;
+      font-weight: 400;
+    }
+    .standings-table th.col-team { text-align: left; }
+    .standings-table td {
+      padding: 14px 16px;
+      text-align: center;
+      border-bottom: 1px solid var(--mid);
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+    .standings-table td.col-team { text-align: left; }
+    .standings-table tbody tr:last-child td { border-bottom: none; }
+    .standings-table tbody tr:hover td { background: rgba(0,128,219,0.04); }
+    .standings-table .col-pos { color: var(--muted); font-size: 0.8rem; width: 36px; }
+    .standings-table .col-pts { font-size: 1.1rem; font-weight: 800; color: var(--sky); }
+    .team-cell { display: flex; align-items: center; gap: 12px; }
+    .team-cell img { width: 34px; height: 34px; object-fit: cover; border-radius: 50%; border: 1px solid var(--mid); }
+    .team-cell .t-name { font-weight: 700; }
+    .leader-row td { background: rgba(207,167,92,0.06) !important; }
+    .leader-row td.col-team { border-left: 3px solid var(--gold); }
+    .data-note { font-size: 0.76rem; color: var(--muted); margin-top: 10px; text-align: right; }
+    #refreshBtn {
+      background: none; border: none; color: var(--sky); cursor: pointer;
+      font-size: 0.76rem; font-family: 'Manrope', sans-serif; padding: 0 0 0 8px;
+      text-decoration: underline;
+    }
+
+    /* ── FIXTURES ── */
+    .day-block { margin-bottom: 32px; }
+    .day-header {
+      background: var(--navy);
+      border-radius: var(--radius) var(--radius) 0 0;
+      padding: 13px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .day-header .day-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 1.5px; color: var(--white); }
+    .day-header .day-info { font-size: 0.8rem; color: rgba(255,255,255,0.65); letter-spacing: 0.5px; }
+    .match-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--mid);
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow: hidden;
+    }
+    @media (max-width: 600px) { .match-cards { grid-template-columns: 1fr; } }
+    .match-card {
+      background: var(--white);
+      padding: 22px 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .match-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .pitch-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      border: 1px solid var(--mid);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+    .overs-tag { font-size: 0.7rem; color: var(--muted); }
+    .match-teams-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .match-team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .match-team img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 1px solid var(--mid);
+    }
+    .match-team .m-name { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 1px; color: var(--navy); text-align: center; }
+    .match-vs { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; color: var(--muted); flex-shrink: 0; }
+    .match-result-row { text-align: center; min-height: 26px; }
+    .result-pill {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .pill-upcoming { background: var(--mid); color: var(--muted); }
+    .pill-home-win { background: #dcfce7; color: #166534; }
+    .pill-away-win { background: #dbeafe; color: #1e40af; }
+    .pill-tie      { background: #fef3c7; color: #92400e; }
+    .pill-nr       { background: #f1f5f9; color: var(--muted); }
+    .match-details-text { font-size: 0.78rem; color: var(--muted); text-align: center; font-style: italic; }
+    .match-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .m-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.18s, transform 0.18s;
+      white-space: nowrap;
+    }
+    .m-link:hover { opacity: 0.85; transform: translateY(-1px); }
+    .link-fixture  { background: #e2e8f0; color: var(--navy); }
+    .link-scorecard { background: var(--navy); color: var(--white); }
+    .link-live     { background: #dc2626; color: var(--white); }
+    .link-highlights { background: #7c3aed; color: var(--white); }
+
+    /* ── SQUADS ── */
+    .squads-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .squad-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .squad-card-header {
+      background: var(--navy);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .squad-card-header img { width: 46px; height: 46px; object-fit: cover; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); }
+    .squad-card-header .sq-nation { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 1.5px; color: var(--white); }
+    .squad-card-body { padding: 18px; }
+    .squad-pending { color: var(--muted); font-size: 0.85rem; font-style: italic; text-align: center; padding: 14px 0; }
+    .squad-list { list-style: none; }
+    .squad-list li { padding: 5px 0; border-bottom: 1px solid var(--mid); font-size: 0.87rem; }
+    .squad-list li:last-child { border-bottom: none; }
+    .squad-list li .role { font-size: 0.72rem; color: var(--muted); margin-left: 6px; }
+
+    /* ── VENUE LOGO ── */
+    .hero-meta-item .venue-badge {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.2);
+      margin-top: 8px;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+    }
+
+    /* ── PARTNERS ── */
+    .partners-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .partner-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      min-width: 280px;
+      flex: 1;
+      max-width: 480px;
+    }
+    .partner-logo-wrap {
+      background: var(--light);
+      border-right: 1px solid var(--mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 18px;
+      min-width: 120px;
+    }
+    .partner-logo-wrap img {
+      max-width: 90px;
+      max-height: 80px;
+      object-fit: contain;
+    }
+    .partner-info {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+    .partner-role {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--sky);
+      font-weight: 700;
+    }
+    .partner-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      color: var(--navy);
+      line-height: 1.1;
+    }
+    .partner-contact {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--navy); color: rgba(255,255,255,0.55); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    .site-footer .footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--white); letter-spacing: 1px; margin-bottom: 6px; }
+    .site-footer a { color: var(--sky); text-decoration: none; }
+    .site-footer a:hover { text-decoration: underline; }
+
+    /* ── RESPONSIVE TWEAKS ── */
+    @media (max-width: 480px) {
+      .hero-meta-item { padding: 4px 14px; }
+      .hero-nation img { width: 60px; height: 60px; }
+      .match-team img { width: 50px; height: 50px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
+<header class="site-header">
+  <span class="brand">ENGLAND OVER 40s CRICKET</span>
+  <a class="back" href="https://www.eng40scricket.co.uk">← Main Website</a>
+</header>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-tournament-badge">HOME NATIONS TOURNAMENT · OVER 40s CRICKET</div>
+  <div class="hero-logo-wrap">
+    <img src="img/tournament.png" alt="Triple Crown of Cricket 2026">
+  </div>
+  <h1>Triple Crown <span>2026</span></h1>
+  <p class="hero-tagline">England · Ireland · Scotland · Wales</p>
+
+  <div class="hero-nations" id="heroNations"></div>
+
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Venue</span>
+      <span class="hero-meta-value">Bishop's Stortford CC</span>
+      <img src="img/bscc.png" alt="Bishop's Stortford Cricket Club" class="venue-badge">
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Dates</span>
+      <span class="hero-meta-value">28–30 July 2026</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Format</span>
+      <span class="hero-meta-value">45-over round robin</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Nations</span>
+      <span class="hero-meta-value">4 · 6 matches</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STANDINGS
+══════════════════════════════════════════ -->
+<div class="section">
+  <h2 class="section-title">Points Table</h2>
+  <div class="standings-wrap">
+    <table class="standings-table">
+      <thead>
+        <tr>
+          <th class="col-pos">#</th>
+          <th class="col-team">Team</th>
+          <th>P</th>
+          <th>W</th>
+          <th>L</th>
+          <th>T&nbsp;/&nbsp;NR</th>
+          <th class="col-pts">Pts</th>
+        </tr>
+      </thead>
+      <tbody id="standingsBody"></tbody>
+    </table>
+  </div>
+  <p class="data-note" id="dataNote">
+    Results update automatically during the tournament.
+    <button id="refreshBtn" onclick="loadData()">↺ Refresh</button>
+  </p>
+</div>
+
+<!-- ══════════════════════════════════════════
+     FIXTURES & RESULTS
+══════════════════════════════════════════ -->
+<div class="section" style="padding-top:0">
+  <h2 class="section-title">Fixtures &amp; Results</h2>
+  <div id="fixturesContainer"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SQUADS
+══════════════════════════════════════════ -->
+<div class="section" style="padding-top:0">
+  <h2 class="section-title">Squads</h2>
+  <div class="squads-grid" id="squadsGrid"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PARTNERS & SPONSORS
+══════════════════════════════════════════ -->
+<div class="section" style="padding-top:0">
+  <h2 class="section-title">Partners &amp; Sponsors</h2>
+  <div class="partners-grid">
+
+    <a class="partner-card" href="https://hertsphysio.co.uk/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+      <div class="partner-logo-wrap">
+        <img src="img/hertsphysio.png" alt="Herts Physio">
+      </div>
+      <div class="partner-info">
+        <span class="partner-role">Tournament Physiotherapy Partner</span>
+        <span class="partner-name">Herts Physio</span>
+        <span class="partner-contact">Wesley Marshall, Director</span>
+        <span class="partner-contact" style="color:var(--sky);margin-top:4px">hertsphysio.co.uk ↗</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-brand">OVER 40s CRICKET ENGLAND</div>
+  <p>Triple Crown 2026 · Bishop's Stortford Cricket Club · 28–30 July 2026</p>
+  <p style="margin-top:8px">
+    <a href="https://www.eng40scricket.co.uk">www.eng40scricket.co.uk</a>
+    &nbsp;·&nbsp;
+    <a href="https://englandseniors.play-cricket.com" target="_blank" rel="noopener">Play-Cricket</a>
+  </p>
+</footer>
+
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   CONFIG — edit this section to update the page
+══════════════════════════════════════════════════════════ */
+
+const NATIONS = [
+  { name: 'England',  emblem: 'img/england.png',  initials: 'ENG' },
+  { name: 'Ireland',  emblem: 'img/ireland.png',  initials: 'IRE' },
+  { name: 'Scotland', emblem: 'img/scotland.png', initials: 'SCO' },
+  { name: 'Wales',    emblem: 'img/wales.png',    initials: 'WAL' },
+];
+
+// Matches.csv is fetched from the live site.
+// Add fixtures to matches.csv with Tournament = "Triple Crown 2026"
+// for results to appear automatically.
+const CSV_URL = 'https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/data/matches.csv';
+const TOURNAMENT_FILTER = 'triple crown';
+
+// All 6 fixtures — hardcoded so the page works before CSV data is available.
+// Results overlay automatically once entered via the results form.
+const FIXTURES = [
+  /* ── Day 1: Tuesday 28 July · 12:00 start ── */
+  {
+    day: 1, dayLabel: 'Tuesday 28 July 2026', start: '12:00', overs: 45,
+    pitch: 1, home: 'England', away: 'Ireland',
+    homeEmblem: 'img/england.png', awayEmblem: 'img/ireland.png',
+    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616872',
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+  },
+  {
+    day: 1, dayLabel: 'Tuesday 28 July 2026', start: '12:00', overs: 45,
+    pitch: 2, home: 'Wales', away: 'Scotland',
+    homeEmblem: 'img/wales.png', awayEmblem: 'img/scotland.png',
+    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616873',
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+  },
+  /* ── Day 2: Wednesday 29 July · 11:00 start ── */
+  {
+    day: 2, dayLabel: 'Wednesday 29 July 2026', start: '11:00', overs: 45,
+    pitch: 1, home: 'England', away: 'Scotland',
+    homeEmblem: 'img/england.png', awayEmblem: 'img/scotland.png',
+    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616869',
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+  },
+  {
+    day: 2, dayLabel: 'Wednesday 29 July 2026', start: '11:00', overs: 45,
+    pitch: 2, home: 'Wales', away: 'Ireland',
+    homeEmblem: 'img/wales.png', awayEmblem: 'img/ireland.png',
+    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616871',
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+  },
+  /* ── Day 3: Thursday 30 July · 11:00 start ── */
+  {
+    day: 3, dayLabel: 'Thursday 30 July 2026', start: '11:00', overs: 45,
+    pitch: 1, home: 'England', away: 'Wales',
+    homeEmblem: 'img/england.png', awayEmblem: 'img/wales.png',
+    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616870',
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+  },
+  {
+    day: 3, dayLabel: 'Thursday 30 July 2026', start: '11:00', overs: 45,
+    pitch: 2, home: 'Ireland', away: 'Scotland',
+    homeEmblem: 'img/ireland.png', awayEmblem: 'img/scotland.png',
+    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616874',
+    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: ''
+  },
+];
+
+// Squads — set announced: true and fill players[] when confirmed.
+// Player format: "Name" or "Name (Captain)" or { name, role }
+const SQUADS = {
+  England:  { announced: false, players: [] },
+  Ireland:  { announced: false, players: [] },
+  Scotland: { announced: false, players: [] },
+  Wales:    { announced: false, players: [] },
+};
+
+/* ══════════════════════════════════════════════════════════
+   CSV PARSING
+══════════════════════════════════════════════════════════ */
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  if (lines.length < 2) return [];
+  const headers = parseLine(lines[0]).map(h => h.trim());
+  return lines.slice(1).map(line => {
+    const vals = parseLine(line);
+    const obj = {};
+    headers.forEach((h, i) => { obj[h] = (vals[i] || '').trim(); });
+    return obj;
+  }).filter(r => r.HomeTeam);
+}
+
+function parseLine(line) {
+  const out = []; let cur = ''; let inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
+    else if (c === ',' && !inQ) { out.push(cur); cur = ''; }
+    else cur += c;
+  }
+  out.push(cur);
+  return out;
+}
+
+/* ══════════════════════════════════════════════════════════
+   POINTS CALCULATION
+   Result field is from the HomeTeam's perspective:
+     Win  → HomeTeam wins (+2), AwayTeam loses (+0)
+     Loss → AwayTeam wins (+2), HomeTeam loses (+0)
+     Tie / No Result / Abandoned → both +1
+     Cancelled / upcoming → no points awarded
+══════════════════════════════════════════════════════════ */
+function computeStandings(fixtures) {
+  const teams = {};
+  NATIONS.forEach(n => {
+    teams[n.name] = { name: n.name, emblem: n.emblem, initials: n.initials,
+                      P: 0, W: 0, L: 0, TNR: 0, Pts: 0 };
+  });
+
+  fixtures.forEach(f => {
+    if (!f.result) return;
+    const r = f.result.toLowerCase().trim();
+    if (r === 'upcoming' || r === '' || r === 'cancelled') return;
+    const H = teams[f.home], A = teams[f.away];
+    if (!H || !A) return;
+    H.P++; A.P++;
+    if (r === 'win')       { H.W++; H.Pts += 2; A.L++; }
+    else if (r === 'loss') { A.W++; A.Pts += 2; H.L++; }
+    else                   { H.TNR++; H.Pts++; A.TNR++; A.Pts++; } // tie / NR / abandoned
+  });
+
+  return Object.values(teams).sort((a, b) => {
+    if (b.Pts !== a.Pts) return b.Pts - a.Pts;
+    if (b.W   !== a.W)   return b.W   - a.W;
+    return a.name.localeCompare(b.name);
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   RENDERING HELPERS
+══════════════════════════════════════════════════════════ */
+function imgEl(src, alt, size, cls='') {
+  return `<img src="${src}" alt="${alt}" width="${size}" height="${size}"${cls ? ` class="${cls}"` : ''}
+          onerror="this.style.display='none'"
+          style="border-radius:50%;object-fit:cover">`;
+}
+
+function resultPill(fix) {
+  if (!fix.result || fix.result.toLowerCase() === 'upcoming' || fix.result === '') {
+    return `<span class="result-pill pill-upcoming">Upcoming</span>`;
+  }
+  const r = fix.result.toLowerCase().trim();
+  if (r === 'win')  return `<span class="result-pill pill-home-win">${fix.home} won</span>`;
+  if (r === 'loss') return `<span class="result-pill pill-away-win">${fix.away} won</span>`;
+  if (r === 'tie')  return `<span class="result-pill pill-tie">Tie</span>`;
+  if (r === 'cancelled') return `<span class="result-pill pill-nr">Cancelled</span>`;
+  return `<span class="result-pill pill-nr">No Result</span>`;
+}
+
+function matchLinks(fix) {
+  const played = fix.result && !['upcoming',''].includes(fix.result.toLowerCase());
+  let html = '';
+  const scoreURL  = played ? (fix.scorecardURL || fix.fixtureURL) : fix.fixtureURL;
+  const scoreLbl  = played ? '📋 Scorecard' : '📅 Fixture';
+  const scoreCls  = played ? 'link-scorecard' : 'link-fixture';
+  if (scoreURL) html += `<a href="${scoreURL}" target="_blank" rel="noopener" class="m-link ${scoreCls}">${scoreLbl}</a>`;
+  if (fix.youtubeLive) html += `<a href="${fix.youtubeLive}" target="_blank" rel="noopener" class="m-link link-live">🔴 Live</a>`;
+  if (fix.youtubeHighlights) html += `<a href="${fix.youtubeHighlights}" target="_blank" rel="noopener" class="m-link link-highlights">▶ Highlights</a>`;
+  return html ? `<div class="match-links">${html}</div>` : '';
+}
+
+/* ══════════════════════════════════════════════════════════
+   RENDER FUNCTIONS
+══════════════════════════════════════════════════════════ */
+function renderHero() {
+  document.getElementById('heroNations').innerHTML = NATIONS.map(n => `
+    <div class="hero-nation">
+      <img src="${n.emblem}" alt="${n.name}" width="76" height="76"
+           onerror="this.style.display='none'">
+      <span class="nation-label">${n.name.toUpperCase()}</span>
+    </div>
+  `).join('');
+}
+
+function renderStandings(fixtures) {
+  const rows = computeStandings(fixtures);
+  const anyPlayed = rows.some(r => r.P > 0);
+  document.getElementById('standingsBody').innerHTML = rows.map((t, i) => `
+    <tr class="${i === 0 && anyPlayed ? 'leader-row' : ''}">
+      <td class="col-pos">${i + 1}</td>
+      <td class="col-team">
+        <div class="team-cell">
+          ${imgEl(t.emblem, t.name, 34)}
+          <span class="t-name">${t.name}</span>
+        </div>
+      </td>
+      <td>${t.P}</td>
+      <td>${t.W}</td>
+      <td>${t.L}</td>
+      <td>${t.TNR}</td>
+      <td class="col-pts">${t.Pts}</td>
+    </tr>
+  `).join('');
+}
+
+function renderFixtures(fixtures) {
+  const days = [1, 2, 3];
+  document.getElementById('fixturesContainer').innerHTML = days.map(d => {
+    const df = fixtures.filter(f => f.day === d);
+    if (!df.length) return '';
+    const { dayLabel, start } = df[0];
+    return `
+      <div class="day-block">
+        <div class="day-header">
+          <span class="day-name">${dayLabel}</span>
+          <span class="day-info">First ball ${start} · Bishop's Stortford CC</span>
+        </div>
+        <div class="match-cards">
+          ${df.map(f => `
+            <div class="match-card">
+              <div class="match-card-top">
+                <span class="pitch-tag">Pitch ${f.pitch}</span>
+                <span class="overs-tag">${f.overs} overs</span>
+              </div>
+              <div class="match-teams-row">
+                <div class="match-team">
+                  ${imgEl(f.homeEmblem, f.home, 60)}
+                  <span class="m-name">${f.home}</span>
+                </div>
+                <span class="match-vs">VS</span>
+                <div class="match-team">
+                  ${imgEl(f.awayEmblem, f.away, 60)}
+                  <span class="m-name">${f.away}</span>
+                </div>
+              </div>
+              <div class="match-result-row">${resultPill(f)}</div>
+              ${f.details ? `<div class="match-details-text">${f.details}</div>` : ''}
+              ${matchLinks(f)}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSquads() {
+  document.getElementById('squadsGrid').innerHTML = NATIONS.map(n => {
+    const sq = SQUADS[n.name];
+    const body = (!sq || !sq.announced || !sq.players.length)
+      ? `<p class="squad-pending">Squad to be announced</p>`
+      : `<ul class="squad-list">${sq.players.map(p => {
+          const name = typeof p === 'string' ? p : p.name;
+          const role = typeof p === 'object' && p.role ? `<span class="role">${p.role}</span>` : '';
+          return `<li>${name}${role}</li>`;
+        }).join('')}</ul>`;
+    return `
+      <div class="squad-card">
+        <div class="squad-card-header">
+          ${imgEl(n.emblem, n.name, 46)}
+          <span class="sq-nation">${n.name.toUpperCase()}</span>
+        </div>
+        <div class="squad-card-body">${body}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════════════════
+   DATA — fetch & overlay results from matches.csv
+══════════════════════════════════════════════════════════ */
+function overlayCSV(csvRows) {
+  const tcRows = csvRows.filter(r =>
+    r.Tournament && r.Tournament.toLowerCase().includes(TOURNAMENT_FILTER)
+  );
+  if (!tcRows.length) return false;
+
+  FIXTURES.forEach(fix => {
+    const row = tcRows.find(r =>
+      r.HomeTeam.toLowerCase() === fix.home.toLowerCase() &&
+      r.AwayTeam.toLowerCase() === fix.away.toLowerCase()
+    );
+    if (!row) return;
+    fix.result           = row.Result           || null;
+    fix.details          = row.Details          || '';
+    fix.scorecardURL     = row.ScorecardURL     || '';
+    fix.youtubeLive      = row.YouTubeLive      || '';
+    fix.youtubeHighlights = row.YouTubeHighlights || '';
+  });
+  return true;
+}
+
+async function loadData() {
+  try {
+    const r = await fetch(CSV_URL + '?t=' + Date.now());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const text = await r.text();
+    const rows = parseCSV(text);
+    const found = overlayCSV(rows);
+    renderStandings(FIXTURES);
+    renderFixtures(FIXTURES);
+    const note = document.getElementById('dataNote');
+    const time = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    note.innerHTML = found
+      ? `Live data loaded at ${time}. <button id="refreshBtn" onclick="loadData()">↺ Refresh</button>`
+      : `Fixtures confirmed — results will appear here during the tournament. <button id="refreshBtn" onclick="loadData()">↺ Refresh</button>`;
+  } catch(e) {
+    document.getElementById('dataNote').innerHTML =
+      `Results update automatically during the tournament. <button id="refreshBtn" onclick="loadData()">↺ Refresh</button>`;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════════ */
+renderHero();
+renderStandings(FIXTURES);
+renderFixtures(FIXTURES);
+renderSquads();
+loadData();
+</script>
+
+</body>
+</html>
