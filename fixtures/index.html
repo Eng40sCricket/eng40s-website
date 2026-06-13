@@ -89,12 +89,6 @@
   .fx-pill-scorecard:hover { background:#0080DB; color:#fff !important; }
   .fx-pill-map { color:rgba(180,200,225,0.9) !important; border-color:rgba(180,200,225,0.3); background:rgba(255,255,255,0.06); }
   .fx-pill-map:hover { background:rgba(255,255,255,0.14); color:#fff !important; }
-  .fx-pill-live { color:#ef5350 !important; border-color:rgba(239,83,80,0.4); background:rgba(239,83,80,0.10); }
-  .fx-pill-live:hover { background:#ef5350; color:#fff !important; }
-  .fx-pill-replay { color:#F57C00 !important; border-color:rgba(245,124,0,0.4); background:rgba(245,124,0,0.10); }
-  .fx-pill-replay:hover { background:#F57C00; color:#fff !important; }
-  .fx-pill-highlights { color:#CFA75C !important; border-color:rgba(207,167,92,0.45); background:rgba(207,167,92,0.10); }
-  .fx-pill-highlights:hover { background:#CFA75C; color:#1a1a2e !important; }
   .fx-cards { display:none; }
   .fx-card { background:rgba(15,30,55,0.72); border:1px solid rgba(100,160,220,0.14); border-radius:14px; margin-bottom:10px; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); box-shadow:0 2px 14px rgba(0,0,0,0.32); overflow:hidden; border-left:5px solid rgba(100,160,220,0.3); }
   .fx-card.fx-win { border-left-color:#2e7d32; }
@@ -169,8 +163,7 @@
       <span class="fx-legend-item"><span class="fx-legend-dot" style="background:#616161;"></span> No Result</span>
     </div>
     <p>Source: englandseniors.play-cricket.com &amp; triplecrown.play-cricket.com<br>
-    Scorecard links open full match details on Play-Cricket. Venue links open Google Maps.<br>
-    Replay and Highlights links open YouTube recordings.</p>
+    Scorecard links open full match details on Play-Cricket. Venue links open Google Maps.</p>
   </div>
 </div>
 
@@ -263,10 +256,7 @@
     if (row.ScorecardURL) links += pillLink(row.ScorecardURL, 'fx-pill-scorecard', '&#127952;', 'Scorecard');
     if (isUpcoming) {
       if (row.VenueMapURL) links += pillLink(row.VenueMapURL, 'fx-pill-map', '&#128205;', 'Map');
-      if (row.YouTubeLive) links += pillLink(row.YouTubeLive, 'fx-pill-live', '&#9654;', 'Live');
     } else if (!isCancelled) {
-      if (row.YouTubeLive) links += pillLink(row.YouTubeLive, 'fx-pill-replay', '&#9654;', 'Replay');
-      if (row.YouTubeHighlights) links += pillLink(row.YouTubeHighlights, 'fx-pill-highlights', '&#9733;', 'Highlights');
     }
     return '<div class="fx-links">' + links + '</div>';
   }

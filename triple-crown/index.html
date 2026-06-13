@@ -215,16 +215,9 @@
     .follow-link-icon  { font-size: 1rem; }
 
     /* ── LIVE STREAM SECTION ── */
-    .live-section {
-      background: var(--navy);
-      padding: 32px 28px;
-      display: none; /* shown via JS */
-    }
-    .live-section.visible { display: block; }
-    .live-section-inner { max-width: 900px; margin: 0 auto; }
-    .live-header {
-      display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
-    }
+    .live-section { background: var(--navy); padding: 32px 28px; }
+    .live-section-inner { max-width: 1060px; margin: 0 auto; }
+    .live-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
     .live-dot {
       width: 10px; height: 10px; border-radius: 50%; background: #ef4444;
       animation: pulse-dot 1.4s ease-in-out infinite;
@@ -234,15 +227,27 @@
       50%       { opacity: 0.5; transform: scale(0.7); }
     }
     .live-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 3px; color: var(--white); }
-    .live-match-label { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-left: auto; letter-spacing: 1px; }
-    .live-embed-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 16px; }
-    @media (max-width: 480px) { .live-embed-grid { grid-template-columns: 1fr; } }
+    /* Day-layout */
+    .live-day-block { margin-bottom: 36px; }
+    .live-day-block:last-child { margin-bottom: 0; }
+    .live-day-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .live-day-num { font-family: 'Bebas Neue', sans-serif; font-size: 0.7rem; letter-spacing: 2px; color: var(--gold); background: rgba(207,167,92,0.12); border: 1px solid rgba(207,167,92,0.3); padding: 3px 10px; border-radius: 3px; }
+    .live-day-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 2px; color: var(--white); }
+    .live-day-matches { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 640px) { .live-day-matches { grid-template-columns: 1fr; } }
+    .live-match-slot { display: flex; flex-direction: column; gap: 10px; }
+    .live-match-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-height: 26px; }
+    .live-pitch-tag { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 2px; color: var(--sky); background: rgba(0,128,219,0.15); border: 1px solid rgba(0,128,219,0.3); padding: 3px 8px; border-radius: 3px; font-weight: 700; white-space: nowrap; }
+    .live-match-name { font-size: 0.82rem; color: rgba(255,255,255,0.8); font-weight: 700; }
+    .live-status-tag { font-size: 0.6rem; font-weight: 800; padding: 2px 8px; border-radius: 3px; background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.3); margin-left: auto; white-space: nowrap; }
+    .live-status-replay { background: rgba(124,58,237,0.2); color: #a78bfa; border-color: rgba(124,58,237,0.3); }
     .live-embed-wrap { position: relative; padding-top: 56.25%; border-radius: 10px; overflow: hidden; background: #000; }
     .live-embed-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-    .live-embed-label {
-      font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
-      color: rgba(255,255,255,0.4); margin-top: 8px; text-align: center;
-    }
+    .live-placeholder { position: relative; padding-top: 56.25%; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.12); }
+    .live-placeholder-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+    .live-placeholder-icon { font-size: 2rem; opacity: 0.3; }
+    .live-placeholder-text { font-size: 0.82rem; color: rgba(255,255,255,0.35); font-weight: 700; }
+    .live-placeholder-sub { font-size: 0.68rem; color: rgba(255,255,255,0.2); letter-spacing: 1px; text-transform: uppercase; }
 
     /* ── SECTION LAYOUT ── */
     .section { max-width: 1060px; margin: 0 auto; padding: 56px 24px; }
@@ -541,10 +546,9 @@
   <div class="live-section-inner">
     <div class="live-header">
       <div class="live-dot" id="liveDot"></div>
-      <span class="live-title" id="liveTitle">WATCH LIVE</span>
-      <span class="live-match-label" id="liveMatchLabel"></span>
+      <span class="live-title" id="liveTitle">WATCH ON YOUTUBE</span>
     </div>
-    <div class="live-embed-grid" id="liveEmbedGrid"></div>
+    <div id="liveEmbedGrid"></div>
   </div>
 </div>
 
@@ -860,8 +864,6 @@ function matchLinks(fix) {
   const scoreLbl = played ? '📋 Scorecard' : '📅 Fixture';
   const scoreCls = played ? 'link-scorecard' : 'link-fixture';
   if (scoreURL) html+=`<a href="${scoreURL}" target="_blank" rel="noopener" class="m-link ${scoreCls}">${scoreLbl}</a>`;
-  if (fix.youtubeLive)       html+=`<a href="${fix.youtubeLive}" target="_blank" rel="noopener" class="m-link link-live">🔴 Live</a>`;
-  if (fix.youtubeHighlights) html+=`<a href="${fix.youtubeHighlights}" target="_blank" rel="noopener" class="m-link link-highlights">▶ Highlights</a>`;
   return html ? `<div class="match-links">${html}</div>` : '';
 }
 
@@ -899,38 +901,61 @@ function renderProgress(fixtures) {
     <div class="progress-stat"><span class="ps-num">${wins}</span><span class="ps-lbl">Eng Wins</span></div>`;
 }
 
-function renderLiveStream(fixtures) {
-  // Find fixtures with a live stream URL
-  const liveFixtures = fixtures.filter(f => f.youtubeLive);
-  const highlightFixtures = fixtures.filter(f => f.youtubeHighlights && !f.youtubeLive);
-  const section = document.getElementById('liveSection');
-  const grid    = document.getElementById('liveEmbedGrid');
-  const title   = document.getElementById('liveTitle');
-  const dot     = document.getElementById('liveDot');
+function renderLiveStream() {
+  const grid  = document.getElementById('liveEmbedGrid');
+  const title = document.getElementById('liveTitle');
+  const dot   = document.getElementById('liveDot');
 
-  if (!liveFixtures.length && !highlightFixtures.length) { section.classList.remove('visible'); return; }
+  // Update header based on whether any stream is live
+  const anyLive = FIXTURES.some(f => f.youtubeLive);
+  const anyReplay = FIXTURES.some(f => f.youtubeHighlights);
+  title.textContent = anyLive ? 'WATCH LIVE' : anyReplay ? 'WATCH REPLAYS' : 'WATCH ON YOUTUBE';
+  dot.style.background = anyLive ? '#ef4444' : '#6b7280';
+  if (!anyLive) dot.style.animation = 'none';
 
-  const toShow = liveFixtures.length ? liveFixtures : highlightFixtures;
-  const isLive = liveFixtures.length > 0;
-
-  title.textContent = isLive ? 'WATCH LIVE' : 'MATCH REPLAYS';
-  dot.style.background = isLive ? '#ef4444' : '#6b7280';
-
-  grid.innerHTML = toShow.map(f => {
-    const url    = f.youtubeLive || f.youtubeHighlights;
-    const embed  = youtubeEmbedUrl(url);
-    if (!embed) return '';
+  // Render one block per day, two match slots side by side
+  grid.innerHTML = [1,2,3].map(d => {
+    const df = FIXTURES.filter(f => f.day === d);
+    const {dayLabel} = df[0];
+    const slotsHtml = df.map(f => {
+      const url      = f.youtubeLive || f.youtubeHighlights;
+      const embedUrl = youtubeEmbedUrl(url);
+      const played   = f.result && !['upcoming',''].includes((f.result||'').toLowerCase().trim());
+      const isLiveNow = f.youtubeLive && !played;
+      const statusTag = isLiveNow
+        ? `<span class="live-status-tag">🔴 LIVE</span>`
+        : (f.youtubeHighlights ? `<span class="live-status-tag live-status-replay">▶ Replay</span>` : '');
+      const videoHtml = embedUrl
+        ? `<div class="live-embed-wrap">
+             <iframe src="${embedUrl}" title="${f.home} v ${f.away}" allowfullscreen
+               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+           </div>`
+        : `<div class="live-placeholder">
+             <div class="live-placeholder-inner">
+               <div class="live-placeholder-icon">📺</div>
+               <div class="live-placeholder-text">Stream to be confirmed</div>
+               <div class="live-placeholder-sub">${f.pitch === 1 ? 'England Over 40s Cricket' : 'FrogBox'} · Pitch ${f.pitch}</div>
+             </div>
+           </div>`;
+      return `
+        <div class="live-match-slot">
+          <div class="live-match-header">
+            <span class="live-pitch-tag">Pitch ${f.pitch}</span>
+            <span class="live-match-name">${f.home} v ${f.away}</span>
+            ${statusTag}
+          </div>
+          ${videoHtml}
+        </div>`;
+    }).join('');
     return `
-      <div>
-        <div class="live-embed-wrap">
-          <iframe src="${embed}" title="${f.home} v ${f.away}" allowfullscreen
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      <div class="live-day-block">
+        <div class="live-day-header">
+          <span class="live-day-num">DAY ${d}</span>
+          <span class="live-day-label">${dayLabel}</span>
         </div>
-        <p class="live-embed-label">${f.home} v ${f.away} · ${f.dayLabel}</p>
+        <div class="live-day-matches">${slotsHtml}</div>
       </div>`;
   }).join('');
-
-  if (grid.innerHTML.trim()) section.classList.add('visible');
 }
 
 function nrrCell(nrr) {
@@ -979,9 +1004,6 @@ function renderFixtures(fixtures) {
         </div>
         <div class="match-cards">
           ${df.map(f => {
-            // Prefer highlights embed for played matches; fall back to live URL (replay)
-            const embedUrl = youtubeEmbedUrl(f.youtubeHighlights || f.youtubeLive);
-            const played   = f.result && !['upcoming',''].includes(f.result.toLowerCase());
             return `
             <div class="match-card">
               <div class="match-card-top">
@@ -1002,7 +1024,6 @@ function renderFixtures(fixtures) {
               ${scoreDisplay(f)}
               <div class="match-result-row">${resultPill(f)}</div>
               ${f.details ? `<div class="match-details-text">${f.details}</div>` : ''}
-              ${embedUrl ? `<div class="match-video-embed"><iframe src="${embedUrl}" title="${played ? 'Highlights' : 'Live'}: ${f.home} v ${f.away}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>` : ''}
               ${matchLinks(f)}
             </div>`;
           }).join('')}
@@ -1079,7 +1100,7 @@ async function loadData() {
     renderStandings(FIXTURES);
     renderFixtures(FIXTURES);
     renderProgress(FIXTURES);
-    renderLiveStream(FIXTURES);
+    renderLiveStream();
     const time = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
     document.getElementById('dataNote').innerHTML = found
       ? `Live data loaded at ${time}. <button id="refreshBtn" onclick="loadData()">↺ Refresh</button>`
@@ -1105,7 +1126,7 @@ renderHero();
 renderStandings(FIXTURES);
 renderFixtures(FIXTURES);
 renderProgress(FIXTURES);
-renderLiveStream(FIXTURES);
+renderLiveStream();
 renderPOTM();
 renderSquads();
 loadData();
