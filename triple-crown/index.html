@@ -13,468 +13,555 @@
       --navy:      #05102B;
       --navy-mid:  #0a1f5c;
       --sky:       #0080DB;
+      --sky-light: #3399e8;
       --gold:      #CFA75C;
+      --gold-light:#e8c87a;
       --white:     #ffffff;
-      --light:     #f4f7fb;
-      --mid:       #e2e8f0;
+      --light:     #f0f4fa;
+      --mid:       #dde4ef;
       --muted:     #64748b;
       --text:      #1e293b;
-      --shadow:    0 2px 14px rgba(5,16,43,0.10);
-      --radius:    10px;
+      --shadow:    0 4px 24px rgba(5,16,43,0.12);
+      --shadow-lg: 0 8px 40px rgba(5,16,43,0.18);
+      --radius:    12px;
+      --radius-lg: 18px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Manrope', sans-serif; background: var(--light); color: var(--text); line-height: 1.6; }
+    body { font-family: 'Manrope', sans-serif; background: var(--light); color: var(--text); line-height: 1.6; overflow-x: hidden; }
 
-    /* ── SITE HEADER ── */
-    .site-header {
-      background: var(--navy);
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    /* ── KEYFRAMES ── */
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
     }
-    .site-header .brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 1.5px; color: var(--sky); }
-    .site-header a.back { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    /* Fixed: pulse-glow now uses filter (follows logo shape) not box-shadow (rectangle) */
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 14px rgba(0,128,219,0.45)) drop-shadow(0 4px 18px rgba(0,0,0,0.45)); }
+      50%       { filter: drop-shadow(0 0 34px rgba(0,128,219,0.80)) drop-shadow(0 0 48px rgba(207,167,92,0.30)) drop-shadow(0 4px 18px rgba(0,0,0,0.45)); }
+    }
+    @keyframes fade-in-up  { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes spin-slow   { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+    @keyframes row-in      { from { opacity:0; transform:translateX(-16px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes bar-fill    { from { width:0; } to { width:var(--w); } }
+    @keyframes progress-fill { from { width:0; } to { width:var(--pct); } }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: rgba(5,16,43,0.97);
+      backdrop-filter: blur(10px);
+      padding: 14px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 200;
+      border-bottom: 1px solid rgba(0,128,219,0.2);
+    }
+    .site-header .brand {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--sky), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .site-header a.back { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
     .site-header a.back:hover { color: var(--white); }
 
     /* ── HERO ── */
     .hero {
-      background: linear-gradient(150deg, var(--navy) 0%, var(--navy-mid) 60%, #0d2a6e 100%);
-      color: var(--white);
-      text-align: center;
-      padding: 56px 24px 52px;
-      position: relative;
-      overflow: hidden;
+      background: var(--navy); color: var(--white); text-align: center;
+      min-height: 92vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
     }
     .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(0,128,219,0.18) 0%, transparent 70%);
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%,  rgba(0,128,219,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 100% 100%, rgba(207,167,92,0.07) 0%, transparent 50%);
       pointer-events: none;
     }
-    .hero-tournament-badge {
-      display: inline-block;
-      background: rgba(207,167,92,0.15);
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.82rem;
-      letter-spacing: 2.5px;
-      padding: 4px 18px;
-      border-radius: 2px;
-      margin-bottom: 20px;
+    .hero::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(-45deg, transparent, transparent 80px,
+        rgba(255,255,255,0.012) 80px, rgba(255,255,255,0.012) 82px);
+      pointer-events: none;
     }
-    .hero-logo-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
+    .hero-orb { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(80px); }
+    .hero-orb-1 { width:500px; height:500px; background:rgba(0,128,219,0.12); top:-100px; right:-100px; animation: spin-slow 30s linear infinite; }
+    .hero-orb-2 { width:350px; height:350px; background:rgba(207,167,92,0.08); bottom:50px; left:-80px;  animation: spin-slow 40s linear infinite reverse; }
+
+    .hero-inner {
+      position: relative; z-index: 2; width: 100%; max-width: 1000px;
+      padding: 60px 24px 40px; animation: fade-in-up 0.8s ease both;
     }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(207,167,92,0.12); border: 1px solid rgba(207,167,92,0.4);
+      color: var(--gold); font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.78rem; letter-spacing: 3px; padding: 6px 22px; border-radius: 3px; margin-bottom: 28px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after { content:'◆'; font-size:0.5rem; opacity:0.6; }
+    .hero-logo-wrap { display: flex; justify-content: center; margin-bottom: 24px; }
     .hero-logo-wrap img {
-      width: 130px;
-      height: 130px;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+      width: 150px; height: 150px; object-fit: contain;
+      animation: pulse-glow 3s ease-in-out infinite;
     }
     .hero h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.6rem, 7vw, 4.8rem);
-      letter-spacing: 4px;
-      line-height: 1;
-      margin-bottom: 6px;
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem,10vw,7rem);
+      letter-spacing: 6px; line-height: 0.95; margin-bottom: 8px;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.4);
     }
-    .hero h1 span { color: var(--gold); }
+    .hero h1 .line2 {
+      display: block;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+      background-size: 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; animation: shimmer 3s linear infinite;
+    }
     .hero-tagline {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.75);
-      margin-bottom: 40px;
-      letter-spacing: 0.5px;
+      font-size: 1.05rem; color: rgba(255,255,255,0.6);
+      margin-bottom: 44px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600;
     }
 
-    /* Nation badges in hero */
-    .hero-nations {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
+    /* ── NATION BADGES ── */
+    .hero-nations { display: flex; justify-content: center; gap: 0; flex-wrap: wrap; margin-bottom: 44px; }
+    .hero-nation { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 20px 32px; position: relative; cursor: default; }
+    .hero-nation + .hero-nation::before { content:'×'; position:absolute; left:-2px; top:50%; transform:translateY(-50%); color:rgba(207,167,92,0.3); font-size:1.1rem; font-family:'Bebas Neue',sans-serif; }
+    .hero-nation-badge { position: relative; width: 88px; height: 88px; }
+    .hero-nation-badge::before {
+      content:''; position:absolute; inset:-3px; border-radius:50%;
+      background: linear-gradient(135deg, var(--sky), transparent, var(--gold));
+      opacity:0; transition:opacity 0.3s;
     }
-    .hero-nation {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
+    .hero-nation:hover .hero-nation-badge::before { opacity:1; }
+    .hero-nation-badge img {
+      width:88px; height:88px; object-fit:contain; border-radius:50%;
+      border:none; padding:6px; position:relative; z-index:1; transition:transform 0.3s;
     }
-    .hero-nation img {
-      width: 76px;
-      height: 76px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.15);
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
-    }
-    .hero-nation .nation-label {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.95rem;
-      letter-spacing: 1.5px;
-      color: var(--gold);
-    }
+    .hero-nation:hover .hero-nation-badge img { transform:scale(1.08); }
+    .hero-nation .nation-label { font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:2px; color:var(--gold); }
 
-    /* Hero meta strip */
-    .hero-meta {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      flex-wrap: wrap;
-      border-top: 1px solid rgba(255,255,255,0.12);
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      padding: 16px 0;
+    /* ── COUNTDOWN ── */
+    .countdown-wrap { margin-bottom: 40px; }
+    .countdown-label { font-size:0.68rem; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:12px; }
+    .countdown-grid { display:inline-flex; gap:12px; align-items:center; }
+    .cd-unit {
+      display:flex; flex-direction:column; align-items:center;
+      background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+      border-radius:10px; padding:12px 18px; min-width:72px; backdrop-filter:blur(10px);
     }
-    .hero-meta-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 4px 28px;
-      border-right: 1px solid rgba(255,255,255,0.12);
+    .cd-num { font-family:'Bebas Neue',sans-serif; font-size:2.4rem; line-height:1; color:var(--white); letter-spacing:2px; }
+    .cd-lbl { font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:2px; }
+    .cd-sep { font-family:'Bebas Neue',sans-serif; font-size:2rem; color:rgba(207,167,92,0.5); line-height:1; margin-bottom:16px; }
+    .countdown-live {
+      font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:3px; color:var(--gold);
+      background:rgba(207,167,92,0.1); border:1px solid rgba(207,167,92,0.3); padding:10px 28px; border-radius:8px;
     }
-    .hero-meta-item:last-child { border-right: none; }
-    .hero-meta-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
-    .hero-meta-value { font-weight: 700; font-size: 0.9rem; color: var(--white); }
+    .countdown-over { color:rgba(255,255,255,0.5); font-size:0.9rem; letter-spacing:1px; }
 
-    /* ── SECTION WRAPPER ── */
-    .section { max-width: 1020px; margin: 0 auto; padding: 48px 24px; }
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.75rem;
-      letter-spacing: 2px;
-      color: var(--navy);
-      margin-bottom: 22px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 3px;
-      background: linear-gradient(to right, var(--sky), transparent);
-      border-radius: 2px;
-    }
+    /* ── HERO META STRIP ── */
+    .hero-meta-strip { display:flex; justify-content:center; flex-wrap:wrap; border-top:1px solid rgba(255,255,255,0.08); padding-top:28px; gap:0; }
+    .hero-meta-item { display:flex; flex-direction:column; align-items:center; padding:4px 36px; border-right:1px solid rgba(255,255,255,0.08); }
+    .hero-meta-item:last-child { border-right:none; }
+    .hero-meta-label { font-size:0.62rem; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,0.4); margin-bottom:4px; }
+    .hero-meta-value { font-weight:700; font-size:0.95rem; color:var(--white); }
+    .hero-meta-icon { font-size:1.2rem; margin-bottom:4px; }
 
-    /* ── POINTS TABLE ── */
-    .standings-wrap {
+    /* ── TOURNAMENT PROGRESS STRIP ── */
+    .progress-strip {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      padding: 24px 28px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 32px; flex-wrap: wrap;
+    }
+    .progress-left { display: flex; flex-direction: column; gap: 10px; flex: 1; max-width: 500px; min-width: 260px; }
+    .progress-title { font-family: 'Bebas Neue', sans-serif; font-size: 0.78rem; letter-spacing: 3px; color: var(--gold); }
+    .progress-bar-track {
+      height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; border-radius: 4px;
+      background: linear-gradient(to right, var(--sky), var(--gold));
+      width: 0; transition: width 1.2s ease 0.3s;
+    }
+    .progress-labels { display: flex; justify-content: space-between; }
+    .progress-played { font-size: 0.78rem; color: rgba(255,255,255,0.7); font-weight: 700; }
+    .progress-total  { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+    .progress-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+    .progress-stat {
+      display: flex; flex-direction: column; align-items: center;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 10px 18px; min-width: 70px;
+    }
+    .ps-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); line-height: 1; }
+    .ps-lbl { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+    /* ── HOW TO FOLLOW ── */
+    .follow-strip {
       background: var(--white);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
+      border-bottom: 2px solid var(--mid);
+      padding: 20px 28px;
+      display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;
+    }
+    .follow-label {
+      font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; letter-spacing: 2px;
+      color: var(--muted); white-space: nowrap;
+    }
+    .follow-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .follow-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 18px; border-radius: 8px; font-size: 0.8rem; font-weight: 800;
+      text-decoration: none; transition: all 0.18s; white-space: nowrap; letter-spacing: 0.3px;
+    }
+    .follow-link:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.14); }
+    .follow-link-nv    { background: #dc2626; color: #fff; }
+    .follow-link-pc    { background: var(--navy); color: #fff; }
+    .follow-link-icon  { font-size: 1rem; }
+
+    /* ── LIVE STREAM SECTION ── */
+    .live-section {
+      background: var(--navy);
+      padding: 32px 28px;
+      display: none; /* shown via JS */
+    }
+    .live-section.visible { display: block; }
+    .live-section-inner { max-width: 900px; margin: 0 auto; }
+    .live-header {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+    }
+    .live-dot {
+      width: 10px; height: 10px; border-radius: 50%; background: #ef4444;
+      animation: pulse-dot 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.7); }
+    }
+    .live-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 3px; color: var(--white); }
+    .live-match-label { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-left: auto; letter-spacing: 1px; }
+    .live-embed-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 16px; }
+    @media (max-width: 480px) { .live-embed-grid { grid-template-columns: 1fr; } }
+    .live-embed-wrap { position: relative; padding-top: 56.25%; border-radius: 10px; overflow: hidden; background: #000; }
+    .live-embed-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .live-embed-label {
+      font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-top: 8px; text-align: center;
+    }
+
+    /* ── SECTION LAYOUT ── */
+    .section { max-width: 1060px; margin: 0 auto; padding: 56px 24px; }
+    .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+    .section-number {
+      font-family: 'Bebas Neue', sans-serif; font-size: 0.7rem; letter-spacing: 2px;
+      color: var(--sky); background: rgba(0,128,219,0.1); border: 1px solid rgba(0,128,219,0.3);
+      border-radius: 4px; padding: 3px 10px; white-space: nowrap;
+    }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 3px; color: var(--navy); line-height: 1; }
+    .section-line { flex: 1; height: 2px; background: linear-gradient(to right, rgba(0,128,219,0.4), transparent); border-radius: 2px; }
+
+    /* ── STANDINGS ── */
+    .standings-wrap {
+      background: var(--white); border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid rgba(5,16,43,0.06);
     }
     .standings-table { width: 100%; border-collapse: collapse; }
     .standings-table thead tr { background: var(--navy); }
     .standings-table th {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.88rem;
-      letter-spacing: 1.5px;
-      color: rgba(255,255,255,0.85);
-      padding: 13px 16px;
-      text-align: center;
-      font-weight: 400;
+      font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; letter-spacing: 2px;
+      color: rgba(255,255,255,0.7); padding: 16px 18px; text-align: center; font-weight: 400;
     }
     .standings-table th.col-team { text-align: left; }
+    .standings-table th:first-child { padding-left: 24px; }
     .standings-table td {
-      padding: 14px 16px;
-      text-align: center;
-      border-bottom: 1px solid var(--mid);
-      font-weight: 600;
-      font-size: 0.92rem;
+      padding: 16px 18px; text-align: center; border-bottom: 1px solid var(--mid);
+      font-weight: 600; font-size: 0.9rem; transition: background 0.15s;
     }
     .standings-table td.col-team { text-align: left; }
+    .standings-table td:first-child { padding-left: 24px; }
     .standings-table tbody tr:last-child td { border-bottom: none; }
-    .standings-table tbody tr:hover td { background: rgba(0,128,219,0.04); }
-    .standings-table .col-pos { color: var(--muted); font-size: 0.8rem; width: 36px; }
-    .standings-table .col-pts { font-size: 1.1rem; font-weight: 800; color: var(--sky); }
-    .standings-table .col-nrr { font-size: 0.88rem; font-weight: 700; }
+    .standings-table tbody tr:hover td { background: rgba(0,128,219,0.03); }
+
+    /* Animated rows */
+    .standings-table tbody tr {
+      opacity: 0;
+      animation: row-in 0.5s ease forwards;
+    }
+    .standings-table tbody tr:nth-child(1) { animation-delay: 0.10s; }
+    .standings-table tbody tr:nth-child(2) { animation-delay: 0.22s; }
+    .standings-table tbody tr:nth-child(3) { animation-delay: 0.34s; }
+    .standings-table tbody tr:nth-child(4) { animation-delay: 0.46s; }
+
+    .col-pos { width: 42px; }
+    .pos-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem;
+      background: var(--light); color: var(--muted);
+    }
+    .leader-row .pos-num { background: var(--gold); color: var(--navy); }
+    .col-pts { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px; color: var(--sky); }
+    .leader-row td.col-pts { color: var(--gold); }
+    .col-nrr { font-size: 0.85rem; font-weight: 700; }
     .nrr-pos { color: #16a34a; }
     .nrr-neg { color: #dc2626; }
     .nrr-zero { color: var(--muted); }
-    .team-cell { display: flex; align-items: center; gap: 12px; }
-    .team-cell img { width: 34px; height: 34px; object-fit: cover; border-radius: 50%; border: 1px solid var(--mid); }
-    .team-cell .t-name { font-weight: 700; }
-    .leader-row td { background: rgba(207,167,92,0.06) !important; }
-    .leader-row td.col-team { border-left: 3px solid var(--gold); }
-    .data-note { font-size: 0.76rem; color: var(--muted); margin-top: 10px; text-align: right; }
+    .team-cell { display: flex; align-items: center; gap: 14px; }
+    .team-cell img { width: 38px; height: 38px; object-fit: contain; border-radius: 50%; border: 1px solid var(--mid); flex-shrink: 0; padding: 2px; }
+    .team-cell .t-name { font-weight: 800; font-size: 0.95rem; }
+    .team-cell .t-code { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; font-weight: 600; }
+    .pts-bar-wrap { display: flex; align-items: center; gap: 10px; }
+    .pts-bar { flex: 1; height: 4px; background: var(--mid); border-radius: 2px; overflow: hidden; max-width: 56px; }
+    .pts-bar-fill { height: 100%; background: linear-gradient(to right, var(--sky), var(--sky-light)); border-radius: 2px; transition: width 0.8s ease; }
+    .leader-row .pts-bar-fill { background: linear-gradient(to right, var(--gold), var(--gold-light)); }
+    .leader-row td { background: rgba(207,167,92,0.04) !important; }
+    .leader-row td.col-team { border-left: 4px solid var(--gold); padding-left: 14px !important; }
+    .data-note { font-size: 0.75rem; color: var(--muted); margin-top: 12px; text-align: right; display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
     #refreshBtn {
-      background: none; border: none; color: var(--sky); cursor: pointer;
-      font-size: 0.76rem; font-family: 'Manrope', sans-serif; padding: 0 0 0 8px;
-      text-decoration: underline;
+      background: rgba(0,128,219,0.1); border: 1px solid rgba(0,128,219,0.3); color: var(--sky);
+      cursor: pointer; font-size: 0.72rem; font-family: 'Manrope', sans-serif; padding: 4px 12px; border-radius: 4px; transition: background 0.2s;
     }
+    #refreshBtn:hover { background: rgba(0,128,219,0.2); }
 
-    /* ── FIXTURES ── */
-    .day-block { margin-bottom: 32px; }
+    /* ── FIXTURE DAYS ── */
+    .day-block { margin-bottom: 28px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
     .day-header {
-      background: var(--navy);
-      border-radius: var(--radius) var(--radius) 0 0;
-      padding: 13px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 6px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      padding: 18px 24px; display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 8px; position: relative; overflow: hidden;
     }
-    .day-header .day-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 1.5px; color: var(--white); }
-    .day-header .day-info { font-size: 0.8rem; color: rgba(255,255,255,0.65); letter-spacing: 0.5px; }
-    .match-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--mid);
-      border-radius: 0 0 var(--radius) var(--radius);
-      overflow: hidden;
+    .day-header::after { content:''; position:absolute; right:-20px; top:-20px; width:120px; height:120px; border-radius:50%; background:rgba(207,167,92,0.06); pointer-events:none; }
+    .day-label-wrap { display: flex; align-items: center; gap: 14px; }
+    .day-number { font-family:'Bebas Neue',sans-serif; font-size:0.7rem; letter-spacing:2px; color:var(--gold); background:rgba(207,167,92,0.12); border:1px solid rgba(207,167,92,0.3); padding:3px 10px; border-radius:3px; }
+    .day-header .day-name { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:2px; color:var(--white); }
+    .day-header .day-info { font-size:0.78rem; color:rgba(255,255,255,0.55); letter-spacing:0.5px; }
+    .match-cards { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--mid); }
+    @media (max-width:640px) { .match-cards { grid-template-columns:1fr; } }
+    .match-card { background:var(--white); padding:24px 22px 20px; display:flex; flex-direction:column; gap:16px; transition:background 0.2s; }
+    .match-card:hover { background:#fafbff; }
+    .match-card-top { display:flex; align-items:center; justify-content:space-between; }
+    .pitch-tag { font-size:0.65rem; text-transform:uppercase; letter-spacing:2px; color:var(--sky); background:rgba(0,128,219,0.08); border:1px solid rgba(0,128,219,0.2); border-radius:4px; padding:3px 10px; font-weight:700; }
+    .overs-tag { font-size:0.68rem; color:var(--muted); font-weight:600; letter-spacing:1px; }
+    .match-teams-row { display:flex; align-items:center; gap:0; }
+    .match-team { display:flex; flex-direction:column; align-items:center; gap:10px; flex:1; }
+    .match-team img { width:68px; height:68px; object-fit:contain; border-radius:50%; border:1px solid var(--mid); transition:transform 0.2s; padding:4px; }
+    .match-card:hover .match-team img { transform:scale(1.05); }
+    .match-team .m-name { font-family:'Bebas Neue',sans-serif; font-size:1.05rem; letter-spacing:1.5px; color:var(--navy); text-align:center; }
+    .match-vs-col { display:flex; flex-direction:column; align-items:center; gap:6px; padding:0 12px; flex-shrink:0; }
+    .vs-badge { font-family:'Bebas Neue',sans-serif; font-size:0.95rem; letter-spacing:2px; background:var(--navy); color:var(--gold); width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+
+    /* ── MATCH SCORES ── */
+    .match-scores {
+      display: flex; gap: 8px;
+      background: var(--light); border-radius: 8px; padding: 10px 14px;
+      align-items: center; justify-content: space-between;
     }
-    @media (max-width: 600px) { .match-cards { grid-template-columns: 1fr; } }
-    .match-card {
-      background: var(--white);
-      padding: 22px 20px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+    .score-side { display: flex; flex-direction: column; flex: 1; }
+    .score-team-name { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 2px; font-weight: 700; }
+    .score-runs { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 1px; color: var(--navy); line-height: 1; }
+    .score-overs { font-size: 0.68rem; color: var(--muted); }
+    .score-divider { width: 1px; height: 36px; background: var(--mid); flex-shrink: 0; }
+    .score-side.away { text-align: right; align-items: flex-end; }
+
+    .match-result-row { text-align:center; min-height:28px; }
+    .result-pill { display:inline-flex; align-items:center; gap:6px; padding:5px 16px; border-radius:20px; font-size:0.75rem; font-weight:800; letter-spacing:0.3px; }
+    .pill-upcoming { background:var(--light); color:var(--muted); border:1px solid var(--mid); }
+    .pill-home-win { background:#dcfce7; color:#166534; }
+    .pill-away-win { background:#dbeafe; color:#1e40af; }
+    .pill-tie      { background:#fef3c7; color:#92400e; }
+    .pill-nr       { background:#f1f5f9; color:var(--muted); }
+    .match-details-text { font-size:0.78rem; color:var(--muted); text-align:center; font-style:italic; }
+
+    /* Match video embed */
+    .match-video-embed { border-radius: 8px; overflow: hidden; background: #000; }
+    .match-video-embed { position: relative; padding-top: 56.25%; }
+    .match-video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+    .match-links { display:flex; gap:8px; flex-wrap:wrap; }
+    .m-link { display:inline-flex; align-items:center; gap:5px; padding:7px 14px; border-radius:8px; font-size:0.73rem; font-weight:800; text-decoration:none; transition:all 0.18s; white-space:nowrap; letter-spacing:0.3px; }
+    .m-link:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+    .link-fixture   { background:var(--light); color:var(--navy); border:1px solid var(--mid); }
+    .link-scorecard { background:var(--navy); color:var(--white); }
+    .link-live      { background:linear-gradient(135deg,#dc2626,#ef4444); color:var(--white); }
+    .link-highlights{ background:linear-gradient(135deg,#7c3aed,#8b5cf6); color:var(--white); }
+
+    /* ── PLAYER OF THE MATCH ── */
+    .potm-section { background: linear-gradient(135deg, var(--navy), var(--navy-mid)); padding: 0; }
+    .potm-inner { max-width: 1060px; margin: 0 auto; padding: 52px 24px; }
+    .potm-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .potm-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 3px; color: var(--white); }
+    .potm-line { flex: 1; height: 2px; background: linear-gradient(to right, rgba(207,167,92,0.5), transparent); border-radius: 2px; }
+    .potm-trophy { font-size: 1.3rem; }
+    .potm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+    .potm-empty { color: rgba(255,255,255,0.35); font-style: italic; font-size: 0.9rem; text-align: center; padding: 24px 0; }
+    .potm-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(207,167,92,0.2);
+      border-radius: var(--radius-lg); padding: 22px 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;
+      transition: background 0.2s, transform 0.2s;
     }
-    .match-card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 4px;
+    .potm-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    .potm-card-badge {
+      position: relative; width: 72px; height: 72px;
     }
-    .pitch-tag {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--muted);
-      border: 1px solid var(--mid);
-      border-radius: 3px;
-      padding: 2px 8px;
+    .potm-card-badge img { width: 72px; height: 72px; object-fit: contain; border-radius: 50%; padding: 4px; }
+    .potm-award-icon {
+      position: absolute; bottom: -2px; right: -2px;
+      background: var(--gold); border-radius: 50%; width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center; font-size: 0.7rem;
     }
-    .overs-tag { font-size: 0.7rem; color: var(--muted); }
-    .match-teams-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .match-team {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      flex: 1;
-    }
-    .match-team img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 1px solid var(--mid);
-    }
-    .match-team .m-name { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 1px; color: var(--navy); text-align: center; }
-    .match-vs { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; color: var(--muted); flex-shrink: 0; }
-    .match-result-row { text-align: center; min-height: 26px; }
-    .result-pill {
-      display: inline-block;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-    }
-    .pill-upcoming { background: var(--mid); color: var(--muted); }
-    .pill-home-win { background: #dcfce7; color: #166534; }
-    .pill-away-win { background: #dbeafe; color: #1e40af; }
-    .pill-tie      { background: #fef3c7; color: #92400e; }
-    .pill-nr       { background: #f1f5f9; color: var(--muted); }
-    .match-details-text { font-size: 0.78rem; color: var(--muted); text-align: center; font-style: italic; }
-    .match-links { display: flex; gap: 8px; flex-wrap: wrap; }
-    .m-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: opacity 0.18s, transform 0.18s;
-      white-space: nowrap;
-    }
-    .m-link:hover { opacity: 0.85; transform: translateY(-1px); }
-    .link-fixture  { background: #e2e8f0; color: var(--navy); }
-    .link-scorecard { background: var(--navy); color: var(--white); }
-    .link-live     { background: #dc2626; color: var(--white); }
-    .link-highlights { background: #7c3aed; color: var(--white); }
+    .potm-match-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); font-weight: 700; }
+    .potm-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; color: var(--white); line-height: 1.1; }
+    .potm-nation { font-size: 0.72rem; color: rgba(255,255,255,0.5); letter-spacing: 1px; }
+    .potm-detail { font-size: 0.82rem; color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.07); padding: 5px 12px; border-radius: 6px; margin-top: 2px; font-weight: 700; }
 
     /* ── SQUADS ── */
-    .squads-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-    .squad-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
-    .squad-card-header {
-      background: var(--navy);
-      padding: 16px 18px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .squad-card-header img { width: 46px; height: 46px; object-fit: cover; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); }
-    .squad-card-header .sq-nation { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 1.5px; color: var(--white); }
-    .squad-card-body { padding: 18px; }
-    .squad-pending { color: var(--muted); font-size: 0.85rem; font-style: italic; text-align: center; padding: 14px 0; }
-    .squad-list { list-style: none; }
-    .squad-list li { padding: 5px 0; border-bottom: 1px solid var(--mid); font-size: 0.87rem; }
-    .squad-list li:last-child { border-bottom: none; }
-    .squad-list li .role { font-size: 0.72rem; color: var(--muted); margin-left: 6px; }
-
-    /* ── VENUE LOGO ── */
-    .hero-meta-item .venue-badge {
-      width: 52px;
-      height: 52px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.2);
-      margin-top: 8px;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
-    }
+    .squads-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+    .squad-card { background:var(--white); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid rgba(5,16,43,0.05); transition:transform 0.2s,box-shadow 0.2s; }
+    .squad-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+    .squad-card-header { background:linear-gradient(135deg,var(--navy),var(--navy-mid)); padding:20px; display:flex; align-items:center; gap:16px; position:relative; overflow:hidden; }
+    .squad-card-header img { width:50px; height:50px; object-fit:contain; border-radius:50%; border:2px solid rgba(255,255,255,0.15); position:relative; z-index:1; padding:3px; }
+    .sq-nation { font-family:'Bebas Neue',sans-serif; font-size:1.25rem; letter-spacing:2px; color:var(--white); display:block; }
+    .sq-count { font-size:0.68rem; color:var(--gold); letter-spacing:1px; font-weight:700; }
+    .squad-card-body { padding:18px 20px; }
+    .squad-pending { color:var(--muted); font-size:0.85rem; font-style:italic; text-align:center; padding:16px 0; display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .squad-pending::before { content:'⏳'; font-style:normal; font-size:1.4rem; }
+    .squad-list { list-style:none; }
+    .squad-list li { padding:7px 0; border-bottom:1px solid var(--mid); font-size:0.86rem; display:flex; align-items:center; justify-content:space-between; }
+    .squad-list li:last-child { border-bottom:none; }
+    .squad-list li .role { font-size:0.68rem; color:var(--muted); background:var(--light); padding:2px 7px; border-radius:3px; }
 
     /* ── PARTNERS ── */
-    .partners-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .partner-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      display: flex;
-      align-items: stretch;
-      min-width: 280px;
-      flex: 1;
-      max-width: 480px;
-    }
-    .partner-logo-wrap {
-      background: var(--light);
-      border-right: 1px solid var(--mid);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px 18px;
-      min-width: 120px;
-    }
-    .partner-logo-wrap img {
-      max-width: 90px;
-      max-height: 80px;
-      object-fit: contain;
-    }
-    .partner-info {
-      padding: 18px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-    }
-    .partner-role {
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--sky);
-      font-weight: 700;
-    }
-    .partner-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      letter-spacing: 1px;
-      color: var(--navy);
-      line-height: 1.1;
-    }
-    .partner-contact {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+    .partners-grid { display:flex; flex-wrap:wrap; gap:20px; }
+    .partner-card { background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--shadow); overflow:hidden; display:flex; align-items:stretch; min-width:280px; flex:1; max-width:480px; text-decoration:none; color:inherit; border:1px solid rgba(5,16,43,0.05); transition:transform 0.2s,box-shadow 0.2s; }
+    .partner-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+    .partner-logo-wrap { background:var(--light); border-right:1px solid var(--mid); display:flex; align-items:center; justify-content:center; padding:24px 20px; min-width:130px; }
+    .partner-logo-wrap img { max-width:90px; max-height:80px; object-fit:contain; }
+    .partner-info { padding:20px 22px; display:flex; flex-direction:column; justify-content:center; gap:4px; }
+    .partner-role { font-size:0.62rem; text-transform:uppercase; letter-spacing:2px; color:var(--sky); font-weight:800; }
+    .partner-name { font-family:'Bebas Neue',sans-serif; font-size:1.35rem; letter-spacing:1.5px; color:var(--navy); line-height:1.1; }
+    .partner-contact { font-size:0.8rem; color:var(--muted); margin-top:2px; }
+    .partner-link { font-size:0.78rem; color:var(--sky); margin-top:4px; font-weight:700; display:inline-flex; align-items:center; gap:4px; }
 
     /* ── FOOTER ── */
-    .site-footer { background: var(--navy); color: rgba(255,255,255,0.55); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
-    .site-footer .footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--white); letter-spacing: 1px; margin-bottom: 6px; }
-    .site-footer a { color: var(--sky); text-decoration: none; }
-    .site-footer a:hover { text-decoration: underline; }
+    .site-footer { background:var(--navy); color:rgba(255,255,255,0.45); text-align:center; padding:36px 24px; font-size:0.82rem; position:relative; overflow:hidden; }
+    .site-footer::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,transparent,var(--sky),var(--gold),var(--sky),transparent); }
+    .footer-brand { font-family:'Bebas Neue',sans-serif; font-size:1.15rem; color:var(--white); letter-spacing:2px; margin-bottom:8px; }
+    .site-footer a { color:var(--sky); text-decoration:none; }
+    .site-footer a:hover { text-decoration:underline; }
 
-    /* ── RESPONSIVE TWEAKS ── */
-    @media (max-width: 480px) {
-      .hero-meta-item { padding: 4px 14px; }
-      .hero-nation img { width: 60px; height: 60px; }
-      .match-team img { width: 50px; height: 50px; }
+    /* ── SCROLL FADE ── */
+    .fade-section { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .fade-section.visible { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:480px) {
+      .hero-nation { padding:14px 16px; }
+      .hero-meta-item { padding:4px 14px; }
+      .cd-unit { min-width:58px; padding:10px 12px; }
+      .cd-num { font-size:1.9rem; }
+      .progress-strip { flex-direction:column; align-items:flex-start; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════
-     HEADER
-══════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════ HEADER -->
 <header class="site-header">
   <span class="brand">ENGLAND OVER 40s CRICKET</span>
   <a class="back" href="https://www.eng40scricket.co.uk">← Main Website</a>
 </header>
 
-<!-- ══════════════════════════════════════════
-     HERO
-══════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════ HERO -->
 <section class="hero">
-  <div class="hero-tournament-badge">HOME NATIONS TOURNAMENT · OVER 40s CRICKET</div>
-  <div class="hero-logo-wrap">
-    <img src="img/tournament.png" alt="Triple Crown of Cricket 2026">
-  </div>
-  <h1>Triple Crown <span>2026</span></h1>
-  <p class="hero-tagline">England · Ireland · Scotland · Wales</p>
-
-  <div class="hero-nations" id="heroNations"></div>
-
-  <div class="hero-meta">
-    <div class="hero-meta-item">
-      <span class="hero-meta-label">Venue</span>
-      <span class="hero-meta-value">Bishop's Stortford CC</span>
-      <img src="img/bscc.png" alt="Bishop's Stortford Cricket Club" class="venue-badge">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">TRIPLE CROWN OF CRICKET · OVER 40s</div>
+    <div class="hero-logo-wrap">
+      <img src="img/tournament.png" alt="Triple Crown of Cricket 2026">
     </div>
-    <div class="hero-meta-item">
-      <span class="hero-meta-label">Dates</span>
-      <span class="hero-meta-value">28–30 July 2026</span>
+    <h1>TRIPLE <span class="line2">CROWN 2026</span></h1>
+    <p class="hero-tagline">England &nbsp;·&nbsp; Ireland &nbsp;·&nbsp; Scotland &nbsp;·&nbsp; Wales</p>
+    <div class="hero-nations" id="heroNations"></div>
+    <div class="countdown-wrap">
+      <p class="countdown-label">Tournament begins in</p>
+      <div id="countdownDisplay"></div>
     </div>
-    <div class="hero-meta-item">
-      <span class="hero-meta-label">Format</span>
-      <span class="hero-meta-value">45-over round robin</span>
-    </div>
-    <div class="hero-meta-item">
-      <span class="hero-meta-label">Nations</span>
-      <span class="hero-meta-value">4 · 6 matches</span>
+    <div class="hero-meta-strip">
+      <div class="hero-meta-item">
+        <span class="hero-meta-icon">📍</span>
+        <span class="hero-meta-label">Venue</span>
+        <span class="hero-meta-value">Bishop's Stortford CC</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-icon">📅</span>
+        <span class="hero-meta-label">Dates</span>
+        <span class="hero-meta-value">28–30 July 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-icon">🏏</span>
+        <span class="hero-meta-label">Format</span>
+        <span class="hero-meta-value">45-over round robin</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-icon">🌍</span>
+        <span class="hero-meta-label">Nations</span>
+        <span class="hero-meta-value">4 · 6 matches</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     STANDINGS
-══════════════════════════════════════════ -->
-<div class="section">
-  <h2 class="section-title">Points Table</h2>
+<!-- ══════════════════════════════════════════ PROGRESS STRIP -->
+<div class="progress-strip" id="progressStrip">
+  <div class="progress-left">
+    <span class="progress-title">Tournament Progress</span>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <div class="progress-labels">
+      <span class="progress-played" id="progressPlayed">0 of 6 matches played</span>
+      <span class="progress-total">6 total</span>
+    </div>
+  </div>
+  <div class="progress-stats" id="progressStats"></div>
+</div>
+
+<!-- ══════════════════════════════════════════ HOW TO FOLLOW -->
+<div class="follow-strip">
+  <span class="follow-label">HOW TO FOLLOW</span>
+  <div class="follow-links">
+    <a class="follow-link follow-link-nv" href="https://www.youtube.com/@englandover40scricket" target="_blank" rel="noopener">
+      <span class="follow-link-icon">▶</span> Watch Live on YouTube
+    </a>
+    <a class="follow-link follow-link-pc" href="https://triplecrown.play-cricket.com" target="_blank" rel="noopener">
+      <span class="follow-link-icon">📊</span> Live Scores on Play-Cricket
+    </a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ LIVE STREAM -->
+<div class="live-section" id="liveSection">
+  <div class="live-section-inner">
+    <div class="live-header">
+      <div class="live-dot" id="liveDot"></div>
+      <span class="live-title" id="liveTitle">WATCH LIVE</span>
+      <span class="live-match-label" id="liveMatchLabel"></span>
+    </div>
+    <div class="live-embed-grid" id="liveEmbedGrid"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ STANDINGS -->
+<div class="section fade-section">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">Points Table</h2>
+    <div class="section-line"></div>
+  </div>
   <div class="standings-wrap">
     <table class="standings-table">
       <thead>
         <tr>
           <th class="col-pos">#</th>
           <th class="col-team">Team</th>
-          <th>P</th>
-          <th>W</th>
-          <th>L</th>
-          <th>T&nbsp;/&nbsp;NR</th>
+          <th>P</th><th>W</th><th>L</th><th>T&nbsp;/&nbsp;NR</th>
           <th class="col-nrr">NRR</th>
           <th class="col-pts">Pts</th>
         </tr>
@@ -488,30 +575,47 @@
   </p>
 </div>
 
-<!-- ══════════════════════════════════════════
-     FIXTURES & RESULTS
-══════════════════════════════════════════ -->
-<div class="section" style="padding-top:0">
-  <h2 class="section-title">Fixtures &amp; Results</h2>
+<!-- ══════════════════════════════════════════ FIXTURES & RESULTS -->
+<div class="section fade-section" style="padding-top:0">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Fixtures &amp; Results</h2>
+    <div class="section-line"></div>
+  </div>
   <div id="fixturesContainer"></div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     SQUADS
-══════════════════════════════════════════ -->
-<div class="section" style="padding-top:0">
-  <h2 class="section-title">Squads</h2>
+<!-- ══════════════════════════════════════════ PLAYER OF THE MATCH -->
+<div class="potm-section fade-section">
+  <div class="potm-inner">
+    <div class="potm-header">
+      <span class="potm-trophy">🏆</span>
+      <h2 class="potm-title">Player of the Match</h2>
+      <div class="potm-line"></div>
+    </div>
+    <div id="potmGrid"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ SQUADS -->
+<div class="section fade-section">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Squads</h2>
+    <div class="section-line"></div>
+  </div>
   <div class="squads-grid" id="squadsGrid"></div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     PARTNERS & SPONSORS
-══════════════════════════════════════════ -->
-<div class="section" style="padding-top:0">
-  <h2 class="section-title">Partners &amp; Sponsors</h2>
+<!-- ══════════════════════════════════════════ PARTNERS -->
+<div class="section fade-section" style="padding-top:0">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Partners &amp; Sponsors</h2>
+    <div class="section-line"></div>
+  </div>
   <div class="partners-grid">
-
-    <a class="partner-card" href="https://hertsphysio.co.uk/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+    <a class="partner-card" href="https://hertsphysio.co.uk/" target="_blank" rel="noopener">
       <div class="partner-logo-wrap">
         <img src="img/hertsphysio.png" alt="Herts Physio">
       </div>
@@ -519,16 +623,13 @@
         <span class="partner-role">Tournament Physiotherapy Partner</span>
         <span class="partner-name">Herts Physio</span>
         <span class="partner-contact">Wesley Marshall, Director</span>
-        <span class="partner-contact" style="color:var(--sky);margin-top:4px">hertsphysio.co.uk ↗</span>
+        <span class="partner-link">hertsphysio.co.uk ↗</span>
       </div>
     </a>
-
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     FOOTER
-══════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════ FOOTER -->
 <footer class="site-footer">
   <div class="footer-brand">OVER 40s CRICKET ENGLAND</div>
   <p>Triple Crown 2026 · Bishop's Stortford Cricket Club · 28–30 July 2026</p>
@@ -542,88 +643,108 @@
 
 <script>
 /* ══════════════════════════════════════════════════════════
-   CONFIG — edit this section to update the page
+   CONFIG
 ══════════════════════════════════════════════════════════ */
 
 const NATIONS = [
-  // emblem      = dark/hero version (navy background)
-  // emblemLight = light version (white/card backgrounds, table, squads)
-  { name: 'England',  emblem: 'img/england.png',  emblemLight: 'img/england1.png', initials: 'ENG' },
-  { name: 'Ireland',  emblem: 'img/ireland.png',  emblemLight: 'img/ireland.png',  initials: 'IRE' },
-  { name: 'Scotland', emblem: 'img/scotland.png', emblemLight: 'img/scotland.png', initials: 'SCO' },
-  { name: 'Wales',    emblem: 'img/wales.png',    emblemLight: 'img/wales.png',    initials: 'WAL' },
+  { name:'England',  emblem:'img/england.png',  emblemLight:'img/england1.png', initials:'ENG' },
+  { name:'Ireland',  emblem:'img/ireland.png',  emblemLight:'img/ireland.png',  initials:'IRE' },
+  { name:'Scotland', emblem:'img/scotland.png', emblemLight:'img/scotland.png', initials:'SCO' },
+  { name:'Wales',    emblem:'img/wales.png',    emblemLight:'img/wales.png',    initials:'WAL' },
 ];
 
-// Matches.csv is fetched from the live site.
-// Add fixtures to matches.csv with Tournament = "Triple Crown 2026"
-// for results to appear automatically.
-const CSV_URL = 'https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/data/matches.csv';
+const CSV_URL          = 'https://raw.githubusercontent.com/Eng40sCricket/eng40s-website/main/assets/data/matches.csv';
 const TOURNAMENT_FILTER = 'triple crown';
 
-// All 6 fixtures — hardcoded so the page works before CSV data is available.
-// Results overlay automatically once entered via the results form.
 const FIXTURES = [
-  /* ── Day 1: Tuesday 28 July · 12:00 start ── */
-  {
-    day: 1, dayLabel: 'Tuesday 28 July 2026', start: '12:00', overs: 45,
-    pitch: 1, home: 'England', away: 'Ireland',
-    homeEmblem: 'img/england1.png', awayEmblem: 'img/ireland.png',
-    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616872',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
-    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
-  },
-  {
-    day: 1, dayLabel: 'Tuesday 28 July 2026', start: '12:00', overs: 45,
-    pitch: 2, home: 'Wales', away: 'Scotland',
-    homeEmblem: 'img/wales.png', awayEmblem: 'img/scotland.png',
-    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616873',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
-    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
-  },
-  /* ── Day 2: Wednesday 29 July · 11:00 start ── */
-  {
-    day: 2, dayLabel: 'Wednesday 29 July 2026', start: '11:00', overs: 45,
-    pitch: 1, home: 'England', away: 'Scotland',
-    homeEmblem: 'img/england1.png', awayEmblem: 'img/scotland.png',
-    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616869',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
-    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
-  },
-  {
-    day: 2, dayLabel: 'Wednesday 29 July 2026', start: '11:00', overs: 45,
-    pitch: 2, home: 'Wales', away: 'Ireland',
-    homeEmblem: 'img/wales.png', awayEmblem: 'img/ireland.png',
-    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616871',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
-    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
-  },
-  /* ── Day 3: Thursday 30 July · 11:00 start ── */
-  {
-    day: 3, dayLabel: 'Thursday 30 July 2026', start: '11:00', overs: 45,
-    pitch: 1, home: 'England', away: 'Wales',
-    homeEmblem: 'img/england1.png', awayEmblem: 'img/wales.png',
-    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616870',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
-    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
-  },
-  {
-    day: 3, dayLabel: 'Thursday 30 July 2026', start: '11:00', overs: 45,
-    pitch: 2, home: 'Ireland', away: 'Scotland',
-    homeEmblem: 'img/ireland.png', awayEmblem: 'img/scotland.png',
-    fixtureURL: 'https://triplecrown.play-cricket.com/match_details?id=7616874',
-    result: null, details: '', scorecardURL: '', youtubeLive: '', youtubeHighlights: '',
-    homeRuns: null, homeOvers: null, awayRuns: null, awayOvers: null
-  },
+  { day:1, dayLabel:'Tuesday 28 July 2026',   start:'12:00', overs:45,
+    pitch:1, home:'England',  away:'Ireland',
+    homeEmblem:'img/england1.png', awayEmblem:'img/ireland.png',
+    fixtureURL:'https://triplecrown.play-cricket.com/match_details?id=7616872',
+    result:null, details:'', scorecardURL:'', youtubeLive:'', youtubeHighlights:'',
+    homeRuns:null, homeWkts:null, homeOvers:null, awayRuns:null, awayWkts:null, awayOvers:null },
+  { day:1, dayLabel:'Tuesday 28 July 2026',   start:'12:00', overs:45,
+    pitch:2, home:'Wales',    away:'Scotland',
+    homeEmblem:'img/wales.png',    awayEmblem:'img/scotland.png',
+    fixtureURL:'https://triplecrown.play-cricket.com/match_details?id=7616873',
+    result:null, details:'', scorecardURL:'', youtubeLive:'', youtubeHighlights:'',
+    homeRuns:null, homeWkts:null, homeOvers:null, awayRuns:null, awayWkts:null, awayOvers:null },
+  { day:2, dayLabel:'Wednesday 29 July 2026', start:'11:00', overs:45,
+    pitch:1, home:'England',  away:'Scotland',
+    homeEmblem:'img/england1.png', awayEmblem:'img/scotland.png',
+    fixtureURL:'https://triplecrown.play-cricket.com/match_details?id=7616869',
+    result:null, details:'', scorecardURL:'', youtubeLive:'', youtubeHighlights:'',
+    homeRuns:null, homeWkts:null, homeOvers:null, awayRuns:null, awayWkts:null, awayOvers:null },
+  { day:2, dayLabel:'Wednesday 29 July 2026', start:'11:00', overs:45,
+    pitch:2, home:'Wales',    away:'Ireland',
+    homeEmblem:'img/wales.png',    awayEmblem:'img/ireland.png',
+    fixtureURL:'https://triplecrown.play-cricket.com/match_details?id=7616871',
+    result:null, details:'', scorecardURL:'', youtubeLive:'', youtubeHighlights:'',
+    homeRuns:null, homeWkts:null, homeOvers:null, awayRuns:null, awayWkts:null, awayOvers:null },
+  { day:3, dayLabel:'Thursday 30 July 2026',  start:'11:00', overs:45,
+    pitch:1, home:'England',  away:'Wales',
+    homeEmblem:'img/england1.png', awayEmblem:'img/wales.png',
+    fixtureURL:'https://triplecrown.play-cricket.com/match_details?id=7616870',
+    result:null, details:'', scorecardURL:'', youtubeLive:'', youtubeHighlights:'',
+    homeRuns:null, homeWkts:null, homeOvers:null, awayRuns:null, awayWkts:null, awayOvers:null },
+  { day:3, dayLabel:'Thursday 30 July 2026',  start:'11:00', overs:45,
+    pitch:2, home:'Ireland',  away:'Scotland',
+    homeEmblem:'img/ireland.png',  awayEmblem:'img/scotland.png',
+    fixtureURL:'https://triplecrown.play-cricket.com/match_details?id=7616874',
+    result:null, details:'', scorecardURL:'', youtubeLive:'', youtubeHighlights:'',
+    homeRuns:null, homeWkts:null, homeOvers:null, awayRuns:null, awayWkts:null, awayOvers:null },
 ];
 
-// Squads — set announced: true and fill players[] when confirmed.
-// Player format: "Name" or "Name (Captain)" or { name, role }
 const SQUADS = {
-  England:  { announced: false, players: [] },
-  Ireland:  { announced: false, players: [] },
-  Scotland: { announced: false, players: [] },
-  Wales:    { announced: false, players: [] },
+  England:  { announced:false, players:[] },
+  Ireland:  { announced:false, players:[] },
+  Scotland: { announced:false, players:[] },
+  Wales:    { announced:false, players:[] },
 };
+
+// Player of the Match — fill in after each game.
+// Fields: day, match (label), name, nation, emblem, detail (e.g. "67 (45b) & 2/28"), award (role line)
+// Example:
+// const PLAYER_OF_MATCH = [
+//   { day:1, match:'England v Ireland', name:'Darren Stevens', nation:'England',
+//     emblem:'img/england1.png', detail:'67 (45b), 2/28', award:'All-rounder' },
+// ];
+const PLAYER_OF_MATCH = [];
+
+/* ══════════════════════════════════════════════════════════
+   COUNTDOWN
+══════════════════════════════════════════════════════════ */
+function renderCountdown() {
+  const target = new Date('2026-07-28T12:00:00+01:00');
+  const end    = new Date('2026-07-30T19:00:00+01:00');
+  const now    = new Date();
+  const el     = document.getElementById('countdownDisplay');
+  if (now >= end) {
+    el.innerHTML = `<div class="countdown-over">Tournament concluded · Thank you Bishop's Stortford CC</div>`;
+    return;
+  }
+  if (now >= target) {
+    el.innerHTML = `<div class="countdown-live">🏏 TOURNAMENT UNDERWAY</div>`;
+    return;
+  }
+  const diff  = target - now;
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000)  / 60000);
+  const secs  = Math.floor((diff % 60000)    / 1000);
+  el.innerHTML = `
+    <div class="countdown-grid">
+      <div class="cd-unit"><span class="cd-num">${String(days).padStart(2,'0')}</span><span class="cd-lbl">Days</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num">${String(hours).padStart(2,'0')}</span><span class="cd-lbl">Hours</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num">${String(mins).padStart(2,'0')}</span><span class="cd-lbl">Mins</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num">${String(secs).padStart(2,'0')}</span><span class="cd-lbl">Secs</span></div>
+    </div>`;
+}
+renderCountdown();
+setInterval(renderCountdown, 1000);
 
 /* ══════════════════════════════════════════════════════════
    CSV PARSING
@@ -633,123 +754,114 @@ function parseCSV(text) {
   if (lines.length < 2) return [];
   const headers = parseLine(lines[0]).map(h => h.trim());
   return lines.slice(1).map(line => {
-    const vals = parseLine(line);
-    const obj = {};
-    headers.forEach((h, i) => { obj[h] = (vals[i] || '').trim(); });
+    const vals = parseLine(line), obj = {};
+    headers.forEach((h,i) => { obj[h] = (vals[i]||'').trim(); });
     return obj;
   }).filter(r => r.HomeTeam);
 }
-
 function parseLine(line) {
-  const out = []; let cur = ''; let inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    const c = line[i];
-    if (c === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
-    else if (c === ',' && !inQ) { out.push(cur); cur = ''; }
-    else cur += c;
+  const out=[]; let cur=''; let inQ=false;
+  for (let i=0; i<line.length; i++) {
+    const c=line[i];
+    if (c==='"') { if (inQ && line[i+1]==='"') { cur+='"'; i++; } else inQ=!inQ; }
+    else if (c===',' && !inQ) { out.push(cur); cur=''; }
+    else cur+=c;
   }
-  out.push(cur);
-  return out;
+  out.push(cur); return out;
 }
 
 /* ══════════════════════════════════════════════════════════
-   POINTS & NRR CALCULATION
-   Result field is from the HomeTeam's perspective:
-     Win  → HomeTeam wins (+2), AwayTeam loses (+0)
-     Loss → AwayTeam wins (+2), HomeTeam loses (+0)
-     Tie / No Result / Abandoned → both +1
-     Cancelled / upcoming → no points awarded
-
-   NRR = (Total runs scored / Total overs faced) − (Total runs conceded / Total overs bowled)
-   Score data is stored on each FIXTURE entry (homeRuns, homeOvers, awayRuns, awayOvers).
-   When a team is bowled out, use the full allocation (45) as their overs figure.
+   STANDINGS CALCULATION
 ══════════════════════════════════════════════════════════ */
-
-// Convert cricket overs notation to decimal (e.g. 42.3 → 42.5)
 function parseOvers(ov) {
-  if (ov == null || ov === '') return 0;
-  const parts = String(ov).split('.');
-  const full  = parseInt(parts[0]) || 0;
-  const balls = parseInt(parts[1]) || 0;
-  return full + balls / 6;
+  if (ov==null||ov==='') return 0;
+  const p=String(ov).split('.');
+  return (parseInt(p[0])||0)+(parseInt(p[1])||0)/6;
 }
-
 function computeStandings(fixtures) {
-  const teams = {};
-  NATIONS.forEach(n => {
-    teams[n.name] = { name: n.name, emblem: n.emblem, emblemLight: n.emblemLight, initials: n.initials,
-                      P: 0, W: 0, L: 0, TNR: 0, Pts: 0,
-                      runsFor: 0, oversFor: 0, runsAgainst: 0, oversAgainst: 0,
-                      NRR: null };
-  });
-
+  const teams={};
+  NATIONS.forEach(n => { teams[n.name]={ name:n.name, emblem:n.emblem, emblemLight:n.emblemLight, initials:n.initials, P:0,W:0,L:0,TNR:0,Pts:0, runsFor:0,oversFor:0,runsAgainst:0,oversAgainst:0,NRR:null }; });
   fixtures.forEach(f => {
     if (!f.result) return;
-    const r = f.result.toLowerCase().trim();
-    if (r === 'upcoming' || r === '' || r === 'cancelled') return;
-    const H = teams[f.home], A = teams[f.away];
-    if (!H || !A) return;
+    const r=f.result.toLowerCase().trim();
+    if (r==='upcoming'||r===''||r==='cancelled') return;
+    const H=teams[f.home], A=teams[f.away]; if (!H||!A) return;
     H.P++; A.P++;
-    if (r === 'win')       { H.W++; H.Pts += 2; A.L++; }
-    else if (r === 'loss') { A.W++; A.Pts += 2; H.L++; }
-    else                   { H.TNR++; H.Pts++; A.TNR++; A.Pts++; }
-
-    // NRR accumulation — only when score data is present
-    if (f.homeRuns != null && f.homeOvers != null && f.awayRuns != null && f.awayOvers != null) {
-      const hOv = parseOvers(f.homeOvers), aOv = parseOvers(f.awayOvers);
-      H.runsFor     += f.homeRuns;  H.oversFor     += hOv;
-      H.runsAgainst += f.awayRuns;  H.oversAgainst += aOv;
-      A.runsFor     += f.awayRuns;  A.oversFor     += aOv;
-      A.runsAgainst += f.homeRuns;  A.oversAgainst += hOv;
+    if (r==='win')       { H.W++; H.Pts+=2; A.L++; }
+    else if (r==='loss') { A.W++; A.Pts+=2; H.L++; }
+    else                 { H.TNR++; H.Pts++; A.TNR++; A.Pts++; }
+    if (f.homeRuns!=null&&f.homeOvers!=null&&f.awayRuns!=null&&f.awayOvers!=null) {
+      const hO=parseOvers(f.homeOvers), aO=parseOvers(f.awayOvers);
+      H.runsFor+=f.homeRuns; H.oversFor+=hO; H.runsAgainst+=f.awayRuns; H.oversAgainst+=aO;
+      A.runsFor+=f.awayRuns; A.oversFor+=aO; A.runsAgainst+=f.homeRuns; A.oversAgainst+=hO;
     }
   });
-
-  // Compute NRR for each team
   Object.values(teams).forEach(t => {
-    if (t.oversFor > 0 && t.oversAgainst > 0) {
-      t.NRR = (t.runsFor / t.oversFor) - (t.runsAgainst / t.oversAgainst);
-    }
+    if (t.oversFor>0&&t.oversAgainst>0) t.NRR=(t.runsFor/t.oversFor)-(t.runsAgainst/t.oversAgainst);
   });
-
-  return Object.values(teams).sort((a, b) => {
-    if (b.Pts !== a.Pts) return b.Pts - a.Pts;
-    // NRR tiebreaker — teams with no NRR data fall back to W count
-    if (a.NRR !== null && b.NRR !== null && Math.abs(a.NRR - b.NRR) > 0.0001) return b.NRR - a.NRR;
-    if (b.W   !== a.W)   return b.W   - a.W;
+  return Object.values(teams).sort((a,b) => {
+    if (b.Pts!==a.Pts) return b.Pts-a.Pts;
+    if (a.NRR!==null&&b.NRR!==null&&Math.abs(a.NRR-b.NRR)>0.0001) return b.NRR-a.NRR;
+    if (b.W!==a.W) return b.W-a.W;
     return a.name.localeCompare(b.name);
   });
 }
 
 /* ══════════════════════════════════════════════════════════
+   YOUTUBE EMBED
+══════════════════════════════════════════════════════════ */
+function youtubeEmbedUrl(url) {
+  if (!url) return null;
+  const m1 = url.match(/[?&]v=([^&]+)/);
+  const m2 = url.match(/youtu\.be\/([^?]+)/);
+  const m3 = url.match(/embed\/([^?]+)/);
+  const id  = (m1&&m1[1])||(m2&&m2[1])||(m3&&m3[1]);
+  return id ? `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1` : null;
+}
+
+/* ══════════════════════════════════════════════════════════
    RENDERING HELPERS
 ══════════════════════════════════════════════════════════ */
-function imgEl(src, alt, size, cls='') {
-  return `<img src="${src}" alt="${alt}" width="${size}" height="${size}"${cls ? ` class="${cls}"` : ''}
-          onerror="this.style.display='none'"
-          style="border-radius:50%;object-fit:cover">`;
+function imgEl(src, alt, size) {
+  return `<img src="${src}" alt="${alt}" width="${size}" height="${size}"
+          onerror="this.style.display='none'" style="border-radius:50%;object-fit:contain">`;
 }
-
 function resultPill(fix) {
-  if (!fix.result || fix.result.toLowerCase() === 'upcoming' || fix.result === '') {
+  if (!fix.result||fix.result.toLowerCase()==='upcoming'||fix.result==='')
     return `<span class="result-pill pill-upcoming">Upcoming</span>`;
-  }
-  const r = fix.result.toLowerCase().trim();
-  if (r === 'win')  return `<span class="result-pill pill-home-win">${fix.home} won</span>`;
-  if (r === 'loss') return `<span class="result-pill pill-away-win">${fix.away} won</span>`;
-  if (r === 'tie')  return `<span class="result-pill pill-tie">Tie</span>`;
-  if (r === 'cancelled') return `<span class="result-pill pill-nr">Cancelled</span>`;
+  const r=fix.result.toLowerCase().trim();
+  if (r==='win')       return `<span class="result-pill pill-home-win">🏆 ${fix.home} won</span>`;
+  if (r==='loss')      return `<span class="result-pill pill-away-win">🏆 ${fix.away} won</span>`;
+  if (r==='tie')       return `<span class="result-pill pill-tie">🤝 Tie</span>`;
+  if (r==='cancelled') return `<span class="result-pill pill-nr">Cancelled</span>`;
   return `<span class="result-pill pill-nr">No Result</span>`;
 }
-
+function scoreDisplay(fix) {
+  if (fix.homeRuns===null && fix.awayRuns===null) return '';
+  function fmt(runs, wkts, overs, label) {
+    if (runs===null) return '';
+    const score = wkts!==null ? `${runs}/${wkts}` : `${runs}`;
+    const ov    = overs ? `<span class="score-overs">(${overs} ov)</span>` : '';
+    return `<div class="score-side${label==='away'?' away':''}">
+      <div class="score-team-name">${label==='home'?fix.home:fix.away}</div>
+      <div class="score-runs">${score} ${ov}</div>
+    </div>`;
+  }
+  return `<div class="match-scores">
+    ${fmt(fix.homeRuns, fix.homeWkts, fix.homeOvers, 'home')}
+    <div class="score-divider"></div>
+    ${fmt(fix.awayRuns, fix.awayWkts, fix.awayOvers, 'away')}
+  </div>`;
+}
 function matchLinks(fix) {
   const played = fix.result && !['upcoming',''].includes(fix.result.toLowerCase());
-  let html = '';
-  const scoreURL  = played ? (fix.scorecardURL || fix.fixtureURL) : fix.fixtureURL;
-  const scoreLbl  = played ? '📋 Scorecard' : '📅 Fixture';
-  const scoreCls  = played ? 'link-scorecard' : 'link-fixture';
-  if (scoreURL) html += `<a href="${scoreURL}" target="_blank" rel="noopener" class="m-link ${scoreCls}">${scoreLbl}</a>`;
-  if (fix.youtubeLive) html += `<a href="${fix.youtubeLive}" target="_blank" rel="noopener" class="m-link link-live">🔴 Live</a>`;
-  if (fix.youtubeHighlights) html += `<a href="${fix.youtubeHighlights}" target="_blank" rel="noopener" class="m-link link-highlights">▶ Highlights</a>`;
+  let html='';
+  const scoreURL = played ? (fix.scorecardURL||fix.fixtureURL) : fix.fixtureURL;
+  const scoreLbl = played ? '📋 Scorecard' : '📅 Fixture';
+  const scoreCls = played ? 'link-scorecard' : 'link-fixture';
+  if (scoreURL) html+=`<a href="${scoreURL}" target="_blank" rel="noopener" class="m-link ${scoreCls}">${scoreLbl}</a>`;
+  if (fix.youtubeLive)       html+=`<a href="${fix.youtubeLive}" target="_blank" rel="noopener" class="m-link link-live">🔴 Live</a>`;
+  if (fix.youtubeHighlights) html+=`<a href="${fix.youtubeHighlights}" target="_blank" rel="noopener" class="m-link link-highlights">▶ Highlights</a>`;
   return html ? `<div class="match-links">${html}</div>` : '';
 }
 
@@ -759,56 +871,118 @@ function matchLinks(fix) {
 function renderHero() {
   document.getElementById('heroNations').innerHTML = NATIONS.map(n => `
     <div class="hero-nation">
-      <img src="${n.emblem}" alt="${n.name}" width="76" height="76"
-           onerror="this.style.display='none'">
+      <div class="hero-nation-badge">
+        <img src="${n.emblem}" alt="${n.name}" width="88" height="88" onerror="this.style.display='none'">
+      </div>
       <span class="nation-label">${n.name.toUpperCase()}</span>
-    </div>
-  `).join('');
+    </div>`).join('');
+}
+
+function renderProgress(fixtures) {
+  const played = fixtures.filter(f => f.result && !['upcoming','','cancelled'].includes(f.result.toLowerCase().trim())).length;
+  const total  = fixtures.length;
+  const wins   = fixtures.filter(f => f.result && f.result.toLowerCase().trim()==='win').length;
+  const pct    = total ? (played/total*100).toFixed(0) : 0;
+
+  // Animate bar
+  const fill = document.getElementById('progressBarFill');
+  fill.style.setProperty('--pct', pct+'%');
+  setTimeout(() => { fill.style.width = pct+'%'; }, 100);
+
+  document.getElementById('progressPlayed').textContent = `${played} of ${total} matches played`;
+
+  // Stat blocks
+  const remaining = total - played;
+  document.getElementById('progressStats').innerHTML = `
+    <div class="progress-stat"><span class="ps-num">${played}</span><span class="ps-lbl">Played</span></div>
+    <div class="progress-stat"><span class="ps-num">${remaining}</span><span class="ps-lbl">Remaining</span></div>
+    <div class="progress-stat"><span class="ps-num">${wins}</span><span class="ps-lbl">Eng Wins</span></div>`;
+}
+
+function renderLiveStream(fixtures) {
+  // Find fixtures with a live stream URL
+  const liveFixtures = fixtures.filter(f => f.youtubeLive);
+  const highlightFixtures = fixtures.filter(f => f.youtubeHighlights && !f.youtubeLive);
+  const section = document.getElementById('liveSection');
+  const grid    = document.getElementById('liveEmbedGrid');
+  const title   = document.getElementById('liveTitle');
+  const dot     = document.getElementById('liveDot');
+
+  if (!liveFixtures.length && !highlightFixtures.length) { section.classList.remove('visible'); return; }
+
+  const toShow = liveFixtures.length ? liveFixtures : highlightFixtures;
+  const isLive = liveFixtures.length > 0;
+
+  title.textContent = isLive ? 'WATCH LIVE' : 'MATCH REPLAYS';
+  dot.style.background = isLive ? '#ef4444' : '#6b7280';
+
+  grid.innerHTML = toShow.map(f => {
+    const url    = f.youtubeLive || f.youtubeHighlights;
+    const embed  = youtubeEmbedUrl(url);
+    if (!embed) return '';
+    return `
+      <div>
+        <div class="live-embed-wrap">
+          <iframe src="${embed}" title="${f.home} v ${f.away}" allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        </div>
+        <p class="live-embed-label">${f.home} v ${f.away} · ${f.dayLabel}</p>
+      </div>`;
+  }).join('');
+
+  if (grid.innerHTML.trim()) section.classList.add('visible');
 }
 
 function nrrCell(nrr) {
-  if (nrr === null) return `<td class="col-nrr nrr-zero">—</td>`;
-  const sign = nrr >= 0 ? '+' : '';
-  const cls  = nrr > 0.001 ? 'nrr-pos' : nrr < -0.001 ? 'nrr-neg' : 'nrr-zero';
+  if (nrr===null) return `<td class="col-nrr nrr-zero">—</td>`;
+  const sign=nrr>=0?'+':'';
+  const cls =nrr>0.001?'nrr-pos':nrr<-0.001?'nrr-neg':'nrr-zero';
   return `<td class="col-nrr ${cls}">${sign}${nrr.toFixed(3)}</td>`;
 }
-
 function renderStandings(fixtures) {
-  const rows = computeStandings(fixtures);
-  const anyPlayed = rows.some(r => r.P > 0);
-  document.getElementById('standingsBody').innerHTML = rows.map((t, i) => `
-    <tr class="${i === 0 && anyPlayed ? 'leader-row' : ''}">
-      <td class="col-pos">${i + 1}</td>
+  const rows=computeStandings(fixtures);
+  const maxPts=Math.max(...rows.map(r=>r.Pts),6);
+  const anyPlayed=rows.some(r=>r.P>0);
+  document.getElementById('standingsBody').innerHTML = rows.map((t,i) => `
+    <tr class="${i===0&&anyPlayed?'leader-row':''}">
+      <td class="col-pos"><span class="pos-num">${i+1}</span></td>
       <td class="col-team">
         <div class="team-cell">
-          ${imgEl(t.emblemLight || t.emblem, t.name, 34)}
-          <span class="t-name">${t.name}</span>
+          ${imgEl(t.emblemLight||t.emblem, t.name, 38)}
+          <div><div class="t-name">${t.name}</div><div class="t-code">${t.initials}</div></div>
         </div>
       </td>
-      <td>${t.P}</td>
-      <td>${t.W}</td>
-      <td>${t.L}</td>
-      <td>${t.TNR}</td>
+      <td>${t.P}</td><td>${t.W}</td><td>${t.L}</td><td>${t.TNR}</td>
       ${nrrCell(t.NRR)}
-      <td class="col-pts">${t.Pts}</td>
-    </tr>
-  `).join('');
+      <td class="col-pts">
+        <div class="pts-bar-wrap">
+          <span>${t.Pts}</span>
+          <div class="pts-bar"><div class="pts-bar-fill" style="width:${(t.Pts/maxPts*100)}%"></div></div>
+        </div>
+      </td>
+    </tr>`).join('');
 }
 
 function renderFixtures(fixtures) {
-  const days = [1, 2, 3];
-  document.getElementById('fixturesContainer').innerHTML = days.map(d => {
-    const df = fixtures.filter(f => f.day === d);
+  document.getElementById('fixturesContainer').innerHTML = [1,2,3].map(d => {
+    const df = fixtures.filter(f=>f.day===d);
     if (!df.length) return '';
-    const { dayLabel, start } = df[0];
+    const {dayLabel,start} = df[0];
     return `
       <div class="day-block">
         <div class="day-header">
-          <span class="day-name">${dayLabel}</span>
+          <div class="day-label-wrap">
+            <span class="day-number">DAY ${d}</span>
+            <span class="day-name">${dayLabel}</span>
+          </div>
           <span class="day-info">First ball ${start} · Bishop's Stortford CC</span>
         </div>
         <div class="match-cards">
-          ${df.map(f => `
+          ${df.map(f => {
+            // Prefer highlights embed for played matches; fall back to live URL (replay)
+            const embedUrl = youtubeEmbedUrl(f.youtubeHighlights || f.youtubeLive);
+            const played   = f.result && !['upcoming',''].includes(f.result.toLowerCase());
+            return `
             <div class="match-card">
               <div class="match-card-top">
                 <span class="pitch-tag">Pitch ${f.pitch}</span>
@@ -816,84 +990,98 @@ function renderFixtures(fixtures) {
               </div>
               <div class="match-teams-row">
                 <div class="match-team">
-                  ${imgEl(f.homeEmblem, f.home, 60)}
+                  ${imgEl(f.homeEmblem, f.home, 68)}
                   <span class="m-name">${f.home}</span>
                 </div>
-                <span class="match-vs">VS</span>
+                <div class="match-vs-col"><div class="vs-badge">VS</div></div>
                 <div class="match-team">
-                  ${imgEl(f.awayEmblem, f.away, 60)}
+                  ${imgEl(f.awayEmblem, f.away, 68)}
                   <span class="m-name">${f.away}</span>
                 </div>
               </div>
+              ${scoreDisplay(f)}
               <div class="match-result-row">${resultPill(f)}</div>
               ${f.details ? `<div class="match-details-text">${f.details}</div>` : ''}
+              ${embedUrl ? `<div class="match-video-embed"><iframe src="${embedUrl}" title="${played ? 'Highlights' : 'Live'}: ${f.home} v ${f.away}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>` : ''}
               ${matchLinks(f)}
-            </div>
-          `).join('')}
+            </div>`;
+          }).join('')}
         </div>
-      </div>
-    `;
+      </div>`;
   }).join('');
+}
+
+function renderPOTM() {
+  const grid = document.getElementById('potmGrid');
+  if (!PLAYER_OF_MATCH.length) {
+    grid.innerHTML = `<p class="potm-empty">Player of the Match awards will appear here after each game.</p>`;
+    return;
+  }
+  grid.innerHTML = `<div class="potm-grid">${PLAYER_OF_MATCH.map(p => `
+    <div class="potm-card">
+      <div class="potm-card-badge">
+        ${imgEl(p.emblem, p.nation, 72)}
+        <div class="potm-award-icon">🏆</div>
+      </div>
+      <span class="potm-match-label">${p.match} · Day ${p.day}</span>
+      <span class="potm-name">${p.name}</span>
+      <span class="potm-nation">${p.nation} · ${p.award}</span>
+      ${p.detail ? `<span class="potm-detail">${p.detail}</span>` : ''}
+    </div>`).join('')}</div>`;
 }
 
 function renderSquads() {
   document.getElementById('squadsGrid').innerHTML = NATIONS.map(n => {
-    const sq = SQUADS[n.name];
-    const body = (!sq || !sq.announced || !sq.players.length)
+    const sq=SQUADS[n.name];
+    const body=(!sq||!sq.announced||!sq.players.length)
       ? `<p class="squad-pending">Squad to be announced</p>`
       : `<ul class="squad-list">${sq.players.map(p => {
-          const name = typeof p === 'string' ? p : p.name;
-          const role = typeof p === 'object' && p.role ? `<span class="role">${p.role}</span>` : '';
-          return `<li>${name}${role}</li>`;
+          const name=typeof p==='string'?p:p.name;
+          const role=typeof p==='object'&&p.role?`<span class="role">${p.role}</span>`:'';
+          return `<li><span>${name}</span>${role}</li>`;
         }).join('')}</ul>`;
+    const count=sq&&sq.announced&&sq.players.length?`${sq.players.length} players`:'';
     return `
       <div class="squad-card">
         <div class="squad-card-header">
-          ${imgEl(n.emblemLight || n.emblem, n.name, 46)}
-          <span class="sq-nation">${n.name.toUpperCase()}</span>
+          ${imgEl(n.emblemLight||n.emblem, n.name, 50)}
+          <div><span class="sq-nation">${n.name.toUpperCase()}</span>${count?`<span class="sq-count">${count}</span>`:''}</div>
         </div>
         <div class="squad-card-body">${body}</div>
-      </div>
-    `;
+      </div>`;
   }).join('');
 }
 
 /* ══════════════════════════════════════════════════════════
-   DATA — fetch & overlay results from matches.csv
+   DATA LOADING
 ══════════════════════════════════════════════════════════ */
 function overlayCSV(csvRows) {
-  const tcRows = csvRows.filter(r =>
-    r.Tournament && r.Tournament.toLowerCase().includes(TOURNAMENT_FILTER)
-  );
+  const tcRows = csvRows.filter(r => r.Tournament && r.Tournament.toLowerCase().includes(TOURNAMENT_FILTER));
   if (!tcRows.length) return false;
-
+  // CSV uses "England Over 40s" but FIXTURES uses "England" — match if either name starts with the other
+  function teamMatch(a, b) { const x=a.toLowerCase().trim(), y=b.toLowerCase().trim(); return x===y||x.startsWith(y)||y.startsWith(x); }
   FIXTURES.forEach(fix => {
-    const row = tcRows.find(r =>
-      r.HomeTeam.toLowerCase() === fix.home.toLowerCase() &&
-      r.AwayTeam.toLowerCase() === fix.away.toLowerCase()
-    );
+    const row = tcRows.find(r => teamMatch(r.HomeTeam, fix.home) && teamMatch(r.AwayTeam, fix.away));
     if (!row) return;
-    fix.result           = row.Result           || null;
-    fix.details          = row.Details          || '';
-    fix.scorecardURL     = row.ScorecardURL     || '';
-    fix.youtubeLive      = row.YouTubeLive      || '';
-    fix.youtubeHighlights = row.YouTubeHighlights || '';
+    fix.result            = row.Result           || null;
+    fix.details           = row.Details          || '';
+    fix.scorecardURL      = row.ScorecardURL     || '';
+    fix.youtubeLive       = row.YouTubeLive      || '';
+    fix.youtubeHighlights = row.YouTubeHighlights|| '';
   });
   return true;
 }
-
 async function loadData() {
   try {
     const r = await fetch(CSV_URL + '?t=' + Date.now());
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const text = await r.text();
-    const rows = parseCSV(text);
-    const found = overlayCSV(rows);
+    if (!r.ok) throw new Error('HTTP '+r.status);
+    const found = overlayCSV(parseCSV(await r.text()));
     renderStandings(FIXTURES);
     renderFixtures(FIXTURES);
-    const note = document.getElementById('dataNote');
-    const time = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-    note.innerHTML = found
+    renderProgress(FIXTURES);
+    renderLiveStream(FIXTURES);
+    const time = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('dataNote').innerHTML = found
       ? `Live data loaded at ${time}. <button id="refreshBtn" onclick="loadData()">↺ Refresh</button>`
       : `Fixtures confirmed — results will appear here during the tournament. <button id="refreshBtn" onclick="loadData()">↺ Refresh</button>`;
   } catch(e) {
@@ -903,11 +1091,22 @@ async function loadData() {
 }
 
 /* ══════════════════════════════════════════════════════════
+   SCROLL ANIMATIONS
+══════════════════════════════════════════════════════════ */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.06 });
+document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+
+/* ══════════════════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════════════════ */
 renderHero();
 renderStandings(FIXTURES);
 renderFixtures(FIXTURES);
+renderProgress(FIXTURES);
+renderLiveStream(FIXTURES);
+renderPOTM();
 renderSquads();
 loadData();
 </script>
