@@ -454,6 +454,10 @@
     .fade-section.visible { opacity:1; transform:translateY(0); }
 
     /* ── RESPONSIVE ── */
+    @media (max-width:600px) {
+      .hero-nations { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+      .hero-nation + .hero-nation::before { display: none; }
+    }
     @media (max-width:480px) {
       .hero-nation { padding:14px 16px; }
       .hero-meta-item { padding:4px 14px; }
