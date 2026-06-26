@@ -128,8 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
     }
 
-    var CATEGORY_LABELS = { "team": "Team", "fixture": "Fixture", "world-cup": "World Cup", "general": "General" };
-    var CATEGORY_CLASSES = { "team": "cat-team", "fixture": "cat-fixture", "world-cup": "cat-world-cup", "general": "cat-general" };
+    var CATEGORY_LABELS = { "team": "Team", "fixture": "Fixture", "world-cup": "World Cup", "general": "General", "partnerships": "Partnerships" };
+    var CATEGORY_CLASSES = { "team": "cat-team", "fixture": "cat-fixture", "world-cup": "cat-world-cup", "general": "cat-general", "partnerships": "cat-partnerships" };
 
     function categoryBadge(cat) {
         if (!cat) return "";
