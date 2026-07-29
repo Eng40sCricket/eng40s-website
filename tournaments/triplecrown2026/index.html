@@ -277,9 +277,17 @@ const DAYS = [
     label: "Day Two", date: "Wednesday 29 July", start: "11:00am",
     matches: [
       { home: "ENG", away: "SCO", stream: "https://www.youtube.com/live/E1VH7Vn2Iho", scorecard: "", status: "upcoming", result: "", motm: "", score: null },
-      { home: "WAL", away: "IRE", stream: "https://www.youtube.com/watch?v=khe2quK-6LQ", scorecard: "", status: "upcoming", result: "", motm: "", score: null }
-    ]
-  },
+      { home: "WAL", away: "IRE", stream: "https://www.youtube.com/watch?v=khe2quK-6LQ",
+        scorecard: "https://triplecrown.play-cricket.com/website/results/7616871",
+        status: "result",
+        result: "Ireland won by 7 wickets",
+        motm: "Kenny Carroll",
+        score: {
+          oversAllotted: 45,
+          home: { runs: 303, wkts: 8, overs: "45.0" },
+          away: { runs: 306, wkts: 3, overs: "32.3" }
+        }
+      },
   {
     label: "Day Three", date: "Thursday 30 July", start: "10:30am",
     matches: [
