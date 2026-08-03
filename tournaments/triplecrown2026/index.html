@@ -131,6 +131,8 @@ section{padding:72px 24px}
 footer{background:var(--ink);color:rgba(245,241,230,.7);padding:34px 24px;text-align:center;font-size:.85rem}
 footer a{color:var(--gold-soft);text-decoration:none}
 
+.render-notice{background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.4);border-radius:10px;padding:14px 18px;font-size:.9rem;color:var(--ink);margin-top:10px}
+
 /* ---------- Reveal ---------- */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
@@ -229,119 +231,41 @@ footer a{color:var(--gold-soft);text-decoration:none}
   <p>Triple Crown of Cricket 2026 · Hosted by <a href="https://www.eng40scricket.co.uk">England Over 40s Cricket</a></p>
 </footer>
 
+<script src="results.js"></script>
+<script>
+/* Fallbacks if results.js fails to load — page structure still renders */
+window.TEAMS = window.TEAMS || {};
+window.DAYS = window.DAYS || [];
+window.SQUADS = window.SQUADS || {};
+window.OFFICIALS = window.OFFICIALS || [];
+window.SPONSORS = window.SPONSORS || [];
+</script>
 <script>
 /* ============================================================
-   CONTENT — edit fixtures, results and streams here.
-   status: "upcoming" | "result"
-   When a match is played: set status to "result", fill result
-   and scorecard (Play-Cricket URL). The stream link stays as
-   the same YouTube URL (it becomes the replay).
-   crest: path to PNG once uploaded, e.g. "assets/ireland.png"
+   RENDER — presentation only. Never edit this file.
+   All content lives in results.js.
+   Each section renders independently: if the data for one
+   section has an error, that section shows a notice and the
+   rest of the page still draws.
    ============================================================ */
-const TEAMS = {
-  ENG: { name: "England",  crest: "assets/england.png" },
-  WAL: { name: "Wales",    crest: "assets/wales.png" },
-  SCO: { name: "Scotland", crest: "assets/scotland.png" },
-  IRE: { name: "Ireland",  crest: "assets/ireland.png" }
-};
-
-const DAYS = [
-  {
-    label: "Day One", date: "Tuesday 28 July", start: "12:00pm",
-    matches: [
-      { home: "ENG", away: "IRE", stream: "https://www.youtube.com/live/SRkXD_KjxpA", scorecard: "", status: "upcoming", result: "", motm: "", score: null },
-      { home: "WAL", away: "SCO", stream: "https://www.youtube.com/watch?v=3cbs9of-xqY", scorecard: "", status: "upcoming", result: "", motm: "", score: null }
-    ]
-  },
-  {
-    label: "Day Two", date: "Wednesday 29 July", start: "11:00am",
-    matches: [
-      { home: "ENG", away: "SCO", stream: "https://www.youtube.com/live/E1VH7Vn2Iho", scorecard: "", status: "upcoming", result: "", motm: "", score: null },
-      { home: "WAL", away: "IRE", stream: "https://www.youtube.com/watch?v=khe2quK-6LQ", scorecard: "", status: "upcoming", result: "", motm: "", score: null }
-    ]
-  },
-  {
-    label: "Day Three", date: "Thursday 30 July", start: "10:30am",
-    matches: [
-      { home: "ENG", away: "WAL", stream: "https://www.youtube.com/live/-wWzAgtbITU", scorecard: "", status: "upcoming", result: "", motm: "", score: null },
-      { home: "IRE", away: "SCO", stream: "https://www.youtube.com/watch?v=B-Y9ZU-M3Es", scorecard: "", status: "upcoming", result: "", motm: "", score: null }
-    ]
+function safeRender(sectionEl, fn){
+  try { fn(); }
+  catch (e) {
+    console.error("Render error:", e);
+    if (sectionEl){
+      const n = document.createElement("p");
+      n.className = "render-notice";
+      n.textContent = "This section is temporarily unavailable — please refresh shortly.";
+      sectionEl.appendChild(n);
+    }
   }
-];
+}
 
-/* ============================================================
-   SCORES — when a match finishes, set status: "result", write
-   the result line, fill motm with the Man of the Match name
-   (shown with the De'Longhi credit), and fill score like this
-   example (all matches are 45-over ODIs):
-
-   score: {
-     oversAllotted: 45,                                  // overs per side for this match
-     home: { runs: 213, wkts: 10, overs: "43.2" },       // overs = overs.balls actually faced
-     away: { runs: 214, wkts: 2,  overs: "38.4" }
-   }
-
-   NRR rule applied automatically: a side bowled out (10 wkts)
-   is treated as having faced its full allotted overs.
-   The standings table (P, W, L, Pts, NRR) computes itself —
-   never edit it by hand.
-   ============================================================ */
-
-/* Squads: list players in order; append " (c)" for captain, " (wk)"
-   for wicketkeeper. An empty array shows "Squad to be announced". */
-const SQUADS = {
-  ENG: [
-    "Darren Stevens (c)", "Taqi Abbas", "George Brooksbank", "Jackson Thompson",
-    "Ryan Canning (wk)", "Ben Frazer", "Sean Heather", "Jayden Levitt",
-    "Steven Naylor", "Sean Park (vc)", "Chris Peploe", "Iresh Saxena",
-    "Richard Sims", "Jonny Wightman"
-  ],
-  WAL: [
-    "Gareth Edwards (c)", "Rob Franklin", "Simon Jones", "Dylan Mcphee",
-    "Owain Hopkins", "John Davies (wk)", "Michael Martin", "James Breese",
-    "Ben Edkins", "Ryan Evans", "Dean Oram", "Atif Qureshi", "Nick Morgan"
-  ],
-  SCO: [
-    "Shaun Coetzer (c)", "Stuart Campbell (vc)", "Paul Flanagan (wk)", "Craig Black",
-    "Sahil Chopra", "Kyle Coetzer", "Julian De Jager", "Ryan Hepburn",
-    "David Holloway (wk)", "Chris Keltie", "Umair Khan", "Imran Saim",
-    "Daniel Styer", "John Vaughan Davies"
-  ],
-  IRE: [
-    "John Anderson (c)", "Kenny Carroll", "Phil Eaglestone", "Stephen Ogilby",
-    "Jonny Robinson", "Alan Eastwood", "Rory McCann (wk)", "Ehtesham Ahmed",
-    "Paul Ryan", "Conor Kelly", "Bilal Azhar", "Connor Mullen",
-    "Ross Durity", "Andrew Cowden", "Yaqoob Ali"
-  ]
-};
-
-/* Umpires officiating across the tournament. */
-const OFFICIALS = ["John Holland", "Chris Johnson", "Rafiq Patel", "Keith Boyall"];
-
-/* Sponsors: uniform structure — name, role, url, logo, tile (light|dark). */
-const SPONSORS = [
-  { name: "ANWA", role: "Tournament Partner", url: "https://anwaproperties.com", logo: "assets/sponsor-anwa.png", tile: "dark" },
-  { name: "Sporta Tours", role: "Tournament Partner", url: "https://www.sportatours.com/", logo: "assets/sponsor-sporta.png", tile: "light" },
-  { name: "HertsPhysio", role: "Physiotherapy Partner — on-site physio throughout the tournament", url: "https://hertsphysio.co.uk/", logo: "assets/sponsor-hertsphysio.png", tile: "light" },
-  { name: "Athlo", role: "Tournament Partner", url: "https://www.athlo.app/", logo: "assets/sponsor-athlo.png", tile: "dark" },
-  { name: "Gentlemen & Players", role: "Kit Supplier", url: "https://www.gentlemenplayers.com/", logo: "assets/sponsor-gp.png", tile: "light" },
-  { name: "De'Longhi UK", role: "Player of the Match Sponsor", url: "https://www.delonghi.com/en-gb", logo: "assets/sponsor-delonghi.png", tile: "light" },
-  { name: "NV Play", role: "Streaming Partner", url: "https://www.nvplay.com/", logo: "assets/sponsor-nvplay.png", tile: "light" }
-];
-
-/* ============================================================
-   RENDER — no need to edit below this line.
-   ============================================================ */
-/* Overs string "43.2" → decimal overs (43 + 2/6) */
 function oversToDecimal(o){
   const [ov, b] = String(o).split(".").map(Number);
   return ov + ((b || 0) / 6);
 }
 
-/* Build standings from completed match scores.
-   Points: win 2, tie 1. NRR per ICC method: aggregate runs and
-   effective overs across all matches; all-out sides count as
-   having faced their full allotted overs. */
 function computeStandings(){
   const t = {};
   ["ENG","WAL","SCO","IRE"].forEach(c => t[c] = {code:c,p:0,w:0,l:0,pts:0,rf:0,of:0,ra:0,oa:0});
@@ -384,114 +308,132 @@ function crestEl(code, cls){
   return d;
 }
 
-const heroNations = document.getElementById("hero-nations");
-["ENG","WAL","SCO","IRE"].forEach(c => heroNations.appendChild(crestEl(c,"roundel")));
-
-const daysEl = document.getElementById("days");
-DAYS.forEach(day => {
-  const dEl = document.createElement("div");
-  dEl.className = "day reveal";
-  dEl.innerHTML = `<div class="day-rail"><span class="d">${day.label}</span><span class="date">${day.date}</span><span class="start">Play from ${day.start}</span></div>`;
-  const grid = document.createElement("div");
-  grid.className = "matches";
-  day.matches.forEach(m => {
-    const card = document.createElement("article");
-    card.className = "match";
-    const teams = document.createElement("div");
-    teams.className = "teams";
-    const t1 = document.createElement("div"); t1.className = "team";
-    t1.appendChild(crestEl(m.home,"mini"));
-    t1.appendChild(Object.assign(document.createElement("span"),{textContent:TEAMS[m.home].name}));
-    const vs = Object.assign(document.createElement("span"),{className:"vs",textContent:"VS"});
-    const t2 = document.createElement("div"); t2.className = "team";
-    t2.appendChild(Object.assign(document.createElement("span"),{textContent:TEAMS[m.away].name}));
-    t2.appendChild(crestEl(m.away,"mini"));
-    teams.append(t1,vs,t2);
-    card.appendChild(teams);
-
-    const status = document.createElement("div");
-    status.className = "status";
-    if (m.status === "result"){
-      status.innerHTML = `<span class="result-line">${m.result}</span>
-        <span class="actions">
-          ${m.scorecard ? `<a class="btn btn-card" href="${m.scorecard}" target="_blank" rel="noopener">Scorecard</a>` : ""}
-          ${m.stream && m.stream !== "#" ? `<a class="btn btn-card" href="${m.stream}" target="_blank" rel="noopener">Replay</a>` : ""}
-        </span>`;
-      card.appendChild(status);
-      if (m.motm){
-        const motm = document.createElement("div");
-        motm.className = "motm";
-        motm.innerHTML = `<span class="motm-label">Man of the Match</span>
-          <span class="motm-name">${m.motm}</span>
-          <span class="motm-credit">presented by De'Longhi</span>`;
-        card.appendChild(motm);
-      }
-    } else {
-      status.innerHTML = `<span class="badge upcoming">Upcoming</span>
-        <span class="actions">
-          <a class="btn btn-live" href="${m.stream}" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Watch live
-          </a>
-        </span>`;
-      card.appendChild(status);
-    }
-    grid.appendChild(card);
-  });
-  dEl.appendChild(grid);
-  daysEl.appendChild(dEl);
+/* --- Hero nation roundels --- */
+safeRender(document.querySelector(".hero-inner"), () => {
+  const heroNations = document.getElementById("hero-nations");
+  ["ENG","WAL","SCO","IRE"].forEach(c => heroNations.appendChild(crestEl(c,"roundel")));
 });
 
-const sb = document.getElementById("standings-body");
-computeStandings().forEach(r=>{
-  const nrrTxt = r.p === 0 ? "—" : (r.nrr >= 0 ? "+" : "−") + Math.abs(r.nrr).toFixed(3);
-  const tr = document.createElement("tr");
-  tr.innerHTML = `<td class="teamname">${TEAMS[r.code].name}</td>
-    <td class="num">${r.p}</td><td class="num">${r.w}</td>
-    <td class="num">${r.l}</td><td class="num pts">${r.pts}</td>
-    <td class="num nrr">${nrrTxt}</td>`;
-  sb.appendChild(tr);
-});
+/* --- Fixtures --- */
+safeRender(document.getElementById("fixtures"), () => {
+  const daysEl = document.getElementById("days");
+  DAYS.forEach(day => {
+    const dEl = document.createElement("div");
+    dEl.className = "day reveal";
+    dEl.innerHTML = `<div class="day-rail"><span class="d">${day.label}</span><span class="date">${day.date}</span><span class="start">Play from ${day.start}</span></div>`;
+    const grid = document.createElement("div");
+    grid.className = "matches";
+    day.matches.forEach(m => {
+      const card = document.createElement("article");
+      card.className = "match";
+      const teams = document.createElement("div");
+      teams.className = "teams";
+      const t1 = document.createElement("div"); t1.className = "team";
+      t1.appendChild(crestEl(m.home,"mini"));
+      t1.appendChild(Object.assign(document.createElement("span"),{textContent:TEAMS[m.home].name}));
+      const vs = Object.assign(document.createElement("span"),{className:"vs",textContent:"VS"});
+      const t2 = document.createElement("div"); t2.className = "team";
+      t2.appendChild(Object.assign(document.createElement("span"),{textContent:TEAMS[m.away].name}));
+      t2.appendChild(crestEl(m.away,"mini"));
+      teams.append(t1,vs,t2);
+      card.appendChild(teams);
 
-const spEl = document.getElementById("sponsors");
-SPONSORS.forEach(s=>{
-  const a = document.createElement("a");
-  a.className = "sponsor";
-  a.href = s.url; a.target = "_blank"; a.rel = "noopener";
-  const logoHtml = s.logo
-    ? `<img src="${s.logo}" alt="${s.name} logo">`
-    : `<span class="logo-fallback">${s.name.split(/\s+/).map(w=>w[0]).join("").slice(0,3)}</span>`;
-  a.innerHTML = `<div class="logo-tile ${s.tile}">${logoHtml}</div>
-    <div><div class="s-name">${s.name}</div><div class="s-role">${s.role}</div></div>`;
-  spEl.appendChild(a);
-});
-
-const sqEl = document.getElementById("squads-grid");
-["ENG","WAL","SCO","IRE"].forEach(code=>{
-  const card = document.createElement("div");
-  card.className = "squad";
-  const players = SQUADS[code] || [];
-  const list = players.length
-    ? `<ol>${players.map(p=>{
-        const m = p.match(/^(.*?)\s*\((c|wk|vc|c\/wk)\)$/i);
-        if (m){
-          const t = m[2].toLowerCase();
-          const tag = t==="c" ? "Captain" : t==="wk" ? "Keeper" : t==="vc" ? "Vice-Capt" : "Capt/Keeper";
-          return `<li><span>${m[1]}</span><span class="tag">${tag}</span></li>`;
+      const status = document.createElement("div");
+      status.className = "status";
+      if (m.status === "result"){
+        status.innerHTML = `<span class="result-line">${m.result}</span>
+          <span class="actions">
+            ${m.scorecard ? `<a class="btn btn-card" href="${m.scorecard}" target="_blank" rel="noopener">Scorecard</a>` : ""}
+            ${m.stream && m.stream !== "#" ? `<a class="btn btn-card" href="${m.stream}" target="_blank" rel="noopener">Replay</a>` : ""}
+          </span>`;
+        card.appendChild(status);
+        if (m.motm){
+          const motm = document.createElement("div");
+          motm.className = "motm";
+          motm.innerHTML = `<span class="motm-label">Man of the Match</span>
+            <span class="motm-name">${m.motm}</span>
+            <span class="motm-credit">presented by De'Longhi</span>`;
+          card.appendChild(motm);
         }
-        return `<li><span>${p}</span></li>`;
-      }).join("")}</ol>`
-    : `<p class="tba">Squad to be announced</p>`;
-  card.innerHTML = `<div class="squad-head">
-      <img src="${TEAMS[code].crest}" alt="${TEAMS[code].name} crest">
-      <span class="sq-name">${TEAMS[code].name}</span>
-    </div>${list}`;
-  sqEl.appendChild(card);
+      } else {
+        status.innerHTML = `<span class="badge upcoming">Upcoming</span>
+          <span class="actions">
+            <a class="btn btn-live" href="${m.stream}" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Watch live
+            </a>
+          </span>`;
+        card.appendChild(status);
+      }
+      grid.appendChild(card);
+    });
+    dEl.appendChild(grid);
+    daysEl.appendChild(dEl);
+  });
 });
 
-document.getElementById("officials").innerHTML =
-  `<span class="off-label">Umpires</span><span class="off-names">${OFFICIALS.join(" · ")}</span>`;
+/* --- Standings --- */
+safeRender(document.getElementById("standings"), () => {
+  const sb = document.getElementById("standings-body");
+  computeStandings().forEach(r=>{
+    const nrrTxt = r.p === 0 ? "—" : (r.nrr >= 0 ? "+" : "−") + Math.abs(r.nrr).toFixed(3);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td class="teamname">${TEAMS[r.code].name}</td>
+      <td class="num">${r.p}</td><td class="num">${r.w}</td>
+      <td class="num">${r.l}</td><td class="num pts">${r.pts}</td>
+      <td class="num nrr">${nrrTxt}</td>`;
+    sb.appendChild(tr);
+  });
+});
 
-/* Scroll reveal */
+/* --- Squads --- */
+safeRender(document.getElementById("squads"), () => {
+  const sqEl = document.getElementById("squads-grid");
+  ["ENG","WAL","SCO","IRE"].forEach(code=>{
+    const card = document.createElement("div");
+    card.className = "squad";
+    const players = SQUADS[code] || [];
+    const list = players.length
+      ? `<ol>${players.map(p=>{
+          const m = p.match(/^(.*?)\s*\((c|wk|vc|c\/wk)\)$/i);
+          if (m){
+            const t = m[2].toLowerCase();
+            const tag = t==="c" ? "Captain" : t==="wk" ? "Keeper" : t==="vc" ? "Vice-Capt" : "Capt/Keeper";
+            return `<li><span>${m[1]}</span><span class="tag">${tag}</span></li>`;
+          }
+          return `<li><span>${p}</span></li>`;
+        }).join("")}</ol>`
+      : `<p class="tba">Squad to be announced</p>`;
+    card.innerHTML = `<div class="squad-head">
+        <img src="${TEAMS[code].crest}" alt="${TEAMS[code].name} crest">
+        <span class="sq-name">${TEAMS[code].name}</span>
+      </div>${list}`;
+    sqEl.appendChild(card);
+  });
+});
+
+/* --- Officials --- */
+safeRender(document.getElementById("squads"), () => {
+  document.getElementById("officials").innerHTML =
+    `<span class="off-label">Umpires</span><span class="off-names">${OFFICIALS.join(" · ")}</span>`;
+});
+
+/* --- Partners --- */
+safeRender(document.getElementById("partners"), () => {
+  const spEl = document.getElementById("sponsors");
+  SPONSORS.forEach(s=>{
+    const a = document.createElement("a");
+    a.className = "sponsor";
+    a.href = s.url; a.target = "_blank"; a.rel = "noopener";
+    const logoHtml = s.logo
+      ? `<img src="${s.logo}" alt="${s.name} logo">`
+      : `<span class="logo-fallback">${s.name.split(/\s+/).map(w=>w[0]).join("").slice(0,3)}</span>`;
+    a.innerHTML = `<div class="logo-tile ${s.tile}">${logoHtml}</div>
+      <div><div class="s-name">${s.name}</div><div class="s-role">${s.role}</div></div>`;
+    spEl.appendChild(a);
+  });
+});
+
+/* --- Scroll reveal (independent of data) --- */
 const io = new IntersectionObserver(es=>{
   es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
 },{threshold:.12});
