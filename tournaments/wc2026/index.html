@@ -541,10 +541,10 @@
     <h1>IMC Over 40s World Cup 2026</h1>
     <div class="wc-hero-meta">
       <span class="wc-hero-pill">🏏 Guyana, West Indies</span>
-      <span class="wc-hero-pill">📅 17 Oct – 1 Nov 2026</span>
+      <span class="wc-hero-pill">📅 17 – 31 Oct 2026</span>
       <span class="wc-hero-pill gold">45 Overs · 16 Nations</span>
     </div>
-    <div class="wc-england-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England are in Group B</div>
+    <div class="wc-england-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England are in Zone B</div>
   </div>
 
   <!-- Warm-up matches (auto-renders when WU_ entries exist) -->
@@ -562,8 +562,8 @@
   <!-- Group Stage pane -->
   <div class="wc-pane active" id="pane-groups">
     <div class="wc-group-tabs" id="wc-group-tabs">
-      <button class="wc-group-tab" data-group="A">Group A</button>
-      <button class="wc-group-tab eng-tab active" data-group="B">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Group B — England</button>
+      <button class="wc-group-tab" data-group="A">Zone A</button>
+      <button class="wc-group-tab eng-tab active" data-group="B">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Zone B — England</button>
     </div>
     <div id="wc-groups-container">
       <div class="wc-loading">Loading groups…</div>
@@ -578,7 +578,7 @@
   </div>
 
   <div class="wc-page-footer">
-    <p>Schedule subject to confirmation by the IMC. All times local (Guyana, UTC−4).<br>
+    <p>Fixtures per the official IMC schedule (worldcup.windiesmasters.org). All times local (Guyana, UTC−4).<br>
     <a href="/fixtures/">← Back to England Fixtures &amp; Results</a></p>
   </div>
 
@@ -640,10 +640,10 @@ var WC = {
     canada:      { name: 'Canada',        logo: 'canada.png',      flag: '🇨🇦', abbr: 'CAN' },
     southafrica: { name: 'South Africa',  logo: 'southafrica.png', flag: '🇿🇦', abbr: 'RSA' },
     namibia:     { name: 'Namibia',       logo: 'namibia.png',     flag: '🇳🇦', abbr: 'NAM' },
-    colombia:    { name: 'Colombia',      logo: 'colombia.png',    flag: '🇨🇴', abbr: 'COL' },
+    colombia:    { name: 'Colombia',      logo: '',                flag: '🇨🇴', abbr: 'COL' },
     newzealand:  { name: 'New Zealand',   logo: 'newzealand.png',  flag: '🇳🇿', abbr: 'NZ'  },
     pakistan:    { name: 'Pakistan',      logo: 'pakistan.png',    flag: '🇵🇰', abbr: 'PAK' },
-    uae:         { name: 'UAE',           logo: 'uae.png',         flag: '🇦🇪', abbr: 'UAE' },
+    rotc:        { name: 'Rest of the Caribbean', logo: 'rotc.png', flag: '🏝️', abbr: 'ROTC' },
     india:       { name: 'India',         logo: 'india.png',       flag: '🇮🇳', abbr: 'IND' },
     england:     { name: 'England',       logo: 'england.png',     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', abbr: 'ENG' },
     scotland:    { name: 'Scotland',      logo: 'scotland.png',    flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', abbr: 'SCO' },
@@ -654,15 +654,92 @@ var WC = {
   /* ── Groups ── */
   groups: {
     A: ['westindies','australia','wales','srilanka','canada','southafrica','namibia','colombia'],
-    B: ['newzealand','pakistan','uae','india','england','scotland','usa','row']
+    B: ['newzealand','pakistan','rotc','india','england','scotland','usa','row']
   },
 
   /* ── Schedule ── Add when IMC publishes fixture list ── */
   /* Key format: '{GROUP}_{hometeamkey}_{awayteamkey}'     */
   schedule: {
-    /* Example (remove comment when adding real data):
-    'B_england_newzealand': { date: '18 Oct 2026', time: '09:30', venue: 'Providence Stadium, Georgetown' },
-    */
+    /* All group-stage fixtures confirmed by IMC (source: worldcup.windiesmasters.org).
+       All matches start 09:30 GYT. Key = '{ZONE}_{team-earlier-in-zone-array}_{other-team}'. */
+
+    /* ── Zone A — League Day 1 (17 Oct) ── */
+    'A_westindies_australia':   { date: '17 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
+    'A_canada_southafrica':     { date: '17 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },
+    /* ── Zone A — League Day 2 (18 Oct) ── */
+    'A_australia_namibia':      { date: '18 Oct 2026', time: '09:30', venue: 'Lusignan' },
+    'A_canada_colombia':        { date: '18 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },
+    'A_wales_southafrica':      { date: '18 Oct 2026', time: '09:30', venue: 'MacKenzie National Stadium — Linden' },
+    'A_westindies_srilanka':    { date: '18 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
+    /* ── Zone A — League Day 3 (19 Oct) ── */
+    'A_namibia_colombia':       { date: '19 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
+    'A_wales_srilanka':         { date: '19 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
+    /* ── Zone A — League Day 4 (20 Oct) ── */
+    'A_australia_canada':       { date: '20 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },
+    'A_westindies_southafrica': { date: '20 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
+    /* ── Zone A — League Day 5 (21 Oct) ── */
+    'A_australia_srilanka':     { date: '21 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
+    'A_canada_namibia':         { date: '21 Oct 2026', time: '09:30', venue: 'MacKenzie National Stadium — Linden' },
+    'A_southafrica_colombia':   { date: '21 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
+    'A_westindies_wales':       { date: '21 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
+    /* ── Zone A — League Day 6 (22 Oct) ── */
+    'A_wales_colombia':         { date: '22 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },
+    'A_srilanka_namibia':       { date: '22 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
+    /* ── Zone A — League Day 7 (23 Oct) ── */
+    'A_australia_southafrica':  { date: '23 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
+    /* ── Zone A — League Day 8 (24 Oct) ── */
+    'A_australia_colombia':     { date: '24 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
+    'A_westindies_canada':      { date: '24 Oct 2026', time: '09:30', venue: 'Anna Regina National Stadium — Essequibo' },
+    'A_wales_namibia':          { date: '24 Oct 2026', time: '09:30', venue: 'Joe Jagmohan Ground — Essequibo' },
+    'A_srilanka_southafrica':   { date: '24 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
+    /* ── Zone A — League Day 9 (25 Oct) ── */
+    'A_wales_canada':           { date: '25 Oct 2026', time: '09:30', venue: 'Joe Jagmohan Ground — Essequibo' },
+    'A_srilanka_colombia':      { date: '25 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
+    'A_westindies_namibia':     { date: '25 Oct 2026', time: '09:30', venue: 'Anna Regina National Stadium — Essequibo' },
+    /* ── Zone A — League Day 11 (27 Oct) ── */
+    'A_australia_wales':        { date: '27 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },
+    'A_srilanka_canada':        { date: '27 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
+    'A_westindies_colombia':    { date: '27 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
+    'A_southafrica_namibia':    { date: '27 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
+
+    /* ── Zone B — League Day 1 (17 Oct) ── */
+    'B_newzealand_scotland':    { date: '17 Oct 2026', time: '09:30', venue: 'Lusignan' },
+    'B_england_usa':            { date: '17 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
+    'B_india_row':              { date: '17 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
+    'B_pakistan_rotc':          { date: '17 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
+    /* ── Zone B — League Day 2 (18 Oct) ── */
+    'B_newzealand_england':     { date: '18 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
+    'B_pakistan_india':         { date: '18 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
+    /* ── Zone B — League Day 3 (19 Oct) ── */
+    'B_rotc_usa':               { date: '19 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
+    'B_scotland_row':           { date: '19 Oct 2026', time: '09:30', venue: 'Lusignan' },
+    /* ── Zone B — League Day 4 (20 Oct) ── */
+    'B_newzealand_usa':         { date: '20 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
+    'B_rotc_india':             { date: '20 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
+    'B_england_row':            { date: '20 Oct 2026', time: '09:30', venue: 'Lusignan' },
+    'B_pakistan_scotland':      { date: '20 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
+    /* ── Zone B — League Day 5 (21 Oct) ── */
+    'B_newzealand_india':       { date: '21 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },
+    'B_pakistan_england':       { date: '21 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
+    /* ── Zone B — League Day 6 (22 Oct) ── */
+    'B_scotland_usa':           { date: '22 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
+    'B_rotc_row':               { date: '22 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
+    /* ── Zone B — League Day 7 (23 Oct) ── */
+    'B_newzealand_rotc':        { date: '23 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
+    'B_india_usa':              { date: '23 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
+    'B_pakistan_row':           { date: '23 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },
+    'B_england_scotland':       { date: '23 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
+    /* ── Zone B — League Day 8 (24 Oct) ── */
+    'B_newzealand_pakistan':    { date: '24 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
+    'B_india_england':          { date: '24 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
+    /* ── Zone B — League Day 9 (25 Oct) ── */
+    'B_usa_row':                { date: '25 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },
+    'B_rotc_scotland':          { date: '25 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
+    /* ── Zone B — League Day 10 (26 Oct) ── */
+    'B_newzealand_row':         { date: '26 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
+    'B_pakistan_usa':           { date: '26 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },
+    'B_india_scotland':         { date: '26 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
+    'B_rotc_england':           { date: '26 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' }
   },
 
   /* ── Results ── Add when matches are played ──────────────────────────── */
@@ -706,23 +783,26 @@ var WC = {
 
   /* ── Knockout matches ── */
   knockout: {
-    /* ── Cross-group position matches (Semi-final day, date TBC) ── */
-    SF1:  { label: 'Semi-Final 1',   date: 'TBC', venue: 'TBC', note: '1st Group A vs 2nd Group B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    SF2:  { label: 'Semi-Final 2',   date: 'TBC', venue: 'TBC', note: '1st Group B vs 2nd Group A', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    M3A:  { label: 'Match 3A',       date: 'TBC', venue: 'TBC', note: '3rd Group A vs 4th Group B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    M3B:  { label: 'Match 3B',       date: 'TBC', venue: 'TBC', note: '3rd Group B vs 4th Group A', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    M5A:  { label: 'Match 5A',       date: 'TBC', venue: 'TBC', note: '5th Group A vs 6th Group B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    M5B:  { label: 'Match 5B',       date: 'TBC', venue: 'TBC', note: '5th Group B vs 6th Group A', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    M7A:  { label: 'Match 7A',       date: 'TBC', venue: 'TBC', note: '7th Group A vs 8th Group B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    M7B:  { label: 'Match 7B',       date: 'TBC', venue: 'TBC', note: '7th Group B vs 8th Group A', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    /* ── 30 October: Position finals ── */
-    FINAL:  { label: 'Grand Final',        date: '31 Oct 2026', venue: 'TBC', note: 'Winner SF1 vs Winner SF2',           home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    BRONZE: { label: '3rd Place Final',    date: '30 Oct 2026', venue: 'TBC', note: 'Winner M3A vs Winner M3B',           home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    P4:     { label: '4th Place Play-off', date: '30 Oct 2026', venue: 'TBC', note: 'Loser M3A vs Loser M3B',            home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    P5:     { label: '5th Place Final',    date: '30 Oct 2026', venue: 'TBC', note: 'Winner M5A vs Winner M5B',           home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    P6:     { label: '6th Place Play-off', date: '30 Oct 2026', venue: 'TBC', note: 'Loser M5A vs Loser M5B',            home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    P7:     { label: '7th Place Final',    date: '30 Oct 2026', venue: 'TBC', note: 'Winner M7A vs Winner M7B',           home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    P8:     { label: '8th Place Play-off', date: '30 Oct 2026', venue: 'TBC', note: 'Loser M7A vs Loser M7B',            home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' }
+    /* ── Lower Crossovers — 28 October (5th–8th in each zone) ── */
+    LC1: { label: 'Lower Crossover 1', date: '28 Oct 2026', venue: 'TBC', note: '5th Zone A vs 6th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    LC2: { label: 'Lower Crossover 2', date: '28 Oct 2026', venue: 'TBC', note: '6th Zone A vs 5th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    LC3: { label: 'Lower Crossover 3', date: '28 Oct 2026', venue: 'TBC', note: '7th Zone A vs 8th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    LC4: { label: 'Lower Crossover 4', date: '28 Oct 2026', venue: 'TBC', note: '8th Zone A vs 7th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    /* ── Upper Crossovers — 29 October (top 4 in each zone) ── */
+    UC1: { label: 'Upper Crossover 1', date: '29 Oct 2026', venue: 'TBC', note: '1st Zone A vs 2nd Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    UC2: { label: 'Upper Crossover 2', date: '29 Oct 2026', venue: 'TBC', note: '2nd Zone A vs 1st Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    UC3: { label: 'Upper Crossover 3', date: '29 Oct 2026', venue: 'TBC', note: '3rd Zone A vs 4th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    UC4: { label: 'Upper Crossover 4', date: '29 Oct 2026', venue: 'TBC', note: '4th Zone A vs 3rd Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    /* ── Placement matches & semi-finals — 30 October (7 matches; pairings confirmed after crossovers) ── */
+    SF1: { label: 'Cup Semi-Final 1',  date: '30 Oct 2026', venue: 'TBC', note: 'Upper Crossover winners', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    SF2: { label: 'Cup Semi-Final 2',  date: '30 Oct 2026', venue: 'TBC', note: 'Upper Crossover winners', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    PM1: { label: 'Placement Match 1', date: '30 Oct 2026', venue: 'TBC', note: 'Pairing TBC',             home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    PM2: { label: 'Placement Match 2', date: '30 Oct 2026', venue: 'TBC', note: 'Pairing TBC',             home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    PM3: { label: 'Placement Match 3', date: '30 Oct 2026', venue: 'TBC', note: 'Pairing TBC',             home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    PM4: { label: 'Placement Match 4', date: '30 Oct 2026', venue: 'TBC', note: 'Pairing TBC',             home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    PM5: { label: 'Placement Match 5', date: '30 Oct 2026', venue: 'TBC', note: 'Pairing TBC',             home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    /* ── Cup Final — 31 October ── */
+    FINAL: { label: 'Cup Final', date: '31 Oct 2026', venue: 'TBC', note: 'Winner SF1 vs Winner SF2', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' }
   }
 };
 
@@ -828,7 +908,7 @@ function calcStandings(groupKey) {
 
 function renderStandings(groupKey, standings) {
   var html = '<div class="wc-standings">'
-    + '<div class="wc-standings-label">Group ' + groupKey + ' Standings</div>'
+    + '<div class="wc-standings-label">Zone ' + groupKey + ' Standings</div>'
     + '<div class="wc-table-wrap"><table class="wc-table"><thead><tr>'
     + '<th style="text-align:left">Team</th>'
     + '<th title="Played">P</th><th title="Won">W</th><th title="Lost">L</th>'
@@ -847,7 +927,7 @@ function renderStandings(groupKey, standings) {
           + (nrrVal >= 0 ? '+' : '') + nrrVal.toFixed(3) + '</span>'
       : '<span style="color:rgba(150,180,220,0.45)">—</span>';
 
-    var qualClass = (idx === 2) ? ' wc-qual-row' : '';  /* dashed line after 2nd */
+    var qualClass = (idx === 4) ? ' wc-qual-row' : '';  /* dashed line after 4th */
     html += '<tr class="' + (isEng ? 'england-row' : '') + qualClass + '">'
       + '<td><div class="wc-team-cell">'
       + '<span class="wc-pos">' + (idx + 1) + '</span>'
@@ -863,9 +943,9 @@ function renderStandings(groupKey, standings) {
       + '<td>' + nrrStr + '</td>'
       + '</tr>';
 
-    /* Qualification marker after position 2 */
-    if (idx === 1) {
-      html += '<tr><td colspan="8" class="wc-qual-label">⬆ Advance to knockout semi-finals</td></tr>';
+    /* Qualification marker after position 4 */
+    if (idx === 3) {
+      html += '<tr><td colspan="8" class="wc-qual-label">⬆ Top 4 advance to the Upper Crossovers</td></tr>';
     }
   });
 
@@ -955,7 +1035,7 @@ function renderGroup(groupKey) {
   var pairs = generatePairs(teams);
   var isEngGroup = teams.indexOf('england') > -1;
 
-  /* England's matches first in Group B */
+  /* England's matches first in Zone B */
   var engPairs = [], otherPairs = [];
   pairs.forEach(function(p) {
     if (isEngGroup && (p[0] === 'england' || p[1] === 'england')) engPairs.push(p);
@@ -968,8 +1048,8 @@ function renderGroup(groupKey) {
 
   var html = '<div class="wc-group-panel' + (isEngGroup ? ' england-group' : '') + '">'
     + '<div class="wc-group-header">'
-    + '<h2 class="wc-group-title">Group ' + groupKey + '</h2>'
-    + (isEngGroup ? '<span class="wc-group-eng-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England\'s Group</span>' : '')
+    + '<h2 class="wc-group-title">Zone ' + groupKey + '</h2>'
+    + (isEngGroup ? '<span class="wc-group-eng-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England\'s Zone</span>' : '')
     + '</div>'
     + renderStandings(groupKey, standings)
     + '<div class="wc-fixtures-body">';
@@ -977,10 +1057,10 @@ function renderGroup(groupKey) {
   if (isEngGroup && engPairs.length) {
     html += '<div class="wc-fixtures-section-label">England\'s Matches (' + engPairs.length + ')</div>';
     engPairs.forEach(function(p) { html += renderMatchCard(groupKey, p[0], p[1]); });
-    html += '<div class="wc-fixtures-section-label">All Group B Fixtures (' + pairs.length + ' total, ' + played + ' played)</div>';
+    html += '<div class="wc-fixtures-section-label">All Zone B Fixtures (' + pairs.length + ' total, ' + played + ' played)</div>';
     pairs.forEach(function(p) { html += renderMatchCard(groupKey, p[0], p[1]); });
   } else {
-    html += '<div class="wc-fixtures-section-label">All Group ' + groupKey + ' Fixtures (' + pairs.length + ' total, ' + played + ' played)</div>';
+    html += '<div class="wc-fixtures-section-label">All Zone ' + groupKey + ' Fixtures (' + pairs.length + ' total, ' + played + ' played)</div>';
     pairs.forEach(function(p) { html += renderMatchCard(groupKey, p[0], p[1]); });
   }
 
@@ -1026,42 +1106,50 @@ function renderKnockout() {
 
   /* Info box */
   html += '<div class="wc-info-box">'
-    + '<p><strong>Cross-group knockout format:</strong> Group positions are matched across groups — '
-    + '1st Group A faces 2nd Group B in Semi-Final 1, and 1st Group B faces 2nd Group A in Semi-Final 2. '
-    + 'The same cross-group principle applies to all other position play-offs (3rd/4th, 5th/6th, 7th/8th).</p>'
-    + '<p><strong>31 Oct:</strong> Grand Final &nbsp;|&nbsp; <strong>30 Oct:</strong> All position play-off finals &nbsp;|&nbsp; '
-    + '<strong>Semi-finals + play-off semi-matches:</strong> date TBC, followed by a rest day.</p>'
+    + '<p><strong>Crossover knockout format:</strong> The top 4 teams in each zone advance to the Upper Crossovers — '
+    + '1st Zone A faces 2nd Zone B, 2nd Zone A faces 1st Zone B, and so on. Teams finishing 5th–8th play the '
+    + 'Lower Crossovers for placement.</p>'
+    + '<p><strong>28 Oct:</strong> Lower Crossovers &nbsp;|&nbsp; <strong>29 Oct:</strong> Upper Crossovers &nbsp;|&nbsp; '
+    + '<strong>30 Oct:</strong> Placement matches &amp; semi-finals &nbsp;|&nbsp; '
+    + '<strong>31 Oct:</strong> Cup Final + Closing Ceremony (Police Officers Mess, 8:00 PM).</p>'
     + '</div>';
 
-  /* Cross-group position matches */
+  /* Lower Crossovers */
   html += '<div class="wc-ko-section">'
-    + '<h3 class="wc-ko-section-title">Semi-Finals &amp; Play-off Openers <span class="ko-date-badge">Date TBC</span></h3>'
+    + '<h3 class="wc-ko-section-title">Lower Crossovers <span class="ko-date-badge">28 October 2026</span></h3>'
+    + '<div class="wc-ko-grid">'
+    + renderKnockoutCard('LC1', k.LC1)
+    + renderKnockoutCard('LC2', k.LC2)
+    + renderKnockoutCard('LC3', k.LC3)
+    + renderKnockoutCard('LC4', k.LC4)
+    + '</div></div>';
+
+  /* Upper Crossovers */
+  html += '<div class="wc-ko-section">'
+    + '<h3 class="wc-ko-section-title">Upper Crossovers <span class="ko-date-badge">29 October 2026</span></h3>'
+    + '<div class="wc-ko-grid">'
+    + renderKnockoutCard('UC1', k.UC1)
+    + renderKnockoutCard('UC2', k.UC2)
+    + renderKnockoutCard('UC3', k.UC3)
+    + renderKnockoutCard('UC4', k.UC4)
+    + '</div></div>';
+
+  /* 30 October — placement matches & semi-finals */
+  html += '<div class="wc-ko-section">'
+    + '<h3 class="wc-ko-section-title">Placement Matches &amp; Semi-Finals <span class="ko-date-badge">30 October 2026</span></h3>'
     + '<div class="wc-ko-grid">'
     + renderKnockoutCard('SF1', k.SF1)
     + renderKnockoutCard('SF2', k.SF2)
-    + renderKnockoutCard('M3A', k.M3A)
-    + renderKnockoutCard('M3B', k.M3B)
-    + renderKnockoutCard('M5A', k.M5A)
-    + renderKnockoutCard('M5B', k.M5B)
-    + renderKnockoutCard('M7A', k.M7A)
-    + renderKnockoutCard('M7B', k.M7B)
+    + renderKnockoutCard('PM1', k.PM1)
+    + renderKnockoutCard('PM2', k.PM2)
+    + renderKnockoutCard('PM3', k.PM3)
+    + renderKnockoutCard('PM4', k.PM4)
+    + renderKnockoutCard('PM5', k.PM5)
     + '</div></div>';
 
-  /* 30 October */
+  /* Cup Final */
   html += '<div class="wc-ko-section">'
-    + '<h3 class="wc-ko-section-title">Position Play-off Finals <span class="ko-date-badge">30 October 2026</span></h3>'
-    + '<div class="wc-ko-grid">'
-    + renderKnockoutCard('BRONZE', k.BRONZE)
-    + renderKnockoutCard('P4', k.P4)
-    + renderKnockoutCard('P5', k.P5)
-    + renderKnockoutCard('P6', k.P6)
-    + renderKnockoutCard('P7', k.P7)
-    + renderKnockoutCard('P8', k.P8)
-    + '</div></div>';
-
-  /* Grand Final */
-  html += '<div class="wc-ko-section">'
-    + '<h3 class="wc-ko-section-title">Grand Final <span class="ko-date-badge">31 October 2026</span></h3>'
+    + '<h3 class="wc-ko-section-title">Cup Final <span class="ko-date-badge">31 October 2026</span></h3>'
     + '<div class="wc-ko-grid" style="max-width:380px">'
     + renderKnockoutCard('FINAL', k.FINAL)
     + '</div></div>';
@@ -1190,12 +1278,12 @@ function renderEnglandStrip() {
         + (nrrVal >= 0 ? '+' : '') + nrrVal.toFixed(3) + '</strong>'
     : '—';
 
-  var posLabel = ordinal(gs.pos) + ' in Group B';
+  var posLabel = ordinal(gs.pos) + ' in Zone B';
 
   var html = '<div class="wc-eng-strip">'
     + '<div class="wc-eng-strip-header">'
     + '<img src="../../assets/img/england.png" class="wc-eng-strip-badge" alt="England">'
-    + '<div class="wc-eng-strip-title">England <span>· Group B</span></div>'
+    + '<div class="wc-eng-strip-title">England <span>· Zone B</span></div>'
     + '<div class="wc-eng-strip-pos">' + posLabel + '</div>'
     + '</div>'
     + '<div class="wc-eng-strip-record">'
@@ -1268,9 +1356,9 @@ document.getElementById('wc-group-tabs').addEventListener('click', function(e) {
   renderWarmups();
   /* England summary strip */
   renderEnglandStrip();
-  /* Show Group B (England) by default */
+  /* Show Zone B (England) by default */
   showGroup('B');
-  /* Pre-render Group A in background */
+  /* Pre-render Zone A in background */
   groupCache['A'] = renderGroup('A');
   /* Knockout */
   document.getElementById('wc-knockout-container').innerHTML = renderKnockout();
