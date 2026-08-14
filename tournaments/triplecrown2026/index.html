@@ -5,6 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Triple Crown of Cricket 2026 · England Over 40s</title>
 <meta name="description" content="The Triple Crown of Cricket 2026 — England, Wales, Scotland and Ireland Over 40s. Bishop's Stortford Cricket Club, 28–30 July 2026. Fixtures, results, standings and live streams.">
+<link rel="canonical" href="https://www.eng40scricket.co.uk/tournaments/triplecrown2026/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Triple Crown of Cricket 2026 · England Over 40s">
+<meta property="og:description" content="England, Wales, Scotland and Ireland Over 40s at Bishop's Stortford CC, 28–30 July 2026 — results, standings and replays.">
+<meta property="og:url" content="https://www.eng40scricket.co.uk/tournaments/triplecrown2026/">
+<meta property="og:image" content="https://www.eng40scricket.co.uk/tournaments/triplecrown2026/assets/hero-bsc.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/triplecrown.png">
+<link rel="apple-touch-icon" href="assets/triplecrown.png">
+<meta name="theme-color" content="#0F3D24">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsEvent",
+  "name": "Triple Crown of Cricket 2026",
+  "sport": "Cricket",
+  "startDate": "2026-07-28",
+  "endDate": "2026-07-30",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "Bishop's Stortford Cricket Club",
+    "address": "Cricket Field Lane, Bishop's Stortford, Hertfordshire"
+  },
+  "organizer": { "@type": "Organization", "name": "England Over 40s Cricket", "url": "https://www.eng40scricket.co.uk" }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Archivo:wght@400;500;600;700&family=Spline+Sans+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -17,25 +44,34 @@
   --gold:#C9A227;
   --gold-soft:#E3C868;
   --line:rgba(16,35,59,.14);
-  --radius:14px;
+  --radius:16px;
+  --radius-inner:10px;
   --max:1100px;
+  --ease:cubic-bezier(0.32,0.72,0,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:'Archivo',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+h1,h2,h3{text-wrap:balance}
+p{text-wrap:pretty}
 img{max-width:100%;display:block}
 a{color:inherit}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:var(--cream);padding:10px 18px;border-radius:0 0 10px 0;font-weight:600}
+.skip-link:focus{left:0}
 
 /* ---------- Hero ---------- */
-.hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+.hero{position:relative;min-height:88vh;min-height:88dvh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
 .imc-mark{position:absolute;top:34px;left:50%;transform:translateX(-50%);z-index:3;width:300px;height:auto;filter:drop-shadow(0 2px 10px rgba(0,0,0,.5))}
 @media(max-width:640px){.imc-mark{width:200px;top:24px}}
 .hero-media{position:absolute;inset:0;background:url('assets/hero-bsc.jpg') center 35%/cover no-repeat}
 @media(max-width:640px){.hero-media{background-image:url('assets/hero-bsc-mobile.jpg')}}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,44,26,.18) 0%,rgba(10,44,26,.10) 40%,rgba(10,25,18,.82) 100%)}
 .hero-inner{position:relative;z-index:2;width:100%;max-width:var(--max);margin:0 auto;padding:0 24px 64px}
-.tc-badge{width:118px;height:auto;margin-bottom:22px;border-radius:50%;box-shadow:0 8px 26px rgba(0,0,0,.35)}
+.tc-badge{width:118px;height:auto;margin-bottom:22px;border-radius:50%;box-shadow:0 8px 26px rgba(10,44,26,.45)}
 @media(max-width:640px){.tc-badge{width:92px}}
+.champions{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:rgba(201,162,39,.16);border:1px solid rgba(227,200,104,.55);backdrop-filter:blur(4px);border-radius:999px;padding:8px 18px;font-family:'Spline Sans Mono',monospace;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft)}
+.champions .ch-name{font-family:'Fraunces',serif;font-size:1.05rem;letter-spacing:0;text-transform:none;color:#fff;font-weight:600}
 .hero .eyebrow{font-family:'Spline Sans Mono',monospace;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:14px}
 .hero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.6rem,7vw,4.8rem);line-height:1.02;letter-spacing:-.01em;max-width:12ch}
 .hero .sub{margin-top:18px;font-size:clamp(1rem,2.2vw,1.15rem);color:rgba(255,255,255,.88);max-width:52ch}
@@ -44,7 +80,8 @@ a{color:inherit}
 .roundel img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 
 /* ---------- Sections ---------- */
-section{padding:72px 24px}
+section{padding:88px 24px 96px}
+@media(max-width:640px){section{padding:60px 20px 68px}}
 .wrap{max-width:var(--max);margin:0 auto}
 .sec-head{margin-bottom:36px}
 .sec-head .eyebrow{font-family:'Spline Sans Mono',monospace;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--turf);opacity:.75;margin-bottom:8px}
@@ -58,14 +95,15 @@ section{padding:72px 24px}
 .day-rail .start{margin-left:auto;font-family:'Spline Sans Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--turf);background:rgba(15,61,36,.08);padding:4px 12px;border-radius:999px}
 @media(max-width:520px){.day-rail{flex-wrap:wrap}.day-rail .start{margin-left:0}}
 .matches{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-.match{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 18px;display:flex;flex-direction:column;gap:14px;transition:transform .25s ease,box-shadow .25s ease}
+.match{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 18px;display:flex;flex-direction:column;gap:14px;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
 .match:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(16,35,59,.10)}
+.day.reveal.in .match{transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
 .teams{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .team{display:flex;align-items:center;gap:10px;font-weight:600;font-size:1.02rem}
 .team .mini{width:36px;height:36px;border-radius:50%;background:var(--cream);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'Spline Sans Mono',monospace;font-size:.62rem;font-weight:600;overflow:hidden}
 .team .mini img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.vs{font-family:'Spline Sans Mono',monospace;font-size:.72rem;opacity:.5}
-.match .status{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px dashed var(--line);padding-top:14px}
+.vs{font-family:'Spline Sans Mono',monospace;font-size:.72rem;opacity:.6}
+.match .status{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px dashed var(--line);padding-top:14px;margin-top:auto}
 .badge{font-family:'Spline Sans Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
 .badge.upcoming{background:rgba(16,35,59,.07);color:var(--ink)}
 .badge.result{background:rgba(15,61,36,.1);color:var(--turf)}
@@ -73,9 +111,11 @@ section{padding:72px 24px}
 .motm{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:12px;margin-top:-2px}
 .motm-label{font-family:'Spline Sans Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:rgba(201,162,39,.12);padding:3px 9px;border-radius:999px}
 .motm-name{font-weight:600;font-size:.95rem}
-.motm-credit{font-size:.75rem;opacity:.55;font-style:italic}
+.motm-credit{font-size:.75rem;opacity:.68;font-style:italic}
 .actions{display:flex;gap:10px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.85rem;text-decoration:none;padding:9px 16px;border-radius:999px;transition:background .2s ease,color .2s ease}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.85rem;text-decoration:none;padding:9px 16px;border-radius:999px;transition:background .18s var(--ease),color .18s var(--ease),transform .18s var(--ease)}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:scale(.98)}
 .btn-live{background:var(--turf);color:#fff}
 .btn-live:hover{background:var(--turf-deep)}
 .btn-card{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
@@ -84,20 +124,20 @@ section{padding:72px 24px}
 
 /* ---------- Standings ---------- */
 .board{background:var(--turf-deep);color:var(--cream);border-radius:var(--radius);padding:34px 30px;overflow-x:auto}
-.board table{width:100%;border-collapse:collapse;font-family:'Spline Sans Mono',monospace;font-size:.95rem;min-width:520px}
+.board table{width:100%;border-collapse:collapse;font-family:'Spline Sans Mono',monospace;font-size:.95rem;min-width:520px;font-variant-numeric:tabular-nums}
 .board th{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);text-align:left;padding:0 14px 14px;border-bottom:1px solid rgba(245,241,230,.2)}
 .board th.num,.board td.num{text-align:center}
 .board td{padding:15px 14px;border-bottom:1px solid rgba(245,241,230,.09)}
 .board tr:last-child td{border-bottom:none}
 .board .teamname{font-family:'Archivo',sans-serif;font-weight:600;letter-spacing:.02em}
 .board .pts{color:var(--gold-soft);font-weight:600}
-.board-note{font-size:.8rem;font-family:'Archivo',sans-serif;color:rgba(245,241,230,.55);margin-top:16px}
+.board-note{font-size:.8rem;font-family:'Archivo',sans-serif;color:rgba(245,241,230,.72);margin-top:16px}
 
 /* ---------- Sponsors ---------- */
 .sponsors{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:720px}
 .sponsor{border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column;gap:14px;background:#fff;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease}
 .sponsor:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(16,35,59,.10)}
-.sponsor .logo-tile{height:130px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:14px}
+.sponsor .logo-tile{height:130px;border-radius:var(--radius-inner);display:flex;align-items:center;justify-content:center;padding:14px}
 .sponsor .logo-tile.light{background:var(--cream)}
 .sponsor .logo-tile.dark{background:#0b0b0b}
 .sponsor img{height:104px;width:104px;object-fit:contain;border-radius:50%}
@@ -124,19 +164,23 @@ section{padding:72px 24px}
 /* ---------- Venue ---------- */
 .venue{background:#fff;border-top:1px solid var(--line)}
 .venue .wrap{display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:space-between}
-.venue h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;margin-bottom:6px}
+
 .venue p{max-width:48ch;opacity:.8;font-size:.95rem}
 
 /* ---------- Footer ---------- */
 footer{background:var(--ink);color:rgba(245,241,230,.7);padding:34px 24px;text-align:center;font-size:.85rem}
 footer a{color:var(--gold-soft);text-decoration:none}
 
-.render-notice{background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.4);border-radius:10px;padding:14px 18px;font-size:.9rem;color:var(--ink);margin-top:10px}
+.render-notice{background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.4);border-radius:var(--radius-inner);padding:14px 18px;font-size:.9rem;color:var(--ink);margin-top:10px}
 
 /* ---------- Reveal ---------- */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:none}
+.day .matches .match{opacity:0;transform:translateY(14px)}
+.day.reveal.in .matches .match{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.day.reveal.in .matches .match:nth-child(2){transition-delay:.12s}
 @media (prefers-reduced-motion: reduce){
+  .day .matches .match{opacity:1;transform:none;transition:none}
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}
   .match{transition:none}
@@ -145,6 +189,7 @@ footer a{color:var(--gold-soft);text-decoration:none}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#fixtures">Skip to results</a>
 
 <header class="hero">
   <div class="hero-media" role="img" aria-label="The pavilion and marquee at Bishop's Stortford Cricket Club on a summer's day"></div>
@@ -155,9 +200,11 @@ footer a{color:var(--gold-soft);text-decoration:none}
     <h1>Triple Crown of Cricket 2026</h1>
     <p class="sub">Four home nations. Six 45-over matches. Three days of festival cricket at Bishop's Stortford Cricket Club — 28 to 30 July 2026.</p>
     <div class="nations" id="hero-nations"></div>
+    <div id="champions-slot"></div>
   </div>
 </header>
 
+<main>
 <section id="fixtures">
   <div class="wrap">
     <div class="sec-head reveal" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px">
@@ -180,7 +227,7 @@ footer a{color:var(--gold-soft);text-decoration:none}
     <div class="board reveal">
       <table aria-label="Triple Crown 2026 standings">
         <thead>
-          <tr><th>Team</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">Pts</th><th class="num">NRR</th></tr>
+          <tr><th scope="col">Team</th><th scope="col" class="num">P</th><th scope="col" class="num">W</th><th scope="col" class="num">L</th><th scope="col" class="num">Pts</th><th scope="col" class="num">NRR</th></tr>
         </thead>
         <tbody id="standings-body"></tbody>
       </table>
@@ -206,12 +253,12 @@ footer a{color:var(--gold-soft);text-decoration:none}
       <img src="assets/bscc.png" alt="Bishop's Stortford Cricket Club crest" width="72" height="72" style="border-radius:50%;flex-shrink:0;border:1px solid var(--line)">
       <div>
         <p class="eyebrow" style="font-family:'Spline Sans Mono',monospace;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--turf);opacity:.75;margin-bottom:8px">The Venue</p>
-        <h3>Bishop's Stortford Cricket Club</h3>
+        <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;margin-bottom:6px">Bishop's Stortford Cricket Club</h2>
         <p>Cricket Field Lane, Bishop's Stortford, Hertfordshire. Spectators welcome across all three days — bar and refreshments available at the pavilion.</p>
       </div>
     </div>
     <a class="btn btn-card" href="https://maps.google.com/?q=Bishop's+Stortford+Cricket+Club" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
       Directions
     </a>
   </div>
@@ -227,6 +274,7 @@ footer a{color:var(--gold-soft);text-decoration:none}
   </div>
 </section>
 
+</main>
 <footer>
   <p>Triple Crown of Cricket 2026 · Hosted by <a href="https://www.eng40scricket.co.uk">England Over 40s Cricket</a></p>
 </footer>
@@ -359,7 +407,7 @@ safeRender(document.getElementById("fixtures"), () => {
         status.innerHTML = `<span class="badge upcoming">Upcoming</span>
           <span class="actions">
             <a class="btn btn-live" href="${m.stream}" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Watch live
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Watch live
             </a>
           </span>`;
         card.appendChild(status);
@@ -431,6 +479,16 @@ safeRender(document.getElementById("partners"), () => {
       <div><div class="s-name">${s.name}</div><div class="s-role">${s.role}</div></div>`;
     spEl.appendChild(a);
   });
+});
+
+/* --- Champions ribbon: appears automatically once all matches have results --- */
+safeRender(document.querySelector(".hero-inner"), () => {
+  const all = DAYS.flatMap(d => d.matches);
+  if (all.length && all.every(m => m.status === "result" && m.score)){
+    const top = computeStandings()[0];
+    const slot = document.getElementById("champions-slot");
+    slot.innerHTML = `<div class="champions"><span>Triple Crown Champions 2026</span><span class="ch-name">${TEAMS[top.code].name}</span></div>`;
+  }
 });
 
 /* --- Scroll reveal (independent of data) --- */
