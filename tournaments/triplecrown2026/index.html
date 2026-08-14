@@ -66,11 +66,11 @@ a{color:inherit}
 @media(max-width:640px){.imc-mark{width:200px;top:24px}}
 .hero-media{position:absolute;inset:0;background:url('assets/hero-bsc.jpg') center 35%/cover no-repeat}
 @media(max-width:640px){.hero-media{background-image:url('assets/hero-bsc-mobile.jpg')}}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,44,26,.18) 0%,rgba(10,44,26,.10) 40%,rgba(10,25,18,.82) 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,44,26,.42) 0%,rgba(10,44,26,.32) 35%,rgba(10,25,18,.90) 100%)}
 .hero-inner{position:relative;z-index:2;width:100%;max-width:var(--max);margin:0 auto;padding:0 24px 64px}
 .tc-badge{width:118px;height:auto;margin-bottom:22px;border-radius:50%;box-shadow:0 8px 26px rgba(10,44,26,.45)}
 @media(max-width:640px){.tc-badge{width:92px}}
-.champions{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:rgba(201,162,39,.16);border:1px solid rgba(227,200,104,.55);backdrop-filter:blur(4px);border-radius:999px;padding:8px 18px;font-family:'Spline Sans Mono',monospace;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft)}
+.champions{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:rgba(10,44,26,.55);border:1px solid rgba(227,200,104,.75);backdrop-filter:blur(4px);border-radius:999px;padding:8px 18px;font-family:'Spline Sans Mono',monospace;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft)}
 .champions .ch-name{font-family:'Fraunces',serif;font-size:1.05rem;letter-spacing:0;text-transform:none;color:#fff;font-weight:600}
 .hero .eyebrow{font-family:'Spline Sans Mono',monospace;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:14px}
 .hero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.6rem,7vw,4.8rem);line-height:1.02;letter-spacing:-.01em;max-width:12ch}
@@ -78,6 +78,39 @@ a{color:inherit}
 .hero .nations{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
 .roundel{width:58px;height:58px;border-radius:50%;background:rgba(245,241,230,.12);border:1.5px solid rgba(245,241,230,.45);display:flex;align-items:center;justify-content:center;font-family:'Spline Sans Mono',monospace;font-weight:600;font-size:.82rem;letter-spacing:.05em;backdrop-filter:blur(4px);overflow:hidden}
 .roundel img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+/* ---------- Scroll-triggered hero transformation ----------
+   Uses the browser's native scroll-linked animations (CSS
+   view-timeline), not a scroll event listener — stays smooth
+   because it runs on the compositor, not the main thread.
+   Feature-detected: browsers without support simply keep the
+   hero static (no regression). Respects reduced-motion. */
+.mini-bar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;gap:10px;padding:10px 20px;background:rgba(8,32,20,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;opacity:0;transform:translateY(-14px);pointer-events:none;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.mini-bar img{width:28px;height:28px;border-radius:50%}
+.mini-bar span{font-family:'Fraunces',serif;font-weight:600;font-size:.95rem}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference){
+    .hero-media{
+      animation: hero-zoom linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0px 480px;
+    }
+    .hero-inner, .imc-mark{
+      animation: hero-fade-out linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0px 420px;
+    }
+    .mini-bar{
+      animation: mini-bar-in linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 120px 420px;
+    }
+  }
+}
+@keyframes hero-zoom{ from{transform:scale(1)} to{transform:scale(1.28)} }
+@keyframes hero-fade-out{ from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(-48px)} }
+@keyframes mini-bar-in{ from{opacity:0;transform:translateY(-14px)} to{opacity:1;transform:translateY(0)} }
 
 /* ---------- Sections ---------- */
 section{padding:88px 24px 96px}
@@ -190,6 +223,10 @@ footer a{color:var(--gold-soft);text-decoration:none}
 </head>
 <body>
 <a class="skip-link" href="#fixtures">Skip to results</a>
+<div class="mini-bar" aria-hidden="true">
+  <img src="assets/triplecrown.png" alt="">
+  <span>Triple Crown of Cricket 2026</span>
+</div>
 
 <header class="hero">
   <div class="hero-media" role="img" aria-label="The pavilion and marquee at Bishop's Stortford Cricket Club on a summer's day"></div>
