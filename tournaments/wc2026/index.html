@@ -594,7 +594,7 @@
    ──────────────────────────────────────────────────────────────────────────
 
    1. WHEN SCHEDULE IS RELEASED — add entries to WC.schedule:
-      WC.schedule['B_england_scotland'] = { date: '18 Oct 2026', time: '09:30', venue: 'Providence Stadium, Georgetown' };
+      WC.schedule['B_england_scotland'] = { date: '18 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' };
 
    2. WARM-UP MATCHES — use 'WU' as the group prefix. These appear in a
       separate section and are EXCLUDED from all standings, NRR, and stats:
@@ -620,9 +620,9 @@
       For no-result matches (result: 'nr'), overs/runs are ignored in NRR.
 
    4. KNOCKOUT RESULTS — update the relevant knockout entry in WC.knockout:
-      WC.knockout.SF1.home = 'england';  WC.knockout.SF1.away = 'pakistan';
-      WC.knockout.SF1.result = 'home';   WC.knockout.SF1.homeScore = '198/7 (45)';
-      WC.knockout.SF1.date = '28 Oct 2026'; WC.knockout.SF1.venue = 'Providence Stadium';
+      WC.knockout.UC1.home = 'england';  WC.knockout.UC1.away = 'pakistan';
+      WC.knockout.UC1.result = 'home';   WC.knockout.UC1.homeScore = '198/7 (45)';
+      WC.knockout.UC1.date = '28 Oct 2026'; WC.knockout.UC1.venue = 'Guyana National Stadium — Providence';
 
    5. NRR OVERRIDE — only needed to correct an error; normally auto-calculated:
       WC.nrr.england = 1.245;
@@ -660,86 +660,64 @@ var WC = {
   /* ── Schedule ── Add when IMC publishes fixture list ── */
   /* Key format: '{GROUP}_{hometeamkey}_{awayteamkey}'     */
   schedule: {
-    /* All group-stage fixtures confirmed by IMC (source: worldcup.windiesmasters.org).
-       All matches start 09:30 GYT. Key = '{ZONE}_{team-earlier-in-zone-array}_{other-team}'. */
-
-    /* ── Zone A — League Day 1 (17 Oct) ── */
-    'A_westindies_australia':   { date: '17 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
-    'A_canada_southafrica':     { date: '17 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },
-    /* ── Zone A — League Day 2 (18 Oct) ── */
-    'A_australia_namibia':      { date: '18 Oct 2026', time: '09:30', venue: 'Lusignan' },
-    'A_canada_colombia':        { date: '18 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },
-    'A_wales_southafrica':      { date: '18 Oct 2026', time: '09:30', venue: 'MacKenzie National Stadium — Linden' },
-    'A_westindies_srilanka':    { date: '18 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
-    /* ── Zone A — League Day 3 (19 Oct) ── */
-    'A_namibia_colombia':       { date: '19 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
-    'A_wales_srilanka':         { date: '19 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
-    /* ── Zone A — League Day 4 (20 Oct) ── */
-    'A_australia_canada':       { date: '20 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },
-    'A_westindies_southafrica': { date: '20 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
-    /* ── Zone A — League Day 5 (21 Oct) ── */
-    'A_australia_srilanka':     { date: '21 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
-    'A_canada_namibia':         { date: '21 Oct 2026', time: '09:30', venue: 'MacKenzie National Stadium — Linden' },
-    'A_southafrica_colombia':   { date: '21 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
-    'A_westindies_wales':       { date: '21 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
-    /* ── Zone A — League Day 6 (22 Oct) ── */
-    'A_wales_colombia':         { date: '22 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },
-    'A_srilanka_namibia':       { date: '22 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
-    /* ── Zone A — League Day 7 (23 Oct) ── */
-    'A_australia_southafrica':  { date: '23 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
-    /* ── Zone A — League Day 8 (24 Oct) ── */
-    'A_australia_colombia':     { date: '24 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
-    'A_westindies_canada':      { date: '24 Oct 2026', time: '09:30', venue: 'Anna Regina National Stadium — Essequibo' },
-    'A_wales_namibia':          { date: '24 Oct 2026', time: '09:30', venue: 'Joe Jagmohan Ground — Essequibo' },
-    'A_srilanka_southafrica':   { date: '24 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
-    /* ── Zone A — League Day 9 (25 Oct) ── */
-    'A_wales_canada':           { date: '25 Oct 2026', time: '09:30', venue: 'Joe Jagmohan Ground — Essequibo' },
-    'A_srilanka_colombia':      { date: '25 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
-    'A_westindies_namibia':     { date: '25 Oct 2026', time: '09:30', venue: 'Anna Regina National Stadium — Essequibo' },
-    /* ── Zone A — League Day 11 (27 Oct) ── */
-    'A_australia_wales':        { date: '27 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },
-    'A_srilanka_canada':        { date: '27 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
-    'A_westindies_colombia':    { date: '27 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
-    'A_southafrica_namibia':    { date: '27 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
-
-    /* ── Zone B — League Day 1 (17 Oct) ── */
-    'B_newzealand_scotland':    { date: '17 Oct 2026', time: '09:30', venue: 'Lusignan' },
-    'B_england_usa':            { date: '17 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
-    'B_india_row':              { date: '17 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
-    'B_pakistan_rotc':          { date: '17 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
-    /* ── Zone B — League Day 2 (18 Oct) ── */
-    'B_newzealand_england':     { date: '18 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
-    'B_pakistan_india':         { date: '18 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
-    /* ── Zone B — League Day 3 (19 Oct) ── */
-    'B_rotc_usa':               { date: '19 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
-    'B_scotland_row':           { date: '19 Oct 2026', time: '09:30', venue: 'Lusignan' },
-    /* ── Zone B — League Day 4 (20 Oct) ── */
-    'B_newzealand_usa':         { date: '20 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
-    'B_rotc_india':             { date: '20 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC), Bourda' },
-    'B_england_row':            { date: '20 Oct 2026', time: '09:30', venue: 'Lusignan' },
-    'B_pakistan_scotland':      { date: '20 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
-    /* ── Zone B — League Day 5 (21 Oct) ── */
-    'B_newzealand_india':       { date: '21 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },
-    'B_pakistan_england':       { date: '21 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
-    /* ── Zone B — League Day 6 (22 Oct) ── */
-    'B_scotland_usa':           { date: '22 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
-    'B_rotc_row':               { date: '22 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
-    /* ── Zone B — League Day 7 (23 Oct) ── */
-    'B_newzealand_rotc':        { date: '23 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
-    'B_india_usa':              { date: '23 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
-    'B_pakistan_row':           { date: '23 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },
-    'B_england_scotland':       { date: '23 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
-    /* ── Zone B — League Day 8 (24 Oct) ── */
-    'B_newzealand_pakistan':    { date: '24 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
-    'B_india_england':          { date: '24 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
-    /* ── Zone B — League Day 9 (25 Oct) ── */
-    'B_usa_row':                { date: '25 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },
-    'B_rotc_scotland':          { date: '25 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },
-    /* ── Zone B — League Day 10 (26 Oct) ── */
-    'B_newzealand_row':         { date: '26 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },
-    'B_pakistan_usa':           { date: '26 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },
-    'B_india_scotland':         { date: '26 Oct 2026', time: '09:30', venue: 'Malteenoes CC' },
-    'B_rotc_england':           { date: '26 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' }
+    /* Group-stage fixtures and venues per CWIMA Official Newsletter 3 (30 Sep 2026). All times local (GYT).
+       Key = '{ZONE}_{team-earlier-in-zone-array}_{other-team}'. M-number = official match ref. */
+    'A_westindies_australia': { date: '17 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M1 */
+    'A_canada_southafrica': { date: '17 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M2 */
+    'B_newzealand_scotland': { date: '17 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M3 */
+    'B_england_usa': { date: '17 Oct 2026', time: '09:30', venue: 'Malteenoes Sports Club' },  /* M4 */
+    'B_india_row': { date: '17 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },  /* M5 */
+    'B_pakistan_rotc': { date: '17 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M6 */
+    'A_australia_namibia': { date: '18 Oct 2026', time: '09:30', venue: 'Malteenoes Sports Club' },  /* M7 */
+    'A_canada_colombia': { date: '18 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M8 */
+    'A_wales_southafrica': { date: '18 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M9 */
+    'A_westindies_srilanka': { date: '18 Oct 2026', time: '09:30', venue: 'Albion Sports Club' },  /* M10 */
+    'B_newzealand_england': { date: '18 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M11 */
+    'B_pakistan_india': { date: '18 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M12 */
+    'A_namibia_colombia': { date: '19 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M13 */
+    'A_wales_srilanka': { date: '19 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M14 */
+    'B_rotc_usa': { date: '19 Oct 2026', time: '09:30', venue: 'Everest Cricket Club (ECC)' },  /* M15 */
+    'B_scotland_row': { date: '19 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M16 */
+    'A_australia_canada': { date: '20 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M17 */
+    'A_westindies_southafrica': { date: '20 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M18 */
+    'B_newzealand_usa': { date: '20 Oct 2026', time: '09:30', venue: 'Malteenoes Sports Club' },  /* M19 */
+    'B_rotc_india': { date: '20 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M20 */
+    'B_england_row': { date: '20 Oct 2026', time: '09:30', venue: 'Albion Sports Club' },  /* M21 */
+    'B_pakistan_scotland': { date: '20 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M22 */
+    'A_australia_srilanka': { date: '21 Oct 2026', time: '09:30', venue: 'Albion Sports Club' },  /* M23 */
+    'A_wales_canada': { date: '21 Oct 2026', time: '09:30', venue: 'Everest Cricket Club (ECC)' },  /* M24 */
+    'A_southafrica_colombia': { date: '21 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M25 */
+    'A_westindies_namibia': { date: '21 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M26 */
+    'B_newzealand_india': { date: '21 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M27 */
+    'B_pakistan_england': { date: '21 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M28 */
+    'A_wales_colombia': { date: '22 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M29 */
+    'A_srilanka_namibia': { date: '22 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M30 */
+    'B_scotland_usa': { date: '22 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M31 */
+    'B_rotc_row': { date: '22 Oct 2026', time: '09:30', venue: 'Malteenoes Sports Club' },  /* M32 */
+    'A_australia_southafrica': { date: '23 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M33 */
+    'B_newzealand_rotc': { date: '23 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M34 */
+    'B_india_usa': { date: '23 Oct 2026', time: '09:30', venue: 'Albion Sports Club' },  /* M35 */
+    'B_pakistan_row': { date: '23 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M36 */
+    'B_england_scotland': { date: '23 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M37 */
+    'A_australia_colombia': { date: '24 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M38 */
+    'A_westindies_canada': { date: '24 Oct 2026', time: '09:30', venue: 'Joe Jagmohan Ground — Essequibo' },  /* M39 */
+    'A_wales_namibia': { date: '24 Oct 2026', time: '09:30', venue: 'Anna Regina National Stadium — Essequibo' },  /* M40 */
+    'A_srilanka_southafrica': { date: '24 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M41 */
+    'B_newzealand_pakistan': { date: '24 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M42 */
+    'B_india_england': { date: '24 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M43 */
+    'A_canada_namibia': { date: '25 Oct 2026', time: '09:30', venue: 'Joe Jagmohan Ground — Essequibo' },  /* M44 */
+    'A_srilanka_colombia': { date: '25 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M45 */
+    'A_westindies_wales': { date: '25 Oct 2026', time: '14:00', venue: 'Anna Regina National Stadium — Essequibo' },  /* M46 */
+    'B_usa_row': { date: '25 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M47 */
+    'B_rotc_scotland': { date: '25 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M48 */
+    'B_newzealand_row': { date: '26 Oct 2026', time: '09:30', venue: 'Albion Sports Club' },  /* M49 */
+    'B_pakistan_usa': { date: '26 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M50 */
+    'B_india_scotland': { date: '26 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M51 */
+    'B_rotc_england': { date: '26 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M52 */
+    'A_australia_wales': { date: '27 Oct 2026', time: '09:30', venue: 'Malteenoes Sports Club' },  /* M53 */
+    'A_srilanka_canada': { date: '27 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M54 */
+    'A_westindies_colombia': { date: '27 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M55 */
+    'A_southafrica_namibia': { date: '27 Oct 2026', time: '09:30', venue: 'Everest Cricket Club (ECC)' },  /* M56 */
   },
 
   /* ── Results ── Add when matches are played ──────────────────────────── */
@@ -783,26 +761,26 @@ var WC = {
 
   /* ── Knockout matches ── */
   knockout: {
-    /* ── Lower Crossovers — 28 October (5th–8th in each zone) ── */
-    LC1: { label: 'Lower Crossover 1', date: '28 Oct 2026', venue: 'TBC', note: '5th Zone A vs 6th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    LC2: { label: 'Lower Crossover 2', date: '28 Oct 2026', venue: 'TBC', note: '6th Zone A vs 5th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    LC3: { label: 'Lower Crossover 3', date: '28 Oct 2026', venue: 'TBC', note: '7th Zone A vs 8th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    LC4: { label: 'Lower Crossover 4', date: '28 Oct 2026', venue: 'TBC', note: '8th Zone A vs 7th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    /* ── Upper Crossovers — 29 October (top 4 in each zone) ── */
-    UC1: { label: 'Upper Crossover 1', date: '29 Oct 2026', venue: 'TBC', note: '1st Zone A vs 2nd Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    UC2: { label: 'Upper Crossover 2', date: '29 Oct 2026', venue: 'TBC', note: '2nd Zone A vs 1st Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    UC3: { label: 'Upper Crossover 3', date: '29 Oct 2026', venue: 'TBC', note: '3rd Zone A vs 4th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    UC4: { label: 'Upper Crossover 4', date: '29 Oct 2026', venue: 'TBC', note: '4th Zone A vs 3rd Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    /* ── Placement matches & semi-finals — 30 October (7 matches; pairings confirmed after crossovers) ── */
-    SF1: { label: 'Cup Semi-Final 1',  date: '30 Oct 2026', venue: 'TBC', note: 'Upper Crossover winners', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    SF2: { label: 'Cup Semi-Final 2',  date: '30 Oct 2026', venue: 'TBC', note: 'Upper Crossover winners', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    PM1: { label: 'Placement Match 1', date: '30 Oct 2026', venue: 'TBC', note: 'Pairing TBC',             home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    PM2: { label: 'Placement Match 2', date: '30 Oct 2026', venue: 'TBC', note: 'Pairing TBC',             home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    PM3: { label: 'Placement Match 3', date: '30 Oct 2026', venue: 'TBC', note: 'Pairing TBC',             home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    PM4: { label: 'Placement Match 4', date: '30 Oct 2026', venue: 'TBC', note: 'Pairing TBC',             home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    PM5: { label: 'Placement Match 5', date: '30 Oct 2026', venue: 'TBC', note: 'Pairing TBC',             home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
+    /* ── Upper Crossovers — 28 October (top 4 in each zone) ── */
+    UC1: { label: 'Upper Crossover 1', date: '28 Oct 2026', venue: 'Guyana National Stadium — Providence', note: '1st Zone A vs 2nd Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M57 */
+    UC2: { label: 'Upper Crossover 2', date: '28 Oct 2026', venue: 'Georgetown Cricket Club (GCC)', note: '2nd Zone A vs 1st Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M58 */
+    UC3: { label: 'Upper Crossover 3', date: '28 Oct 2026', venue: 'Malteenoes Sports Club', note: '3rd Zone A vs 4th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M59 */
+    UC4: { label: 'Upper Crossover 4', date: '28 Oct 2026', venue: 'Enmore Community Centre Ground', note: '4th Zone A vs 3rd Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M60 */
+    /* ── Lower Crossovers — 29 October (5th–8th in each zone) ── */
+    LC1: { label: 'Lower Crossover 1', date: '29 Oct 2026', venue: 'Police Sports Club Ground at Eve Leary', note: '5th Zone A vs 6th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M61 */
+    LC2: { label: 'Lower Crossover 2', date: '29 Oct 2026', venue: 'Lusignan Community Centre Ground', note: '6th Zone A vs 5th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M62 */
+    LC3: { label: 'Lower Crossover 3', date: '29 Oct 2026', venue: 'Malteenoes Sports Club', note: '7th Zone A vs 8th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M63 */
+    LC4: { label: 'Lower Crossover 4', date: '29 Oct 2026', venue: 'Georgetown Cricket Club (GCC)', note: '8th Zone A vs 7th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M64 */
+    /* ── Placement Matches — 30 October ── */
+    PM1: { label: 'Placement Match 1', date: '30 Oct 2026', venue: 'Lusignan Community Centre Ground', note: 'Winner Match 61 vs Winner Match 62', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M65 */
+    PM2: { label: 'Placement Match 2', date: '30 Oct 2026', venue: 'Enmore Community Centre Ground', note: 'Loser Match 61 vs Loser Match 62', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M66 */
+    PM3: { label: 'Placement Match 3', date: '30 Oct 2026', venue: 'Guyana National Stadium — Providence', note: 'Winner Match 63 vs Winner Match 64', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M67 */
+    PM4: { label: 'Placement Match 4', date: '30 Oct 2026', venue: 'Everest Cricket Club (ECC)', note: 'Loser Match 63 vs Loser Match 64', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M68 */
+    PM5: { label: 'Placement Match 5', date: '30 Oct 2026', venue: 'Georgetown Cricket Club (GCC)', note: 'Loser Match 57 vs Loser Match 58', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M69 */
+    PM6: { label: 'Placement Match 6', date: '30 Oct 2026', venue: 'Albion Sports Club', note: 'Winner Match 59 vs Winner Match 60', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M70 */
+    PM7: { label: 'Placement Match 7', date: '30 Oct 2026', venue: 'Malteenoes Sports Club', note: 'Loser Match 59 vs Loser Match 60', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M71 */
     /* ── Cup Final — 31 October ── */
-    FINAL: { label: 'Cup Final', date: '31 Oct 2026', venue: 'TBC', note: 'Winner SF1 vs Winner SF2', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' }
+    FINAL: { label: 'Cup Final', date: '31 Oct 2026', venue: 'Guyana National Stadium — Providence', note: 'Winner Match 57 vs Winner Match 58', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' }  /* M72, 09:30 */
   }
 };
 
@@ -1109,24 +1087,14 @@ function renderKnockout() {
     + '<p><strong>Crossover knockout format:</strong> The top 4 teams in each zone advance to the Upper Crossovers — '
     + '1st Zone A faces 2nd Zone B, 2nd Zone A faces 1st Zone B, and so on. Teams finishing 5th–8th play the '
     + 'Lower Crossovers for placement.</p>'
-    + '<p><strong>28 Oct:</strong> Lower Crossovers &nbsp;|&nbsp; <strong>29 Oct:</strong> Upper Crossovers &nbsp;|&nbsp; '
-    + '<strong>30 Oct:</strong> Placement matches &amp; semi-finals &nbsp;|&nbsp; '
-    + '<strong>31 Oct:</strong> Cup Final + Closing Ceremony (Police Officers Mess, 8:00 PM).</p>'
+    + '<p><strong>28 Oct:</strong> Upper Crossovers &nbsp;|&nbsp; <strong>29 Oct:</strong> Lower Crossovers &nbsp;|&nbsp; '
+    + '<strong>30 Oct:</strong> Placement matches &nbsp;|&nbsp; '
+    + '<strong>31 Oct:</strong> Cup Final (9:30 AM) + Closing Ceremony (Police Officers\' Mess, Eve Leary, 7:00 PM).</p>'
     + '</div>';
-
-  /* Lower Crossovers */
-  html += '<div class="wc-ko-section">'
-    + '<h3 class="wc-ko-section-title">Lower Crossovers <span class="ko-date-badge">28 October 2026</span></h3>'
-    + '<div class="wc-ko-grid">'
-    + renderKnockoutCard('LC1', k.LC1)
-    + renderKnockoutCard('LC2', k.LC2)
-    + renderKnockoutCard('LC3', k.LC3)
-    + renderKnockoutCard('LC4', k.LC4)
-    + '</div></div>';
 
   /* Upper Crossovers */
   html += '<div class="wc-ko-section">'
-    + '<h3 class="wc-ko-section-title">Upper Crossovers <span class="ko-date-badge">29 October 2026</span></h3>'
+    + '<h3 class="wc-ko-section-title">Upper Crossovers <span class="ko-date-badge">28 October 2026</span></h3>'
     + '<div class="wc-ko-grid">'
     + renderKnockoutCard('UC1', k.UC1)
     + renderKnockoutCard('UC2', k.UC2)
@@ -1134,17 +1102,27 @@ function renderKnockout() {
     + renderKnockoutCard('UC4', k.UC4)
     + '</div></div>';
 
-  /* 30 October — placement matches & semi-finals */
+  /* Lower Crossovers */
   html += '<div class="wc-ko-section">'
-    + '<h3 class="wc-ko-section-title">Placement Matches &amp; Semi-Finals <span class="ko-date-badge">30 October 2026</span></h3>'
+    + '<h3 class="wc-ko-section-title">Lower Crossovers <span class="ko-date-badge">29 October 2026</span></h3>'
     + '<div class="wc-ko-grid">'
-    + renderKnockoutCard('SF1', k.SF1)
-    + renderKnockoutCard('SF2', k.SF2)
+    + renderKnockoutCard('LC1', k.LC1)
+    + renderKnockoutCard('LC2', k.LC2)
+    + renderKnockoutCard('LC3', k.LC3)
+    + renderKnockoutCard('LC4', k.LC4)
+    + '</div></div>';
+
+  /* 30 October — placement matches */
+  html += '<div class="wc-ko-section">'
+    + '<h3 class="wc-ko-section-title">Placement Matches <span class="ko-date-badge">30 October 2026</span></h3>'
+    + '<div class="wc-ko-grid">'
     + renderKnockoutCard('PM1', k.PM1)
     + renderKnockoutCard('PM2', k.PM2)
     + renderKnockoutCard('PM3', k.PM3)
     + renderKnockoutCard('PM4', k.PM4)
     + renderKnockoutCard('PM5', k.PM5)
+    + renderKnockoutCard('PM6', k.PM6)
+    + renderKnockoutCard('PM7', k.PM7)
     + '</div></div>';
 
   /* Cup Final */
