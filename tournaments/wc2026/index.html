@@ -1027,6 +1027,8 @@ function renderGroup(groupKey) {
     return isNaN(d) ? Infinity : d;
   }
   engPairs.sort(function(a, b) { return kickoff(a) - kickoff(b); });
+  /* Full zone fixture list also in date/time order */
+  pairs.sort(function(a, b) { return kickoff(a) - kickoff(b); });
 
   var played = pairs.filter(function(p) {
     return WC.results[groupKey+'_'+p[0]+'_'+p[1]] && WC.results[groupKey+'_'+p[0]+'_'+p[1]].result;
