@@ -1020,6 +1020,14 @@ function renderGroup(groupKey) {
     else otherPairs.push(p);
   });
 
+  /* England's matches in chronological order (date, then start time) */
+  function kickoff(p) {
+    var sch = WC.schedule[groupKey+'_'+p[0]+'_'+p[1]] || {};
+    var d = Date.parse((sch.date || '') + ' ' + (sch.time || '00:00'));
+    return isNaN(d) ? Infinity : d;
+  }
+  engPairs.sort(function(a, b) { return kickoff(a) - kickoff(b); });
+
   var played = pairs.filter(function(p) {
     return WC.results[groupKey+'_'+p[0]+'_'+p[1]] && WC.results[groupKey+'_'+p[0]+'_'+p[1]].result;
   }).length;
