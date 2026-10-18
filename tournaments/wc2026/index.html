@@ -542,9 +542,9 @@
     <div class="wc-hero-meta">
       <span class="wc-hero-pill">🏏 Guyana, West Indies</span>
       <span class="wc-hero-pill">📅 17 – 31 Oct 2026</span>
-      <span class="wc-hero-pill gold">45 Overs · 16 Nations</span>
+      <span class="wc-hero-pill gold">45 Overs · 15 Nations</span>
     </div>
-    <div class="wc-england-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England are in Zone B</div>
+    <div class="wc-england-badge">🏴 England compete in the overall league</div>
   </div>
 
   <!-- Warm-up matches (auto-renders when WU_ entries exist) -->
@@ -562,8 +562,7 @@
   <!-- Group Stage pane -->
   <div class="wc-pane active" id="pane-groups">
     <div class="wc-group-tabs" id="wc-group-tabs">
-      <button class="wc-group-tab" data-group="A">Zone A</button>
-      <button class="wc-group-tab eng-tab active" data-group="B">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Zone B — England</button>
+      <button class="wc-group-tab eng-tab active" data-group="ALL">🏆 Overall League — 15 Teams</button>
     </div>
     <div id="wc-groups-container">
       <div class="wc-loading">Loading groups…</div>
@@ -594,7 +593,7 @@
    ──────────────────────────────────────────────────────────────────────────
 
    1. WHEN SCHEDULE IS RELEASED — add entries to WC.schedule:
-      WC.schedule['B_england_scotland'] = { date: '18 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' };
+      WC.schedule['ALL_scotland_england'] = { date: '18 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' };
 
    2. WARM-UP MATCHES — use 'WU' as the group prefix. These appear in a
       separate section and are EXCLUDED from all standings, NRR, and stats:
@@ -606,7 +605,7 @@
       WC.schedule['WU_england_westindies'] = { date: '16 Oct 2026', time: '10:00', venue: 'Providence Stadium' };
 
    3. WHEN ENTERING A GROUP RESULT — add an entry to WC.results:
-      WC.results['B_england_scotland'] = {
+      WC.results['ALL_scotland_england'] = {
         homeScore: '210/6 (45)',           // display string for match card
         homeRuns: 210, homeOvers: 45.0,    // England scored 210/6 off 45 full overs
         awayScore: '145 (38.2)',            // display string for match card
@@ -636,7 +635,6 @@ var WC = {
     westindies:  { name: 'West Indies',   logo: 'westindies.png',  flag: '🌴', abbr: 'WI'  },
     australia:   { name: 'Australia',     logo: 'australia.png',   flag: '🇦🇺', abbr: 'AUS' },
     wales:       { name: 'Wales',         logo: 'wales.png',       flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿', abbr: 'WAL' },
-    srilanka:    { name: 'Sri Lanka',     logo: 'srilanka.png',    flag: '🇱🇰', abbr: 'SL'  },
     canada:      { name: 'Canada',        logo: 'canada.png',      flag: '🇨🇦', abbr: 'CAN' },
     southafrica: { name: 'South Africa',  logo: 'southafrica.png', flag: '🇿🇦', abbr: 'RSA' },
     namibia:     { name: 'Namibia',       logo: 'namibia.png',     flag: '🇳🇦', abbr: 'NAM' },
@@ -653,71 +651,58 @@ var WC = {
 
   /* ── Groups ── */
   groups: {
-    A: ['westindies','australia','wales','srilanka','canada','southafrica','namibia','colombia'],
-    B: ['newzealand','pakistan','rotc','india','england','scotland','usa','row']
+    ALL: ['westindies','australia','canada','southafrica','newzealand','scotland','usa','england','india','row','pakistan','rotc','wales','namibia','colombia']
   },
 
   /* ── Schedule ── Add when IMC publishes fixture list ── */
   /* Key format: '{GROUP}_{hometeamkey}_{awayteamkey}'     */
   schedule: {
-    /* Group-stage fixtures and venues per CWIMA Official Newsletter 3 (30 Sep 2026). All times local (GYT).
-       Key = '{ZONE}_{team-earlier-in-zone-array}_{other-team}'. M-number = official match ref. */
-    'A_westindies_australia': { date: '17 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M1 */
-    'A_canada_southafrica': { date: '17 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M2 */
-    'B_newzealand_scotland': { date: '17 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M3 */
-    'B_england_usa': { date: '17 Oct 2026', time: '09:30', venue: 'Malteenoes Sports Club' },  /* M4 */
-    'B_india_row': { date: '17 Oct 2026', time: '09:30', venue: 'Demerara Cricket Club (DCC)' },  /* M5 */
-    'B_pakistan_rotc': { date: '17 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M6 */
-    'A_australia_namibia': { date: '18 Oct 2026', time: '09:30', venue: 'Malteenoes Sports Club' },  /* M7 */
-    'A_canada_colombia': { date: '18 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M8 */
-    'A_wales_southafrica': { date: '18 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M9 */
-    'A_westindies_srilanka': { date: '18 Oct 2026', time: '09:30', venue: 'Albion Sports Club' },  /* M10 */
-    'B_newzealand_england': { date: '18 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M11 */
-    'B_pakistan_india': { date: '18 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M12 */
-    'A_namibia_colombia': { date: '19 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M13 */
-    'A_wales_srilanka': { date: '19 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M14 */
-    'B_rotc_usa': { date: '19 Oct 2026', time: '09:30', venue: 'Everest Cricket Club (ECC)' },  /* M15 */
-    'B_scotland_row': { date: '19 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M16 */
-    'A_australia_canada': { date: '20 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M17 */
-    'A_westindies_southafrica': { date: '20 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M18 */
-    'B_newzealand_usa': { date: '20 Oct 2026', time: '09:30', venue: 'Malteenoes Sports Club' },  /* M19 */
-    'B_rotc_india': { date: '20 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M20 */
-    'B_england_row': { date: '20 Oct 2026', time: '09:30', venue: 'Albion Sports Club' },  /* M21 */
-    'B_pakistan_scotland': { date: '20 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M22 */
-    'A_australia_srilanka': { date: '21 Oct 2026', time: '09:30', venue: 'Albion Sports Club' },  /* M23 */
-    'A_wales_canada': { date: '21 Oct 2026', time: '09:30', venue: 'Everest Cricket Club (ECC)' },  /* M24 */
-    'A_southafrica_colombia': { date: '21 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M25 */
-    'A_westindies_namibia': { date: '21 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M26 */
-    'B_newzealand_india': { date: '21 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M27 */
-    'B_pakistan_england': { date: '21 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M28 */
-    'A_wales_colombia': { date: '22 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M29 */
-    'A_srilanka_namibia': { date: '22 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M30 */
-    'B_scotland_usa': { date: '22 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M31 */
-    'B_rotc_row': { date: '22 Oct 2026', time: '09:30', venue: 'Malteenoes Sports Club' },  /* M32 */
-    'A_australia_southafrica': { date: '23 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M33 */
-    'B_newzealand_rotc': { date: '23 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M34 */
-    'B_india_usa': { date: '23 Oct 2026', time: '09:30', venue: 'Albion Sports Club' },  /* M35 */
-    'B_pakistan_row': { date: '23 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M36 */
-    'B_england_scotland': { date: '23 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M37 */
-    'A_australia_colombia': { date: '24 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M38 */
-    'A_westindies_canada': { date: '24 Oct 2026', time: '09:30', venue: 'Joe Jagmohan Ground — Essequibo' },  /* M39 */
-    'A_wales_namibia': { date: '24 Oct 2026', time: '09:30', venue: 'Anna Regina National Stadium — Essequibo' },  /* M40 */
-    'A_srilanka_southafrica': { date: '24 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M41 */
-    'B_newzealand_pakistan': { date: '24 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M42 */
-    'B_india_england': { date: '24 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M43 */
-    'A_canada_namibia': { date: '25 Oct 2026', time: '09:30', venue: 'Joe Jagmohan Ground — Essequibo' },  /* M44 */
-    'A_srilanka_colombia': { date: '25 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M45 */
-    'A_westindies_wales': { date: '25 Oct 2026', time: '14:00', venue: 'Anna Regina National Stadium — Essequibo' },  /* M46 */
-    'B_usa_row': { date: '25 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M47 */
-    'B_rotc_scotland': { date: '25 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M48 */
-    'B_newzealand_row': { date: '26 Oct 2026', time: '09:30', venue: 'Albion Sports Club' },  /* M49 */
-    'B_pakistan_usa': { date: '26 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M50 */
-    'B_india_scotland': { date: '26 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground at Eve Leary' },  /* M51 */
-    'B_rotc_england': { date: '26 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M52 */
-    'A_australia_wales': { date: '27 Oct 2026', time: '09:30', venue: 'Malteenoes Sports Club' },  /* M53 */
-    'A_srilanka_canada': { date: '27 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M54 */
-    'A_westindies_colombia': { date: '27 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M55 */
-    'A_southafrica_namibia': { date: '27 Oct 2026', time: '09:30', venue: 'Everest Cricket Club (ECC)' },  /* M56 */
+    /* Confirmed CWIMA Match Officials Schedule, 16 Oct 2026. All times local (GYT). */
+    'ALL_westindies_australia': { date: '17 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M1 */
+    'ALL_canada_southafrica': { date: '17 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M2 */
+    'ALL_usa_england': { date: '17 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M3 */
+    'ALL_rotc_pakistan': { date: '17 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M4 */
+    'ALL_australia_namibia': { date: '18 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground — Eve Leary' },  /* M5 */
+    'ALL_canada_colombia': { date: '18 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M6 */
+    'ALL_southafrica_wales': { date: '18 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M7 */
+    'ALL_newzealand_england': { date: '18 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M8 */
+    'ALL_india_pakistan': { date: '18 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M9 */
+    'ALL_colombia_namibia': { date: '19 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M10 */
+    'ALL_row_scotland': { date: '19 Oct 2026', time: '09:30', venue: 'Everest Cricket Club' },  /* M11 */
+    'ALL_australia_canada': { date: '20 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M12 */
+    'ALL_westindies_southafrica': { date: '20 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M13 */
+    'ALL_newzealand_usa': { date: '20 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground — Eve Leary' },  /* M14 */
+    'ALL_rotc_india': { date: '20 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M15 */
+    'ALL_scotland_england': { date: '20 Oct 2026', time: '10:00', venue: 'Albion Sports Club' },  /* M16 */
+    'ALL_row_wales': { date: '20 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M17 */
+    'ALL_canada_wales': { date: '21 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M18 */
+    'ALL_colombia_southafrica': { date: '21 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M19 */
+    'ALL_westindies_namibia': { date: '21 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground — Eve Leary' },  /* M20 */
+    'ALL_newzealand_india': { date: '21 Oct 2026', time: '10:00', venue: 'Albion Sports Club' },  /* M21 */
+    'ALL_pakistan_england': { date: '21 Oct 2026', time: '09:30', venue: 'Everest Cricket Club' },  /* M22 */
+    'ALL_usa_scotland': { date: '22 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M23 */
+    'ALL_rotc_row': { date: '22 Oct 2026', time: '09:30', venue: 'Malteenoes Cricket Club' },  /* M24 */
+    'ALL_australia_southafrica': { date: '23 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground — Eve Leary' },  /* M25 */
+    'ALL_rotc_newzealand': { date: '23 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M26 */
+    'ALL_usa_india': { date: '23 Oct 2026', time: '09:30', venue: 'Malteenoes Cricket Club' },  /* M27 */
+    'ALL_scotland_pakistan': { date: '23 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M28 */
+    'ALL_row_colombia': { date: '23 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M29 */
+    'ALL_australia_colombia': { date: '24 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M30 */
+    'ALL_westindies_canada': { date: '24 Oct 2026', time: '09:30', venue: 'Joe Jagmohan Ground — Essequibo' },  /* M31 */
+    'ALL_namibia_wales': { date: '24 Oct 2026', time: '09:30', venue: 'Anna Regina National Stadium — Essequibo' },  /* M32 */
+    'ALL_newzealand_pakistan': { date: '24 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground — Eve Leary' },  /* M33 */
+    'ALL_india_england': { date: '24 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M34 */
+    'ALL_canada_namibia': { date: '25 Oct 2026', time: '09:30', venue: 'Joe Jagmohan Ground — Essequibo' },  /* M35 */
+    'ALL_westindies_wales': { date: '25 Oct 2026', time: '14:00', venue: 'Anna Regina National Stadium — Essequibo' },  /* M36 */
+    'ALL_usa_row': { date: '25 Oct 2026', time: '09:30', venue: 'Georgetown Cricket Club (GCC)' },  /* M37 */
+    'ALL_rotc_scotland': { date: '25 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground — Eve Leary' },  /* M38 */
+    'ALL_newzealand_row': { date: '26 Oct 2026', time: '09:30', venue: 'Lusignan Community Centre Ground' },  /* M39 */
+    'ALL_usa_pakistan': { date: '26 Oct 2026', time: '10:00', venue: 'Albion Sports Club' },  /* M40 */
+    'ALL_india_scotland': { date: '26 Oct 2026', time: '09:30', venue: 'Police Sports Club Ground — Eve Leary' },  /* M41 */
+    'ALL_rotc_england': { date: '26 Oct 2026', time: '09:30', venue: 'Enmore Community Centre Ground' },  /* M42 */
+    'ALL_australia_wales': { date: '27 Oct 2026', time: '09:30', venue: 'Guyana National Stadium — Providence' },  /* M43 */
+    'ALL_westindies_colombia': { date: '27 Oct 2026', time: '10:00', venue: 'Albion Sports Club' },  /* M44 */
+    'ALL_namibia_southafrica': { date: '27 Oct 2026', time: '09:30', venue: 'Everest Cricket Club' },  /* M45 */
   },
 
   /* ── Results ── Add when matches are played ──────────────────────────── */
@@ -761,16 +746,16 @@ var WC = {
 
   /* ── Knockout matches ── */
   knockout: {
-    /* ── Upper Crossovers — 28 October (top 4 in each zone) ── */
-    UC1: { label: 'Upper Crossover 1', date: '28 Oct 2026', venue: 'Guyana National Stadium — Providence', note: '1st Zone A vs 2nd Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M57 */
-    UC2: { label: 'Upper Crossover 2', date: '28 Oct 2026', venue: 'Georgetown Cricket Club (GCC)', note: '2nd Zone A vs 1st Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M58 */
-    UC3: { label: 'Upper Crossover 3', date: '28 Oct 2026', venue: 'Malteenoes Sports Club', note: '3rd Zone A vs 4th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M59 */
-    UC4: { label: 'Upper Crossover 4', date: '28 Oct 2026', venue: 'Enmore Community Centre Ground', note: '4th Zone A vs 3rd Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M60 */
-    /* ── Lower Crossovers — 29 October (5th–8th in each zone) ── */
-    LC1: { label: 'Lower Crossover 1', date: '29 Oct 2026', venue: 'Police Sports Club Ground at Eve Leary', note: '5th Zone A vs 6th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M61 */
-    LC2: { label: 'Lower Crossover 2', date: '29 Oct 2026', venue: 'Lusignan Community Centre Ground', note: '6th Zone A vs 5th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M62 */
-    LC3: { label: 'Lower Crossover 3', date: '29 Oct 2026', venue: 'Malteenoes Sports Club', note: '7th Zone A vs 8th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M63 */
-    LC4: { label: 'Lower Crossover 4', date: '29 Oct 2026', venue: 'Georgetown Cricket Club (GCC)', note: '8th Zone A vs 7th Zone B', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M64 */
+    /* ── Cup semi-finals — 28 October (top four overall) ── */
+    UC1: { label: 'Cup Semi-final 1', date: '28 Oct 2026', venue: 'Guyana National Stadium — Providence', note: '1st overall league vs 2nd overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M57 */
+    UC2: { label: 'Cup Semi-final 2', date: '28 Oct 2026', venue: 'Georgetown Cricket Club (GCC)', note: '2nd overall league vs 1st overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M58 */
+    UC3: { label: 'Cup Semi-final 3', date: '28 Oct 2026', venue: 'Malteenoes Sports Club', note: '3rd overall league vs 4th overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M59 */
+    UC4: { label: 'Cup Semi-final 4', date: '28 Oct 2026', venue: 'Enmore Community Centre Ground', note: '4th overall league vs 3rd overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M60 */
+    /* ── Placement semi-finals — 29 October (single overall league) ── */
+    LC1: { label: 'Placement Semi-final 1', date: '29 Oct 2026', venue: 'Police Sports Club Ground at Eve Leary', note: '5th overall league vs 6th overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M61 */
+    LC2: { label: 'Placement Semi-final 2', date: '29 Oct 2026', venue: 'Lusignan Community Centre Ground', note: '6th overall league vs 5th overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M62 */
+    LC3: { label: 'Placement Semi-final 3', date: '29 Oct 2026', venue: 'Malteenoes Sports Club', note: '7th overall league vs 8th overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M63 */
+    LC4: { label: 'Placement Semi-final 4', date: '29 Oct 2026', venue: 'Georgetown Cricket Club (GCC)', note: '8th overall league vs 7th overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M64 */
     /* ── Placement Matches — 30 October ── */
     PM1: { label: 'Placement Match 1', date: '30 Oct 2026', venue: 'Lusignan Community Centre Ground', note: 'Winner Match 61 vs Winner Match 62', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M65 */
     PM2: { label: 'Placement Match 2', date: '30 Oct 2026', venue: 'Enmore Community Centre Ground', note: 'Loser Match 61 vs Loser Match 62', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M66 */
@@ -803,7 +788,16 @@ function teamImg(teamKey, size) {
   return '<div class="wc-team-placeholder" style="width:'+size+'px;height:'+size+'px;font-size:'+emojiSize+'">' + (t.flag || t.abbr) + '</div>';
 }
 
-function generatePairs(teams) {
+function generatePairs(teams, groupKey) {
+  /* The confirmed floater schedule is not a complete round robin. Render only
+     the published fixtures rather than synthesising unplayed pairings. */
+  if (groupKey && WC.schedule) {
+    var prefix = groupKey + '_';
+    var scheduled = Object.keys(WC.schedule).filter(function(key) { return key.indexOf(prefix) === 0; });
+    if (scheduled.length) {
+      return scheduled.map(function(key) { return key.slice(prefix.length).split('_'); });
+    }
+  }
   var pairs = [];
   for (var i = 0; i < teams.length; i++) {
     for (var j = i + 1; j < teams.length; j++) {
@@ -863,7 +857,7 @@ function calcStandings(groupKey) {
   teams.forEach(function(t) {
     s[t] = { team: t, p: 0, w: 0, l: 0, tie: 0, nr: 0, pts: 0 };
   });
-  var pairs = generatePairs(teams);
+  var pairs = generatePairs(teams, groupKey);
   pairs.forEach(function(pair) {
     var homeKey = pair[0], awayKey = pair[1];
     var key = groupKey + '_' + homeKey + '_' + awayKey;
@@ -886,7 +880,7 @@ function calcStandings(groupKey) {
 
 function renderStandings(groupKey, standings) {
   var html = '<div class="wc-standings">'
-    + '<div class="wc-standings-label">Zone ' + groupKey + ' Standings</div>'
+    + '<div class="wc-standings-label">' + (groupKey === 'ALL' ? 'Overall League' : 'Zone ' + groupKey) + ' Standings</div>'
     + '<div class="wc-table-wrap"><table class="wc-table"><thead><tr>'
     + '<th style="text-align:left">Team</th>'
     + '<th title="Played">P</th><th title="Won">W</th><th title="Lost">L</th>'
@@ -923,7 +917,7 @@ function renderStandings(groupKey, standings) {
 
     /* Qualification marker after position 4 */
     if (idx === 3) {
-      html += '<tr><td colspan="8" class="wc-qual-label">⬆ Top 4 advance to the Upper Crossovers</td></tr>';
+      html += '<tr><td colspan="8" class="wc-qual-label">⬆ Top four advance to the Cup semi-finals</td></tr>';
     }
   });
 
@@ -1010,10 +1004,10 @@ function renderMatchCard(groupKey, homeKey, awayKey) {
 function renderGroup(groupKey) {
   var teams = WC.groups[groupKey];
   var standings = calcStandings(groupKey);
-  var pairs = generatePairs(teams);
+  var pairs = generatePairs(teams, groupKey);
   var isEngGroup = teams.indexOf('england') > -1;
 
-  /* England's matches first in Zone B */
+  /* England's matches first in overall league */
   var engPairs = [], otherPairs = [];
   pairs.forEach(function(p) {
     if (isEngGroup && (p[0] === 'england' || p[1] === 'england')) engPairs.push(p);
@@ -1036,8 +1030,8 @@ function renderGroup(groupKey) {
 
   var html = '<div class="wc-group-panel' + (isEngGroup ? ' england-group' : '') + '">'
     + '<div class="wc-group-header">'
-    + '<h2 class="wc-group-title">Zone ' + groupKey + '</h2>'
-    + (isEngGroup ? '<span class="wc-group-eng-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England\'s Zone</span>' : '')
+    + '<h2 class="wc-group-title">' + (groupKey === 'ALL' ? 'Overall League' : 'Zone ' + groupKey) + '</h2>'
+    + (isEngGroup ? '<span class="wc-group-eng-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span>' : '')
     + '</div>'
     + renderStandings(groupKey, standings)
     + '<div class="wc-fixtures-body">';
@@ -1045,10 +1039,10 @@ function renderGroup(groupKey) {
   if (isEngGroup && engPairs.length) {
     html += '<div class="wc-fixtures-section-label">England\'s Matches (' + engPairs.length + ')</div>';
     engPairs.forEach(function(p) { html += renderMatchCard(groupKey, p[0], p[1]); });
-    html += '<div class="wc-fixtures-section-label">All Zone B Fixtures (' + pairs.length + ' total, ' + played + ' played)</div>';
+    html += '<div class="wc-fixtures-section-label">All Overall League Fixtures (' + pairs.length + ' total, ' + played + ' played)</div>';
     pairs.forEach(function(p) { html += renderMatchCard(groupKey, p[0], p[1]); });
   } else {
-    html += '<div class="wc-fixtures-section-label">All Zone ' + groupKey + ' Fixtures (' + pairs.length + ' total, ' + played + ' played)</div>';
+    html += '<div class="wc-fixtures-section-label">All ' + (groupKey === 'ALL' ? 'Overall League' : 'Zone ' + groupKey) + ' Fixtures (' + pairs.length + ' total, ' + played + ' played)</div>';
     pairs.forEach(function(p) { html += renderMatchCard(groupKey, p[0], p[1]); });
   }
 
@@ -1094,17 +1088,17 @@ function renderKnockout() {
 
   /* Info box */
   html += '<div class="wc-info-box">'
-    + '<p><strong>Crossover knockout format:</strong> The top 4 teams in each zone advance to the Upper Crossovers — '
-    + '1st Zone A faces 2nd Zone B, 2nd Zone A faces 1st Zone B, and so on. Teams finishing 5th–8th play the '
-    + 'Lower Crossovers for placement.</p>'
-    + '<p><strong>28 Oct:</strong> Upper Crossovers &nbsp;|&nbsp; <strong>29 Oct:</strong> Lower Crossovers &nbsp;|&nbsp; '
+    + '<p><strong>Single-league knockout format:</strong> The top four teams overall advance to the Cup semi-finals. '
+    + 'Teams ranked 5th–15th play the relevant placement semi-finals and finals. '
+    + 'Placement matches determine positions through 15th.</p>'
+    + '<p><strong>28 Oct:</strong> Cup semi-finals &nbsp;|&nbsp; <strong>29 Oct:</strong> Placement semi-finals &nbsp;|&nbsp; '
     + '<strong>30 Oct:</strong> Placement matches &nbsp;|&nbsp; '
     + '<strong>31 Oct:</strong> Cup Final (9:30 AM) + Closing Ceremony (Police Officers\' Mess, Eve Leary, 7:00 PM).</p>'
     + '</div>';
 
-  /* Upper Crossovers */
+  /* Cup semi-finals */
   html += '<div class="wc-ko-section">'
-    + '<h3 class="wc-ko-section-title">Upper Crossovers <span class="ko-date-badge">28 October 2026</span></h3>'
+    + '<h3 class="wc-ko-section-title">Cup semi-finals <span class="ko-date-badge">28 October 2026</span></h3>'
     + '<div class="wc-ko-grid">'
     + renderKnockoutCard('UC1', k.UC1)
     + renderKnockoutCard('UC2', k.UC2)
@@ -1112,9 +1106,9 @@ function renderKnockout() {
     + renderKnockoutCard('UC4', k.UC4)
     + '</div></div>';
 
-  /* Lower Crossovers */
+  /* Placement semi-finals */
   html += '<div class="wc-ko-section">'
-    + '<h3 class="wc-ko-section-title">Lower Crossovers <span class="ko-date-badge">29 October 2026</span></h3>'
+    + '<h3 class="wc-ko-section-title">Placement semi-finals <span class="ko-date-badge">29 October 2026</span></h3>'
     + '<div class="wc-ko-grid">'
     + renderKnockoutCard('LC1', k.LC1)
     + renderKnockoutCard('LC2', k.LC2)
@@ -1226,7 +1220,7 @@ function renderWarmups() {
 
 /* ── England summary strip ── */
 function calcEnglandGroupStats() {
-  var standings = calcStandings('B');
+  var standings = calcStandings('ALL');
   var engRow = null, engPos = 0;
   for (var i = 0; i < standings.length; i++) {
     if (standings[i].team === 'england') { engRow = standings[i]; engPos = i + 1; break; }
@@ -1234,7 +1228,7 @@ function calcEnglandGroupStats() {
   var runsFor = 0, runsAgainst = 0;
   Object.keys(WC.results).forEach(function(key) {
     var parts = key.split('_');
-    if (parts[0] !== 'B') return;
+    if (parts[0] !== 'ALL') return;
     var home = parts[1], away = parts[2];
     var r = WC.results[key];
     if (!r || !r.result || r.result === 'nr') return;
@@ -1260,18 +1254,18 @@ function renderEnglandStrip() {
   /* Only render once at least one England match has a result */
   if (!row || row.p === 0) { container.innerHTML = ''; return; }
 
-  var nrrVal = (WC.nrr['england'] !== undefined) ? WC.nrr['england'] : calcNRR('england', 'B');
+  var nrrVal = (WC.nrr['england'] !== undefined) ? WC.nrr['england'] : calcNRR('england', 'ALL');
   var nrrDisp = (nrrVal !== undefined)
     ? '<strong class="' + (nrrVal >= 0 ? 'nrr-pos' : 'nrr-neg') + '">'
         + (nrrVal >= 0 ? '+' : '') + nrrVal.toFixed(3) + '</strong>'
     : '—';
 
-  var posLabel = ordinal(gs.pos) + ' in Zone B';
+  var posLabel = ordinal(gs.pos) + ' in the Overall League';
 
   var html = '<div class="wc-eng-strip">'
     + '<div class="wc-eng-strip-header">'
     + '<img src="../../assets/img/england.png" class="wc-eng-strip-badge" alt="England">'
-    + '<div class="wc-eng-strip-title">England <span>· Zone B</span></div>'
+    + '<div class="wc-eng-strip-title">England <span>· Overall League</span></div>'
     + '<div class="wc-eng-strip-pos">' + posLabel + '</div>'
     + '</div>'
     + '<div class="wc-eng-strip-record">'
@@ -1344,10 +1338,8 @@ document.getElementById('wc-group-tabs').addEventListener('click', function(e) {
   renderWarmups();
   /* England summary strip */
   renderEnglandStrip();
-  /* Show Zone B (England) by default */
-  showGroup('B');
-  /* Pre-render Zone A in background */
-  groupCache['A'] = renderGroup('A');
+  /* Show the unified overall league by default */
+  showGroup('ALL');
   /* Knockout */
   document.getElementById('wc-knockout-container').innerHTML = renderKnockout();
 })();
