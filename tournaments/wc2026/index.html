@@ -840,6 +840,14 @@ function parseCricketOvers(overs) {
   return full + balls / 6;
 }
 
+/* In limited-overs NRR, an innings that ends all out is counted against the
+   full match quota, not the number of overs actually bowled. */
+var NRR_MATCH_OVERS = 45;
+function effectiveNRROvers(score, overs) {
+  if (/\/\s*10(?:\D|$)/.test(String(score || ''))) return NRR_MATCH_OVERS;
+  return parseCricketOvers(overs);
+}
+
 /* ── Auto-calculate NRR for a team across all played group matches ── */
 /* Returns undefined if no matches played yet (shows — in table).     */
 function calcNRR(teamKey, groupKey) {
@@ -859,14 +867,14 @@ function calcNRR(teamKey, groupKey) {
     hasData = true;
     if (isHome) {
       runsFor      += (r.homeRuns || 0);
-      oversFor     += parseCricketOvers(hO);
+      oversFor     += effectiveNRROvers(r.homeScore, hO);
       runsAgainst  += (r.awayRuns  || 0);
-      oversAgainst += parseCricketOvers(aO);
+      oversAgainst += effectiveNRROvers(r.awayScore, aO);
     } else {
       runsFor      += (r.awayRuns  || 0);
-      oversFor     += parseCricketOvers(aO);
+      oversFor     += effectiveNRROvers(r.awayScore, aO);
       runsAgainst  += (r.homeRuns  || 0);
-      oversAgainst += parseCricketOvers(hO);
+      oversAgainst += effectiveNRROvers(r.homeScore, hO);
     }
   });
   if (!hasData) return undefined;
