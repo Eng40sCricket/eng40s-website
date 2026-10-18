@@ -709,16 +709,31 @@ var WC = {
   /* result: 'home' | 'away' | 'tie' | 'nr'                                */
   /* NRR is auto-calculated from homeRuns/homeOvers/awayRuns/awayOvers      */
   results: {
-    /* Example (remove comment when adding real data):
-    'B_england_newzealand': {
-      homeScore: '215/6 (45)',           // display only
-      homeRuns: 215, homeOvers: 45.0,    // England batted — 215 off 45 overs
-      awayScore: '212/9 (45)',           // display only
-      awayRuns: 212, awayOvers: 45.0,    // NZ batted — 212 off 45 overs
-      result: 'home',
+    /* Verified 17 October 2026 results supplied by England Over 40s Cricket. */
+    'ALL_westindies_australia': {
+      homeScore: '178/10 (40.1)',
+      homeRuns: 178, homeOvers: 40.1,
+      awayScore: '266/5 (45)',
+      awayRuns: 266, awayOvers: 45.0,
+      result: 'away',
       scorecardURL: ''
     },
-    */
+    'ALL_canada_southafrica': {
+      homeScore: '162/10 (40.3)',
+      homeRuns: 162, homeOvers: 40.3,
+      awayScore: '164/8 (38)',
+      awayRuns: 164, awayOvers: 38.0,
+      result: 'away',
+      scorecardURL: ''
+    },
+    'ALL_rotc_pakistan': {
+      homeScore: '71/10 (25.1)',
+      homeRuns: 71, homeOvers: 25.1,
+      awayScore: '72/1 (10.5)',
+      awayRuns: 72, awayOvers: 10.5,
+      result: 'away',
+      scorecardURL: ''
+    }
   },
 
   /* ── NRR overrides ── Emergency correction only; normally auto-calculated */
