@@ -709,6 +709,17 @@ var WC = {
   /* result: 'home' | 'away' | 'tie' | 'nr'                                */
   /* NRR is auto-calculated from homeRuns/homeOvers/awayRuns/awayOvers      */
   results: {
+    /* Confirmed 18 October result supplied by Chris; Georgetown CC.
+       Actual innings overs retained; existing NRR engine applies the full
+       45-over quota to New Zealand's all-out innings (IMC clause 12.2). */
+    'ALL_newzealand_england': {
+      homeScore: '157/10 (34.3)',
+      homeRuns: 157, homeOvers: 34.3,
+      awayScore: '286/9 (45)',
+      awayRuns: 286, awayOvers: 45.0,
+      result: 'away',
+      scorecardURL: 'https://englandseniors.play-cricket.com/website/results/7745530'
+    },
     /* Verified 17 October 2026 results supplied by England Over 40s Cricket. */
     'ALL_usa_england': {
       homeScore: '130/10 (29.2)',
