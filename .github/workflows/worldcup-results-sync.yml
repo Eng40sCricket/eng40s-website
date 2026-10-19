@@ -1,0 +1,84 @@
+name: World Cup official results sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 00:00 UTC = 20:00 previous evening in Guyana (UTC-4 year-round).
+    # First check: 19 October GYT; last check: 31 October GYT.
+    - cron: '0 0 20-31 10 *'
+    - cron: '0 0 1 11 *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: worldcup-official-results-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    permissions:
+      contents: write
+      pages: write
+    steps:
+      - name: Check tournament window
+        id: window
+        run: |
+          python3 - <<'PY'
+          import os
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          day = datetime.now(ZoneInfo('America/Guyana')).date().isoformat()
+          active = '2026-10-19' <= day <= '2026-10-31'
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write('active=' + str(active).lower() + '\n')
+          print('Guyana date:', day, 'Tournament sync active:', active)
+          PY
+      - name: Check out current main
+        if: steps.window.outputs.active == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Set up Python
+        if: steps.window.outputs.active == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install parser dependencies
+        if: steps.window.outputs.active == 'true'
+        run: pip install -r tools/worldcup/requirements.txt
+      - name: Run importer and standings regression tests
+        if: steps.window.outputs.active == 'true'
+        run: |
+          python -m unittest discover -s tests/worldcup -p 'test_*.py' -v
+          node tests/worldcup/check_standings.cjs
+      - name: Import only validated official results
+        if: steps.window.outputs.active == 'true'
+        run: python tools/worldcup/sync_official_results.py --apply
+      - name: Validate updated standings and publish changed data
+        if: steps.window.outputs.active == 'true'
+        id: publish
+        run: |
+          node tests/worldcup/check_standings.cjs
+          git diff --check
+          if git diff --quiet -- tournaments/wc2026/index.html assets/data/worldcup-sync-status.json; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            echo 'No new verified results; no commit required.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add tournaments/wc2026/index.html assets/data/worldcup-sync-status.json
+            git commit -m 'data: sync verified IMC World Cup results'
+            # A concurrent human update causes a safe failure, never a force-push.
+            git push origin HEAD:main
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Request branch-source GitHub Pages rebuild
+        # Bot pushes do not trigger a second workflow automatically. Request
+        # the existing Pages build explicitly; manual runs also test this path.
+        if: steps.window.outputs.active == 'true' && (steps.publish.outputs.changed == 'true' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds"
