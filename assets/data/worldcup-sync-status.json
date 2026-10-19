@@ -1,0 +1,73 @@
+{
+  "source": "https://worldcup.windiesmasters.org/fixtures-results/",
+  "checkedAtGuyana": "2026-10-19T13:40:42-04:00",
+  "officialCompletedMatches": 9,
+  "otherTeamMatchesVerified": 7,
+  "englandMatchesPreserved": [
+    "3",
+    "8"
+  ],
+  "newResults": [
+    "ALL_australia_namibia",
+    "ALL_canada_colombia",
+    "ALL_southafrica_wales",
+    "ALL_india_pakistan"
+  ],
+  "scorecardLinksAdded": [
+    "ALL_westindies_australia",
+    "ALL_canada_southafrica",
+    "ALL_rotc_pakistan"
+  ],
+  "excluded": [],
+  "matches": [
+    {
+      "match": 1,
+      "date": "2026-10-17",
+      "key": "ALL_westindies_australia",
+      "result": "Australia won by 88 runs",
+      "scorecard": "https://cricheroes.com/scorecard/27711058/imc-over-40s-world-cup-2026-guyana/australia-vs-west-indies/live"
+    },
+    {
+      "match": 2,
+      "date": "2026-10-17",
+      "key": "ALL_canada_southafrica",
+      "result": "South Africa won by 2 wickets",
+      "scorecard": "https://cricheroes.com/scorecard/27711693/imc-over-40s-world-cup-2026-guyana/canada-vs-south-africa/live"
+    },
+    {
+      "match": 4,
+      "date": "2026-10-17",
+      "key": "ALL_rotc_pakistan",
+      "result": "Pakistan won by 9 wickets",
+      "scorecard": "https://cricheroes.com/scorecard/27712016/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-pakistan/live"
+    },
+    {
+      "match": 5,
+      "date": "2026-10-18",
+      "key": "ALL_australia_namibia",
+      "result": "Australia won by 9 wickets",
+      "scorecard": "https://cricheroes.com/scorecard/27742466/imc-over-40s-world-cup-2026-guyana/namibia-vs-australia/"
+    },
+    {
+      "match": 6,
+      "date": "2026-10-18",
+      "key": "ALL_canada_colombia",
+      "result": "Canada won by 331 runs",
+      "scorecard": "https://cricheroes.com/scorecard/27741746/imc-over-40s-world-cup-2026-guyana/canada-vs-colombia/"
+    },
+    {
+      "match": 7,
+      "date": "2026-10-18",
+      "key": "ALL_southafrica_wales",
+      "result": "South Africa won by 252 runs",
+      "scorecard": "https://cricheroes.com/scorecard/27738284/imc-over-40s-world-cup-2026-guyana/wales-vs-south-africa"
+    },
+    {
+      "match": 9,
+      "date": "2026-10-18",
+      "key": "ALL_india_pakistan",
+      "result": "Pakistan won by 7 wickets",
+      "scorecard": "https://cricheroes.com/scorecard/27739343/imc-over-40s-world-cup-2026-guyana/pakistan-vs-india/"
+    }
+  ]
+}
