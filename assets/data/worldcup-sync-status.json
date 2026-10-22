@@ -1,19 +1,15 @@
 {
   "source": "https://worldcup.windiesmasters.org/fixtures-results/",
-  "checkedAtGuyana": "2026-10-22T03:00:49-04:00",
-  "officialCompletedMatches": 19,
-  "otherTeamMatchesVerified": 13,
-  "matchesVerified": 13,
+  "checkedAtGuyana": "2026-10-22T03:02:06-04:00",
+  "officialCompletedMatches": 16,
+  "otherTeamMatchesVerified": 10,
+  "matchesVerified": 10,
   "englandMatchesPreserved": [
     "3",
     "8",
     "16"
   ],
-  "newResults": [
-    "ALL_canada_wales",
-    "ALL_westindies_namibia",
-    "ALL_newzealand_india"
-  ],
+  "newResults": [],
   "scorecardLinksAdded": [],
   "heldForReview": [
     {
@@ -154,44 +150,10 @@
       "key": "ALL_newzealand_usa",
       "result": "New Zealand won by 7 wickets",
       "scorecard": "https://cricheroes.com/scorecard/27795133/imc-over-40s-world-cup-2026-guyana/usa-vs-new-zealand/"
-    },
-    {
-      "match": 18,
-      "date": "2026-10-21",
-      "key": "ALL_canada_wales",
-      "result": "CANADA won by 208 runs",
-      "scorecard": "https://cricheroes.com/scorecard/27800459/imc-over-40s-world-cup-2026-guyana/canada-vs-wales/summary"
-    },
-    {
-      "match": 20,
-      "date": "2026-10-21",
-      "key": "ALL_westindies_namibia",
-      "result": "WEST INDIES won by 8 wickets",
-      "scorecard": "https://cricheroes.com/scorecard/27800575/imc-over-40s-world-cup-2026-guyana/namibia-vs-west-indies/summary"
-    },
-    {
-      "match": 21,
-      "date": "2026-10-21",
-      "key": "ALL_newzealand_india",
-      "result": "INDIA won by 8 wickets",
-      "scorecard": "https://cricheroes.com/scorecard/27800630/imc-over-40s-world-cup-2026-guyana/new-zealand-vs-india/summary"
     }
   ],
-  "scorecardsChecked": 3,
-  "scorecardsVerified": [
-    {
-      "match": "18",
-      "source": "https://cricheroes.com/scorecard/27800459/imc-over-40s-world-cup-2026-guyana/canada-vs-wales/summary"
-    },
-    {
-      "match": "20",
-      "source": "https://cricheroes.com/scorecard/27800575/imc-over-40s-world-cup-2026-guyana/namibia-vs-west-indies/summary"
-    },
-    {
-      "match": "21",
-      "source": "https://cricheroes.com/scorecard/27800630/imc-over-40s-world-cup-2026-guyana/new-zealand-vs-india/summary"
-    }
-  ],
+  "scorecardsChecked": 0,
+  "scorecardsVerified": [],
   "pendingScorecards": [
     {
       "match": "23",
