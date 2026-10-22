@@ -709,6 +709,17 @@ var WC = {
   /* result: 'home' | 'away' | 'tie' | 'nr'                                */
   /* NRR is auto-calculated from homeRuns/homeOvers/awayRuns/awayOvers      */
   results: {
+    /* Confirmed 21 October Pakistan result supplied by Chris. Actual
+       innings overs retained; existing NRR engine applies the full quota
+       to Pakistan's all-out innings. */
+    'ALL_pakistan_england': {
+      homeScore: '210/10 (41.3)',
+      homeRuns: 210, homeOvers: 41.3,
+      awayScore: '211/3 (33.4)',
+      awayRuns: 211, awayOvers: 33.4,
+      result: 'away',
+      scorecardURL: 'https://englandseniors.play-cricket.com/website/results/7745559'
+    },
     /* Confirmed 18 October result supplied by Chris; Georgetown CC.
        Actual innings overs retained; existing NRR engine applies the full
        45-over quota to New Zealand's all-out innings (IMC clause 12.2). */
