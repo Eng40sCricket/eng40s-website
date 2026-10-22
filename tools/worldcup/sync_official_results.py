@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Import completed IMC league results without executing upstream JavaScript.
+"""Sync official IMC results without executing upstream JavaScript.
 
-Manual England results, fixtures and standings/rendering logic are preserved.
-Unknown schemas, collisions, rain-adjusted results and missing overs fail closed.
+Existing scores, especially Chris's England reports, are never overwritten.
+A bad individual result is held for review; source/schema failures remain fatal.
 """
 import argparse
 import json
@@ -17,6 +17,12 @@ from zoneinfo import ZoneInfo
 import json5
 import requests
 from bs4 import BeautifulSoup
+
+try:
+    from collect_scorecards import canonical_url, collect
+except ModuleNotFoundError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from collect_scorecards import canonical_url, collect
 
 SOURCE = "https://worldcup.windiesmasters.org/fixtures-results/"
 ROOT = Path(__file__).resolve().parents[2]
@@ -59,7 +65,7 @@ def literal(text, start):
                 quote = None
         elif c in "\"'":
             quote = c
-        elif c == "/" and n in "/ *".replace(" ", ""):
+        elif c == "/" and n in ("/", "*"):
             comment = "line" if n == "/" else "block"
             i += 1
         elif c in "{[":
@@ -78,8 +84,6 @@ def assigned(text, name):
     if len(matches) != 1:
         raise ValueError(f"Expected exactly one {name} declaration")
     a, b = literal(text, matches[0].end())
-    # JavaScript permits numeric object keys, unlike JSON5. The official
-    # schema places each numeric match ID at the beginning of its own line.
     raw = re.sub(r"(?m)^(\s*)(\d+)(\s*:)", r'\1"\2"\3', text[a:b])
     return json5.loads(raw, allow_duplicate_keys=False)
 
@@ -92,6 +96,8 @@ def wc_data(page):
     wc = json5.loads(page[a:b], allow_duplicate_keys=False)
     region = page[a:b]
     m = re.search(r"\bresults\s*:\s*", region)
+    if not m:
+        raise ValueError("Local results data not found")
     x, y = literal(region, m.end())
     return wc, a + x, a + y
 
@@ -119,6 +125,8 @@ def innings(row):
 def core(result):
     # Display notation (45 vs 45.0) is not a result conflict.
     values = [result.get("result")]
+    if result.get("result") == "nr":
+        return tuple(values)
     for side in ("home", "away"):
         score = re.match(r"^(\d+)/(\d+)", str(result.get(side + "Score", "")))
         if not score:
@@ -128,7 +136,65 @@ def core(result):
     return tuple(values)
 
 
-def build(page, source_html, now=None):
+def candidate(wc, fixture, result, links, match_id, date):
+    """Validate a final without assuming the official innings list is chronological."""
+    home, away = team(fixture["home"]), team(fixture["away"])
+    key = f"ALL_{home}_{away}"
+    if key not in wc["schedule"]:
+        reverse = f"ALL_{away}_{home}"
+        if reverse not in wc["schedule"]:
+            raise ValueError("fixture absent from the local schedule")
+        key, home, away = reverse, away, home
+    local_date = datetime.strptime(wc["schedule"][key]["date"], "%d %b %Y").date().isoformat()
+    if local_date != date:
+        raise ValueError("local and official fixture dates differ")
+    scorecard = links.get(match_id, {}).get("scorecard", "")
+    if scorecard.startswith("cricheroes.com/scorecard/"):
+        scorecard = "https://" + scorecard
+    parsed = urlparse(scorecard)
+    if not scorecard or parsed.scheme != "https" or parsed.hostname != "cricheroes.com" or not parsed.path.startswith("/scorecard/"):
+        raise ValueError("missing/unrecognised official scorecard link")
+    decision = str(result.get("decision", "")).strip()
+    if re.fullmatch(r"(?:no result|abandoned(?: due to rain)?)", decision, re.I):
+        return key, {"result": "nr", "scorecardURL": scorecard}, decision
+    margin = re.fullmatch(r"won by (\d+) (runs?|wickets?)", decision, re.I)
+    tied = bool(re.fullmatch(r"(?:match )?tied|tie", decision, re.I))
+    if (not margin and not tied) or not isinstance(result.get("innings"), list) or len(result["innings"]) != 2:
+        raise ValueError("nonstandard/incomplete result requires manual review")
+    rows = [innings(x) for x in result["innings"]]
+    if {x["team"] for x in rows} != {home, away}:
+        raise ValueError("innings teams disagree with fixture")
+    if tied:
+        if rows[0]["runs"] != rows[1]["runs"]:
+            raise ValueError("tied result inconsistent with innings")
+        outcome = "tie"
+    else:
+        winner = team(result.get("winner", ""))
+        if winner not in (home, away):
+            raise ValueError("unknown winner")
+        winning = next(x for x in rows if x["team"] == winner)
+        losing = next(x for x in rows if x["team"] != winner)
+        value = int(margin[1])
+        if margin[2].lower().startswith("run"):
+            valid = winning["runs"] - losing["runs"] == value and value > 0
+        else:
+            valid = (winning["runs"] > losing["runs"] and 10 - winning["wickets"] == value and 1 <= value <= 10)
+        if not valid:
+            raise ValueError("winner/margin inconsistent with innings")
+        outcome = "home" if winner == home else "away"
+    h = next(x for x in rows if x["team"] == home)
+    a = next(x for x in rows if x["team"] == away)
+    record = {
+        "homeScore": f"{h['runs']}/{h['wickets']} ({h['overs']})",
+        "homeRuns": h["runs"], "homeOvers": float(h["overs"]),
+        "awayScore": f"{a['runs']}/{a['wickets']} ({a['overs']})",
+        "awayRuns": a["runs"], "awayOvers": float(a["overs"]),
+        "result": outcome, "scorecardURL": scorecard,
+    }
+    return key, record, decision
+
+
+def build(page, source_html, now=None, extra_results=None, extra_links=None, collection_report=None):
     now = now or datetime.now(ZoneInfo("America/Guyana"))
     wc, region_start, region_end = wc_data(page)
     soup = BeautifulSoup(source_html, "html.parser")
@@ -140,88 +206,59 @@ def build(page, source_html, now=None):
     scripts = "\n".join(x.get_text() for x in soup.find_all("script") if not x.get("src"))
     finals = assigned(scripts, "MATCH_RESULTS")
     links = assigned(scripts, "MATCH_LINKS")
-    if not finals or len(finals) < 9:
+    if not isinstance(finals, dict) or len(finals) < 9 or not isinstance(links, dict):
         raise ValueError("Official completed results unexpectedly empty/incomplete; no changes")
     if len(fixtures) != len(schedule["fixtures"]):
         raise ValueError("Duplicate official fixture IDs")
+    if extra_results:
+        finals = {**finals, **extra_results}
+    if extra_links:
+        links = {**links, **extra_links}
     updated = dict(wc["results"])
-    added, linked, preserved, skipped = [], [], [], []
+    added, linked, preserved, skipped, held = [], [], [], [], []
     receipts = []
     for match_id, result in finals.items():
         match_id = str(match_id)
-        if match_id not in fixtures:
-            raise ValueError(f"Unknown official fixture ID: {match_id}")
-        fixture = fixtures[match_id]
-        if fixture["stage"] != "League":
-            skipped.append({"match": match_id, "reason": "Knockouts excluded from league NRR"})
-            continue
-        date = f"2026-10-{int(fixture['day']):02d}"
-        if date > now.date().isoformat():
-            raise ValueError(f"Future fixture incorrectly marked completed: M{match_id}")
-        home, away = team(fixture["home"]), team(fixture["away"])
-        if "england" in (home, away):
-            preserved.append(match_id)
-            continue
-        decision = str(result.get("decision", ""))
-        margin = re.fullmatch(r"won by (\d+) (runs?|wickets?)", decision, re.I)
-        if not margin or not isinstance(result.get("innings"), list) or len(result["innings"]) != 2:
-            raise ValueError(f"M{match_id}: nonstandard/incomplete result requires manual review")
-        rows = [innings(x) for x in result["innings"]]
-        if {x["team"] for x in rows} != {home, away}:
-            raise ValueError(f"M{match_id}: innings teams disagree with fixture")
-        winner = team(result.get("winner", ""))
-        if winner not in (home, away):
-            raise ValueError(f"M{match_id}: unknown winner")
-        first, second = rows
-        value = int(margin[1])
-        if margin[2].lower().startswith("run"):
-            valid = winner == first["team"] and first["runs"] - second["runs"] == value and value > 0
-        else:
-            valid = (winner == second["team"] and second["runs"] > first["runs"]
-                     and 10 - second["wickets"] == value and 1 <= value <= 10)
-        if not valid:
-            raise ValueError(f"M{match_id}: winner/margin inconsistent with innings")
-        key = f"ALL_{home}_{away}"
-        if key not in wc["schedule"]:
+        fixture = fixtures.get(match_id)
+        try:
+            if fixture is None:
+                raise ValueError("unknown official fixture ID")
+            date = f"2026-10-{int(fixture['day']):02d}"
+            if date > now.date().isoformat():
+                raise ValueError("Future fixture incorrectly marked completed")
+            if fixture["stage"] != "League":
+                skipped.append({"match": match_id, "reason": "Knockout result collected separately; excluded from league NRR", "result": result})
+                continue
+            home, away = team(fixture["home"]), team(fixture["away"])
+            key = f"ALL_{home}_{away}"
             reverse = f"ALL_{away}_{home}"
-            if reverse not in wc["schedule"]:
-                raise ValueError(f"M{match_id}: fixture absent from the local schedule")
-            key, home, away = reverse, away, home
-        local_date = datetime.strptime(wc["schedule"][key]["date"], "%d %b %Y").date().isoformat()
-        if local_date != date:
-            raise ValueError(f"M{match_id}: local and official fixture dates differ")
-        scorecard = links.get(match_id, {}).get("scorecard", "")
-        parsed = urlparse(scorecard)
-        if not scorecard or parsed.scheme != "https" or parsed.hostname != "cricheroes.com" or not parsed.path.startswith("/scorecard/"):
-            raise ValueError(f"M{match_id}: missing/unrecognised official scorecard link")
-        h = next(x for x in rows if x["team"] == home)
-        a = next(x for x in rows if x["team"] == away)
-        candidate = {
-            "homeScore": f"{h['runs']}/{h['wickets']} ({h['overs']})",
-            "homeRuns": h["runs"], "homeOvers": float(h["overs"]),
-            "awayScore": f"{a['runs']}/{a['wickets']} ({a['overs']})",
-            "awayRuns": a["runs"], "awayOvers": float(a["overs"]),
-            "result": "home" if winner == home else "away", "scorecardURL": scorecard,
-        }
-        if key in updated:
-            if core(updated[key]) != core(candidate):
-                raise ValueError(f"M{match_id}: official score conflicts with existing {key}; manual review required")
-            if not updated[key].get("scorecardURL"):
-                updated[key] = {**updated[key], "scorecardURL": scorecard}
-                linked.append(key)
-        else:
-            updated[key] = candidate
-            added.append(key)
-        receipts.append({"match": int(match_id), "date": date, "key": key,
-                         "result": f"{result['winner']} {decision}", "scorecard": scorecard})
-    # Append only missing entries and fill only confirmed-empty non-England links.
-    # Existing manual data, comments and all code outside results remain byte-identical.
+            existing_key = key if key in updated else reverse if reverse in updated else None
+            if "england" in (home, away) and existing_key:
+                preserved.append(match_id)
+                continue
+            key, record, decision = candidate(wc, fixture, result, links, match_id, date)
+            if key in updated:
+                if core(updated[key]) != core(record):
+                    raise ValueError(f"official score conflicts with existing {key}; existing result retained")
+                if not updated[key].get("scorecardURL"):
+                    updated[key] = {**updated[key], "scorecardURL": record["scorecardURL"]}
+                    linked.append(key)
+            else:
+                updated[key] = record
+                added.append(key)
+            receipts.append({"match": int(match_id), "date": date, "key": key,
+                             "result": f"{result.get('winner', '')} {decision}".strip(), "scorecard": record["scorecardURL"]})
+        except (ValueError, KeyError, TypeError) as exc:
+            held.append({"match": match_id, "teams": f"{fixture.get('home', '?')} v {fixture.get('away', '?')}" if fixture else "Unknown fixture",
+                         "reason": str(exc), "officialResult": result,
+                         "scorecard": links.get(match_id, {}).get("scorecard", "")})
     region = page[region_start:region_end]
     for key in linked:
         entry = re.search(r"['\"]" + re.escape(key) + r"['\"]\s*:\s*", region)
         x, y = literal(region, entry.end())
         old = region[x:y]
-        new, count = re.subn(r"scorecardURL\s*:\s*(['\"])\1", "scorecardURL: " + json.dumps(updated[key]["scorecardURL"]), old)
+        new, count = re.subn(r"(?:\"scorecardURL\"|scorecardURL)\s*:\s*(['\"])\1",
+                            '"scorecardURL": ' + json.dumps(updated[key]["scorecardURL"]), old)
         if count != 1:
             raise ValueError("Unable to safely fill existing empty scorecard link")
         region = region[:x] + new + region[y:]
@@ -237,14 +274,17 @@ def build(page, source_html, now=None):
         region = body + "\n    /* Verified official results; updated by tools/worldcup/sync_official_results.py. */\n" + ",\n".join(blocks) + "\n  }"
     changed_page = page[:region_start] + region + page[region_end:]
     check, _, _ = wc_data(changed_page)
-    for key in wc["results"]:
-        if "england" in key:
-            if check["results"][key] != wc["results"][key]:
-                raise ValueError("Manual England result changed unexpectedly")
+    for key, record in wc["results"].items():
+        if core(check["results"][key]) != core(record):
+            raise ValueError("Existing match result changed unexpectedly")
+        if "england" in key and check["results"][key] != record:
+            raise ValueError("Manual England result changed unexpectedly")
     report = {"source": SOURCE, "checkedAtGuyana": now.isoformat(timespec="seconds"),
-              "officialCompletedMatches": len(finals), "otherTeamMatchesVerified": len(receipts),
-              "englandMatchesPreserved": preserved, "newResults": added, "scorecardLinksAdded": linked,
-              "excluded": skipped, "matches": receipts}
+              "officialCompletedMatches": len(finals), "otherTeamMatchesVerified": len([r for r in receipts if 'england' not in r['key']]),
+              "matchesVerified": len(receipts), "englandMatchesPreserved": preserved,
+              "newResults": added, "scorecardLinksAdded": linked,
+              "heldForReview": held, "excluded": skipped, "matches": receipts}
+    report.update(collection_report or {})
     return changed_page, report
 
 
@@ -252,33 +292,67 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--apply", action="store_true")
     p.add_argument("--source-file", type=Path, help="Use a captured official page for deterministic tests")
+    p.add_argument("--report-file", type=Path, help="Also save the full receipt for workflow review")
+    p.add_argument("--collect-scorecards", action="store_true", help="Collect missing finals from officially linked scorecards")
     args = p.parse_args()
     try:
         if args.source_file:
             source = args.source_file.read_text()
         else:
-            response = requests.get(SOURCE, timeout=45, headers={"User-Agent": "EnglandOver40s-ResultsSync/1.0"})
+            session = requests.Session()
+            adapter = requests.adapters.HTTPAdapter(max_retries=2)
+            session.mount("https://", adapter)
+            response = session.get(SOURCE, timeout=(15, 45), headers={"User-Agent": "EnglandOver40s-ResultsSync/1.1"})
             response.raise_for_status()
             if len(response.content) > 5_000_000:
                 raise ValueError("Unexpectedly large official page")
             source = response.text
         original = PAGE.read_text()
-        updated, report = build(original, source)
+        now = datetime.now(ZoneInfo("America/Guyana"))
+        # Validate the source contract before allowing any linked-card requests.
+        build(original, source, now)
+        extra, extra_links, collection_report = {}, {}, {}
+        if args.collect_scorecards:
+            soup = BeautifulSoup(source, "html.parser")
+            fixture_rows = json.loads(soup.select_one("[data-imcf-data]").get_text())["fixtures"]
+            scripts = "\n".join(n.get_text() for n in soup.find_all("script") if not n.get("src"))
+            links = assigned(scripts, "MATCH_LINKS")
+            wc, _, _ = wc_data(original)
+            extra, extra_links, collection_report = collect({str(f['id']): f for f in fixture_rows}, links, wc['results'], now, team)
+        updated, report = build(original, source, now, extra, extra_links, collection_report)
         changed = updated != original
         print(json.dumps({**report, "changed": changed, "applied": changed and args.apply}, indent=2))
-        if changed and args.apply:
-            PAGE.write_text(updated)
+        if args.report_file:
+            args.report_file.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n")
+        if args.apply:
+            if changed:
+                PAGE.write_text(updated)
+            # Record every completed check, including a no-change run with held matches.
             STATUS.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n")
         summary = os.environ.get("GITHUB_STEP_SUMMARY")
         if summary:
             with open(summary, "a") as f:
-                f.write(f"## Official World Cup results check\n\nVerified {report['officialCompletedMatches']} completed matches. "
-                        f"Added {len(report['newResults'])} new results and {len(report['scorecardLinksAdded'])} scorecard links. "
-                        f"Preserved {len(report['englandMatchesPreserved'])} England fixtures. "
-                        f"{'Updated data ready for publication.' if changed else 'No change; no commit needed.'}\n")
+                f.write(f"## Official World Cup results check\n\nGuyana time: {report['checkedAtGuyana']}. "
+                        f"Collected {report['officialCompletedMatches']} completed results; "
+                        f"added {len(report['newResults'])} league results; "
+                        f"preserved {len(report['englandMatchesPreserved'])} England fixtures.\n\n")
+                if report["heldForReview"]:
+                    f.write("### Held for review — existing scores retained\n\n")
+                    for item in report["heldForReview"]:
+                        f.write(f"- M{item['match']} {item['teams']}: {item['reason']}\n")
+                if report["excluded"]:
+                    f.write("\nKnockout results are collected in the receipt but do not enter league NRR.\n")
+                if report.get("pendingScorecards"):
+                    f.write("\n### Scorecard collection awaiting completion/review\n\n")
+                    for item in report["pendingScorecards"]:
+                        f.write(f"- M{item['match']}: {item['reason']}\n")
+        for item in report["heldForReview"]:
+            print(f"::warning::M{item['match']}: result held for review; existing data retained.", file=sys.stderr)
     except Exception as exc:
         print(f"Results sync stopped safely: {exc}", file=sys.stderr)
-        print("::error::Official results require review; existing website data left unchanged.", file=sys.stderr)
+        print("::error::Official source/schema unavailable; existing website data left unchanged.", file=sys.stderr)
+        if args.report_file:
+            args.report_file.write_text(json.dumps({"source": SOURCE, "error": str(exc), "checkedAtGuyana": datetime.now(ZoneInfo('America/Guyana')).isoformat()}) + "\n")
         return 1
     return 0
 

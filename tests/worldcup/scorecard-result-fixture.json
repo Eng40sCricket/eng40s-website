@@ -1,0 +1,58 @@
+{
+  "match_id": 27800459,
+  "match_type": "Limited Overs",
+  "status": "past",
+  "overs": 45,
+  "start_datetime": "2026-10-21T13:30:40.000Z",
+  "win_by": "208 runs",
+  "winning_team": "CANADA",
+  "match_result": "resulted",
+  "tournament_id": "2234020",
+  "is_dl": 0,
+  "is_vjd": 0,
+  "over_reduce": "",
+  "is_super_over": 0,
+  "is_in_review": 0,
+  "team_a": {
+    "name": "CANADA",
+    "summary": "393/7",
+    "innings": [
+      {
+        "total_run": 393,
+        "total_wicket": 7,
+        "overs_played": "45.0",
+        "summary": {
+          "score": "393/7",
+          "over": "(45.0 Ov)",
+          "ball": "(0 Ball)",
+          "rr": "8.73"
+        },
+        "revised_target": 0,
+        "revised_overs": 0,
+        "is_forfeited": 0,
+        "is_declare": 0
+      }
+    ]
+  },
+  "team_b": {
+    "name": "WALES",
+    "summary": "185/7",
+    "innings": [
+      {
+        "total_run": 185,
+        "total_wicket": 7,
+        "overs_played": "45.0",
+        "summary": {
+          "score": "185/7",
+          "over": "(45.0 Ov)",
+          "ball": "(0 Ball)",
+          "rr": "4.11"
+        },
+        "revised_target": 0,
+        "revised_overs": 0,
+        "is_forfeited": 0,
+        "is_declare": 0
+      }
+    ]
+  }
+}

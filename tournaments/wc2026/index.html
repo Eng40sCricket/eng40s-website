@@ -709,6 +709,17 @@ var WC = {
   /* result: 'home' | 'away' | 'tie' | 'nr'                                */
   /* NRR is auto-calculated from homeRuns/homeOvers/awayRuns/awayOvers      */
   results: {
+    /* 21 October scorecard carries is_in_review=1. Full totals and actual
+       overs corroborated manually with Veterans Cricket South Africa's
+       published report and Newsroom Guyana before import. */
+    'ALL_colombia_southafrica': {
+      homeScore: '52/10 (23.5)',
+      homeRuns: 52, homeOvers: 23.5,
+      awayScore: '53/2 (7.2)',
+      awayRuns: 53, awayOvers: 7.2,
+      result: 'away',
+      scorecardURL: 'https://cricheroes.com/scorecard/27800545/imc-over-40s-world-cup-2026-guyana/colombia-vs-south-africa/summary'
+    },
     /* Confirmed 21 October Pakistan result supplied by Chris. Actual
        innings overs retained; existing NRR engine applies the full quota
        to Pakistan's all-out innings. */
@@ -885,6 +896,37 @@ var WC = {
       "awayOvers": 42.2,
       "result": "home",
       "scorecardURL": "https://cricheroes.com/scorecard/27797565/imc-over-40s-world-cup-2026-guyana/wales-vs-rest-of-the-world/scorecard"
+    },
+    /* Verified official results; updated by tools/worldcup/sync_official_results.py. */
+    "ALL_canada_wales": {
+      "homeScore": "393/7 (45.0)",
+      "homeRuns": 393,
+      "homeOvers": 45.0,
+      "awayScore": "185/7 (45.0)",
+      "awayRuns": 185,
+      "awayOvers": 45.0,
+      "result": "home",
+      "scorecardURL": "https://cricheroes.com/scorecard/27800459/imc-over-40s-world-cup-2026-guyana/canada-vs-wales/summary"
+    },
+    "ALL_westindies_namibia": {
+      "homeScore": "146/2 (12.2)",
+      "homeRuns": 146,
+      "homeOvers": 12.2,
+      "awayScore": "143/10 (31.3)",
+      "awayRuns": 143,
+      "awayOvers": 31.3,
+      "result": "home",
+      "scorecardURL": "https://cricheroes.com/scorecard/27800575/imc-over-40s-world-cup-2026-guyana/namibia-vs-west-indies/summary"
+    },
+    "ALL_newzealand_india": {
+      "homeScore": "126/10 (32.2)",
+      "homeRuns": 126,
+      "homeOvers": 32.2,
+      "awayScore": "128/2 (19.2)",
+      "awayRuns": 128,
+      "awayOvers": 19.2,
+      "result": "away",
+      "scorecardURL": "https://cricheroes.com/scorecard/27800630/imc-over-40s-world-cup-2026-guyana/new-zealand-vs-india/summary"
     }
   },
 

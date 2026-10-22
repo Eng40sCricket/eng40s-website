@@ -5,6 +5,7 @@ on:
   schedule:
     # 00:00 UTC = 20:00 previous evening in Guyana (UTC-4 year-round).
     # First check: 19 October GYT; last check: 31 October GYT.
+    # GitHub schedules are best-effort and may start later than this time.
     - cron: '0 0 20-31 10 *'
     - cron: '0 0 1 11 *'
 
@@ -18,7 +19,7 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-24.04
-    timeout-minutes: 8
+    timeout-minutes: 12
     permissions:
       contents: write
       pages: write
@@ -54,9 +55,9 @@ jobs:
         run: |
           python -m unittest discover -s tests/worldcup -p 'test_*.py' -v
           node tests/worldcup/check_standings.cjs
-      - name: Import only validated official results
+      - name: Collect and import validated official results
         if: steps.window.outputs.active == 'true'
-        run: python tools/worldcup/sync_official_results.py --apply
+        run: python tools/worldcup/sync_official_results.py --collect-scorecards --apply --report-file /tmp/worldcup-sync-report.json
       - name: Validate updated standings and publish changed data
         if: steps.window.outputs.active == 'true'
         id: publish
@@ -65,7 +66,7 @@ jobs:
           git diff --check
           if git diff --quiet -- tournaments/wc2026/index.html assets/data/worldcup-sync-status.json; then
             echo 'changed=false' >> "$GITHUB_OUTPUT"
-            echo 'No new verified results; no commit required.'
+            echo 'No new verified results or receipt changes; no commit required.'
           else
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -76,9 +77,15 @@ jobs:
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
       - name: Request branch-source GitHub Pages rebuild
-        # Bot pushes do not trigger a second workflow automatically. Request
-        # the existing Pages build explicitly; manual runs also test this path.
         if: steps.window.outputs.active == 'true' && (steps.publish.outputs.changed == 'true' || github.event_name == 'workflow_dispatch')
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds"
+      - name: Save collection and review receipt
+        if: always() && steps.window.outputs.active == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: worldcup-results-sync-receipt
+          path: /tmp/worldcup-sync-report.json
+          if-no-files-found: warn
+          retention-days: 30
