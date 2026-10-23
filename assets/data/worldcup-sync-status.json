@@ -1,13 +1,14 @@
 {
   "source": "https://worldcup.windiesmasters.org/fixtures-results/",
-  "checkedAtGuyana": "2026-10-22T03:02:06-04:00",
-  "officialCompletedMatches": 16,
-  "otherTeamMatchesVerified": 10,
-  "matchesVerified": 10,
+  "checkedAtGuyana": "2026-10-22T23:51:59-04:00",
+  "officialCompletedMatches": 21,
+  "otherTeamMatchesVerified": 13,
+  "matchesVerified": 13,
   "englandMatchesPreserved": [
     "3",
     "8",
-    "16"
+    "16",
+    "22"
   ],
   "newResults": [],
   "scorecardLinksAdded": [],
@@ -77,6 +78,28 @@
         "decision": "won by 8 wickets"
       },
       "scorecard": "https://cricheroes.com/scorecard/27795362/imc-over-40s-world-cup-2026-guyana/wales-vs-rest-of-the-world/"
+    },
+    {
+      "match": "21",
+      "teams": "New Zealand v India",
+      "reason": "official score conflicts with existing ALL_newzealand_india; existing result retained",
+      "officialResult": {
+        "innings": [
+          {
+            "team": "New Zealand",
+            "score": "126/10",
+            "overs": "32.3"
+          },
+          {
+            "team": "India",
+            "score": "128/2",
+            "overs": "19.2"
+          }
+        ],
+        "winner": "India",
+        "decision": "won by 8 wickets"
+      },
+      "scorecard": "https://cricheroes.com/scorecard/27800630/imc-over-40s-world-cup-2026-guyana/new-zealand-vs-india/"
     }
   ],
   "excluded": [],
@@ -150,20 +173,30 @@
       "key": "ALL_newzealand_usa",
       "result": "New Zealand won by 7 wickets",
       "scorecard": "https://cricheroes.com/scorecard/27795133/imc-over-40s-world-cup-2026-guyana/usa-vs-new-zealand/"
+    },
+    {
+      "match": 18,
+      "date": "2026-10-21",
+      "key": "ALL_canada_wales",
+      "result": "Canada won by 208 runs",
+      "scorecard": "https://cricheroes.com/scorecard/27800459/imc-over-40s-world-cup-2026-guyana/canada-vs-wales/"
+    },
+    {
+      "match": 19,
+      "date": "2026-10-21",
+      "key": "ALL_colombia_southafrica",
+      "result": "South Africa won by 8 wickets",
+      "scorecard": "https://cricheroes.com/scorecard/27800545/imc-over-40s-world-cup-2026-guyana/colombia-vs-south-africa/"
+    },
+    {
+      "match": 20,
+      "date": "2026-10-21",
+      "key": "ALL_westindies_namibia",
+      "result": "West Indies won by 8 wickets",
+      "scorecard": "https://cricheroes.com/scorecard/27800575/imc-over-40s-world-cup-2026-guyana/namibia-vs-west-indies/"
     }
   ],
   "scorecardsChecked": 0,
   "scorecardsVerified": [],
-  "pendingScorecards": [
-    {
-      "match": "23",
-      "teams": "USA v Scotland",
-      "reason": "Official scorecard link not published yet"
-    },
-    {
-      "match": "24",
-      "teams": "ROTC v ROW",
-      "reason": "Official scorecard link not published yet"
-    }
-  ]
+  "pendingScorecards": []
 }
