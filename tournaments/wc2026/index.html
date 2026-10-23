@@ -1169,9 +1169,9 @@ function resultClass(result) {
   return map[result] || '';
 }
 
-function resultBadge(result, homeTeam) {
+function resultBadge(result, homeTeam, awayTeam) {
   if (!result) return '<span class="wc-match-result-badge rb-upcoming">Upcoming</span>';
-  var labels = { home: homeTeam + ' won', away: 'Opponent won', tie: 'Tie', nr: 'No result' };
+  var labels = { home: homeTeam + ' won', away: awayTeam + ' won', tie: 'Tie', nr: 'No result' };
   var classes = { home: 'rb-home', away: 'rb-away', tie: 'rb-tie', nr: 'rb-nr' };
   return '<span class="wc-match-result-badge ' + (classes[result]||'') + '">' + (labels[result]||result) + '</span>';
 }
@@ -1199,7 +1199,7 @@ function renderMatchCard(groupKey, homeKey, awayKey) {
       else if (res.result === 'tie') resultLabel = '<span class="wc-match-result-badge rb-tie">Tie</span>';
       else resultLabel = '<span class="wc-match-result-badge rb-nr">No result</span>';
     } else {
-      resultLabel = resultBadge(res.result, homeT.name);
+      resultLabel = resultBadge(res.result, homeT.name, awayT.name);
     }
   } else {
     resultLabel = '<span class="wc-match-result-badge rb-upcoming">Upcoming</span>';
