@@ -16,7 +16,9 @@ function effective(record, side) {
   assert.ok(Number(overs) >= 0 && Number(overs) <= 45);
   const wickets = Number(score.match(/^\d+\/(\d+)/)[1]);
   assert.ok(wickets >= 0 && wickets <= 10);
-  return wickets === 10 ? 45 : Number(overs) + Number(balls) / 6;
+  const allOut = record[side + 'AllOut'];
+  assert.ok(allOut === undefined || typeof allOut === 'boolean', 'AllOut must be an explicit boolean');
+  return wickets === 10 || allOut === true ? 45 : Number(overs) + Number(balls) / 6;
 }
 let count = 0;
 for (const [key, r] of Object.entries(box.WC.results)) {
@@ -49,6 +51,14 @@ assert.ok(england.w >= 2 && england.pts >= 4, 'Confirmed England wins must remai
 assert.equal(box.WC.results.ALL_newzealand_england.awayRuns, 286);
 assert.equal(box.WC.results.ALL_newzealand_england.homeRuns, 157);
 assert.equal(box.WC.results.ALL_usa_england.awayRuns, 264);
+assert.equal(box.effectiveNRROvers('249/9 (43.3)', 43.3, true), 45);
+assert.equal(box.effectiveNRROvers('249/9 (43.3)', 43.3, false), 43.5);
+assert.equal(box.effectiveNRROvers('249/9 (43.3)', 43.3), 43.5);
+assert.equal(box.effectiveNRROvers('249/9 (43.3)', 43.3, 'true'), 43.5);
+assert.equal(box.effectiveNRROvers('157/10 (34.3)', 34.3, false), 45);
+assert.equal(box.WC.results.ALL_india_england.awayScore, '249/9 (43.3)');
+assert.equal(box.WC.results.ALL_india_england.awayOvers, 43.3);
+assert.equal(box.WC.results.ALL_india_england.awayAllOut, true);
 console.log(`PASS: ${count} results, all team standings and independent cumulative NRR checks.`);
 console.log('England:', JSON.stringify({ ...england, nrr: box.calcNRR('england', 'ALL').toFixed(3) }));
 console.log('Current order:', standings.map(x => `${x.team}: ${x.pts} pts ${box.calcNRR(x.team, 'ALL')?.toFixed(3) ?? '—'}`).join('; '));

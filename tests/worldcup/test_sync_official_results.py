@@ -105,6 +105,15 @@ class ResultsSyncTests(unittest.TestCase):
         current, _, _ = sync.wc_data(again)
         self.assertEqual(current["results"]["ALL_usa_england"], usa)
 
+    def test_organiser_confirmed_closed_innings_flag_is_preserved(self):
+        wc, a, b = sync.wc_data(self.page)
+        # Isolated metadata-preservation fixture, not a correction to the USA score.
+        wc["results"]["ALL_usa_england"]["awayAllOut"] = True
+        page = self.page[:a] + json.dumps(wc["results"]) + self.page[b:]
+        updated, _ = sync.build(page, SOURCE, NOW)
+        after, _, _ = sync.wc_data(updated)
+        self.assertEqual(after["results"]["ALL_usa_england"], wc["results"]["ALL_usa_england"])
+
     def test_balanced_extractor_respects_comments_and_strings(self):
         s = " {'text': 'literal } brace', /* } */ 'a': [1, 2]} trailing"
         a, b = sync.literal(s, 0)

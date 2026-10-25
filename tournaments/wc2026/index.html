@@ -1048,6 +1048,9 @@ var WC = {
       "awayScore": "249/9 (43.3)",
       "awayRuns": 249,
       "awayOvers": 43.3,
+      /* Organiser confirmed: innings closed with no further batter available.
+         Retain actual wickets/overs; use the full 45-over allocation for NRR. */
+      "awayAllOut": true,
       "result": "home",
       "scorecardURL": "https://cricheroes.com/scorecard/27843048/imc-over-40s-world-cup-2026-guyana/india-vs-england/"
     }
@@ -1152,8 +1155,10 @@ function parseCricketOvers(overs) {
 /* In limited-overs NRR, an innings that ends all out is counted against the
    full match quota, not the number of overs actually bowled. */
 var NRR_MATCH_OVERS = 45;
-function effectiveNRROvers(score, overs) {
-  if (/\/\s*10(?:\D|$)/.test(String(score || ''))) return NRR_MATCH_OVERS;
+function effectiveNRROvers(score, overs, allOut) {
+  /* Explicit organiser confirmation also covers fewer than ten wickets
+     when no further batter is available. Never infer this from a short innings. */
+  if (allOut === true || /\/\s*10(?:\D|$)/.test(String(score || ''))) return NRR_MATCH_OVERS;
   return parseCricketOvers(overs);
 }
 
@@ -1176,14 +1181,14 @@ function calcNRR(teamKey, groupKey) {
     hasData = true;
     if (isHome) {
       runsFor      += (r.homeRuns || 0);
-      oversFor     += effectiveNRROvers(r.homeScore, hO);
+      oversFor     += effectiveNRROvers(r.homeScore, hO, r.homeAllOut);
       runsAgainst  += (r.awayRuns  || 0);
-      oversAgainst += effectiveNRROvers(r.awayScore, aO);
+      oversAgainst += effectiveNRROvers(r.awayScore, aO, r.awayAllOut);
     } else {
       runsFor      += (r.awayRuns  || 0);
-      oversFor     += effectiveNRROvers(r.awayScore, aO);
+      oversFor     += effectiveNRROvers(r.awayScore, aO, r.awayAllOut);
       runsAgainst  += (r.homeRuns  || 0);
-      oversAgainst += effectiveNRROvers(r.homeScore, hO);
+      oversAgainst += effectiveNRROvers(r.homeScore, hO, r.homeAllOut);
     }
   });
   if (!hasData) return undefined;
