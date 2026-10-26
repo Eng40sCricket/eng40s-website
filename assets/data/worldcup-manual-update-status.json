@@ -1,9 +1,9 @@
 {
   "source": "https://worldcup.windiesmasters.org/fixtures-results/",
-  "checkedAtGuyana": "2026-10-25T21:50:33-04:00",
-  "officialCompletedMatches": 37,
-  "otherTeamMatchesVerified": 26,
-  "matchesVerified": 26,
+  "checkedAtGuyana": "2026-10-26T17:03:44-04:00",
+  "officialCompletedMatches": 41,
+  "otherTeamMatchesVerified": 28,
+  "matchesVerified": 29,
   "englandMatchesPreserved": [
     "3",
     "8",
@@ -12,10 +12,10 @@
     "34"
   ],
   "newResults": [
-    "ALL_canada_namibia",
-    "ALL_usa_row",
-    "ALL_rotc_scotland",
-    "ALL_westindies_wales"
+    "ALL_newzealand_row",
+    "ALL_usa_pakistan",
+    "ALL_india_scotland",
+    "ALL_rotc_england"
   ],
   "scorecardLinksAdded": [],
   "heldForReview": [
@@ -150,6 +150,28 @@
         "decision": "won by 6 wickets"
       },
       "scorecard": "https://cricheroes.com/scorecard/27831939/imc-over-40s-world-cup-2026-guyana/india-vs-usa/"
+    },
+    {
+      "match": "36",
+      "teams": "West Indies v Wales",
+      "reason": "winner/margin inconsistent with innings",
+      "officialResult": {
+        "innings": [
+          {
+            "team": "West Indies",
+            "score": "373/2",
+            "overs": "45.0"
+          },
+          {
+            "team": "Wales",
+            "score": "191/10",
+            "overs": "41.2"
+          }
+        ],
+        "winner": "West Indies",
+        "decision": "won by 181 runs"
+      },
+      "scorecard": "https://cricheroes.com/scorecard/27843115/imc-over-40s-world-cup-2026-guyana/west-indies-vs-wales/"
     }
   ],
   "excluded": [],
@@ -330,44 +352,135 @@
       "scorecard": "https://cricheroes.com/scorecard/27843153/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-scotland/"
     },
     {
-      "match": 36,
-      "date": "2026-10-25",
-      "key": "ALL_westindies_wales",
-      "result": "West Indies won by 181 runs",
-      "scorecard": "https://cricheroes.com/scorecard/27843115/imc-over-40s-world-cup-2026-guyana/west-indies-vs-wales/"
+      "match": 39,
+      "date": "2026-10-26",
+      "key": "ALL_newzealand_row",
+      "result": "New Zealand won by 314 runs",
+      "scorecard": "https://cricheroes.com/scorecard/27843266/imc-over-40s-world-cup-2026-guyana/new-zealand-vs-rest-of-the-world/summary"
+    },
+    {
+      "match": 40,
+      "date": "2026-10-26",
+      "key": "ALL_usa_pakistan",
+      "result": "Pakistan won by 172 runs",
+      "scorecard": "https://cricheroes.com/scorecard/27843287/imc-over-40s-world-cup-2026-guyana/usa-vs-pakistan/summary"
+    },
+    {
+      "match": 41,
+      "date": "2026-10-26",
+      "key": "ALL_india_scotland",
+      "result": "India won by 7 wickets",
+      "scorecard": "https://cricheroes.com/scorecard/27843303/imc-over-40s-world-cup-2026-guyana/scotland-vs-india/summary"
+    },
+    {
+      "match": 42,
+      "date": "2026-10-26",
+      "key": "ALL_rotc_england",
+      "result": "England won by 4 wickets",
+      "scorecard": "https://cricheroes.com/scorecard/27843572/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-england/summary"
     }
   ],
-  "updateMode": "authorised four-match manual batch using the existing validated importer",
-  "updatedMatchDateGuyana": "2026-10-25",
-  "recordedResultsBefore": 34,
-  "recordedResultsAfter": 38,
+  "updateMode": "authorised four-match current-task batch using the existing validated importer",
+  "updatedMatchDateGuyana": "2026-10-26",
+  "recordedResultsBefore": 38,
+  "recordedResultsAfter": 42,
   "verificationForPublishedMatches": {
-    "35": {
-      "sourceType": "official tournament summary feed",
-      "sourceURL": "https://worldcup.windiesmasters.org/fixtures-results/",
-      "scorecardFreshlyCorroborated": false,
-      "note": "The complete official figures validate internally; public scorecard extraction exposes only a title. Actual overs are stored as published by the official feed. Both innings are all out and use 45 effective overs for standard NRR."
-    },
-    "36": {
-      "sourceType": "officially linked completed CricHeroes summary",
-      "sourceURL": "https://cricheroes.com/scorecard/27843115/imc-over-40s-world-cup-2026-guyana/west-indies-vs-wales/summary",
+    "39": {
+      "sourceType": "officially linked completed CricHeroes scorecard",
+      "sourceURL": "https://cricheroes.com/scorecard/27843266/imc-over-40s-world-cup-2026-guyana/new-zealand-vs-rest-of-the-world/summary",
       "scorecardFreshlyCorroborated": true,
-      "note": "372/2 (45.0) v 191/10 (41.2), West Indies won by 181 runs; 25 October date and completed status confirmed. Official summary feed had not yet included this final."
+      "actualInnings": [
+        {
+          "team": "New Zealand",
+          "runs": 391,
+          "wickets": 9,
+          "overs": "45.0"
+        },
+        {
+          "team": "Rest of the World",
+          "runs": 77,
+          "wickets": 10,
+          "overs": "19.1"
+        }
+      ],
+      "scheduledOvers": 45,
+      "revisedOversStated": null,
+      "result": "New Zealand won by 314 runs",
+      "note": "26 October identity, final result, both innings and overs verified. All-out innings use the full 45-over allocation for standard NRR."
     },
-    "37": {
-      "sourceType": "official summary feed plus completed CricHeroes detailed scorecard",
-      "sourceURL": "https://cricheroes.com/scorecard/27900041/imc-over-40s-world-cup-2026-guyana/rest-of-the-world-vs-usa/scorecard",
+    "40": {
+      "sourceType": "officially linked completed CricHeroes scorecard",
+      "sourceURL": "https://cricheroes.com/scorecard/27843287/imc-over-40s-world-cup-2026-guyana/usa-vs-pakistan/summary",
       "scorecardFreshlyCorroborated": true,
-      "note": "Detailed scorecard now accessible: ROW 197/10 (43.1), USA 198/0 (22.2), USA won by 10 wickets; 25 October and 45-over allocation confirmed."
+      "actualInnings": [
+        {
+          "team": "Pakistan",
+          "runs": 315,
+          "wickets": 5,
+          "overs": "45.0"
+        },
+        {
+          "team": "USA",
+          "runs": 143,
+          "wickets": 10,
+          "overs": "30.1"
+        }
+      ],
+      "scheduledOvers": 45,
+      "revisedOversStated": null,
+      "result": "Pakistan won by 172 runs",
+      "note": "CricHeroes changed from live to past at 17:02 GYT; summary explicitly states Pakistan won by 172 runs, match ended 26 October at 17:02, Pakistan innings break 315/5 in 45 overs and USA innings end 143/10 in 30.1 overs."
     },
-    "38": {
-      "sourceType": "official summary feed plus completed CricHeroes detailed scorecard",
-      "sourceURL": "https://cricheroes.com/scorecard/27843153/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-scotland/scorecard",
+    "41": {
+      "sourceType": "officially linked completed CricHeroes scorecard",
+      "sourceURL": "https://cricheroes.com/scorecard/27843303/imc-over-40s-world-cup-2026-guyana/scotland-vs-india/summary",
       "scorecardFreshlyCorroborated": true,
-      "note": "ROTC 300/10 (43.5), Scotland 302/2 (42.1), Scotland won by 8 wickets; 25 October and 45-over allocation confirmed."
+      "actualInnings": [
+        {
+          "team": "Scotland",
+          "runs": 206,
+          "wickets": 10,
+          "overs": "43.0"
+        },
+        {
+          "team": "India",
+          "runs": 207,
+          "wickets": 3,
+          "overs": "34.2"
+        }
+      ],
+      "scheduledOvers": 45,
+      "revisedOversStated": null,
+      "result": "India won by 7 wickets",
+      "note": "26 October identity, final result, both innings and overs verified. All-out innings use the full 45-over allocation for standard NRR."
+    },
+    "42": {
+      "sourceType": "officially linked completed CricHeroes scorecard",
+      "sourceURL": "https://cricheroes.com/scorecard/27843572/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-england/summary",
+      "scorecardFreshlyCorroborated": true,
+      "actualInnings": [
+        {
+          "team": "Rest of the Caribbean",
+          "runs": 111,
+          "wickets": 10,
+          "overs": "34.5"
+        },
+        {
+          "team": "England",
+          "runs": 112,
+          "wickets": 6,
+          "overs": "14.3"
+        }
+      ],
+      "scheduledOvers": 45,
+      "revisedOversStated": null,
+      "result": "England won by 4 wickets",
+      "note": "26 October identity, final result, both innings and overs verified. All-out innings use the full 45-over allocation for standard NRR."
     }
   },
+  "pendingTodaysMatches": [],
   "dailySyncReceiptPreserved": true,
   "dailyScheduleUnchanged": true,
-  "priorSourceDiscrepanciesUnchanged": true
+  "priorSourceDiscrepanciesUnchanged": true,
+  "streamLinksAndMonitorUnchanged": true
 }
