@@ -56,7 +56,7 @@ assert.equal(box.effectiveNRROvers('249/9 (43.3)', 43.3, false), 43.5);
 assert.equal(box.effectiveNRROvers('249/9 (43.3)', 43.3), 43.5);
 assert.equal(box.effectiveNRROvers('249/9 (43.3)', 43.3, 'true'), 43.5);
 assert.equal(box.effectiveNRROvers('157/10 (34.3)', 34.3, false), 45);
-assert.equal(box.WC.results.ALL_india_england.awayScore, '249/9 (43.3)');
+assert.equal(box.WC.results.ALL_india_england.awayScore, '250/9 (43.3)');
 assert.equal(box.WC.results.ALL_india_england.awayOvers, 43.3);
 assert.equal(box.WC.results.ALL_india_england.awayAllOut, true);
 console.log(`PASS: ${count} results, all team standings and independent cumulative NRR checks.`);

@@ -365,5 +365,41 @@
       "teams": "Namibia v South Africa",
       "reason": "Official scorecard link not published yet"
     }
-  ]
+  ],
+  "manualVerifiedUpdate": {
+    "checkedAtGuyana": "2026-10-27T16:16:30-04:00",
+    "method": "Completed linked scorecards independently verified; manual fallback after collector HTTP 403.",
+    "newResults": [
+      "ALL_australia_wales",
+      "ALL_westindies_colombia",
+      "ALL_namibia_southafrica"
+    ],
+    "leagueResultsRecorded": 45,
+    "preliminaryStageComplete": true,
+    "allTeamsPlayed": 6,
+    "matches": [
+      {
+        "match": 43,
+        "date": "2026-10-27",
+        "key": "ALL_australia_wales",
+        "result": "Australia won by 5 wickets",
+        "scorecard": "https://cricheroes.com/scorecard/27843605/imc-over-40s-world-cup-2026-guyana/wales-vs-australia/"
+      },
+      {
+        "match": 44,
+        "date": "2026-10-27",
+        "key": "ALL_westindies_colombia",
+        "result": "West Indies won by 377 runs",
+        "scorecard": "https://cricheroes.com/scorecard/27843633/imc-over-40s-world-cup-2026-guyana/west-indies-vs-colombia/"
+      },
+      {
+        "match": 45,
+        "date": "2026-10-27",
+        "key": "ALL_namibia_southafrica",
+        "result": "South Africa won by 252 runs",
+        "scorecard": "https://cricheroes.com/scorecard/27843660/imc-over-40s-world-cup-2026-guyana/south-africa-vs-namibia/"
+      }
+    ],
+    "note": "The earlier automatic-run receipt is retained above; its historical pendingScorecards are now satisfied by this manual update. No automatic success is claimed."
+  }
 }
