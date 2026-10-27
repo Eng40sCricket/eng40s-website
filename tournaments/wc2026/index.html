@@ -899,18 +899,6 @@ var WC = {
       "result": "home",
       "scorecardURL": "https://cricheroes.com/scorecard/27797565/imc-over-40s-world-cup-2026-guyana/wales-vs-rest-of-the-world/scorecard"
     },
-    /* Corrected 24 October India–England result: one run restored to England
-       after Taqi Abbas was run out attempting a second run. */
-    "ALL_india_england": {
-      "homeScore": "275/6 (45.0)",
-      "homeRuns": 275,
-      "homeOvers": 45.0,
-      "awayScore": "250/9 (43.3)",
-      "awayRuns": 250,
-      "awayOvers": 43.3,
-      "result": "home",
-      "scorecardURL": "https://cricheroes.com/scorecard/27843048/imc-over-40s-world-cup-2026-guyana/india-vs-england"
-    },
     /* Verified official results; updated by tools/worldcup/sync_official_results.py. */
     "ALL_canada_wales": {
       "homeScore": "393/7 (45.0)",
@@ -1059,8 +1047,10 @@ var WC = {
       "homeScore": "275/6 (45.0)",
       "homeRuns": 275,
       "homeOvers": 45.0,
-      "awayScore": "249/9 (43.3)",
-      "awayRuns": 249,
+      /* Corrected after one run was restored to England when Taqi Abbas was
+         run out attempting a second run. */
+      "awayScore": "250/9 (43.3)",
+      "awayRuns": 250,
       "awayOvers": 43.3,
       /* Organiser confirmed: innings closed with no further batter available.
          Retain actual wickets/overs; use the full 45-over allocation for NRR. */
