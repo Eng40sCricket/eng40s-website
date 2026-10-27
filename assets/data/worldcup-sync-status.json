@@ -1,7 +1,7 @@
 {
   "source": "https://worldcup.windiesmasters.org/fixtures-results/",
-  "checkedAtGuyana": "2026-10-25T23:48:40-04:00",
-  "officialCompletedMatches": 36,
+  "checkedAtGuyana": "2026-10-27T00:11:11-04:00",
+  "officialCompletedMatches": 37,
   "otherTeamMatchesVerified": 25,
   "matchesVerified": 25,
   "englandMatchesPreserved": [
@@ -145,6 +145,28 @@
         "decision": "won by 6 wickets"
       },
       "scorecard": "https://cricheroes.com/scorecard/27831939/imc-over-40s-world-cup-2026-guyana/india-vs-usa/"
+    },
+    {
+      "match": "36",
+      "teams": "West Indies v Wales",
+      "reason": "winner/margin inconsistent with innings",
+      "officialResult": {
+        "innings": [
+          {
+            "team": "West Indies",
+            "score": "373/2",
+            "overs": "45.0"
+          },
+          {
+            "team": "Wales",
+            "score": "191/10",
+            "overs": "41.2"
+          }
+        ],
+        "winner": "West Indies",
+        "decision": "won by 181 runs"
+      },
+      "scorecard": "https://cricheroes.com/scorecard/27843115/imc-over-40s-world-cup-2026-guyana/west-indies-vs-wales/"
     }
   ],
   "excluded": [],
@@ -327,5 +349,21 @@
   ],
   "scorecardsChecked": 0,
   "scorecardsVerified": [],
-  "pendingScorecards": []
+  "pendingScorecards": [
+    {
+      "match": "43",
+      "teams": "Australia v Wales",
+      "reason": "Official scorecard link not published yet"
+    },
+    {
+      "match": "44",
+      "teams": "West Indies v Colombia",
+      "reason": "Official scorecard link not published yet"
+    },
+    {
+      "match": "45",
+      "teams": "Namibia v South Africa",
+      "reason": "Official scorecard link not published yet"
+    }
+  ]
 }
