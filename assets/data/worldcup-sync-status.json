@@ -1,15 +1,16 @@
 {
   "source": "https://worldcup.windiesmasters.org/fixtures-results/",
-  "checkedAtGuyana": "2026-10-27T00:11:11-04:00",
-  "officialCompletedMatches": 37,
-  "otherTeamMatchesVerified": 25,
-  "matchesVerified": 25,
+  "checkedAtGuyana": "2026-10-28T00:40:17-04:00",
+  "officialCompletedMatches": 44,
+  "otherTeamMatchesVerified": 29,
+  "matchesVerified": 29,
   "englandMatchesPreserved": [
     "3",
     "8",
     "16",
     "22",
-    "34"
+    "34",
+    "42"
   ],
   "newResults": [],
   "scorecardLinksAdded": [],
@@ -167,6 +168,50 @@
         "decision": "won by 181 runs"
       },
       "scorecard": "https://cricheroes.com/scorecard/27843115/imc-over-40s-world-cup-2026-guyana/west-indies-vs-wales/"
+    },
+    {
+      "match": "41",
+      "teams": "India v Scotland",
+      "reason": "official score conflicts with existing ALL_india_scotland; existing result retained",
+      "officialResult": {
+        "innings": [
+          {
+            "team": "Scotland",
+            "score": "206/3",
+            "overs": "43.0"
+          },
+          {
+            "team": "India",
+            "score": "207/3",
+            "overs": "34.2"
+          }
+        ],
+        "winner": "India",
+        "decision": "won by 7 wickets"
+      },
+      "scorecard": "https://cricheroes.com/scorecard/27843303/imc-over-40s-world-cup-2026-guyana/scotland-vs-india/"
+    },
+    {
+      "match": "43",
+      "teams": "Australia v Wales",
+      "reason": "official score conflicts with existing ALL_australia_wales; existing result retained",
+      "officialResult": {
+        "innings": [
+          {
+            "team": "Australia",
+            "score": "219/5",
+            "overs": "39.2"
+          },
+          {
+            "team": "Wales",
+            "score": "218/10",
+            "overs": "45.0"
+          }
+        ],
+        "winner": "Australia",
+        "decision": "won by 5 wickets"
+      },
+      "scorecard": "https://cricheroes.com/scorecard/27843605/imc-over-40s-world-cup-2026-guyana/wales-vs-australia/"
     }
   ],
   "excluded": [],
@@ -345,61 +390,37 @@
       "key": "ALL_rotc_scotland",
       "result": "Scotland won by 8 wickets",
       "scorecard": "https://cricheroes.com/scorecard/27843153/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-scotland/"
+    },
+    {
+      "match": 39,
+      "date": "2026-10-26",
+      "key": "ALL_newzealand_row",
+      "result": "New Zealand won by 314 runs",
+      "scorecard": "https://cricheroes.com/scorecard/27843266/imc-over-40s-world-cup-2026-guyana/new-zealand-vs-rest-of-the-world/live"
+    },
+    {
+      "match": 40,
+      "date": "2026-10-26",
+      "key": "ALL_usa_pakistan",
+      "result": "Pakistan won by 172 runs",
+      "scorecard": "https://cricheroes.com/scorecard/27843287/imc-over-40s-world-cup-2026-guyana/usa-vs-pakistan/"
+    },
+    {
+      "match": 44,
+      "date": "2026-10-27",
+      "key": "ALL_westindies_colombia",
+      "result": "West Indies won by 377 runs",
+      "scorecard": "https://cricheroes.com/scorecard/27843633/imc-over-40s-world-cup-2026-guyana/west-indies-vs-colombia/"
+    },
+    {
+      "match": 45,
+      "date": "2026-10-27",
+      "key": "ALL_namibia_southafrica",
+      "result": "South Africa won by 252 runs",
+      "scorecard": "https://cricheroes.com/scorecard/27843660/imc-over-40s-world-cup-2026-guyana/south-africa-vs-namibia/"
     }
   ],
   "scorecardsChecked": 0,
   "scorecardsVerified": [],
-  "pendingScorecards": [
-    {
-      "match": "43",
-      "teams": "Australia v Wales",
-      "reason": "Official scorecard link not published yet"
-    },
-    {
-      "match": "44",
-      "teams": "West Indies v Colombia",
-      "reason": "Official scorecard link not published yet"
-    },
-    {
-      "match": "45",
-      "teams": "Namibia v South Africa",
-      "reason": "Official scorecard link not published yet"
-    }
-  ],
-  "manualVerifiedUpdate": {
-    "checkedAtGuyana": "2026-10-27T16:16:30-04:00",
-    "method": "Completed linked scorecards independently verified; manual fallback after collector HTTP 403.",
-    "newResults": [
-      "ALL_australia_wales",
-      "ALL_westindies_colombia",
-      "ALL_namibia_southafrica"
-    ],
-    "leagueResultsRecorded": 45,
-    "preliminaryStageComplete": true,
-    "allTeamsPlayed": 6,
-    "matches": [
-      {
-        "match": 43,
-        "date": "2026-10-27",
-        "key": "ALL_australia_wales",
-        "result": "Australia won by 5 wickets",
-        "scorecard": "https://cricheroes.com/scorecard/27843605/imc-over-40s-world-cup-2026-guyana/wales-vs-australia/"
-      },
-      {
-        "match": 44,
-        "date": "2026-10-27",
-        "key": "ALL_westindies_colombia",
-        "result": "West Indies won by 377 runs",
-        "scorecard": "https://cricheroes.com/scorecard/27843633/imc-over-40s-world-cup-2026-guyana/west-indies-vs-colombia/"
-      },
-      {
-        "match": 45,
-        "date": "2026-10-27",
-        "key": "ALL_namibia_southafrica",
-        "result": "South Africa won by 252 runs",
-        "scorecard": "https://cricheroes.com/scorecard/27843660/imc-over-40s-world-cup-2026-guyana/south-africa-vs-namibia/"
-      }
-    ],
-    "note": "The earlier automatic-run receipt is retained above; its historical pendingScorecards are now satisfied by this manual update. No automatic success is claimed."
-  }
+  "pendingScorecards": []
 }
