@@ -105,6 +105,43 @@ class ResultsSyncTests(unittest.TestCase):
         current, _, _ = sync.wc_data(again)
         self.assertEqual(current["results"]["ALL_usa_england"], usa)
 
+    def test_england_published_scorecard_is_play_cricket_or_empty(self):
+        wc, _, _ = sync.wc_data(self.page)
+        fixture = {"home": "USA", "away": "England"}
+        result = {"innings": [{"team": "USA", "score": "130/10", "overs": "29.2"},
+                              {"team": "England", "score": "264/8", "overs": "45.0"}],
+                  "winner": "England", "decision": "won by 134 runs"}
+        official = "https://cricheroes.com/scorecard/27711513/test/test/summary"
+        pc = "https://englandseniors.play-cricket.com/website/results/7745529"
+        for incoming, expected in [(official, ""), (pc, pc)]:
+            _, record, _ = sync.candidate(wc, fixture, result,
+                {"3": {"scorecard": incoming}}, "3", "2026-10-17")
+            self.assertEqual(record["scorecardURL"], expected)
+            self.assertEqual(record["awayRuns"], 264)
+        for url in ["http://englandseniors.play-cricket.com/website/results/1",
+                    "https://play-cricket.com.evil.example/website/results/1",
+                    "https://englandseniors.play-cricket.com/website/results/not-a-match"]:
+            self.assertFalse(sync.is_play_cricket_scorecard(url))
+
+    def test_missing_england_link_is_requested_without_blocking_valid_result(self):
+        wc, a, b = sync.wc_data(self.page)
+        del wc["results"]["ALL_usa_england"]
+        page = self.page[:a] + json.dumps(wc["results"]) + self.page[b:]
+        updated, report = sync.build(page, SOURCE, NOW)
+        after, _, _ = sync.wc_data(updated)
+        self.assertEqual(after["results"]["ALL_usa_england"]["scorecardURL"], "")
+        self.assertTrue(any(x["key"] == "ALL_usa_england" for x in report["englandScorecardsRequested"]))
+        self.assertTrue(after["results"]["ALL_india_pakistan"]["scorecardURL"].startswith("https://cricheroes.com/"))
+
+    def test_existing_england_play_cricket_link_is_preserved(self):
+        wc, a, b = sync.wc_data(self.page)
+        pc = "https://englandseniors.play-cricket.com/website/results/7745529"
+        wc["results"]["ALL_usa_england"]["scorecardURL"] = pc
+        page = self.page[:a] + json.dumps(wc["results"]) + self.page[b:]
+        updated, _ = sync.build(page, SOURCE, NOW)
+        after, _, _ = sync.wc_data(updated)
+        self.assertEqual(after["results"]["ALL_usa_england"], wc["results"]["ALL_usa_england"])
+
     def test_organiser_confirmed_closed_innings_flag_is_preserved(self):
         wc, a, b = sync.wc_data(self.page)
         # Isolated metadata-preservation fixture, not a correction to the USA score.

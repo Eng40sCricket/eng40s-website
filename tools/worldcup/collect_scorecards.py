@@ -116,14 +116,18 @@ def collect(fixtures, links, existing, now, team_key, fetch=fetch_html):
     for match_id, f in fixtures.items():
         if int(f["day"]) > now.day:
             continue
+        try:
+            h, a = team_key(f["home"]), team_key(f["away"])
+        except ValueError:
+            pending.append({"match": match_id, "reason": "Unknown fixture teams"})
+            continue
         if f["stage"] == "League":
-            try:
-                h, a = team_key(f["home"]), team_key(f["away"])
-            except ValueError:
-                pending.append({"match": match_id, "reason": "Unknown fixture teams"})
-                continue
             if f"ALL_{h}_{a}" in existing or f"ALL_{a}_{h}" in existing:
                 continue
+        if "england" in (h, a):
+            pending.append({"match": match_id, "teams": f"{f['home']} v {f['away']}",
+                            "reason": "England match: ask Chris for the Play-Cricket scorecard URL; no CricHeroes fallback"})
+            continue
         url = links.get(match_id, {}).get("scorecard", "")
         if url:
             targets.append((match_id, f, url))

@@ -72,6 +72,28 @@ class ScorecardTests(unittest.TestCase):
         results, links, report=cards.collect({'18':MATCH}, {'18':{'scorecard':URL}}, {'ALL_canada_wales':{}}, now, sync.team, fetch=lambda u:html_for(FIXTURE))
         self.assertEqual(results,{});self.assertEqual(report['scorecardsChecked'],0)
 
+    def test_england_scorecards_are_requested_not_fetched_from_cricheroes(self):
+        now=datetime(2026,10,29,8,0,tzinfo=ZoneInfo('America/Guyana'))
+        for stage in ['League', 'Cup semi-final']:
+            england={'id':46, 'home':'Pakistan', 'away':'England', 'day':28, 'stage':stage}
+            def unexpected_fetch(url):
+                self.fail('An England fixture must not trigger a CricHeroes fallback request')
+            results, links, report=cards.collect({'46':england}, {'46':{'scorecard':URL}},
+                                                 {}, now, sync.team, fetch=unexpected_fetch)
+            self.assertEqual(results,{})
+            self.assertEqual(report['scorecardsChecked'],0)
+            self.assertIn('Play-Cricket',report['pendingScorecards'][0]['reason'])
+
+    def test_other_team_collection_continues_with_england_pending(self):
+        now=datetime(2026,10,29,8,0,tzinfo=ZoneInfo('America/Guyana'))
+        england={'id':46, 'home':'Pakistan', 'away':'England', 'day':28, 'stage':'Cup semi-final'}
+        results, links, report=cards.collect({'18':MATCH,'46':england},
+            {'18':{'scorecard':URL},'46':{'scorecard':URL}}, {}, now, sync.team,
+            fetch=lambda u:html_for(FIXTURE))
+        self.assertIn('18',results)
+        self.assertNotIn('46',results)
+        self.assertEqual(report['scorecardsChecked'],1)
+
 
 if __name__ == '__main__':
     unittest.main()

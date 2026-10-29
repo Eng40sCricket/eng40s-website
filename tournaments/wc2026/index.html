@@ -731,7 +731,7 @@ var WC = {
       awayScore: '211/3 (33.4)',
       awayRuns: 211, awayOvers: 33.4,
       result: 'away',
-      scorecardURL: 'https://englandseniors.play-cricket.com/website/results/7745559'
+      scorecardURL: "https://englandseniors.play-cricket.com/website/results/7745559"
     },
     /* Confirmed 18 October result supplied by Chris; Georgetown CC.
        Actual innings overs retained; existing NRR engine applies the full
@@ -742,7 +742,7 @@ var WC = {
       awayScore: '286/9 (45)',
       awayRuns: 286, awayOvers: 45.0,
       result: 'away',
-      scorecardURL: 'https://englandseniors.play-cricket.com/website/results/7745530'
+      scorecardURL: "https://englandseniors.play-cricket.com/website/results/7745530"
     },
     /* Verified 17 October 2026 results supplied by England Over 40s Cricket. */
     'ALL_usa_england': {
@@ -751,7 +751,7 @@ var WC = {
       awayScore: '264/8 (45)',
       awayRuns: 264, awayOvers: 45.0,
       result: 'away',
-      scorecardURL: ''
+      scorecardURL: "https://englandseniors.play-cricket.com/website/results/7745529"
     },
     'ALL_westindies_australia': {
       homeScore: '178/10 (40.1)',
@@ -887,7 +887,7 @@ var WC = {
       "awayRuns": 111,
       "awayOvers": 17.1,
       "result": "away",
-      "scorecardURL": "https://cricheroes.com/scorecard/27795290/imc-over-40s-world-cup-2026-guyana/scotland-vs-england/scorecard"
+      "scorecardURL": "https://englandseniors.play-cricket.com/website/results/7745675"
     },
     "ALL_row_wales": {
       "homeScore": "193/2 (42.3)",
@@ -1056,7 +1056,7 @@ var WC = {
          Retain actual wickets/overs; use the full 45-over allocation for NRR. */
       "awayAllOut": true,
       "result": "home",
-      "scorecardURL": "https://cricheroes.com/scorecard/27843048/imc-over-40s-world-cup-2026-guyana/india-vs-england/"
+      "scorecardURL": "https://englandseniors.play-cricket.com/website/results/7745561"
     },
     /* Verified official results; updated by tools/worldcup/sync_official_results.py. */
     "ALL_canada_namibia": {
@@ -1138,7 +1138,7 @@ var WC = {
       "awayRuns": 112,
       "awayOvers": 14.3,
       "result": "away",
-      "scorecardURL": "https://cricheroes.com/scorecard/27843572/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-england/summary"
+      "scorecardURL": "https://englandseniors.play-cricket.com/website/results/7745671"
     },
     /* Verified official results; updated by tools/worldcup/sync_official_results.py. */
     "ALL_australia_wales": {
@@ -1201,7 +1201,7 @@ var WC = {
     /* Cup format confirmed by the organiser, 27 October. Final teams and
        semi-final grounds remain TBC until league positions are confirmed. */
     UC1: { label: 'Cup Semi-final 1', date: '28 Oct 2026', venue: 'TBC', note: '1st overall league vs 4th overall league', homePlaceholder: '1st place — TBC', awayPlaceholder: '4th place — TBC', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    UC2: { label: 'Cup Semi-final 2', date: '28 Oct 2026', venue: 'Guyana National Stadium — Providence', note: '2nd overall league vs 3rd overall league — Pakistan won by 2 wickets', homePlaceholder: '2nd place — TBC', awayPlaceholder: '3rd place — TBC', home: 'pakistan', away: 'england', homeScore: '206/8 (41.0)', awayScore: '205/9 (45.0)', result: 'home', scorecardURL: 'https://cricheroes.com/scorecard/27933733/imc-over-40s-world-cup-2026-guyana/england-vs-pakistan/summary' },
+    UC2: { label: 'Cup Semi-final 2', date: '28 Oct 2026', venue: 'Guyana National Stadium — Providence', note: '2nd overall league vs 3rd overall league — Pakistan won by 2 wickets', homePlaceholder: '2nd place — TBC', awayPlaceholder: '3rd place — TBC', home: 'pakistan', away: 'england', homeScore: '206/8 (41.0)', awayScore: '205/9 (45.0)', result: 'home', scorecardURL: 'https://englandseniors.play-cricket.com/website/results/7778862', replayURL: 'https://www.youtube.com/watch?v=Xwx2_r0fTX0', backupReplayURL: 'https://www.youtube.com/live/ZqNW5h5RiYo?si=dWc8zGd5-0WPU62r', highlightsURL: '' },
     /* ── Placement semi-finals — 29 October (single overall league) ── */
     LC1: { label: 'Placement Semi-final 1', date: '29 Oct 2026', venue: 'Police Sports Club Ground at Eve Leary', note: '5th overall league vs 6th overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M61 */
     LC2: { label: 'Placement Semi-final 2', date: '29 Oct 2026', venue: 'Lusignan Community Centre Ground', note: '6th overall league vs 5th overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M62 */
@@ -1537,6 +1537,9 @@ function renderKnockoutCard(id, match) {
     + '<div class="wc-ko-footer">'
     + '<div class="wc-ko-venue">📍 ' + match.venue + (match.date !== 'TBC' ? ' &nbsp;·&nbsp; 📅 ' + match.date : ' &nbsp;·&nbsp; 📅 TBC') + '</div>'
     + (match.scorecardURL ? '<a href="' + match.scorecardURL + '" class="wc-pill wc-pill-scorecard" target="_blank" rel="noopener" style="margin-top:6px;display:inline-flex">📋 Scorecard</a>' : '')
+    + (match.replayURL ? '<a href="' + match.replayURL + '" class="wc-pill wc-pill-scorecard" target="_blank" rel="noopener" style="margin-top:6px;display:inline-flex">246Sports Replay</a>' : '')
+    + (match.backupReplayURL ? '<a href="' + match.backupReplayURL + '" class="wc-pill wc-pill-scorecard" target="_blank" rel="noopener" style="margin-top:6px;display:inline-flex">England Replay (backup)</a>' : '')
+    + (match.highlightsURL ? '<a href="' + match.highlightsURL + '" class="wc-pill wc-pill-scorecard" target="_blank" rel="noopener" style="margin-top:6px;display:inline-flex">Highlights</a>' : '')
     + '</div>'
     + '</div>';
 }

@@ -136,6 +136,15 @@ def core(result):
     return tuple(values)
 
 
+def is_play_cricket_scorecard(url):
+    """Validate a supplied Play-Cricket result URL; never invent a match ID."""
+    parsed = urlparse(str(url or ""))
+    host = parsed.hostname or ""
+    return bool(parsed.scheme == "https" and not parsed.username
+                and (host == "play-cricket.com" or host.endswith(".play-cricket.com"))
+                and re.fullmatch(r"/website/results/\d+/?", parsed.path))
+
+
 def candidate(wc, fixture, result, links, match_id, date):
     """Validate a final without assuming the official innings list is chronological."""
     home, away = team(fixture["home"]), team(fixture["away"])
@@ -152,11 +161,17 @@ def candidate(wc, fixture, result, links, match_id, date):
     if scorecard.startswith("cricheroes.com/scorecard/"):
         scorecard = "https://" + scorecard
     parsed = urlparse(scorecard)
-    if not scorecard or parsed.scheme != "https" or parsed.hostname != "cricheroes.com" or not parsed.path.startswith("/scorecard/"):
+    england_match = "england" in (home, away)
+    official_card = (parsed.scheme == "https" and parsed.hostname == "cricheroes.com"
+                     and parsed.path.startswith("/scorecard/"))
+    if not official_card and not (england_match and is_play_cricket_scorecard(scorecard)):
         raise ValueError("missing/unrecognised official scorecard link")
+    # Other-team source evidence is unchanged. England's published link must be
+    # supplied Play-Cricket, or remain empty while Chris is asked for that URL.
+    published_card = scorecard if not england_match or is_play_cricket_scorecard(scorecard) else ""
     decision = str(result.get("decision", "")).strip()
     if re.fullmatch(r"(?:no result|abandoned(?: due to rain)?)", decision, re.I):
-        return key, {"result": "nr", "scorecardURL": scorecard}, decision
+        return key, {"result": "nr", "scorecardURL": published_card}, decision
     margin = re.fullmatch(r"won by (\d+) (runs?|wickets?)", decision, re.I)
     tied = bool(re.fullmatch(r"(?:match )?tied|tie", decision, re.I))
     if (not margin and not tied) or not isinstance(result.get("innings"), list) or len(result["innings"]) != 2:
@@ -189,7 +204,7 @@ def candidate(wc, fixture, result, links, match_id, date):
         "homeRuns": h["runs"], "homeOvers": float(h["overs"]),
         "awayScore": f"{a['runs']}/{a['wickets']} ({a['overs']})",
         "awayRuns": a["runs"], "awayOvers": float(a["overs"]),
-        "result": outcome, "scorecardURL": scorecard,
+        "result": outcome, "scorecardURL": published_card,
     }
     return key, record, decision
 
@@ -217,6 +232,7 @@ def build(page, source_html, now=None, extra_results=None, extra_links=None, col
     updated = dict(wc["results"])
     added, linked, preserved, skipped, held = [], [], [], [], []
     receipts = []
+    england_cards_requested = []
     for match_id, result in finals.items():
         match_id = str(match_id)
         fixture = fixtures.get(match_id)
@@ -235,8 +251,14 @@ def build(page, source_html, now=None, extra_results=None, extra_links=None, col
             existing_key = key if key in updated else reverse if reverse in updated else None
             if "england" in (home, away) and existing_key:
                 preserved.append(match_id)
+                if not is_play_cricket_scorecard(updated[existing_key].get("scorecardURL")):
+                    england_cards_requested.append({"match": match_id, "key": existing_key,
+                        "reason": "Ask Chris for the England Play-Cricket scorecard URL; no alternative link will be published"})
                 continue
             key, record, decision = candidate(wc, fixture, result, links, match_id, date)
+            if "england" in (home, away) and not record["scorecardURL"]:
+                england_cards_requested.append({"match": match_id, "key": key,
+                    "reason": "Ask Chris for the England Play-Cricket scorecard URL; verified result retained without a link"})
             if key in updated:
                 if core(updated[key]) != core(record):
                     raise ValueError(f"official score conflicts with existing {key}; existing result retained")
@@ -283,6 +305,7 @@ def build(page, source_html, now=None, extra_results=None, extra_links=None, col
               "officialCompletedMatches": len(finals), "otherTeamMatchesVerified": len([r for r in receipts if 'england' not in r['key']]),
               "matchesVerified": len(receipts), "englandMatchesPreserved": preserved,
               "newResults": added, "scorecardLinksAdded": linked,
+              "englandScorecardsRequested": england_cards_requested,
               "heldForReview": held, "excluded": skipped, "matches": receipts}
     report.update(collection_report or {})
     return changed_page, report

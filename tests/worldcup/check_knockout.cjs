@@ -130,7 +130,7 @@ const expectedConfirmedUC2 = {
   homeScore: '206/8 (41.0)',
   awayScore: '205/9 (45.0)',
   result: 'home',
-  scorecardURL: 'https://cricheroes.com/scorecard/27933733/imc-over-40s-world-cup-2026-guyana/england-vs-pakistan/summary'
+  scorecardURL: 'https://englandseniors.play-cricket.com/website/results/7778862'
 };
 assert.deepEqual(pick(knockout.UC2, fixtureFields), expectedConfirmedUC2,
   'UC2 confirmed semi-final details changed');
@@ -148,6 +148,15 @@ assert.ok(confirmedUC2Card.includes('205/9 (45.0)'),
   'Rendered UC2 must contain England’s confirmed score');
 assert.ok(confirmedUC2Card.includes(expectedConfirmedUC2.scorecardURL),
   'Rendered UC2 must contain the exact scorecard URL');
+
+assert.equal(knockout.UC2.replayURL, 'https://www.youtube.com/watch?v=Xwx2_r0fTX0');
+assert.equal(knockout.UC2.backupReplayURL, 'https://www.youtube.com/live/ZqNW5h5RiYo?si=dWc8zGd5-0WPU62r');
+assert.equal(knockout.UC2.highlightsURL, '', 'Pending highlights must not receive an invented link');
+assert.ok(confirmedUC2Card.includes(knockout.UC2.replayURL));
+assert.ok(confirmedUC2Card.includes(knockout.UC2.backupReplayURL));
+assert.ok(confirmedUC2Card.indexOf('246Sports Replay') < confirmedUC2Card.indexOf('England Replay (backup)'),
+  'The organiser replay must precede the team backup');
+assert.doesNotMatch(confirmedUC2Card, />Highlights<|playlist\?/, 'No placeholder highlights or generic playlist');
 
 /* The former placement match 5 is now a distinct third/fourth playoff. */
 assert.ok(hasOwn(knockout, 'PM5'), 'PM5 must remain as the third/fourth playoff');
