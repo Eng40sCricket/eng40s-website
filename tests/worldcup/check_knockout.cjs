@@ -163,7 +163,7 @@ assert.ok(hasOwn(knockout, 'PM5'), 'PM5 must remain as the third/fourth playoff'
 assert.deepEqual(pick(knockout.PM5, ['label', 'date', 'venue']), {
   label: '3rd / 4th Place Playoff',
   date: '30 Oct 2026',
-  venue: 'TBC'
+  venue: 'Georgetown Cricket Club (GCC)'
 }, 'PM5 must be restored as the third/fourth playoff');
 assert.match(knockout.PM5.note, /^Losers?\s*(?:SF|Semi-final)\s*1\s*(?:v|vs)\s*Losers?\s*(?:SF|Semi-final)\s*2$/i,
   'PM5 must be contested by the two Cup semi-final losers');
