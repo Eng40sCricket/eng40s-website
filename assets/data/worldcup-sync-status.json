@@ -1,6 +1,6 @@
 {
   "source": "https://worldcup.windiesmasters.org/fixtures-results/",
-  "checkedAtGuyana": "2026-10-28T00:40:17-04:00",
+  "checkedAtGuyana": "2026-10-29T00:53:25-04:00",
   "officialCompletedMatches": 44,
   "otherTeamMatchesVerified": 29,
   "matchesVerified": 29,
@@ -221,21 +221,21 @@
       "date": "2026-10-17",
       "key": "ALL_westindies_australia",
       "result": "Australia won by 88 runs",
-      "scorecard": "https://cricheroes.com/scorecard/27711058/imc-over-40s-world-cup-2026-guyana/australia-vs-west-indies/live"
+      "scorecard": "https://cricheroes.com/scorecard/27711058/imc-over-40s-world-cup-2026-guyana/australia-vs-west-indies/"
     },
     {
       "match": 2,
       "date": "2026-10-17",
       "key": "ALL_canada_southafrica",
       "result": "South Africa won by 2 wickets",
-      "scorecard": "https://cricheroes.com/scorecard/27711693/imc-over-40s-world-cup-2026-guyana/canada-vs-south-africa/live"
+      "scorecard": "https://cricheroes.com/scorecard/27711693/imc-over-40s-world-cup-2026-guyana/canada-vs-south-africa/"
     },
     {
       "match": 4,
       "date": "2026-10-17",
       "key": "ALL_rotc_pakistan",
       "result": "Pakistan won by 9 wickets",
-      "scorecard": "https://cricheroes.com/scorecard/27712016/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-pakistan/live"
+      "scorecard": "https://cricheroes.com/scorecard/27712016/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-pakistan/"
     },
     {
       "match": 5,
@@ -256,28 +256,28 @@
       "date": "2026-10-18",
       "key": "ALL_southafrica_wales",
       "result": "South Africa won by 252 runs",
-      "scorecard": "https://cricheroes.com/scorecard/27738284/imc-over-40s-world-cup-2026-guyana/wales-vs-south-africa"
+      "scorecard": "https://cricheroes.com/scorecard/27738284/imc-over-40s-world-cup-2026-guyana/wales-vs-south-africa/"
     },
     {
       "match": 10,
       "date": "2026-10-19",
       "key": "ALL_colombia_namibia",
       "result": "Namibia won by 6 wickets",
-      "scorecard": "https://cricheroes.com/scorecard/27763323/imc-over-40s-world-cup-2026-guyana/colombia-vs-namibia/live"
+      "scorecard": "https://cricheroes.com/scorecard/27763323/imc-over-40s-world-cup-2026-guyana/colombia-vs-namibia/"
     },
     {
       "match": 11,
       "date": "2026-10-19",
       "key": "ALL_row_scotland",
       "result": "Scotland won by 178 runs",
-      "scorecard": "https://cricheroes.com/scorecard/27763441/imc-over-40s-world-cup-2026-guyana/scotland-vs-rest-of-the-world/live"
+      "scorecard": "https://cricheroes.com/scorecard/27763441/imc-over-40s-world-cup-2026-guyana/scotland-vs-rest-of-the-world/"
     },
     {
       "match": 12,
       "date": "2026-10-20",
       "key": "ALL_australia_canada",
       "result": "Canada won by 55 runs",
-      "scorecard": "https://cricheroes.com/scorecard/27794685/imc-over-40s-world-cup-2026-guyana/canada-vs-australia"
+      "scorecard": "https://cricheroes.com/scorecard/27794685/imc-over-40s-world-cup-2026-guyana/canada-vs-australia/"
     },
     {
       "match": 14,
@@ -396,7 +396,7 @@
       "date": "2026-10-26",
       "key": "ALL_newzealand_row",
       "result": "New Zealand won by 314 runs",
-      "scorecard": "https://cricheroes.com/scorecard/27843266/imc-over-40s-world-cup-2026-guyana/new-zealand-vs-rest-of-the-world/live"
+      "scorecard": "https://cricheroes.com/scorecard/27843266/imc-over-40s-world-cup-2026-guyana/new-zealand-vs-rest-of-the-world/"
     },
     {
       "match": 40,
@@ -420,7 +420,38 @@
       "scorecard": "https://cricheroes.com/scorecard/27843660/imc-over-40s-world-cup-2026-guyana/south-africa-vs-namibia/"
     }
   ],
-  "scorecardsChecked": 0,
+  "scorecardsChecked": 6,
   "scorecardsVerified": [],
-  "pendingScorecards": []
+  "pendingScorecards": [
+    {
+      "match": "46",
+      "teams": "Pakistan v England",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27933733/imc-over-40s-world-cup-2026-guyana/england-vs-pakistan/summary"
+    },
+    {
+      "match": "47",
+      "teams": "West Indies v ROTC",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27933735/imc-over-40s-world-cup-2026-guyana/west-indies-vs-rest-of-the-caribbean/summary"
+    },
+    {
+      "match": "48",
+      "teams": "Canada v Namibia",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27933737/imc-over-40s-world-cup-2026-guyana/canada-vs-namibia/summary"
+    },
+    {
+      "match": "49",
+      "teams": "India v Scotland",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27933738/imc-over-40s-world-cup-2026-guyana/india-vs-scotland/summary"
+    },
+    {
+      "match": "50",
+      "teams": "New Zealand v USA",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27933739/imc-over-40s-world-cup-2026-guyana/usa-vs-new-zealand/summary"
+    },
+    {
+      "match": "51",
+      "teams": "ROW v Wales",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27933740/imc-over-40s-world-cup-2026-guyana/rest-of-the-world-vs-wales/summary"
+    }
+  ]
 }
