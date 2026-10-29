@@ -69,6 +69,19 @@ function assertPending(matchId, match) {
   assert.equal(match.scorecardURL, '', `${matchId} scorecard link must remain pending`);
 }
 
+function assertAwayConfirmedPendingResult(matchId, match, away) {
+  assert.ok(match, `${matchId} must be present`);
+  for (const field of resultFields) {
+    assert.ok(hasOwn(match, field), `${matchId}.${field} must remain available for future results`);
+  }
+  assert.equal(match.home, null, `${matchId} home team must remain pending`);
+  assert.equal(match.away, away, `${matchId} away team must be confirmed`);
+  assert.equal(match.homeScore, null, `${matchId} home score must remain pending`);
+  assert.equal(match.awayScore, null, `${matchId} away score must remain pending`);
+  assert.equal(match.result, null, `${matchId} result must remain pending`);
+  assert.equal(match.scorecardURL, '', `${matchId} scorecard link must remain pending`);
+}
+
 function assertPlaceholder(matchId, match, home, away) {
   assert.equal(typeof match.homePlaceholder, 'string', `${matchId} needs a useful home placeholder`);
   assert.equal(typeof match.awayPlaceholder, 'string', `${matchId} needs a useful away placeholder`);
@@ -97,29 +110,44 @@ assert.deepEqual(cupSemiIds, ['UC1', 'UC2'], 'Only UC1 and UC2 may remain as Cup
 assert.ok(!hasOwn(knockout, 'UC3'), 'Obsolete Cup Semi-final 3 must be removed');
 assert.ok(!hasOwn(knockout, 'UC4'), 'Obsolete Cup Semi-final 4 must be removed');
 
-const expectedCupSemis = {
-  UC1: {
-    label: 'Cup Semi-final 1',
-    date: '28 Oct 2026',
-    venue: 'TBC',
-    note: '1st overall league vs 4th overall league'
-  },
-  UC2: {
-    label: 'Cup Semi-final 2',
-    date: '28 Oct 2026',
-    venue: 'TBC',
-    note: '2nd overall league vs 3rd overall league'
-  }
+const expectedPendingUC1 = {
+  label: 'Cup Semi-final 1',
+  date: '28 Oct 2026',
+  venue: 'TBC',
+  note: '1st overall league vs 4th overall league'
 };
+assert.deepEqual(pick(knockout.UC1, Object.keys(expectedPendingUC1)), expectedPendingUC1,
+  'UC1 details changed');
+assertPending('UC1', knockout.UC1);
 
-for (const [id, expected] of Object.entries(expectedCupSemis)) {
-  assert.deepEqual(pick(knockout[id], Object.keys(expected)), expected, `${id} details changed`);
-  assertPending(id, knockout[id]);
-}
+const expectedConfirmedUC2 = {
+  label: 'Cup Semi-final 2',
+  date: '28 Oct 2026',
+  venue: 'Guyana National Stadium — Providence',
+  note: '2nd overall league vs 3rd overall league — Pakistan won by 2 wickets',
+  home: 'pakistan',
+  away: 'england',
+  homeScore: '206/8 (41.0)',
+  awayScore: '205/9 (45.0)',
+  result: 'home',
+  scorecardURL: 'https://cricheroes.com/scorecard/27933733/imc-over-40s-world-cup-2026-guyana/england-vs-pakistan/summary'
+};
+assert.deepEqual(pick(knockout.UC2, fixtureFields), expectedConfirmedUC2,
+  'UC2 confirmed semi-final details changed');
+
 assertPlaceholder('UC1', knockout.UC1, /1st\s*place/i, /4th\s*place/i);
 assertPlaceholder('UC2', knockout.UC2, /2nd\s*place/i, /3rd\s*place/i);
 assertNoFabricatedCupDetails('UC1', knockout.UC1, ['1st place', '4th place']);
-assertNoFabricatedCupDetails('UC2', knockout.UC2, ['2nd place', '3rd place']);
+
+const confirmedUC2Card = box.renderKnockoutCard('UC2', knockout.UC2);
+assert.ok(confirmedUC2Card.includes('Pakistan won by 2 wickets'),
+  'Rendered UC2 must contain the exact winning margin');
+assert.ok(confirmedUC2Card.includes('206/8 (41.0)'),
+  'Rendered UC2 must contain Pakistan’s confirmed score');
+assert.ok(confirmedUC2Card.includes('205/9 (45.0)'),
+  'Rendered UC2 must contain England’s confirmed score');
+assert.ok(confirmedUC2Card.includes(expectedConfirmedUC2.scorecardURL),
+  'Rendered UC2 must contain the exact scorecard URL');
 
 /* The former placement match 5 is now a distinct third/fourth playoff. */
 assert.ok(hasOwn(knockout, 'PM5'), 'PM5 must remain as the third/fourth playoff');
@@ -130,8 +158,10 @@ assert.deepEqual(pick(knockout.PM5, ['label', 'date', 'venue']), {
 }, 'PM5 must be restored as the third/fourth playoff');
 assert.match(knockout.PM5.note, /^Losers?\s*(?:SF|Semi-final)\s*1\s*(?:v|vs)\s*Losers?\s*(?:SF|Semi-final)\s*2$/i,
   'PM5 must be contested by the two Cup semi-final losers');
-assertPending('PM5', knockout.PM5);
+assertAwayConfirmedPendingResult('PM5', knockout.PM5, 'england');
 assertPlaceholder('PM5', knockout.PM5, /(?:loser\s*(?:SF|Semi-final)\s*1|(?:SF|Semi-final)\s*1\s*loser)/i, /(?:loser\s*(?:SF|Semi-final)\s*2|(?:SF|Semi-final)\s*2\s*loser)/i);
+assert.match(box.renderKnockoutCard('PM5', knockout.PM5), /England/,
+  'Rendered PM5 must show England as the confirmed away team');
 
 /* PM6 and PM7 depended on the removed UC3/UC4 semi-finals and must be gone. */
 assert.ok(!hasOwn(knockout, 'PM6'), 'Obsolete PM6 must be removed with UC3/UC4');
@@ -145,8 +175,10 @@ assert.deepEqual(pick(knockout.FINAL, ['label', 'date']), {
 assert.match(knockout.FINAL.venue, /Providence/i, 'Grand Final must be at Providence');
 assert.match(knockout.FINAL.note, /^Winners?\s*(?:SF|Semi-final)\s*1\s*(?:v|vs)\s*Winners?\s*(?:SF|Semi-final)\s*2$/i,
   'Grand Final must be contested by the two Cup semi-final winners');
-assertPending('FINAL', knockout.FINAL);
+assertAwayConfirmedPendingResult('FINAL', knockout.FINAL, 'pakistan');
 assertPlaceholder('FINAL', knockout.FINAL, /(?:winner\s*(?:SF|Semi-final)\s*1|(?:SF|Semi-final)\s*1\s*winner)/i, /(?:winner\s*(?:SF|Semi-final)\s*2|(?:SF|Semi-final)\s*2\s*winner)/i);
+assert.match(box.renderKnockoutCard('FINAL', knockout.FINAL), /Pakistan/,
+  'Rendered Grand Final must show Pakistan as the confirmed away team');
 
 /* These remaining provisional placement records are intentionally unchanged. */
 const retainedPlacementRecords = {
@@ -210,6 +242,22 @@ function standingsSnapshot() {
 }
 
 const standingsBefore = standingsSnapshot();
+const originalUC2 = knockout.UC2;
+try {
+  knockout.UC2 = {
+    ...originalUC2,
+    homeScore: null,
+    awayScore: null,
+    result: null,
+    scorecardURL: ''
+  };
+  box.renderKnockout();
+  assert.deepEqual(standingsSnapshot(), standingsBefore,
+    'Confirming or clearing the UC2 knockout result must not alter group standings or NRR');
+} finally {
+  knockout.UC2 = originalUC2;
+}
+
 const futureCupSemi = {
   ...knockout.UC1,
   home: 'england',
