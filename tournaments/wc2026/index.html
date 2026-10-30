@@ -1198,23 +1198,212 @@ var WC = {
 
   /* ── Knockout matches ── */
   knockout: {
-    /* Cup format confirmed by the organiser, 27 October. Final teams and
-       semi-final grounds remain TBC until league positions are confirmed. */
-    UC1: { label: 'Cup Semi-final 1', date: '28 Oct 2026', venue: 'TBC', note: '1st overall league vs 4th overall league', homePlaceholder: '1st place — TBC', awayPlaceholder: '4th place — TBC', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    UC2: { label: 'Cup Semi-final 2', date: '28 Oct 2026', venue: 'Guyana National Stadium — Providence', note: '2nd overall league vs 3rd overall league — Pakistan won by 2 wickets', homePlaceholder: '2nd place — TBC', awayPlaceholder: '3rd place — TBC', home: 'pakistan', away: 'england', homeScore: '206/8 (41.0)', awayScore: '205/9 (45.0)', result: 'home', scorecardURL: 'https://englandseniors.play-cricket.com/website/results/7778862', replayURL: 'https://www.youtube.com/watch?v=Xwx2_r0fTX0', backupReplayURL: 'https://www.youtube.com/live/ZqNW5h5RiYo?si=dWc8zGd5-0WPU62r', highlightsURL: '' },
-    /* ── Placement semi-finals — 29 October (single overall league) ── */
-    LC1: { label: 'Placement Semi-final 1', date: '29 Oct 2026', venue: 'Police Sports Club Ground at Eve Leary', note: '5th overall league vs 6th overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M61 */
-    LC2: { label: 'Placement Semi-final 2', date: '29 Oct 2026', venue: 'Lusignan Community Centre Ground', note: '6th overall league vs 5th overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M62 */
-    LC3: { label: 'Placement Semi-final 3', date: '29 Oct 2026', venue: 'Malteenoes Sports Club', note: '7th overall league vs 8th overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M63 */
-    LC4: { label: 'Placement Semi-final 4', date: '29 Oct 2026', venue: 'Georgetown Cricket Club (GCC)', note: '8th overall league vs 7th overall league', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M64 */
-    /* ── Placement Matches — 30 October ── */
-    PM1: { label: 'Placement Match 1', date: '30 Oct 2026', venue: 'Lusignan Community Centre Ground', note: 'Winner Match 61 vs Winner Match 62', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M65 */
-    PM2: { label: 'Placement Match 2', date: '30 Oct 2026', venue: 'Enmore Community Centre Ground', note: 'Loser Match 61 vs Loser Match 62', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M66 */
-    PM3: { label: 'Placement Match 3', date: '30 Oct 2026', venue: 'Guyana National Stadium — Providence', note: 'Winner Match 63 vs Winner Match 64', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M67 */
-    PM4: { label: 'Placement Match 4', date: '30 Oct 2026', venue: 'Everest Cricket Club (ECC)', note: 'Loser Match 63 vs Loser Match 64', home: null, away: null, homeScore: null, awayScore: null, result: null, scorecardURL: '' },  /* M68 */
-    PM5: { label: '3rd / 4th Place Playoff', date: '30 Oct 2026', venue: 'Georgetown Cricket Club (GCC)', note: 'Loser Semi-final 1 vs Loser Semi-final 2', homePlaceholder: 'Semi-final 1 loser', awayPlaceholder: 'Semi-final 2 loser', home: null, away: 'england', homeScore: null, awayScore: null, result: null, scorecardURL: '' },
-    /* ── Grand Final — 31 October ── */
-    FINAL: { label: 'Grand Final', date: '31 Oct 2026', venue: 'Guyana National Stadium — Providence', note: 'Winner Semi-final 1 vs Winner Semi-final 2', homePlaceholder: 'Semi-final 1 winner', awayPlaceholder: 'Semi-final 2 winner', home: null, away: 'pakistan', homeScore: null, awayScore: null, result: null, scorecardURL: '' }
+    "UC1": {
+      "officialMatchId": 52,
+      "label": "Cup Semi-final 1",
+      "date": "29 Oct 2026",
+      "time": "9:30 AM",
+      "venue": "Georgetown Cricket Club (GCC)",
+      "note": "1st overall league vs 4th overall league — Australia won by 4 wickets",
+      "home": "southafrica",
+      "away": "australia",
+      "homeScore": "234/9 (45.0)",
+      "awayScore": "235/6 (43.5)",
+      "result": "away",
+      "scorecardURL": "https://cricheroes.com/scorecard/27948571/imc-over-40s-world-cup-2026-guyana/south-africa-vs-australia/",
+      "resultMethod": "standard",
+      "homePlaceholder": "1st place",
+      "awayPlaceholder": "4th place"
+    },
+    "UC2": {
+      "label": "Cup Semi-final 2",
+      "date": "28 Oct 2026",
+      "venue": "Guyana National Stadium — Providence",
+      "note": "2nd overall league vs 3rd overall league — Pakistan won by 2 wickets",
+      "homePlaceholder": "2nd place — TBC",
+      "awayPlaceholder": "3rd place — TBC",
+      "home": "pakistan",
+      "away": "england",
+      "homeScore": "206/8 (41.0)",
+      "awayScore": "205/9 (45.0)",
+      "result": "home",
+      "scorecardURL": "https://englandseniors.play-cricket.com/website/results/7778862",
+      "replayURL": "https://www.youtube.com/watch?v=Xwx2_r0fTX0",
+      "backupReplayURL": "https://www.youtube.com/live/ZqNW5h5RiYo?si=dWc8zGd5-0WPU62r",
+      "highlightsURL": ""
+    },
+    "LC1": {
+      "officialMatchId": 53,
+      "label": "Shield Semi-final 1",
+      "date": "29 Oct 2026",
+      "time": "9:30 AM",
+      "venue": "Everest Cricket Club",
+      "note": "India won by 5 wickets",
+      "home": "canada",
+      "away": "india",
+      "homeScore": "228/9 (45.0)",
+      "awayScore": "231/5 (42.3)",
+      "result": "away",
+      "scorecardURL": "https://cricheroes.com/scorecard/27948611/imc-over-40s-world-cup-2026-guyana/canada-vs-india/",
+      "resultMethod": "standard"
+    },
+    "LC2": {
+      "officialMatchId": 57,
+      "label": "Shield Semi-final 2",
+      "date": "30 Oct 2026",
+      "time": "9:30 AM",
+      "venue": "Guyana National Stadium — Providence",
+      "note": "West Indies vs USA",
+      "home": "westindies",
+      "away": "usa",
+      "homePlaceholder": "",
+      "awayPlaceholder": "",
+      "homeScore": null,
+      "awayScore": null,
+      "result": null,
+      "scorecardURL": ""
+    },
+    "LC3": {
+      "officialMatchId": 54,
+      "label": "Bowl Semi-final 1",
+      "date": "29 Oct 2026",
+      "time": "9:30 AM",
+      "venue": "Guyana National Stadium — Providence",
+      "note": "New Zealand won by 7 wickets",
+      "home": "rotc",
+      "away": "newzealand",
+      "homeScore": "162/10 (40.5)",
+      "awayScore": "163/3 (25.3)",
+      "result": "away",
+      "scorecardURL": "https://cricheroes.com/scorecard/27948625/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-new-zealand/",
+      "resultMethod": "standard"
+    },
+    "LC4": {
+      "officialMatchId": 55,
+      "label": "Bowl Semi-final 2",
+      "date": "29 Oct 2026",
+      "time": "9:30 AM",
+      "venue": "Malteenoes Cricket Club",
+      "note": "Scotland won by 8 wickets",
+      "home": "namibia",
+      "away": "scotland",
+      "homeScore": "195/10 (30.1)",
+      "awayScore": "196/2 (38.1)",
+      "result": "away",
+      "scorecardURL": "https://cricheroes.com/scorecard/27948658/imc-over-40s-world-cup-2026-guyana/namibia-vs-scotland/",
+      "resultMethod": "standard"
+    },
+    "PM1": {
+      "officialMatchId": 61,
+      "label": "Shield Final — 5th Position",
+      "date": "31 Oct 2026",
+      "time": "9:30 AM",
+      "venue": "Georgetown Cricket Club (GCC)",
+      "note": "India vs Winner M57",
+      "home": "india",
+      "away": null,
+      "homePlaceholder": "",
+      "awayPlaceholder": "West Indies / USA — winner M57",
+      "homeScore": null,
+      "awayScore": null,
+      "result": null,
+      "scorecardURL": ""
+    },
+    "PM2": {
+      "officialMatchId": 62,
+      "label": "7th Position Match",
+      "date": "31 Oct 2026",
+      "time": "9:30 AM",
+      "venue": "Enmore Community Centre Ground",
+      "note": "Canada vs Loser M57",
+      "home": "canada",
+      "away": null,
+      "homePlaceholder": "",
+      "awayPlaceholder": "West Indies / USA — loser M57",
+      "homeScore": null,
+      "awayScore": null,
+      "result": null,
+      "scorecardURL": ""
+    },
+    "PM3": {
+      "officialMatchId": 63,
+      "label": "Bowl Final — 9th Position",
+      "date": "31 Oct 2026",
+      "time": "9:30 AM",
+      "venue": "Malteenoes Cricket Club",
+      "note": "New Zealand vs Scotland",
+      "home": "newzealand",
+      "away": "scotland",
+      "homePlaceholder": "",
+      "awayPlaceholder": "",
+      "homeScore": null,
+      "awayScore": null,
+      "result": null,
+      "scorecardURL": ""
+    },
+    "PM4": {
+      "officialMatchId": 59,
+      "label": "11th / 12th Place Playoff",
+      "date": "30 Oct 2026",
+      "time": "9:30 AM",
+      "venue": "Everest Cricket Club",
+      "note": "Rest of the Caribbean vs Namibia",
+      "home": "rotc",
+      "away": "namibia",
+      "homePlaceholder": "",
+      "awayPlaceholder": "",
+      "homeScore": null,
+      "awayScore": null,
+      "result": null,
+      "scorecardURL": ""
+    },
+    "PM5": {
+      "label": "3rd / 4th Place Playoff",
+      "date": "30 Oct 2026",
+      "venue": "Georgetown Cricket Club (GCC)",
+      "note": "Loser Semi-final 1 vs Loser Semi-final 2",
+      "homePlaceholder": "Semi-final 1 loser",
+      "awayPlaceholder": "Semi-final 2 loser",
+      "home": "southafrica",
+      "away": "england",
+      "homeScore": null,
+      "awayScore": null,
+      "result": null,
+      "scorecardURL": "",
+      "officialMatchId": 58,
+      "time": "9:30 AM"
+    },
+    "FINAL": {
+      "label": "Grand Final",
+      "date": "31 Oct 2026",
+      "venue": "Guyana National Stadium — Providence",
+      "note": "Winner Semi-final 1 vs Winner Semi-final 2",
+      "homePlaceholder": "Semi-final 1 winner",
+      "awayPlaceholder": "Semi-final 2 winner",
+      "home": "australia",
+      "away": "pakistan",
+      "homeScore": null,
+      "awayScore": null,
+      "result": null,
+      "scorecardURL": "",
+      "officialMatchId": 64,
+      "time": "9:30 AM"
+    },
+    "PS1": {
+      "officialMatchId": 56,
+      "label": "Placement Series — 13th–15th",
+      "date": "29 Oct 2026",
+      "time": "9:30 AM",
+      "venue": "Police Sports Club Ground — Eve Leary",
+      "note": "Rest of the World won by walkover",
+      "home": "row",
+      "away": "colombia",
+      "homeScore": null,
+      "awayScore": null,
+      "result": "home",
+      "scorecardURL": "https://cricheroes.com/scorecard/27948683/imc-over-40s-world-cup-2026-guyana/rest-of-the-world-vs-colombia/",
+      "resultMethod": "walkover"
+    }
   }
 };
 
@@ -1535,7 +1724,7 @@ function renderKnockoutCard(id, match) {
     + '<div class="wc-ko-team">' + awayBlock + '</div>'
     + '</div>'
     + '<div class="wc-ko-footer">'
-    + '<div class="wc-ko-venue">📍 ' + match.venue + (match.date !== 'TBC' ? ' &nbsp;·&nbsp; 📅 ' + match.date : ' &nbsp;·&nbsp; 📅 TBC') + '</div>'
+    + '<div class="wc-ko-venue">📍 ' + match.venue + (match.date !== 'TBC' ? ' &nbsp;·&nbsp; 📅 ' + match.date : ' &nbsp;·&nbsp; 📅 TBC') + (match.time ? ' &nbsp;·&nbsp; ' + match.time + ' Guyana' : '') + '</div>'
     + (match.scorecardURL ? '<a href="' + match.scorecardURL + '" class="wc-pill wc-pill-scorecard" target="_blank" rel="noopener" style="margin-top:6px;display:inline-flex">📋 Scorecard</a>' : '')
     + (match.replayURL ? '<a href="' + match.replayURL + '" class="wc-pill wc-pill-scorecard" target="_blank" rel="noopener" style="margin-top:6px;display:inline-flex">246Sports Replay</a>' : '')
     + (match.backupReplayURL ? '<a href="' + match.backupReplayURL + '" class="wc-pill wc-pill-scorecard" target="_blank" rel="noopener" style="margin-top:6px;display:inline-flex">England Replay (backup)</a>' : '')
@@ -1551,17 +1740,17 @@ function renderKnockout() {
   /* Info box */
   html += '<div class="wc-info-box">'
     + '<p><strong>Confirmed Cup knockout format:</strong> The top four teams in the final overall league table qualify. '
-    + '<strong>1st plays 4th</strong> and <strong>2nd plays 3rd</strong> in two semi-finals on <strong>28 October</strong>.</p>'
+    + '<strong>1st plays 4th</strong> and <strong>2nd plays 3rd</strong> in two semi-finals played on <strong>28–29 October</strong>.</p>'
     + '<p>The two losing semi-finalists play for <strong>3rd and 4th place on 30 October</strong>. '
     + 'The two winners meet in the <strong>Grand Final on 31 October at Guyana National Stadium — Providence</strong>.</p>'
     + '<p>League positions are decided by points, then net run rate. Confirmed teams, results and grounds are shown below; '
     + 'any remaining placeholders await tournament confirmation. '
-    + 'Start times are also to be confirmed. All dates and times are local to Guyana (UTC−4).</p>'
+    + 'Scheduled start times are shown where published. All dates and times are local to Guyana (UTC−4).</p>'
     + '</div>';
 
     /* Cup semi-finals */
   html += '<div class="wc-ko-section">'
-    + '<h3 class="wc-ko-section-title">Cup semi-finals <span class="ko-date-badge">28 October 2026</span></h3>'
+    + '<h3 class="wc-ko-section-title">Cup semi-finals <span class="ko-date-badge">28–29 October 2026</span></h3>'
     + '<div class="wc-ko-grid wc-ko-grid-cup">'
     + renderKnockoutCard('UC1', k.UC1)
     + renderKnockoutCard('UC2', k.UC2)
@@ -1580,15 +1769,15 @@ function renderKnockout() {
     + renderKnockoutCard('FINAL', k.FINAL)
     + '</div></div>';
 
-  /* Other placement records are retained, but their revised draw is not confirmed. */
+  /* Current official Shield, Bowl and placement draw; excluded from league NRR. */
   html += '<div class="wc-info-box">'
-    + '<p><strong>Other placement fixtures — provisional:</strong> The existing schedule below is retained for reference. '
-    + 'Pairings, dates and grounds for teams outside the top four await tournament confirmation.</p>'
+    + '<p><strong>Shield, Bowl and placement fixtures:</strong> Completed results and the current official draw are shown below. '
+    + 'These matches do not change the preliminary-stage points or net run rate. Unresolved participants remain marked pending.</p>'
     + '</div>';
 
   /* Placement semi-finals */
   html += '<div class="wc-ko-section">'
-    + '<h3 class="wc-ko-section-title">Other placement semi-finals — provisional <span class="ko-date-badge">29 October 2026</span></h3>'
+    + '<h3 class="wc-ko-section-title">Shield and Bowl semi-finals <span class="ko-date-badge">29–30 October 2026</span></h3>'
     + '<div class="wc-ko-grid">'
     + renderKnockoutCard('LC1', k.LC1)
     + renderKnockoutCard('LC2', k.LC2)
@@ -1596,9 +1785,18 @@ function renderKnockout() {
     + renderKnockoutCard('LC4', k.LC4)
     + '</div></div>';
 
-  /* 30 October — placement matches */
+  /* Verified placement-series result, including a walkover without innings. */
+  if (k.PS1) {
+    html += '<div class="wc-ko-section">'
+      + '<h3 class="wc-ko-section-title">Placement series — 13th–15th <span class="ko-date-badge">29 October 2026</span></h3>'
+      + '<div class="wc-ko-grid" style="max-width:380px">'
+      + renderKnockoutCard('PS1', k.PS1)
+      + '</div></div>';
+  }
+
+  /* Current official finals and placement matches. */
   html += '<div class="wc-ko-section">'
-    + '<h3 class="wc-ko-section-title">Other placement matches — provisional <span class="ko-date-badge">30 October 2026</span></h3>'
+    + '<h3 class="wc-ko-section-title">Other finals and placement matches <span class="ko-date-badge">30–31 October 2026</span></h3>'
     + '<div class="wc-ko-grid">'
     + renderKnockoutCard('PM1', k.PM1)
     + renderKnockoutCard('PM2', k.PM2)
