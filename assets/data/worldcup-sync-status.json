@@ -1,7 +1,7 @@
 {
   "source": "https://worldcup.windiesmasters.org/fixtures-results/",
-  "checkedAtGuyana": "2026-10-29T00:53:25-04:00",
-  "officialCompletedMatches": 44,
+  "checkedAtGuyana": "2026-10-30T00:52:53-04:00",
+  "officialCompletedMatches": 54,
   "otherTeamMatchesVerified": 29,
   "matchesVerified": 29,
   "englandMatchesPreserved": [
@@ -14,6 +14,7 @@
   ],
   "newResults": [],
   "scorecardLinksAdded": [],
+  "englandScorecardsRequested": [],
   "heldForReview": [
     {
       "match": "13",
@@ -214,7 +215,208 @@
       "scorecard": "https://cricheroes.com/scorecard/27843605/imc-over-40s-world-cup-2026-guyana/wales-vs-australia/"
     }
   ],
-  "excluded": [],
+  "excluded": [
+    {
+      "match": "46",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "England",
+            "score": "205/9",
+            "overs": "45.0"
+          },
+          {
+            "team": "Pakistan",
+            "score": "206/8",
+            "overs": "41.0"
+          }
+        ],
+        "winner": "Pakistan",
+        "decision": "won by 2 wickets"
+      }
+    },
+    {
+      "match": "47",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "West Indies",
+            "score": "356/7",
+            "overs": "45.0"
+          },
+          {
+            "team": "ROTC",
+            "score": "227/8",
+            "overs": "45.0"
+          }
+        ],
+        "winner": "West Indies",
+        "decision": "won by 129 runs"
+      }
+    },
+    {
+      "match": "48",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "Canada",
+            "score": "227/10",
+            "overs": "44.3"
+          },
+          {
+            "team": "Namibia",
+            "score": "187/10",
+            "overs": "43.0"
+          }
+        ],
+        "winner": "Canada",
+        "decision": "won by 40 runs"
+      }
+    },
+    {
+      "match": "49",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "India",
+            "score": "311/9",
+            "overs": "45.0"
+          },
+          {
+            "team": "Scotland",
+            "score": "222/10",
+            "overs": "41.0"
+          }
+        ],
+        "winner": "India",
+        "decision": "won by 89 runs"
+      }
+    },
+    {
+      "match": "50",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "USA",
+            "score": "171/7",
+            "overs": "45.0"
+          },
+          {
+            "team": "New Zealand",
+            "score": "168/10",
+            "overs": "45.0"
+          }
+        ],
+        "winner": "USA",
+        "decision": "won by 3 runs"
+      }
+    },
+    {
+      "match": "51",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "ROW",
+            "score": "206/6",
+            "overs": "45.0"
+          },
+          {
+            "team": "Wales",
+            "score": "210/6",
+            "overs": "41.1"
+          }
+        ],
+        "winner": "Wales",
+        "decision": "won by 4 wickets"
+      }
+    },
+    {
+      "match": "52",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "South Africa",
+            "score": "234/9",
+            "overs": "45.0"
+          },
+          {
+            "team": "Australia",
+            "score": "235/6",
+            "overs": "43.5"
+          }
+        ],
+        "winner": "Australia",
+        "decision": "won by 4 wickets"
+      }
+    },
+    {
+      "match": "53",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "Canada",
+            "score": "228/9",
+            "overs": "45.0"
+          },
+          {
+            "team": "India",
+            "score": "231/5",
+            "overs": "42.3"
+          }
+        ],
+        "winner": "India",
+        "decision": "won by 5 wickets"
+      }
+    },
+    {
+      "match": "54",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "ROTC",
+            "score": "162/10",
+            "overs": "40.5"
+          },
+          {
+            "team": "New Zealand",
+            "score": "163/3",
+            "overs": "25.3"
+          }
+        ],
+        "winner": "New Zealand",
+        "decision": "won by 7 wickets"
+      }
+    },
+    {
+      "match": "55",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "Namibia",
+            "score": "195/10",
+            "overs": "30.1"
+          },
+          {
+            "team": "Scotland",
+            "score": "196/2",
+            "overs": "38.1"
+          }
+        ],
+        "winner": "Scotland",
+        "decision": "won by 8 wickets"
+      }
+    }
+  ],
   "matches": [
     {
       "match": 1,
@@ -420,13 +622,18 @@
       "scorecard": "https://cricheroes.com/scorecard/27843660/imc-over-40s-world-cup-2026-guyana/south-africa-vs-namibia/"
     }
   ],
-  "scorecardsChecked": 6,
+  "scorecardsChecked": 10,
   "scorecardsVerified": [],
   "pendingScorecards": [
     {
       "match": "46",
       "teams": "Pakistan v England",
-      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27933733/imc-over-40s-world-cup-2026-guyana/england-vs-pakistan/summary"
+      "reason": "England match: ask Chris for the Play-Cricket scorecard URL; no CricHeroes fallback"
+    },
+    {
+      "match": "58",
+      "teams": "England v South Africa",
+      "reason": "England match: ask Chris for the Play-Cricket scorecard URL; no CricHeroes fallback"
     },
     {
       "match": "47",
@@ -452,6 +659,31 @@
       "match": "51",
       "teams": "ROW v Wales",
       "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27933740/imc-over-40s-world-cup-2026-guyana/rest-of-the-world-vs-wales/summary"
+    },
+    {
+      "match": "52",
+      "teams": "South Africa v Australia",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27948571/imc-over-40s-world-cup-2026-guyana/south-africa-vs-australia/summary"
+    },
+    {
+      "match": "53",
+      "teams": "Canada v India",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27948611/imc-over-40s-world-cup-2026-guyana/canada-vs-india/summary"
+    },
+    {
+      "match": "54",
+      "teams": "ROTC v New Zealand",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27948625/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-new-zealand/summary"
+    },
+    {
+      "match": "55",
+      "teams": "Namibia v Scotland",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27948658/imc-over-40s-world-cup-2026-guyana/namibia-vs-scotland/summary"
+    },
+    {
+      "match": "56",
+      "teams": "ROW v Colombia",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27948683/imc-over-40s-world-cup-2026-guyana/rest-of-the-world-vs-colombia/summary"
     }
   ]
 }
