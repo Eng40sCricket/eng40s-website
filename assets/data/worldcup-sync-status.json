@@ -1,7 +1,7 @@
 {
   "source": "https://worldcup.windiesmasters.org/fixtures-results/",
-  "checkedAtGuyana": "2026-10-30T00:52:53-04:00",
-  "officialCompletedMatches": 54,
+  "checkedAtGuyana": "2026-10-31T00:38:41-04:00",
+  "officialCompletedMatches": 58,
   "otherTeamMatchesVerified": 29,
   "matchesVerified": 29,
   "englandMatchesPreserved": [
@@ -415,6 +415,86 @@
         "winner": "Scotland",
         "decision": "won by 8 wickets"
       }
+    },
+    {
+      "match": "57",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "West Indies",
+            "score": "284/4",
+            "overs": "45.0"
+          },
+          {
+            "team": "USA",
+            "score": "255/10",
+            "overs": "43.2"
+          }
+        ],
+        "winner": "West Indies",
+        "decision": "won by 29 runs"
+      }
+    },
+    {
+      "match": "58",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "England",
+            "score": "431/3",
+            "overs": "45.0"
+          },
+          {
+            "team": "South Africa",
+            "score": "153/10",
+            "overs": "30.0"
+          }
+        ],
+        "winner": "England",
+        "decision": "won by 278 runs"
+      }
+    },
+    {
+      "match": "59",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "ROTC",
+            "score": "355/7",
+            "overs": "45.0"
+          },
+          {
+            "team": "Namibia",
+            "score": "181/10",
+            "overs": "30.2"
+          }
+        ],
+        "winner": "Rest of the Caribbean",
+        "decision": "won by 174 runs"
+      }
+    },
+    {
+      "match": "60",
+      "reason": "Knockout result collected separately; excluded from league NRR",
+      "result": {
+        "innings": [
+          {
+            "team": "Colombia",
+            "score": "64/10",
+            "overs": "27.4"
+          },
+          {
+            "team": "Wales",
+            "score": "67/1",
+            "overs": "13.1"
+          }
+        ],
+        "winner": "Wales",
+        "decision": "won by 9 wickets"
+      }
     }
   ],
   "matches": [
@@ -622,7 +702,7 @@
       "scorecard": "https://cricheroes.com/scorecard/27843660/imc-over-40s-world-cup-2026-guyana/south-africa-vs-namibia/"
     }
   ],
-  "scorecardsChecked": 10,
+  "scorecardsChecked": 13,
   "scorecardsVerified": [],
   "pendingScorecards": [
     {
@@ -684,6 +764,21 @@
       "match": "56",
       "teams": "ROW v Colombia",
       "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27948683/imc-over-40s-world-cup-2026-guyana/rest-of-the-world-vs-colombia/summary"
+    },
+    {
+      "match": "57",
+      "teams": "West Indies v USA",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27962357/imc-over-40s-world-cup-2026-guyana/west-indies-vs-usa/summary"
+    },
+    {
+      "match": "59",
+      "teams": "ROTC v Namibia",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27962352/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-namibia/summary"
+    },
+    {
+      "match": "60",
+      "teams": "Wales v Colombia",
+      "reason": "403 Client Error: Forbidden for url: https://cricheroes.com/scorecard/27962362/imc-over-40s-world-cup-2026-guyana/colombia-vs-wales/summary"
     }
   ]
 }
