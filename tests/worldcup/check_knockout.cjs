@@ -73,7 +73,8 @@ for (const [id, expected] of Object.entries(todayResults)) {
   const card = box.renderKnockoutCard(id, m);
   assert.ok(card.includes(expected.homeScore) && card.includes(expected.awayScore) && card.includes(marginText));
   if (id === 'PM5') {
-    assert.ok(m.scorecardURL === '' || /^https:\/\/[a-z0-9.-]+\.play-cricket\.com\/website\/results\/\d+\/?$/.test(m.scorecardURL));
+    assert.equal(m.scorecardURL, 'https://englandseniors.play-cricket.com/website/results/7779314');
+    assert.ok(card.includes(m.scorecardURL));
     assert.doesNotMatch(card, /cricheroes/);
   } else {
     assert.ok(m.scorecardURL.includes(`/scorecard/${expected.card}/`));
@@ -85,6 +86,8 @@ for (const [id, expected] of Object.entries(todayResults)) {
   assert.equal(expected.unit==='runs' ? Number(win[1])-Number(lose[1]) : 10-Number(win[2]), expected.margin);
 }
 assert.equal(k.PM5.venue, 'Georgetown Cricket Club (GCC)');
+assert.equal(box.WC.teams.southafrica.logo, 'southafrica-vcasa.png');
+assert.ok(fs.existsSync(path.resolve(__dirname, '../../assets/img/southafrica-vcasa.png')));
 assert.equal(k.PM5.englandPlayerOfTheMatch.name, 'Darren Stevens');
 assert.equal(k.PM5.englandPlayerOfTheMatch.performance, '231* (142)');
 assert.match(box.renderKnockoutCard('PM5', k.PM5), /DeLonghi England Player of the Match: Darren Stevens, 231\* \(142\)/);
