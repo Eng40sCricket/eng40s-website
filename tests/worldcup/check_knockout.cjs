@@ -1,5 +1,5 @@
 /* Run: node tests/worldcup/check_knockout.cjs
- * Verified 29 October 2026 outcomes and current official knockout progression.
+ * Verified 29–30 October 2026 outcomes and current official knockout progression.
  */
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -54,6 +54,42 @@ for (const [id, expected] of Object.entries(standardResults)) {
   assert.equal(10 - Number(winnerScore[2]), expected.margin);
 }
 
+/* Today's results: preserve local home/away orientation, not innings order. */
+const todayResults = {
+  LC2: {id:57, home:'westindies', away:'usa', homeScore:'284/4 (45.0)', awayScore:'255/10 (43.2)', winner:'home', margin:29, unit:'runs', card:27962357},
+  PM5: {id:58, home:'southafrica', away:'england', homeScore:'153/10 (30.0)', awayScore:'431/3 (45.0)', winner:'away', margin:278, unit:'runs'},
+  PM4: {id:59, home:'rotc', away:'namibia', homeScore:'355/7 (45.0)', awayScore:'181/10 (30.2)', winner:'home', margin:174, unit:'runs', card:27962352},
+  PS2: {id:60, home:'wales', away:'colombia', homeScore:'67/1 (13.1)', awayScore:'64/10 (27.4)', winner:'home', margin:9, unit:'wickets', card:27962362}
+};
+for (const [id, expected] of Object.entries(todayResults)) {
+  const m = k[id];
+  assert.equal(m.officialMatchId, expected.id);
+  assert.equal(m.date, '30 Oct 2026');
+  for (const field of ['home','away','homeScore','awayScore']) assert.equal(m[field], expected[field]);
+  assert.equal(m.result, expected.winner);
+  assert.equal(m.resultMethod, 'standard');
+  const marginText = `won by ${expected.margin} ${expected.unit}`;
+  assert.ok(m.note.includes(marginText));
+  const card = box.renderKnockoutCard(id, m);
+  assert.ok(card.includes(expected.homeScore) && card.includes(expected.awayScore) && card.includes(marginText));
+  if (id === 'PM5') {
+    assert.ok(m.scorecardURL === '' || /^https:\/\/[a-z0-9.-]+\.play-cricket\.com\/website\/results\/\d+\/?$/.test(m.scorecardURL));
+    assert.doesNotMatch(card, /cricheroes/);
+  } else {
+    assert.ok(m.scorecardURL.includes(`/scorecard/${expected.card}/`));
+    assert.ok(card.includes(m.scorecardURL));
+  }
+  const win = m[expected.winner+'Score'].match(/^(\d+)\/(\d+) \((\d+)\.([0-5])\)$/);
+  const lose = m[(expected.winner==='home'?'away':'home')+'Score'].match(/^(\d+)\/(\d+) \((\d+)\.([0-5])\)$/);
+  assert.ok(win && lose && Number(win[1]) > Number(lose[1]));
+  assert.equal(expected.unit==='runs' ? Number(win[1])-Number(lose[1]) : 10-Number(win[2]), expected.margin);
+}
+assert.equal(k.PM5.venue, 'Georgetown Cricket Club (GCC)');
+assert.equal(k.PM5.englandPlayerOfTheMatch.name, 'Darren Stevens');
+assert.equal(k.PM5.englandPlayerOfTheMatch.performance, '231* (142)');
+assert.match(box.renderKnockoutCard('PM5', k.PM5), /DeLonghi England Player of the Match: Darren Stevens, 231\* \(142\)/);
+assert.match(k.PM5.note, /England finish 3rd/);
+
 /* Walkover is a completed result without fabricated runs, wickets or overs. */
 assert.equal(k.PS1.officialMatchId, 56);
 assert.equal(k.PS1.date, '29 Oct 2026');
@@ -84,13 +120,10 @@ assert.ok(englandCard.indexOf('246Sports Replay') < englandCard.indexOf('England
 assert.doesNotMatch(englandCard, />Highlights<|cricheroes/);
 
 const future = {
-  PM5: ['southafrica', 'england', '30 Oct 2026', 'Georgetown Cricket Club (GCC)'],
   FINAL: ['australia', 'pakistan', '31 Oct 2026', 'Guyana National Stadium — Providence'],
-  LC2: ['westindies', 'usa', '30 Oct 2026', 'Guyana National Stadium — Providence'],
-  PM1: ['india', null, '31 Oct 2026', 'Georgetown Cricket Club (GCC)'],
-  PM2: ['canada', null, '31 Oct 2026', 'Enmore Community Centre Ground'],
-  PM3: ['newzealand', 'scotland', '31 Oct 2026', 'Malteenoes Cricket Club'],
-  PM4: ['rotc', 'namibia', '30 Oct 2026', 'Everest Cricket Club']
+  PM1: ['india', 'westindies', '31 Oct 2026', 'Georgetown Cricket Club (GCC)'],
+  PM2: ['canada', 'usa', '31 Oct 2026', 'Enmore Community Centre Ground'],
+  PM3: ['newzealand', 'scotland', '31 Oct 2026', 'Malteenoes Cricket Club']
 };
 for (const [id, [home, away, date, venue]] of Object.entries(future)) {
   assert.equal(k[id].home, home, `${id} home progression`);
@@ -101,12 +134,13 @@ for (const [id, [home, away, date, venue]] of Object.entries(future)) {
   for (const field of ['homeScore','awayScore','result']) assert.equal(k[id][field], null);
   assert.equal(k[id].scorecardURL, '');
 }
-assert.match(k.PM1.awayPlaceholder, /winner M57/);
-assert.match(k.PM2.awayPlaceholder, /loser M57/);
+assert.equal(k.PM1.awayPlaceholder, '');
+assert.equal(k.PM2.awayPlaceholder, '');
 const html = box.renderKnockout();
 assert.match(html, /28–29 October 2026/);
 assert.match(html, /Shield and Bowl semi-finals/);
 assert.match(html, /Rest of the World won by walkover/);
+assert.match(html, /Wales won by 9 wickets/);
 assert.doesNotMatch(html, /Other placement semi-finals — provisional|Cup Semi-final [34]/);
 assert.ok(html.indexOf('Grand Final') < html.indexOf('Shield Semi-final 1'));
 
@@ -118,4 +152,4 @@ box.WC.knockout = {};
 assert.equal(snapshot(), baseline, 'Removing all knockouts must not affect points/NRR');
 box.WC.knockout = saved;
 assert.equal(Object.keys(box.WC.results).length, 45);
-console.log('PASS: five 29 October results, walkover without scores, confirmed progression, England links and league isolation.');
+console.log('PASS: 29–30 October results, walkover without scores, Darren Stevens award, confirmed progression, England links and league isolation.');

@@ -1253,15 +1253,16 @@ var WC = {
       "date": "30 Oct 2026",
       "time": "9:30 AM",
       "venue": "Guyana National Stadium — Providence",
-      "note": "West Indies vs USA",
+      "note": "West Indies won by 29 runs",
       "home": "westindies",
       "away": "usa",
       "homePlaceholder": "",
       "awayPlaceholder": "",
-      "homeScore": null,
-      "awayScore": null,
-      "result": null,
-      "scorecardURL": ""
+      "homeScore": "284/4 (45.0)",
+      "awayScore": "255/10 (43.2)",
+      "result": "home",
+      "scorecardURL": "https://cricheroes.com/scorecard/27962357/imc-over-40s-world-cup-2026-guyana/west-indies-vs-usa/",
+      "resultMethod": "standard"
     },
     "LC3": {
       "officialMatchId": 54,
@@ -1299,11 +1300,11 @@ var WC = {
       "date": "31 Oct 2026",
       "time": "9:30 AM",
       "venue": "Georgetown Cricket Club (GCC)",
-      "note": "India vs Winner M57",
+      "note": "India vs West Indies",
       "home": "india",
-      "away": null,
+      "away": "westindies",
       "homePlaceholder": "",
-      "awayPlaceholder": "West Indies / USA — winner M57",
+      "awayPlaceholder": "",
       "homeScore": null,
       "awayScore": null,
       "result": null,
@@ -1315,11 +1316,11 @@ var WC = {
       "date": "31 Oct 2026",
       "time": "9:30 AM",
       "venue": "Enmore Community Centre Ground",
-      "note": "Canada vs Loser M57",
+      "note": "Canada vs USA",
       "home": "canada",
-      "away": null,
+      "away": "usa",
       "homePlaceholder": "",
-      "awayPlaceholder": "West Indies / USA — loser M57",
+      "awayPlaceholder": "",
       "homeScore": null,
       "awayScore": null,
       "result": null,
@@ -1347,31 +1348,39 @@ var WC = {
       "date": "30 Oct 2026",
       "time": "9:30 AM",
       "venue": "Everest Cricket Club",
-      "note": "Rest of the Caribbean vs Namibia",
+      "note": "Rest of the Caribbean won by 174 runs",
       "home": "rotc",
       "away": "namibia",
       "homePlaceholder": "",
       "awayPlaceholder": "",
-      "homeScore": null,
-      "awayScore": null,
-      "result": null,
-      "scorecardURL": ""
+      "homeScore": "355/7 (45.0)",
+      "awayScore": "181/10 (30.2)",
+      "result": "home",
+      "scorecardURL": "https://cricheroes.com/scorecard/27962352/imc-over-40s-world-cup-2026-guyana/rest-of-the-caribbean-vs-namibia/",
+      "resultMethod": "standard"
     },
     "PM5": {
       "label": "3rd / 4th Place Playoff",
       "date": "30 Oct 2026",
       "venue": "Georgetown Cricket Club (GCC)",
-      "note": "Loser Semi-final 1 vs Loser Semi-final 2",
+      "note": "England won by 278 runs — England finish 3rd. DeLonghi England Player of the Match: Darren Stevens, 231* (142)",
       "homePlaceholder": "Semi-final 1 loser",
       "awayPlaceholder": "Semi-final 2 loser",
       "home": "southafrica",
       "away": "england",
-      "homeScore": null,
-      "awayScore": null,
-      "result": null,
+      "homeScore": "153/10 (30.0)",
+      "awayScore": "431/3 (45.0)",
+      "result": "away",
       "scorecardURL": "",
+      "replayURL": "https://www.youtube.com/watch?v=e0r0AJdAFJs",
       "officialMatchId": 58,
-      "time": "9:30 AM"
+      "time": "9:30 AM",
+      "resultMethod": "standard",
+      "englandPlayerOfTheMatch": {
+        "name": "Darren Stevens",
+        "award": "DeLonghi England Player of the Match",
+        "performance": "231* (142)"
+      }
     },
     "FINAL": {
       "label": "Grand Final",
@@ -1403,6 +1412,21 @@ var WC = {
       "result": "home",
       "scorecardURL": "https://cricheroes.com/scorecard/27948683/imc-over-40s-world-cup-2026-guyana/rest-of-the-world-vs-colombia/",
       "resultMethod": "walkover"
+    },
+    "PS2": {
+      "officialMatchId": 60,
+      "label": "Placement Series — 13th–15th",
+      "date": "30 Oct 2026",
+      "time": "9:30 AM",
+      "venue": "Malteenoes Cricket Club",
+      "home": "wales",
+      "away": "colombia",
+      "homeScore": "67/1 (13.1)",
+      "awayScore": "64/10 (27.4)",
+      "result": "home",
+      "resultMethod": "standard",
+      "note": "Wales won by 9 wickets",
+      "scorecardURL": "https://cricheroes.com/scorecard/27962362/imc-over-40s-world-cup-2026-guyana/colombia-vs-wales/"
     }
   }
 };
@@ -1788,9 +1812,10 @@ function renderKnockout() {
   /* Verified placement-series result, including a walkover without innings. */
   if (k.PS1) {
     html += '<div class="wc-ko-section">'
-      + '<h3 class="wc-ko-section-title">Placement series — 13th–15th <span class="ko-date-badge">29 October 2026</span></h3>'
+      + '<h3 class="wc-ko-section-title">Placement series — 13th–15th <span class="ko-date-badge">29–30 October 2026</span></h3>'
       + '<div class="wc-ko-grid" style="max-width:380px">'
       + renderKnockoutCard('PS1', k.PS1)
+      + (k.PS2 ? renderKnockoutCard('PS2', k.PS2) : '')
       + '</div></div>';
   }
 
