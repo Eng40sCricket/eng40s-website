@@ -1,12 +1,23 @@
 [
   {
+    "id": "world-cup-third-place-2026",
+    "title": "England Over 40s Finish Third at the IMC Over 40s World Cup in Guyana",
+    "date": "2026-11-07",
+    "summary": "Six wins from eight, a victory over the eventual champions and a world-record 231 from captain Darren Stevens saw England Over 40s finish third in Guyana.",
+    "imageUrl": "/assets/img/gallery/world-cup-third-place-2026.png",
+    "category": "world-cup",
+    "pinned": true,
+    "archived": false,
+    "body": ""
+  },
+  {
     "id": "triple-crown-squad-2026",
     "title": "England Over 40s Name Squad for Triple Crown 2026",
     "date": "2026-07-24",
     "summary": "England Over 40s Cricket have named their 14-man squad for the Triple Crown 2026 at Bishop's Stortford CC, Hertfordshire, 28–30 July. Darren Stevens captains the side, with Sean Park as vice-captain.",
     "imageUrl": "/assets/img/gallery/triple-crown-squad-2026.jpg",
     "category": "team",
-    "pinned": true,
+    "pinned": false,
     "archived": false,
     "body": ""
   },
