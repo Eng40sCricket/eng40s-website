@@ -248,7 +248,14 @@ window.PROSPECTUS = {
     name: "Steven Naylor",
     role: "Director & Commercial Lead",
     enquireLabel: "Start a conversation",
-    social: "Facebook, Instagram and YouTube: England Over 40s Cricket",
+    socialLabel: "Follow us",
+    socialName: "England Over 40s Cricket",
+    social: [
+      { name: "Facebook", url: "https://www.facebook.com/EnglandCountiesO40s", icon: "assets/icons/facebook.svg" },
+      { name: "Instagram", url: "https://www.instagram.com/englandover40s/", icon: "assets/icons/instagram.svg" },
+      { name: "X", url: "https://x.com/Eng40sCricket", icon: "assets/icons/x.svg" },
+      { name: "YouTube", url: "https://www.youtube.com/channel/UC5Eg5wr5ZmD5JcfUhxK_nGg", icon: "assets/icons/youtube.svg" }
+    ],
     company: "Over 40s Cricket England Ltd · Registered in England and Wales, company number 15282587",
     image: { src: "assets/closing.jpg", alt: "An England batter raises his helmet and bat after reaching a milestone at the World Cup in Guyana" }
   }

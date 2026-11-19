@@ -301,6 +301,21 @@
     },
 
     contact: function (d) {
+      function socialRow(d) {
+        if (!Array.isArray(d.social) || !d.social.length) { return d.social ? el('p', 'small', d.social) : null; }
+        var icons = el('div', 'social__icons');
+        d.social.forEach(function (s) {
+          if (!s || !s.url) { return; }
+          var a = el('a', 'social__link');
+          a.href = s.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+          a.setAttribute('aria-label', (d.socialName || 'Us') + ' on ' + s.name);
+          a.title = s.name;
+          var img = el('img'); img.src = s.icon; img.alt = ''; img.width = 18; img.height = 18;
+          add(icons, add(a, img));
+        });
+        return add(el('div', 'social'), el('p', 'social__label', d.socialLabel || 'Follow us'), icons,
+          d.socialName ? el('p', 'social__name', d.socialName) : null);
+      }
       var section = el('section', 'contact');
       section.id = 'contact';
       var links = el('div', 'contact__links');
@@ -312,7 +327,7 @@
           el('p', 'lede', d.body),
           add(el('div'), el('p', 'contact__name', d.name), el('p', 'contact__role', d.role)),
           links, actions('btn--gold', 'btn--ghost', d.enquireLabel),
-          add(el('div', 'contact__foot'), el('p', 'small', d.social), el('p', 'small', d.company))),
+          add(el('div', 'contact__foot'), socialRow(d), el('p', 'small', d.company))),
         add(el('div', 'contact__media'), picture(d.image, '')));
       return section;
     }
