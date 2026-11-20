@@ -122,20 +122,33 @@ const englandCard = box.renderKnockoutCard('UC2', k.UC2);
 assert.ok(englandCard.indexOf('246Sports Replay') < englandCard.indexOf('England Replay (backup)'));
 assert.doesNotMatch(englandCard, />Highlights<|cricheroes/);
 
-const future = {
-  FINAL: ['australia', 'pakistan', '31 Oct 2026', 'Guyana National Stadium — Providence'],
-  PM1: ['india', 'westindies', '31 Oct 2026', 'Georgetown Cricket Club (GCC)'],
-  PM2: ['canada', 'usa', '31 Oct 2026', 'Enmore Community Centre Ground'],
-  PM3: ['newzealand', 'scotland', '31 Oct 2026', 'Malteenoes Cricket Club']
+const closingResults = {
+  FINAL: {id:64, home:'australia', away:'pakistan', homeScore:'281/6 (45.0)', awayScore:'282/9 (44.5)', winner:'away', margin:1, unit:'wicket', venue:'Guyana National Stadium — Providence', note:'Pakistan are champions'},
+  PM1: {id:61, home:'india', away:'westindies', homeScore:'264/10 (44.4)', awayScore:'309/6 (45.0)', winner:'away', margin:45, unit:'runs', venue:'Georgetown Cricket Club (GCC)'},
+  PM2: {id:62, home:'canada', away:'usa', homeScore:'209/8 (44.2)', awayScore:'208/7 (45.0)', winner:'home', margin:2, unit:'wickets', venue:'Enmore Community Centre Ground'},
+  PM3: {id:63, home:'newzealand', away:'scotland', homeScore:'258/7 (45.0)', awayScore:'151/10 (37.2)', winner:'home', margin:107, unit:'runs', venue:'Malteenoes Cricket Club'}
 };
-for (const [id, [home, away, date, venue]] of Object.entries(future)) {
-  assert.equal(k[id].home, home, `${id} home progression`);
-  assert.equal(k[id].away, away, `${id} away progression`);
-  assert.equal(k[id].date, date, `${id} date`);
-  assert.equal(k[id].venue, venue, `${id} venue`);
-  assert.equal(k[id].time, '9:30 AM');
-  for (const field of ['homeScore','awayScore','result']) assert.equal(k[id][field], null);
-  assert.equal(k[id].scorecardURL, '');
+for (const [id, expected] of Object.entries(closingResults)) {
+  const m = k[id];
+  assert.equal(m.officialMatchId, expected.id);
+  assert.equal(m.home, expected.home);
+  assert.equal(m.away, expected.away);
+  assert.equal(m.date, '31 Oct 2026');
+  assert.equal(m.time, '9:30 AM');
+  assert.equal(m.venue, expected.venue);
+  assert.equal(m.homeScore, expected.homeScore);
+  assert.equal(m.awayScore, expected.awayScore);
+  assert.equal(m.result, expected.winner);
+  assert.equal(m.resultMethod, 'standard');
+  assert.equal(m.scorecardURL, ''); // no unverified match-specific URL supplied by the official source
+  const win = m[expected.winner+'Score'].match(/^(\d+)\/(\d+) \((\d+)\.([0-5])\)$/);
+  const lose = m[(expected.winner==='home'?'away':'home')+'Score'].match(/^(\d+)\/(\d+) \((\d+)\.([0-5])\)$/);
+  assert.ok(win && lose && Number(win[1]) > Number(lose[1]), `${id} winning score and legal overs`);
+  assert.equal(expected.unit==='runs' ? Number(win[1])-Number(lose[1]) : 10-Number(win[2]), expected.margin);
+  const card = box.renderKnockoutCard(id, m);
+  assert.ok(card.includes(expected.homeScore) && card.includes(expected.awayScore));
+  assert.ok(card.includes(`won by ${expected.margin} ${expected.unit}`));
+  if (expected.note) assert.ok(m.note.includes(expected.note));
 }
 assert.equal(k.PM1.awayPlaceholder, '');
 assert.equal(k.PM2.awayPlaceholder, '');
@@ -155,4 +168,4 @@ box.WC.knockout = {};
 assert.equal(snapshot(), baseline, 'Removing all knockouts must not affect points/NRR');
 box.WC.knockout = saved;
 assert.equal(Object.keys(box.WC.results).length, 45);
-console.log('PASS: 29–30 October results, walkover without scores, Darren Stevens award, confirmed progression, England links and league isolation.');
+console.log('PASS: knockout/placement results through 31 October, walkover without scores, Darren Stevens award, confirmed progression, England links and league isolation.');
