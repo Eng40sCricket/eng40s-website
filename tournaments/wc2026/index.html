@@ -1771,9 +1771,8 @@ function renderKnockout() {
     + '<strong>1st plays 4th</strong> and <strong>2nd plays 3rd</strong> in two semi-finals played on <strong>28–29 October</strong>.</p>'
     + '<p>The two losing semi-finalists play for <strong>3rd and 4th place on 30 October</strong>. '
     + 'The two winners meet in the <strong>Grand Final on 31 October at Guyana National Stadium — Providence</strong>.</p>'
-    + '<p>League positions are decided by points, then net run rate. Confirmed teams, results and grounds are shown below; '
-    + 'any remaining placeholders await tournament confirmation. '
-    + 'Scheduled start times are shown where published. All dates and times are local to Guyana (UTC−4).</p>'
+    + '<p>League positions are decided by points, then net run rate. All teams, results and grounds are shown below; '
+    + 'all matches are complete. Published start times are shown for reference. All dates and times are local to Guyana (UTC−4).</p>'
     + '</div>';
 
     /* Cup semi-finals */
@@ -1797,10 +1796,9 @@ function renderKnockout() {
     + renderKnockoutCard('FINAL', k.FINAL)
     + '</div></div>';
 
-  /* Current official Shield, Bowl and placement draw; excluded from league NRR. */
+  /* Completed official Shield, Bowl and placement matches; excluded from league NRR. */
   html += '<div class="wc-info-box">'
-    + '<p><strong>Shield, Bowl and placement fixtures:</strong> Completed results and the current official draw are shown below. '
-    + 'These matches do not change the preliminary-stage points or net run rate. Unresolved participants remain marked pending.</p>'
+    + '<p><strong>Shield, Bowl and placement results:</strong> These completed matches do not change the preliminary-stage points or net run rate.</p>'
     + '</div>';
 
   /* Placement semi-finals */

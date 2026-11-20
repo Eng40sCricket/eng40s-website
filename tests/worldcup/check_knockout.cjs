@@ -159,6 +159,8 @@ assert.match(html, /Rest of the World won by walkover/);
 assert.match(html, /Wales won by 9 wickets/);
 assert.doesNotMatch(html, /Other placement semi-finals — provisional|Cup Semi-final [34]/);
 assert.ok(html.indexOf('Grand Final') < html.indexOf('Shield Semi-final 1'));
+assert.match(html, /all matches are complete/i);
+assert.doesNotMatch(html, /await tournament confirmation|unresolved participants remain marked pending/i);
 
 /* Every knockout result is isolated from the cumulative preliminary table. */
 const snapshot = () => JSON.stringify(box.calcStandings('ALL').map(r => ({...r,nrr:box.calcNRR(r.team,'ALL')})));
