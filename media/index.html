@@ -805,6 +805,10 @@
             z-index: 1;
         }
 
+        .nm-credit { flex-basis: 100%; text-align: center; font-size: 0.8em; color: rgba(255,255,255,0.5); }
+        .nm-credit a { color: #3B9EDB; text-decoration: none; }
+        .nm-credit a:hover { text-decoration: underline; }
+
         @media (max-width: 768px) {
             .media-hero { padding: 60px 0 40px; }
             .section-header-row { flex-direction: column; align-items: flex-start; }
@@ -876,15 +880,15 @@
                 <!-- NEXT MATCH SPOTLIGHT -->
                 <div class="next-match-spotlight" id="next-match-spotlight">
                     <div class="next-match-header">
-                        <div class="next-match-label"><i class="fas fa-satellite-dish"></i> Next Match</div>
-                        <div id="nm-status-badge" class="nm-status-badge upcoming"><i class="fas fa-clock"></i> Upcoming</div>
+                        <div class="next-match-label"><i class="fas fa-satellite-dish"></i> <span id="nm-label-text">Next Match</span></div>
+                        <div id="nm-status-badge" class="nm-status-badge upcoming"><i class="fas fa-clock"></i> Loading</div>
                     </div>
                     <div class="next-match-title-row">
-                        <div class="next-match-title" id="nm-title">England v India — 1st ODI</div>
+                        <div class="next-match-title" id="nm-title">Loading…</div>
                         <div class="next-match-meta">
-                            <span><i class="fas fa-calendar-alt"></i> <span id="nm-date">27 May 2026</span></span>
-                            <span><i class="fas fa-clock"></i> <span id="nm-time">12:00</span></span>
-                            <span><i class="fas fa-map-marker-alt"></i> <span id="nm-venue">Swindon Cricket Club</span></span>
+                            <span><i class="fas fa-calendar-alt"></i> <span id="nm-date"></span></span>
+                            <span id="nm-time-wrap" style="display:none;"><i class="fas fa-clock"></i> <span id="nm-time"></span></span>
+                            <span><i class="fas fa-map-marker-alt"></i> <span id="nm-venue"></span></span>
                         </div>
                     </div>
                     <div class="next-match-video-wrap">
@@ -1341,65 +1345,217 @@
     (function () {
 
         /* ================================================================
-           NEXT MATCH DATA — unchanged from original
+           NEXT MATCH SPOTLIGHT — built from assets/data/matches.csv,
+           the same file Match Admin updates. Any row with a YouTube Live
+           link can be featured. Order of choice:
+             1. a match today with no result entered yet  -> LIVE TODAY
+             2. the next future match                     -> UPCOMING
+             3. the most recent past match                -> REPLAY
+           Entering the result in Match Admin turns a match into a replay.
+           The settings in this box are the only things that should need
+           changing (for example at the start of a new season).
            ================================================================ */
-        const MATCHES = [
-            { title: 'England v India — 1st ODI',          date: '2026-05-27T12:00:00', venue: 'Swindon Cricket Club',              videoId: 'gMT497KBtGc', status: 'replay' },
-            { title: 'England v India — 2nd ODI',          date: '2026-05-28T11:00:00', venue: 'High Wycombe CC, Buckinghamshire',   videoId: 'om33cd7boCg', status: 'replay' },
-            { title: 'UK Armed Forces v England Lions',    date: '2026-07-13T12:00:00', venue: 'Richmondshire CC, North Yorkshire',  videoId: 'ot1DANh4UYI', status: 'replay' },
-            { title: 'England Lions v XL Club (North West)', date: '2026-07-15T12:00:00', venue: 'To Be Confirmed',                  videoId: 'yRanS9SwKFs', status: 'replay' },
-            { title: 'England v Ireland — Triple Crown',   date: '2026-07-28T12:15:00', venue: "Bishop's Stortford CC, Hertfordshire", videoId: 'SRkXD_KjxpA', status: 'replay' },
-            { title: 'England v Scotland — Triple Crown',  date: '2026-07-29T10:45:00', venue: "Bishop's Stortford CC, Hertfordshire", videoId: 'E1VH7Vn2Iho', status: 'replay' },
-            { title: 'England v Wales — Triple Crown',     date: '2026-07-30T10:00:00', venue: "Bishop's Stortford CC, Hertfordshire", videoId: '-wWzAgtbITU', status: 'replay' },
-            { title: 'England Lions v Wales',              date: '2026-08-05T12:00:00', venue: 'Panteg CC',                          videoId: 'aJo0xNpUzIY', status: 'replay' },
-            { title: 'England Lions v Worcestershire',     date: '2026-08-11T12:00:00', venue: 'Stourport CC, Worcestershire',        videoId: '-okkcb4v_so', status: 'replay' },
-            { title: 'England Lions v MCC',               date: '2026-08-26T12:00:00', venue: 'Hartlepool CC, County Durham',        videoId: '-NETbbg6jRs', status: 'replay' }
-        ];
+        const SPOTLIGHT = {
+            csvUrl: '../assets/data/matches.csv',
+            // Typical first-ball time in UK time, e.g. '12:00'. Leave as ''
+            // to show the date only (matches.csv holds no start times).
+            defaultStartUK: '',
+            ownChannel: 'England Over 40s Cricket',
+            subscribeUrl: 'https://youtube.com/@englandseniorsover40scri-pj3gn?si=zLJVOX851t-uFs9w',
+            playlistUrl: 'https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=G8BmiQfVPa4glE8o',
+            playlistLabel: '2026 Live Streams Playlist',
+            tournamentLabels: {
+                'World Cup SF': 'World Cup Semi-Final',
+                'World Cup 3/4': 'World Cup 3rd/4th Place Play-off',
+                'Non-ODI': ''
+            }
+        };
+
+        /* ---- CSV reading: same rules as the Fixtures & Results page ---- */
+        function spParseCSVLine(line) {
+            const out = []; let cur = '', q = false;
+            for (let i = 0; i < line.length; i++) {
+                const c = line[i];
+                if (c === '"') q = !q;
+                else if (c === ',' && !q) { out.push(cur); cur = ''; }
+                else cur += c;
+            }
+            out.push(cur);
+            return out;
+        }
+        function spParseCSV(text) {
+            const lines = text.trim().split('\n');
+            const headers = spParseCSVLine(lines[0]).map(h => h.trim());
+            const rows = [];
+            for (let i = 1; i < lines.length; i++) {
+                const vals = spParseCSVLine(lines[i]);
+                if (vals.length < 2) continue;
+                const row = {};
+                headers.forEach((h, idx) => { row[h] = (vals[idx] || '').trim(); });
+                rows.push(row);
+            }
+            return rows;
+        }
+        function spHasResult(result) {
+            const r = (result || '').toLowerCase();
+            return ['win', 'loss', 'tie', 'no result', 'cancelled', 'abandoned'].indexOf(r) !== -1;
+        }
+        const SP_MONTHS = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
+        function spParseDay(s) {
+            const m = (s || '').trim().match(/^(\d{1,2})\s+([A-Za-z]{3})[A-Za-z]*\.?\s+(\d{4})$/);
+            if (!m) return null;
+            const mo = SP_MONTHS[m[2].toLowerCase()];
+            if (mo === undefined) return null;
+            return { y: +m[3], m: mo, d: +m[1], key: (+m[3]) * 10000 + (mo + 1) * 100 + (+m[1]) };
+        }
+        function spTodayKeyUK() {
+            const p = {};
+            new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', year: 'numeric', month: '2-digit', day: '2-digit' })
+                .formatToParts(new Date()).forEach(x => { p[x.type] = x.value; });
+            return (+p.year) * 10000 + (+p.month) * 100 + (+p.day);
+        }
+        function spUKDateTime(day, hhmm) {
+            const [hh, mm] = hhmm.split(':').map(Number);
+            const guess = Date.UTC(day.y, day.m, day.d, hh, mm);
+            const p = {};
+            new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+                .formatToParts(new Date(guess)).forEach(x => { p[x.type] = x.value; });
+            let diff = (+p.hour * 60 + +p.minute) - (hh * 60 + mm);
+            if (diff > 720) diff -= 1440;
+            if (diff < -720) diff += 1440;
+            return new Date(guess - diff * 60000);
+        }
+        function spVideoId(url) {
+            const m = (url || '').match(/(?:youtu\.be\/|[?&]v=|\/live\/|\/embed\/|\/shorts\/)([A-Za-z0-9_-]{11})/);
+            return m ? m[1] : '';
+        }
+        function spShortTeam(name) { return (name || '').replace(/\s+Over 40s$/i, '').trim(); }
+        function spTitle(row) {
+            const t = row.Tournament || '';
+            const label = Object.prototype.hasOwnProperty.call(SPOTLIGHT.tournamentLabels, t) ? SPOTLIGHT.tournamentLabels[t] : t;
+            return spShortTeam(row.HomeTeam) + ' v ' + spShortTeam(row.AwayTeam) + (label ? ' — ' + label : '');
+        }
+        function spPickMatch(rows) {
+            const today = spTodayKeyUK();
+            const list = [];
+            rows.forEach((row, idx) => {
+                const videoId = spVideoId(row.YouTubeLive);
+                const day = spParseDay(row.Date);
+                if (!videoId || !day) return;
+                let status;
+                if (spHasResult(row.Result) || day.key < today) status = 'replay';
+                else if (day.key === today) status = 'live';
+                else status = 'upcoming';
+                list.push({ row, idx, day, videoId, status, title: spTitle(row), venue: row.Venue || '' });
+            });
+            const byDate = (a, b) => (a.day.key - b.day.key) || (a.idx - b.idx);
+            const live = list.filter(x => x.status === 'live').sort(byDate);
+            if (live.length) return live[0];
+            const up = list.filter(x => x.status === 'upcoming').sort(byDate);
+            if (up.length) return up[0];
+            const rep = list.filter(x => x.status === 'replay').sort(byDate);
+            return rep.length ? rep[rep.length - 1] : null;
+        }
+        function spButton(href, cls, icon, label) {
+            const a = document.createElement('a');
+            a.href = href; a.target = '_blank'; a.rel = 'noopener noreferrer';
+            a.className = 'video-link-btn ' + cls;
+            a.style.cssText = 'font-size:0.9em;padding:11px 28px;';
+            a.innerHTML = '<i class="' + icon + '"></i> ';
+            a.appendChild(document.createTextNode(label));
+            return a;
+        }
 
         /* ---- Next Match Spotlight ---- */
-        (function buildSpotlight() {
-            let match = MATCHES.find(m => m.status === 'live')
-                     || MATCHES.find(m => m.status === 'upcoming')
-                     || [...MATCHES].reverse().find(m => m.status === 'replay');
-            if (!match) { document.getElementById('next-match-spotlight').style.display = 'none'; return; }
+        function buildSpotlight(match) {
+            const box = document.getElementById('next-match-spotlight');
+            if (!match) { box.style.display = 'none'; return; }
+            box.style.display = '';
+            const watchUrl = 'https://www.youtube.com/watch?v=' + match.videoId;
+
+            const label = document.getElementById('nm-label-text');
+            if (label) label.textContent = match.status === 'replay' ? 'Latest Match' : 'Next Match';
             document.getElementById('nm-title').textContent = match.title;
             document.getElementById('nm-venue').textContent = match.venue;
-            const dt = new Date(match.date);
-            document.getElementById('nm-date').textContent = dt.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-            document.getElementById('nm-time').textContent = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + ' (UK)';
+            document.getElementById('nm-date').textContent = new Date(Date.UTC(match.day.y, match.day.m, match.day.d, 12))
+                .toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+            const start = SPOTLIGHT.defaultStartUK ? spUKDateTime(match.day, SPOTLIGHT.defaultStartUK) : null;
+            const timeWrap = document.getElementById('nm-time-wrap');
+            if (start && match.status !== 'replay') {
+                document.getElementById('nm-time').textContent = SPOTLIGHT.defaultStartUK + ' (UK)';
+                if (timeWrap) timeWrap.style.display = '';
+            } else if (timeWrap) { timeWrap.style.display = 'none'; }
+
             const badge = document.getElementById('nm-status-badge');
-            if (match.status === 'live') { badge.className = 'nm-status-badge live'; badge.innerHTML = '<span class="nm-live-dot"></span> LIVE NOW'; }
+            if (match.status === 'live') { badge.className = 'nm-status-badge live'; badge.innerHTML = '<span class="nm-live-dot"></span> LIVE TODAY'; }
             else if (match.status === 'upcoming') { badge.className = 'nm-status-badge upcoming'; badge.innerHTML = '<i class="fas fa-clock"></i> Upcoming'; }
             else { badge.className = 'nm-status-badge replay'; badge.innerHTML = '<i class="fas fa-play-circle"></i> Replay Available'; }
+
             const videoInner = document.getElementById('nm-video-inner');
-            if (match.videoId) {
-                const autoplay = match.status === 'live' ? '?autoplay=1&mute=1' : '';
-                videoInner.innerHTML = `<iframe src="https://www.youtube.com/embed/${match.videoId}${autoplay}" title="${match.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-            } else {
-                videoInner.innerHTML = `<div class="next-match-placeholder"><i class="fas fa-broadcast-tower"></i><p>The live stream will appear here automatically when the match begins.<br>Subscribe on YouTube to get notified.</p></div>`;
-            }
+            videoInner.innerHTML = '';
+            const iframe = document.createElement('iframe');
+            iframe.src = 'https://www.youtube.com/embed/' + match.videoId + (match.status === 'live' ? '?autoplay=1&mute=1' : '');
+            iframe.title = match.title;
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('allowfullscreen', '');
+            videoInner.appendChild(iframe);
+
             const countdown = document.getElementById('nm-countdown');
-            if (match.status === 'upcoming') {
+            if (match.status === 'upcoming' && start) {
                 countdown.style.display = 'flex';
-                function tick() {
-                    const diff = new Date(match.date) - new Date();
-                    if (diff <= 0) { document.getElementById('nm-days').textContent = document.getElementById('nm-hours').textContent = document.getElementById('nm-mins').textContent = document.getElementById('nm-secs').textContent = '0'; return; }
-                    document.getElementById('nm-days').textContent  = String(Math.floor(diff / 86400000)).padStart(2,'0');
-                    document.getElementById('nm-hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
-                    document.getElementById('nm-mins').textContent  = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
-                    document.getElementById('nm-secs').textContent  = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
-                }
+                const tick = () => {
+                    const diff = start - new Date();
+                    const set = (id, v) => { document.getElementById(id).textContent = v; };
+                    if (diff <= 0) { ['nm-days', 'nm-hours', 'nm-mins', 'nm-secs'].forEach(id => set(id, '0')); return; }
+                    set('nm-days',  String(Math.floor(diff / 86400000)).padStart(2, '0'));
+                    set('nm-hours', String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0'));
+                    set('nm-mins',  String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0'));
+                    set('nm-secs',  String(Math.floor((diff % 60000) / 1000)).padStart(2, '0'));
+                };
                 tick(); setInterval(tick, 1000);
             } else { countdown.style.display = 'none'; }
+
             const footer = document.getElementById('nm-footer');
-            if (match.status === 'live' && match.videoId) {
-                footer.innerHTML = `<a href="https://www.youtube.com/watch?v=${match.videoId}" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;"><i class="fas fa-broadcast-tower"></i> Watch Live on YouTube</a><a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=G8BmiQfVPa4glE8o" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;"><i class="fab fa-youtube"></i> 2026 Live Streams Playlist</a>`;
-            } else if (match.status === 'replay' && match.videoId) {
-                footer.innerHTML = `<a href="https://www.youtube.com/watch?v=${match.videoId}" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;"><i class="fas fa-play-circle"></i> Watch Full Replay</a><a href="https://www.youtube.com/playlist?list=PLZfNCcuGrHeb5B-I_kFVP920QJJzDx1Kg&si=G8BmiQfVPa4glE8o" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;"><i class="fab fa-youtube"></i> All 2026 Replays</a>`;
+            footer.innerHTML = '';
+            if (match.status === 'live') {
+                footer.appendChild(spButton(watchUrl, 'primary', 'fas fa-broadcast-tower', 'Watch Live on YouTube'));
+                footer.appendChild(spButton(SPOTLIGHT.playlistUrl, 'secondary', 'fab fa-youtube', SPOTLIGHT.playlistLabel));
+            } else if (match.status === 'replay') {
+                footer.appendChild(spButton(watchUrl, 'primary', 'fas fa-play-circle', 'Watch Full Replay'));
+                footer.appendChild(spButton(SPOTLIGHT.playlistUrl, 'secondary', 'fab fa-youtube', SPOTLIGHT.playlistLabel));
             } else {
-                footer.innerHTML = `<a href="https://youtube.com/@englandseniorsover40scri-pj3gn?si=zLJVOX851t-uFs9w" target="_blank" rel="noopener noreferrer" class="video-link-btn primary" style="font-size:0.9em;padding:11px 28px;"><i class="fab fa-youtube"></i> Subscribe for Live Alerts</a><a href="playlist-2026-live.html" target="_blank" rel="noopener noreferrer" class="video-link-btn secondary" style="font-size:0.9em;padding:11px 28px;"><i class="fas fa-list"></i> View 2026 Playlist</a>`;
+                footer.appendChild(spButton(SPOTLIGHT.subscribeUrl, 'primary', 'fab fa-youtube', 'Subscribe for Live Alerts'));
+                footer.appendChild(spButton(SPOTLIGHT.playlistUrl, 'secondary', 'fas fa-list', SPOTLIGHT.playlistLabel));
             }
-        })();
+
+            /* Ask YouTube who owns the stream: credit another broadcaster,
+               and fall back to a link if they have switched off embedding. */
+            fetch('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent(watchUrl))
+                .then(r => {
+                    if (r.status === 401 || r.status === 403) {
+                        videoInner.innerHTML = '<div class="next-match-placeholder"><i class="fab fa-youtube"></i><p>This stream can only be played on YouTube.<br>Use the button below to watch it there.</p></div>';
+                        return null;
+                    }
+                    return r.ok ? r.json() : null;
+                })
+                .then(info => {
+                    if (!info || !info.author_name || info.author_name === SPOTLIGHT.ownChannel) return;
+                    const credit = document.createElement('div');
+                    credit.className = 'nm-credit';
+                    credit.appendChild(document.createTextNode('Stream courtesy of '));
+                    const a = document.createElement('a');
+                    a.href = info.author_url || watchUrl; a.target = '_blank'; a.rel = 'noopener noreferrer';
+                    a.textContent = info.author_name;
+                    credit.appendChild(a);
+                    footer.appendChild(credit);
+                })
+                .catch(() => { /* no credit if YouTube can't be reached */ });
+        }
+
+        fetch(SPOTLIGHT.csvUrl, { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error('CSV ' + r.status); return r.text(); })
+            .then(text => buildSpotlight(spPickMatch(spParseCSV(text))))
+            .catch(() => buildSpotlight(null));
 
         /* ---- Season tab switching ---- */
         document.querySelectorAll('.season-tab').forEach(tab => {
