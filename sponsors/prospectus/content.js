@@ -165,14 +165,14 @@ window.PROSPECTUS = {
     eyebrow: "Partnership levels",
     heading: "Four levels. One conversation.",
     tiers: [
-      { name: "Premium Partner", lead: true, idealFor: "National brands, financial services, major corporates" },
-      { name: "Gold Partner", idealFor: "Regional businesses and growing brands" },
-      { name: "Silver Partner", idealFor: "Local businesses and service providers" },
-      { name: "Zing Stumps Partner", idealFor: "Technology and equipment brands" }
+      { name: "Gold Partner", short: "Gold", metal: "gold", lead: true, idealFor: "National brands, financial services, major corporates" },
+      { name: "Silver Partner", short: "Silver", metal: "silver", idealFor: "Regional businesses and growing brands" },
+      { name: "Bronze Partner", short: "Bronze", metal: "bronze", idealFor: "Local businesses and service providers" },
+      { name: "Zing Stumps Partner", short: "Zing Stumps", metal: "zing", idealFor: "Technology and equipment brands" }
     ],
     rows: [
       { label: "Term", values: ["Two years", "Annual", "Annual", "Annual"] },
-      { label: "Playing shirt", values: ["Lead position", "", "One sleeve*", ""] },
+      { label: "Playing shirt", values: ["Lead position", "Yes**", "One sleeve*", ""] },
       { label: "Training kit", values: ["Yes", "Yes", "", ""] },
       { label: "Live stream", values: ["Logo on all streams", "Logo on selected streams", "", "In shot every ball"] },
       { label: "Ground signage", values: ["Prime position, all matches", "Major tournaments", "Selected matches", "Branded stumps, all matches"] },
@@ -184,7 +184,9 @@ window.PROSPECTUS = {
       { label: "End-of-season report", values: ["Yes", "Yes", "Yes", "Yes"] }
     ],
     statement: "Every partnership is tailored. Investment levels are available on request.",
-    footnote: "* Both sleeve positions are held by current partners. Future availability on request."
+    smaller: "Smaller sponsorships, such as an individual match day or the match ball, are also available by discussion.",
+    footnote: "* Both sleeve positions are held by current partners. Future availability on request.",
+    footnote2: "** Depending on the Gold Partner."
   },
 
   signature: {

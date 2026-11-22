@@ -206,15 +206,23 @@
 
     levels: function (d) {
       var b = band('levels');
+      function tierTitle(t, tag) {
+        var h = el(tag, 'tier-title' + (t.metal ? ' tier-title--' + t.metal : ''));
+        if (!t.short) { h.textContent = t.name; return h; }
+        var disc = el('span', 'tier-title__disc'); disc.setAttribute('aria-hidden', 'true');
+        add(h, disc, add(el('span', 'tier-title__text'), el('span', 'tier-title__name', t.short), el('span', 'tier-title__sub', 'Partner')));
+        h.setAttribute('aria-label', t.name);
+        return h;
+      }
       var rows = d.rows.concat([{ label: 'Ideal for', values: d.tiers.map(function (t) { return t.idealFor; }) }]);
 
       var table = el('table', 'levels-table');
       var headRow = el('tr');
       add(headRow, el('td'));
       d.tiers.forEach(function (t) {
-        var th = el('th', t.lead ? 'is-lead' : '', t.name);
+        var th = el('th', (t.lead ? 'is-lead' : '') + (t.metal ? ' metal--' + t.metal : ''));
         th.scope = 'col';
-        add(headRow, th);
+        add(headRow, add(th, tierTitle(t, 'span')));
       });
       var tbody = el('tbody');
       rows.forEach(function (r) {
@@ -235,11 +243,12 @@
         rows.forEach(function (r) {
           if (r.values[i]) { add(dl, add(el('div'), el('dt', '', r.label), el('dd', '', r.values[i]))); }
         });
-        add(cards, add(el('article', 'tier' + (t.lead ? ' tier--lead' : '')), el('h3', '', t.name), dl));
+        add(cards, add(el('article', 'tier' + (t.lead ? ' tier--lead' : '') + (t.metal ? ' metal--' + t.metal : '')), tierTitle(t, 'h3'), dl));
       });
 
       add(b.wrap, heading(d), table, cards,
-        add(el('div', 'levels-foot'), el('strong', '', d.statement), el('p', 'small', d.footnote)));
+        add(el('div', 'levels-foot'), el('strong', '', d.statement),
+          add(el('div', 'levels-foot__side'), d.smaller ? el('p', 'levels-foot__smaller', d.smaller) : null, el('p', 'small', d.footnote), d.footnote2 ? el('p', 'small', d.footnote2) : null)));
       return b.section;
     },
 
